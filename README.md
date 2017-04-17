@@ -1,10 +1,8 @@
-[![Build Status](https://travis-ci.org/bang88/typescript-react-redux-starter.svg?branch=master)](https://travis-ci.org/bang88/typescript-react-redux-starter)
+# Aladdin toolkit
 
-# TypeScript/Antd/React/Redux Starter
+Aladding toolkit make the build frontend project easy!
 
-Another react typescript starter kit build with love [ant-design](https://github.com/ant-design/ant-design) 
-
-## npm scripts
+## usage
 
 ### Dev
 ```bash
@@ -40,23 +38,28 @@ developing your software.
 
 Edit [this file](server/proxy-config.js) to mount such APIs at a given path.
 
+## dependencies
+
+* [React](https://facebook.github.io/react/)
+* [Redux](http://redux.js.org/)
+* [react-router](https://react-guide.github.io/react-router-cn/)
+* [react-redux](https://github.com/reactjs/react-redux)
+* [typescript](https://www.typescriptlang.org/)
+* [webpack](https://webpack.github.io/docs/)
+* [sass](http://sass-lang.com/)
+* [ant-design](https://ant.design/index-cn)
+
 ## TODO
 
 > improve webpack performance
 
 ```js
-webpack -p // 
+webpack -p //
 ```
-
-## Note
-
-> This is a fork repo from [rangle](https://github.com/rangle/typescript-react-redux-starter),I try to add more typings,integrate with antd and let it works. 
- But rewrite most of them under `src/*`, the next will be a complete rebuild
 
 ## License
 
-Copyright (c) [bang88](//github.com/bang88)
-Copyright (c) 2016 rangle.io
+Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)
 
 [MIT License][MIT]
 
