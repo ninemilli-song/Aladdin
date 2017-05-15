@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { Menu, Breadcrumb, Icon } from 'antd';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+// import Block from 'react-blocks';
+const Block = require('react-blocks');
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 class Layout extends React.Component<any, any> {
@@ -133,7 +136,7 @@ class Layout extends React.Component<any, any> {
                         }
                     </div>
                 </aside>
-                <div className="ant-layout-main">
+                <div className="ant-layout-main" style={{overflow: 'hidden'}}>
                     <div className="ant-layout-header">
                         <Menu mode="horizontal"
                             defaultSelectedKeys={['2']} style={{
@@ -155,13 +158,22 @@ class Layout extends React.Component<any, any> {
                             <Breadcrumb.Item>某应用</Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
-                    <div className="ant-layout-container">
-                        <div className="ant-layout-content">
-                            {
-                                this.props.children
-                            }
-                        </div>
-                    </div>
+                    <AutoSizer>
+                        {
+                            ({ width, height }) => (
+                                <div
+                                    className="ant-layout-content"
+                                    style={{ width: width, height: height - 70 }}
+                                >
+
+                                        {
+                                            this.props.children
+                                        }
+
+                                </div>
+                            )
+                        }
+                    </AutoSizer>
                 </div>
             </div>
         );

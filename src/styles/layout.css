@@ -132,6 +132,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
 
 .ant-layout-aside .ant-layout-main {
@@ -149,8 +150,10 @@
 }
 
 .ant-layout-aside .ant-layout-content {
-  background: #fff;
-  padding: 24px;
+  /* background: #fff; */
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
 }
 
 .ant-layout-aside .ant-layout-footer {

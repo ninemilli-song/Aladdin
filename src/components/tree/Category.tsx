@@ -8,7 +8,11 @@ const Search = Input.Search;
 
 interface CategoryProps {
     data?: Array<any>;
+    height?: number;
+    prefixCls?: string;
 }
+
+const externalHeight = 60;
 
 export default class Category extends React.Component<CategoryProps, any> {
     static defaultProps = {
@@ -39,6 +43,7 @@ export default class Category extends React.Component<CategoryProps, any> {
                 name: 'ba',
             },
         ],
+        prefixCls: 'category',
     }
 
     gData: any
@@ -63,6 +68,8 @@ export default class Category extends React.Component<CategoryProps, any> {
         const gData = this.gData;
 
         const { searchValue, expandedKeys, autoExpandParent } = this.state;
+
+        const { height, prefixCls } = this.props;
 
         const loop = data => data.map((item) => {
             const index = item.name.search(searchValue);
@@ -90,21 +97,25 @@ export default class Category extends React.Component<CategoryProps, any> {
         });
 
         return (
-            <div>
-                <Search
-                    placeholder="Search"
-                    onChange={ this.onChange } />
-                <Tree
-                  onExpand={ this.onExpand }
-                  expandedKeys={ expandedKeys }
-                  autoExpandParent={ autoExpandParent }
-                >
-                    { loop(gData) }
-                </Tree>
-                <Button
-                    type="primary"
-                    onClick={ this.createCategory }
-                >创建分类</Button>
+            <div className={ prefixCls }>
+                <div className={ `${prefixCls}-bar` }>
+                    <Search
+                        placeholder="Search"
+                        onChange={ this.onChange } />
+                    <Button
+                        type="primary"
+                        onClick={ this.createCategory }
+                    >创建分类</Button>
+                </div>
+                <div style={{ height: height - externalHeight }}>
+                    <Tree
+                      onExpand={ this.onExpand }
+                      expandedKeys={ expandedKeys }
+                      autoExpandParent={ autoExpandParent }
+                    >
+                        { loop(gData) }
+                    </Tree>
+                </div>
             </div>
         );
     }

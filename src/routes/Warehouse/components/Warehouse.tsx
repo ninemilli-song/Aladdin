@@ -6,15 +6,23 @@ import { Row, Col } from 'antd';
 
 import WarehouseCategory from './WarehouseCategory';
 import WarehouseMainArea from './WarehouseMainArea';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
-export default class Warehouse extends React.Component<any, any> {
+interface WarehouseProps {
+    width?: number;
+    height?: number;
+    store?: any;
+    action?: any;
+}
+
+export default class Warehouse extends React.Component<WarehouseProps, any> {
 
     constructor (props, context) {
         super(props, context);
     }
 
     render(): JSX.Element {
-        const { store, action } = this.props;
+        const { store, action, width, height } = this.props;
 
         const data = store.get('data');
         const uiState = store.get('ui');
@@ -25,19 +33,29 @@ export default class Warehouse extends React.Component<any, any> {
         const gridExpand = uiState.get('gridExpand');
 
         return (
-            <div>
-                <Row gutter={ 16 }>
-                    <Col span={ 6 }>
-                        <WarehouseCategory category={ warehouseCategory } />
-                    </Col>
-                    <Col span={ 18 }>
-                        <WarehouseMainArea
-                            expand={ gridExpand }
-                            data={ warehouseList.toJS() }
-                        />
-                    </Col>
-                </Row>
-            </div>
+            <AutoSizer>
+                {
+                    ({ width, height }) => (
+                        <div style={{ width: width, height: height }}>
+                            <Row gutter={ 16 }>
+                                <Col span={ 6 }>
+                                    <WarehouseCategory
+                                        category={ warehouseCategory }
+                                        height={ height }
+                                    />
+                                </Col>
+                                <Col span={ 18 }>
+                                    <WarehouseMainArea
+                                        expand={ gridExpand }
+                                        data={ warehouseList.toJS() }
+                                        height={ height }
+                                    />
+                                </Col>
+                            </Row>
+                        </div>
+                    )
+                }
+            </AutoSizer>
         )
     }
 

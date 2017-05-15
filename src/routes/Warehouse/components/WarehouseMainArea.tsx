@@ -6,9 +6,15 @@ import * as React from 'react';
 import WarehouseGrid from './WarehouseGrid';
 import WarehouseGridHeader from './WarehouseGridHeader';
 
+const headerHeight = 30;
+
+const marginSpace = 10;
+
 interface WarehouseMainAreaProps {
-    data: any,
-    expand?: boolean, // 主区域是否展开
+    data: any;
+    expand?: boolean; // 主区域是否展开
+    width?: number;
+    height?: number;
 }
 
 export default class WarehouseMainArea extends React.Component<WarehouseMainAreaProps, any> {
@@ -20,12 +26,20 @@ export default class WarehouseMainArea extends React.Component<WarehouseMainArea
     }
 
     render(): JSX.Element {
-        const { data, expand } = this.props;
+        const { data, expand, width, height } = this.props;
 
         return (
             <div>
-                <WarehouseGridHeader expand={ expand } />
-                <WarehouseGrid data={ data } />
+                <WarehouseGridHeader
+                    expand={ expand }
+                    height={ headerHeight }
+                    marginSpace={ marginSpace }
+                />
+                <WarehouseGrid
+                    data={ data }
+                    width={ width }
+                    height={ height - headerHeight - marginSpace }
+                />
             </div>
         )
     }

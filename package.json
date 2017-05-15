@@ -48,6 +48,8 @@
     "express": "^4.13.4",
     "helmet": "^2.0.0",
     "http-proxy": "^1.13.2",
+    "react-blocks": "^1.1.4",
+    "react-virtualized": "^9.7.5",
     "winston": "^2.1.1"
   },
   "devDependencies": {

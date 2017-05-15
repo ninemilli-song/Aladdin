@@ -8,15 +8,19 @@ import Category from '../../../components/tree/Category';
 
 interface WarehouseCategoryProps {
     category: Array<any>;
+    height?: number;
 }
 
 export default class WarehouseCategory extends React.Component<WarehouseCategoryProps, any> {
     render(): JSX.Element {
-        const { category } = this.props;
+        const { category, height } = this.props;
 
         return (
             <div>
-                <Category data={ category } />
+                <Category
+                    data={ category }
+                    height={ height }
+                />
             </div>
         )
     }

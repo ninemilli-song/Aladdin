@@ -1,5 +1,10 @@
 $module: warehouse;
 
 .#{$module}-grid-header {
-  height: 60px;
+  margin-bottom: 10px;
+
+  &-searchbox {
+    display: inline-block;
+    width: 200px;
+  }
 }

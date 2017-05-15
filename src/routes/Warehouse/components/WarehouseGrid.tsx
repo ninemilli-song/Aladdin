@@ -3,11 +3,17 @@
  */
  import * as React from 'react';
  import { Table } from 'antd';
+ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
  interface WarehouseGridProps {
-     prefix?: string,
-     data: any,
+     prefix?: string;
+     data: any;
+     width?: number;
+     height?: number;
  }
+
+// 表格高度的外部空间，用于计算表格自适应高度值
+ const externalHeight = 115;
 
  export default class WarehouseGrid extends React.Component<WarehouseGridProps, any> {
 
@@ -17,7 +23,9 @@
      }
 
      render(): JSX.Element {
-        const { data, prefix } = this.props;
+        const { data, prefix, width, height } = this.props;
+
+        console.log('🦀 ------------> WarehouseGrid render height: ', height);
 
         const tableRowClass = prefix + '-rowCls';
 
@@ -58,19 +66,17 @@
             }
         ];
 
-         return (
-             <div>
-                <Table
-                    bordered
-                    columns={ columns }
-                    rowClassName = {
-                        () => tableRowClass
-                    }
-                    dataSource={ data }
-                    pagination={ true }
-                    scroll={{ y: 300 }}
-                />
-             </div>
-         )
+        return (
+            <Table
+                bordered
+                columns={ columns }
+                rowClassName = {
+                    () => tableRowClass
+                }
+                dataSource={ data }
+                pagination={ true }
+                scroll={{ y: height - externalHeight }}
+            />
+        )
      }
  }

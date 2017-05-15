@@ -1,0 +1,16 @@
+$module: category;
+
+.#{$module} {
+
+  &-bar {
+    position: relative;
+    .ant-input-affix-wrapper {
+      width: 160px;
+    }
+
+    .ant-btn {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
