@@ -12,9 +12,9 @@
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [true,
-      "log",
+      // "log",
       "debug",
-      "info",
+      // "info",
       "time",
       "timeEnd",
       "trace"

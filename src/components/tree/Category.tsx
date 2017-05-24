@@ -12,7 +12,7 @@ interface CategoryProps {
     prefixCls?: string;
 }
 
-const externalHeight = 60;
+const externalHeight = 40;
 
 export default class Category extends React.Component<CategoryProps, any> {
     static defaultProps = {
@@ -107,7 +107,7 @@ export default class Category extends React.Component<CategoryProps, any> {
                         onClick={ this.createCategory }
                     >创建分类</Button>
                 </div>
-                <div style={{ height: height - externalHeight }}>
+                <div className={ `${prefixCls}-tree` } style={{ height: height - externalHeight }}>
                     <Tree
                       onExpand={ this.onExpand }
                       expandedKeys={ expandedKeys }
@@ -160,11 +160,11 @@ export default class Category extends React.Component<CategoryProps, any> {
             }
         });
 
-        const loopLeaf = (rootData, childData) => {
+        const loopLeaf = (rootData, childDataArr) => {
             const nRootData = [], nChildData = [];
 
             rootData.forEach((rootDataItem) => {
-                childData.forEach((childDataItem) => {
+                childDataArr.forEach((childDataItem) => {
                     if (childDataItem.parentId === rootDataItem.id) {
                         if (rootDataItem.child) {
                             rootDataItem.child.push(childDataItem);

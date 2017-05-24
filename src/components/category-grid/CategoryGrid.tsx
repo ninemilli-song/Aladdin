@@ -4,31 +4,31 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
 
-import WarehouseCategory from './WarehouseCategory';
-import WarehouseMainArea from './WarehouseMainArea';
+import Category from './Category';
+import GridMain from './GridMain';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import { GridQueryOptions } from '../../common/globalInterface';
 
-interface WarehouseProps {
-    width?: number;
-    height?: number;
+export interface CategoryGridProps {
     store?: any;
     action?: any;
+    pageSize?: number;
 }
 
-export default class Warehouse extends React.Component<WarehouseProps, any> {
+export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
 
     constructor (props, context) {
         super(props, context);
     }
 
     render(): JSX.Element {
-        const { store, action, width, height } = this.props;
+        const { store, action } = this.props;
 
         const data = store.get('data');
         const uiState = store.get('ui');
 
-        const warehouseList = data.get('warehouseList');
-        const warehouseCategory = data.get('category');
+        const list = data.get('list');
+        const category = data.get('category');
 
         const gridExpand = uiState.get('gridExpand');
 
@@ -39,16 +39,17 @@ export default class Warehouse extends React.Component<WarehouseProps, any> {
                         <div style={{ width: width, height: height }}>
                             <Row gutter={ 16 }>
                                 <Col span={ 6 }>
-                                    <WarehouseCategory
-                                        category={ warehouseCategory }
+                                    <Category
+                                        category={ category }
                                         height={ height }
                                     />
                                 </Col>
                                 <Col span={ 18 }>
-                                    <WarehouseMainArea
+                                    <GridMain
                                         expand={ gridExpand }
-                                        data={ warehouseList.toJS() }
+                                        data={ list.toJS() }
                                         height={ height }
+                                        onPageChange={ this.getData }
                                     />
                                 </Col>
                             </Row>
@@ -60,9 +61,28 @@ export default class Warehouse extends React.Component<WarehouseProps, any> {
     }
 
     componentDidMount() {
+        const { action, pageSize } = this.props;
+
+        console.info('⛑ ------> warehouse componentDidMount');
+
+        action.getList({
+            pagination: {
+                page: 1,
+                pageSize: pageSize ?  pageSize : 10,
+            }
+        });
+        action.getCategory();
+    }
+
+    componentWillReceiveProps() {
+        console.info('⛑ ------> warehouse componentWillReceiveProps');
+    }
+
+    // Get data from server
+    getData = (options: GridQueryOptions) => {
+        console.info('⛑ ------> get data: ', options);
         const { action } = this.props;
 
-        action.getList();
-        action.getCategory();
+        action.getList(options);
     }
 }

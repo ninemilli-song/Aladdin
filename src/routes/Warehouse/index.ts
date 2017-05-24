@@ -15,9 +15,9 @@ export default (store) => ({
             // require.d.ts. Webpack sees this and automatically puts c and d
             // into a separate chunk.
 
-            const Warehouse = require('./containers/WarehouseContainer').default;
+            const Warehouse = require('./containers').default;
 
-            const reducer = require('./modules/warehouse').default;
+            const reducer = require('./modules').default;
 
             store.injectReducer({
                 key: 'warehouse',

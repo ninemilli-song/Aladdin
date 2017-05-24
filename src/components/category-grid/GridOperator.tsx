@@ -5,17 +5,17 @@ import * as React from 'react';
 import { Button, Input } from 'antd';
 const Search = Input.Search;
 
-interface WarehouseGridHeaderProps {
+interface GridOperatorProps {
     prefix?: string;
     expand?: boolean; // 主区域是否展开
     height?: number;
     marginSpace?: number;
 }
 
-export default class WarehouseGridHeader extends React.Component<WarehouseGridHeaderProps, any> {
+export default class GridOperator extends React.Component<GridOperatorProps, any> {
 
     static defaultProps = {
-        prefix: 'warehouse-grid-header',
+        prefix: 'grid-bar',
         expand: false,
         height: 60,
     }

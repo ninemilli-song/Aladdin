@@ -12,5 +12,7 @@
 
 /* @import "./warehouse.less"; */
 @import "./warehouse.scss";
-
 @import "./category.scss";
+
+/* import style of grid */
+@import "./grid.scss";

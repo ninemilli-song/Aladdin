@@ -1,0 +1,20 @@
+$module: grid;
+
+.#{$module}-bar {
+  &-grid-header {
+    margin-bottom: 10px;
+  }
+
+  &-searchbox {
+    display: inline-block;
+    width: 200px;
+  }
+}
+
+.#{$module}-operator {
+  text-align: center;
+
+  &-button {
+    margin-right: 5px;
+  }
+}

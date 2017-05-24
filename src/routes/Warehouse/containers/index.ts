@@ -3,14 +3,16 @@
  */
 import { connect } from 'react-redux';
 
-import Warehouse from '../components/Warehouse';
-import { getList, getCategory } from '../modules/warehouse';
+import Warehouse from '../components';
+import { getList, getCategory } from '../modules';
+
+import { GridQueryOptions } from '../../../common/globalInterface';
 
 const mapActionCreators = (dispatch) => {
     return {
         action: {
-            getList: () => {
-                dispatch(getList());
+            getList: (options: GridQueryOptions) => {
+                dispatch(getList(options));
             },
             getCategory: () => {
                 dispatch(getCategory());

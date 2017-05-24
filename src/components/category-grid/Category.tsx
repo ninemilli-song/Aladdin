@@ -3,8 +3,7 @@
  */
 import * as React from 'react';
 
-import WarehouseCategoryTree from './WarehouseCategoryTree';
-import Category from '../../../components/tree/Category';
+import Category from '../tree/Category';
 
 interface WarehouseCategoryProps {
     category: Array<any>;

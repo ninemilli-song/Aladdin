@@ -3,6 +3,7 @@
  */
 import * as Immutable from 'immutable';
 const Mock = require('mockjs');
+import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
 
 // ------------------------------------
 // Constants
@@ -13,13 +14,77 @@ export const WAREHOUSE_CATEGORY = 'WAREHOUSE_CATEGORY';
 // ------------------------------------
 // Action
 // ------------------------------------
-export const getList = () => {
+function filterData(
+    keyword: string = '',
+    pagination: paginationOptions = null,
+    filters: filterOptions = {},
+    sorter: sorterOptions = null
+    ) {
+    console.info('🦀 ---------> filter data function');
+    let data = mockWarehouseList;
+
+    // Keyword filter
+    if (!!keyword) {
+        data = mockWarehouseList.filter((item) => {
+            return item.name.indexOf(keyword) !== -1;
+        });
+    }
+    console.info('🦀 ---------> keyword filter data: ', data);
+
+    // Filters filter
+    const filterFields = Object.keys(filters);
+    if (filterFields.length > 0) {
+        data = data.filter((item) => {
+            filterFields.forEach((field) => {
+                return item[field] && filters[field].indexOf(item[field]) !== -1;
+            });
+        });
+    }
+    console.info('🦀 ---------> filters filter data: ', data);
+
+    // Do sorter
+    if (sorter) {
+        const { field, order } = sorter;
+
+        data = data.sort((a, b) => {
+            if (a < b) {
+                return order === 'ascend' ? -1 : 1;
+            } else if (a > b) {
+                return order === 'ascend' ? 1 : -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+    console.info('🦀 ---------> filters sort data: ', data);
+
+    // Do pagination
+    console.info('🦀 ---------> filters pagination: ', pagination);
+    if (pagination) {
+        const { page, pageSize } = pagination;
+
+        const form = (page - 1) * pageSize;
+        const to = page * pageSize - 1;
+
+        data = data.slice(form, to + 1);
+    }
+    console.info('🦀 ---------> Data sort finished: ', data);
+
+    return {
+        data,
+        total: mockWarehouseList.length,
+    };
+}
+
+// Get Grid List
+export const getList = (options: GridQueryOptions = {}) => {
     return (dispatch, getState) => {
         return new Promise((resolve) => {
             setTimeout(() => {
+                const data = filterData(options.keyword, options.pagination, options.filters, options.sorter);
                 dispatch({
                     type: WAREHOUSE_LIST,
-                    data: mockWarehouseList,
+                    data,
                 })
             }, 200)
         })
@@ -44,13 +109,8 @@ export const getCategory = () => {
 // ------------------------------------
 const ACTION_HANDLERS = {
     [WAREHOUSE_LIST]: (state, action) => {
-        // return Object.assign({}, state, {
-        //     data: {
-        //         warehouseList: action.data,
-        //     }
-        // })
         return state.set('data', Immutable.fromJS({
-            warehouseList: action.data,
+            list: action.data,
         }));
     },
 
@@ -125,7 +185,7 @@ const initialState = Immutable.fromJS({
         gridExpand: false,
     },
     data: {
-        warehouseList: [],
+        list: [],
         category: [],
     },
 });
