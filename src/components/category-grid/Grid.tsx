@@ -8,33 +8,27 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
 import { GridQueryOptions } from '../../common/globalInterface';
 
-interface WarehouseGridProps {
+interface GridProps {
     prefix?: string;
     data: any;
     width?: number;
     height?: number;
+    pageSize?: number;
+    columns?: any[];
     onPageChange?: (options: GridQueryOptions) => void;
 }
 
 // 表格高度的外部空间，用于计算表格自适应高度值
 const externalHeight = 115;
 
-export default class WarehouseGrid extends React.Component<WarehouseGridProps, any> {
+export default class Grid extends React.Component<GridProps, any> {
 
     static defaultProps = {
-        prefix: 'kyou-warehouse',
+        prefix: 'kyou-grid',
         data: [],
+        pageSize: 10,
         onPageChange: () => {},
-    }
-
-    render(): JSX.Element {
-        const { data, prefix, width, height } = this.props;
-
-        console.log('🦀 ------------> WarehouseGrid render height: ', height);
-
-        const tableRowClass = prefix + '-rowCls';
-
-        const columns = [
+        columns: [
             {
                 title: '序号',
                 width: 80,
@@ -106,7 +100,15 @@ export default class WarehouseGrid extends React.Component<WarehouseGridProps, a
                     )
                 }
             }
-        ];
+        ],
+    }
+
+    render(): JSX.Element {
+        const { data, prefix, width, height, columns, pageSize } = this.props;
+
+        const tableRowClass = prefix + '-rowCls';
+
+        console.log('Grid -------> data: ', data);
 
         return (
             <Table
@@ -114,10 +116,11 @@ export default class WarehouseGrid extends React.Component<WarehouseGridProps, a
                 rowClassName = {
                     () => tableRowClass
                 }
-                dataSource={ data.data }
+                dataSource={ data.get('data').toJS() }
                 pagination={
                     {
-                        total: data.total,
+                        pageSize,
+                        total: data.get('total'),
                     }
                 }
                 onChange={ this.pageChangeHandler }

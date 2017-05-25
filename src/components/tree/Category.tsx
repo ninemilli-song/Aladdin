@@ -2,47 +2,23 @@
  * Author: ninemilli.song
  */
 import * as React from 'react';
+import { List } from 'immutable';
 import { Tree, Input, Button } from 'antd';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
 
 interface CategoryProps {
-    data?: Array<any>;
+    data: List<any>;
     height?: number;
     prefixCls?: string;
+    onSelect?: (selectedKeys, e: any) => void;
 }
 
 const externalHeight = 40;
 
 export default class Category extends React.Component<CategoryProps, any> {
     static defaultProps = {
-        data: [
-            {
-                parentId: '0',
-                id: '1',
-                name: 'a',
-            },
-            {
-                parentId: '0',
-                id: '2',
-                name: 'b',
-            },
-            {
-                parentId: '0',
-                id: '3',
-                name: 'c',
-            },
-            {
-                parentId: '1',
-                id: '4',
-                name: 'aa',
-            },
-            {
-                parentId: '2',
-                id: '5',
-                name: 'ba',
-            },
-        ],
+        data: [],
         prefixCls: 'category',
     }
 
@@ -56,45 +32,14 @@ export default class Category extends React.Component<CategoryProps, any> {
             searchValue: '',
             autoExpandParent: true,
         }
-
-        this.gData = this.preprocessData();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.gData = this.preprocessData();
     }
 
     render() {
-        const gData = this.gData;
+        const treeData = this.preprocessData();
 
-        const { searchValue, expandedKeys, autoExpandParent } = this.state;
+        const { expandedKeys, autoExpandParent } = this.state;
 
-        const { height, prefixCls } = this.props;
-
-        const loop = data => data.map((item) => {
-            const index = item.name.search(searchValue);
-            const beforeStr = item.name.substr(0, index);
-            const afterStr = item.name.substr(index + searchValue.length);
-            const title = index > -1 ? (
-                <span>
-                    { beforeStr }
-                        <span style={{ color: '#f50' }}>
-                            { searchValue }
-                        </span>
-                    { afterStr }
-                </span>
-            ) : <span>{ item.name }</span>;
-            if (item.child) {
-                return (
-                    <TreeNode
-                        key={ item.id }
-                        title={ title }>
-                        { loop(item.child) }
-                    </TreeNode>
-                );
-            }
-            return <TreeNode key={ item.name } title={ title } />;
-        });
+        const { height, prefixCls, onSelect } = this.props;
 
         return (
             <div className={ prefixCls }>
@@ -112,8 +57,9 @@ export default class Category extends React.Component<CategoryProps, any> {
                       onExpand={ this.onExpand }
                       expandedKeys={ expandedKeys }
                       autoExpandParent={ autoExpandParent }
+                      onSelect={ onSelect }
                     >
-                        { loop(gData) }
+                        { this.renderTreeNode(treeData) }
                     </Tree>
                 </div>
             </div>
@@ -125,7 +71,7 @@ export default class Category extends React.Component<CategoryProps, any> {
         const value = e.target.value;
         const gData = this.gData;
 
-        const expandedKeys = data.map((item, index) => {
+        const expandedKeys = data.toJS().map((item, index) => {
             if (item.name.indexOf(value) > -1) {
                 return this.getParentKey(item.id, gData);
             }
@@ -153,10 +99,10 @@ export default class Category extends React.Component<CategoryProps, any> {
         // 过滤出一级节点
         const childData = [];
         data.forEach((item) => {
-            if (!item.parentId || item.parentId === '0') {
-                treeData.push(item);
+            if (!item.get('parentId') || item.get('parentId') === '0') {
+                treeData.push(item.toJS());
             } else {
-                childData.push(item);
+                childData.push(item.toJS());
             }
         });
 
@@ -201,6 +147,38 @@ export default class Category extends React.Component<CategoryProps, any> {
             }
         }
         return parentKey;
+    }
+
+    private renderTreeNode = (data) => {
+        const { searchValue } = this.state;
+
+        const treeNodes = data.map((item) => {
+            const index = item.name.search(searchValue);
+            const beforeStr = item.name.substr(0, index);
+            const afterStr = item.name.substr(index + searchValue.length);
+            const title = index > -1 ? (
+                <span>
+                    { beforeStr }
+                        <span style={{ color: '#f50' }}>
+                            { searchValue }
+                        </span>
+                    { afterStr }
+                </span>
+            ) : <span>{ item.name }</span>;
+
+            if (item.child) {
+                return (
+                    <TreeNode
+                        key={ item.id }
+                        title={ title }>
+                        { this.renderTreeNode(item.child) }
+                    </TreeNode>
+                );
+            }
+            return <TreeNode key={ item.id } title={ title } />;
+        });
+
+        return treeNodes;
     }
 
     // 创建分类

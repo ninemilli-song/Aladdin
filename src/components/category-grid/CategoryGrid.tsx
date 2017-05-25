@@ -17,18 +17,29 @@ export interface CategoryGridProps {
 
 export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
 
+    // The id of selected category
+    category: string;
+
+    // The keyword for search
+    keyword: string;
+
+    static defaultProps = {
+        pageSize: 20,
+    }
+
     constructor (props, context) {
         super(props, context);
     }
 
     render(): JSX.Element {
-        const { store, action } = this.props;
+        const { store, action, pageSize } = this.props;
 
         const data = store.get('data');
         const uiState = store.get('ui');
 
         const list = data.get('list');
         const category = data.get('category');
+        console.log('warehouseReducer ----------> category: ', data);
 
         const gridExpand = uiState.get('gridExpand');
 
@@ -42,14 +53,16 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                                     <Category
                                         category={ category }
                                         height={ height }
+                                        onSelect = { this.selectCategory }
                                     />
                                 </Col>
                                 <Col span={ 18 }>
                                     <GridMain
                                         expand={ gridExpand }
-                                        data={ list.toJS() }
+                                        data={ list }
                                         height={ height }
-                                        onPageChange={ this.getData }
+                                        onPageChange={ this.reloadData }
+                                        pageSize = { pageSize }
                                     />
                                 </Col>
                             </Row>
@@ -68,7 +81,7 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         action.getList({
             pagination: {
                 page: 1,
-                pageSize: pageSize ?  pageSize : 10,
+                pageSize: pageSize,
             }
         });
         action.getCategory();
@@ -84,5 +97,30 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         const { action } = this.props;
 
         action.getList(options);
+    }
+
+    // 分类选中
+    selectCategory = (keys, e) => {
+        console.info('selectCategory: ', keys, e);
+        // set selected category
+        this.category = keys[0] || '';
+
+        // refresh grid's data
+        this.reloadData();
+    }
+
+    private reloadData = (options?: GridQueryOptions) => {
+        const {  pageSize } = this.props;
+
+        const reloadOpts = Object.assign({}, {
+            category: this.category,
+            keyword: this.keyword,
+            pagination: {
+                page: 1,
+                pageSize: pageSize,
+            },
+        }, options);
+
+        this.getData(reloadOpts);
     }
 }

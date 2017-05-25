@@ -16,6 +16,7 @@ export const WAREHOUSE_CATEGORY = 'WAREHOUSE_CATEGORY';
 // ------------------------------------
 function filterData(
     keyword: string = '',
+    category: string = '',
     pagination: paginationOptions = null,
     filters: filterOptions = {},
     sorter: sorterOptions = null
@@ -31,6 +32,14 @@ function filterData(
     }
     console.info('🦀 ---------> keyword filter data: ', data);
 
+    // Category filter
+    if (category) {
+        data = data.filter((item) => {
+            return item.category == category;
+        });
+    }
+    console.info('🦀 ---------> category filter data: ', data);
+
     // Filters filter
     const filterFields = Object.keys(filters);
     if (filterFields.length > 0) {
@@ -41,6 +50,8 @@ function filterData(
         });
     }
     console.info('🦀 ---------> filters filter data: ', data);
+
+    const total = data.length;
 
     // Do sorter
     if (sorter) {
@@ -72,7 +83,7 @@ function filterData(
 
     return {
         data,
-        total: mockWarehouseList.length,
+        total,
     };
 }
 
@@ -81,10 +92,14 @@ export const getList = (options: GridQueryOptions = {}) => {
     return (dispatch, getState) => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                const data = filterData(options.keyword, options.pagination, options.filters, options.sorter);
+                const data = filterData(options.keyword,
+                    options.category,
+                    options.pagination,
+                    options.filters,
+                    options.sorter);
                 dispatch({
                     type: WAREHOUSE_LIST,
-                    data,
+                    data: Immutable.fromJS(data),
                 })
             }, 200)
         })
@@ -97,7 +112,7 @@ export const getCategory = () => {
             setTimeout(() => {
                 dispatch({
                     type: WAREHOUSE_CATEGORY,
-                    data: mockWarehouseCategory,
+                    data: Immutable.fromJS(mockWarehouseCategory),
                 })
             }, 200)
         })
@@ -109,17 +124,13 @@ export const getCategory = () => {
 // ------------------------------------
 const ACTION_HANDLERS = {
     [WAREHOUSE_LIST]: (state, action) => {
-        return state.set('data', Immutable.fromJS({
-            list: action.data,
-        }));
+        const data = state.get('data');
+
+        return state.set('data', data.set('list', action.data));
     },
 
     [WAREHOUSE_CATEGORY]: (state, action) => {
         const data = state.get('data');
-
-        // if (!action.data) {
-            console.log('------> category action data is undefined!');
-        // }
 
         return state.set('data', data.set('category', action.data));
     }
@@ -137,7 +148,7 @@ const mockWarehouseList = Mock.mock({
         // 往来单位名称
         'name': '@csentence(3, 18)',
         // 分类
-        'category': `@pick(${[2,3,4,6,7,8]})`,
+        'category': `@pick(${['2','3','4','6','7','8']})`,
         // 备注
         'comment': `@csentence(30,100)`,
         // 创建时间
@@ -185,7 +196,10 @@ const initialState = Immutable.fromJS({
         gridExpand: false,
     },
     data: {
-        list: [],
+        list: {
+            data: [],
+            total: 0,
+        },
         category: [],
     },
 });

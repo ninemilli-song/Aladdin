@@ -17,6 +17,7 @@ interface GridMainProps {
     expand?: boolean; // 主区域是否展开
     width?: number;
     height?: number;
+    pageSize?: number;
     onPageChange?: (options: GridQueryOptions) => void;
 }
 
@@ -29,7 +30,7 @@ export default class GridMain extends React.Component<GridMainProps, any> {
     }
 
     render(): JSX.Element {
-        const { data, expand, width, height, onPageChange } = this.props;
+        const { data, expand, width, height, onPageChange, pageSize } = this.props;
 
         return (
             <div>
@@ -43,6 +44,7 @@ export default class GridMain extends React.Component<GridMainProps, any> {
                     width={ width }
                     height={ height - headerHeight - marginSpace }
                     onPageChange={ onPageChange }
+                    pageSize = { pageSize }
                 />
             </div>
         )
