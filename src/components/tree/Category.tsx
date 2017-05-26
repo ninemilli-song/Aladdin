@@ -71,7 +71,7 @@ export default class Category extends React.Component<CategoryProps, any> {
         const value = e.target.value;
         const gData = this.gData;
 
-        const expandedKeys = data.toJS().map((item, index) => {
+        const expandedKeys = data.toArray().map((item, index) => {
             if (item.name.indexOf(value) > -1) {
                 return this.getParentKey(item.id, gData);
             }

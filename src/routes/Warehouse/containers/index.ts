@@ -2,6 +2,7 @@
  * Wrap view component with state and action.
  */
 import { connect } from 'react-redux';
+import ui from 'redux-ui';
 
 import Warehouse from '../components';
 import { getList, getCategory } from '../modules';
@@ -25,4 +26,4 @@ const mapStateToProps = (state) => ({
     store: state.warehouse,
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Warehouse);
+export default ui()(connect(mapStateToProps, mapActionCreators)(Warehouse));

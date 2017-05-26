@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { Row, Col } from 'antd';
+import ui from 'redux-ui';
 
 import Category from './Category';
 import GridMain from './GridMain';
@@ -13,6 +14,10 @@ export interface CategoryGridProps {
     store?: any;
     action?: any;
     pageSize?: number;
+    ui?: ui;
+    uiKey?: any;
+    updateUI?: Function;
+    resetUI?: Function;
 }
 
 export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
@@ -32,14 +37,14 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     }
 
     render(): JSX.Element {
-        const { store, action, pageSize } = this.props;
+        const { store, action, pageSize, ui, uiKey, updateUI, resetUI } = this.props;
+        console.log('CategoryGrid got ui store ----------> ', ui, uiKey, updateUI, resetUI);
 
         const data = store.get('data');
         const uiState = store.get('ui');
 
         const list = data.get('list');
         const category = data.get('category');
-        console.log('warehouseReducer ----------> category: ', data);
 
         const gridExpand = uiState.get('gridExpand');
 

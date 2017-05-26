@@ -1,10 +1,19 @@
 import * as React from 'react';
 import { Menu, Breadcrumb, Icon } from 'antd';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import ui from 'redux-ui';
 // import Block from 'react-blocks';
 const Block = require('react-blocks');
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
+@ui({
+    key: 'AppUIState',
+    persist: true,
+    state: {
+        showLoading: false,
+    }
+})
 class Layout extends React.Component<any, any> {
 
     constructor(props: any) {
@@ -13,12 +22,16 @@ class Layout extends React.Component<any, any> {
             collapse: true
         }
     }
+
     onCollapseChange = () => {
         this.setState({
             collapse: !this.state.collapse,
         })
     }
+
     render() {
+        const { ui } = this.props;
+        console.log('layout ui state -----------------> ', ui);
         const collapse = this.state.collapse;
 
         return (
@@ -165,11 +178,9 @@ class Layout extends React.Component<any, any> {
                                     className="ant-layout-content"
                                     style={{ width: width, height: height - 70 }}
                                 >
-
-                                        {
-                                            this.props.children
-                                        }
-
+                                    {
+                                        this.props.children
+                                    }
                                 </div>
                             )
                         }

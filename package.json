@@ -50,6 +50,7 @@
     "http-proxy": "^1.13.2",
     "react-blocks": "^1.1.4",
     "react-virtualized": "^9.7.5",
+    "redux-ui": "^0.1.1",
     "winston": "^2.1.1"
   },
   "devDependencies": {
