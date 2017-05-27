@@ -16,3 +16,4 @@
 
 /* import style of grid */
 @import "./grid.scss";
+@import "./components/index.scss";

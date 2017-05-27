@@ -2,17 +2,14 @@ import * as React from 'react';
 import { Menu, Breadcrumb, Icon } from 'antd';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import ui from 'redux-ui';
+import Loading from '../../components/loading';
 // import Block from 'react-blocks';
 const Block = require('react-blocks');
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 @ui({
-    key: 'AppUIState',
-    persist: true,
-    state: {
-        showLoading: false,
-    }
+    key: 'AppLayout',
 })
 class Layout extends React.Component<any, any> {
 
@@ -186,6 +183,7 @@ class Layout extends React.Component<any, any> {
                         }
                     </AutoSizer>
                 </div>
+                <Loading />
             </div>
         );
     }
