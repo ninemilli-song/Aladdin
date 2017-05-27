@@ -4,6 +4,7 @@
 import * as Immutable from 'immutable';
 const Mock = require('mockjs');
 import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
+import { SHOWLOADING } from '../../../common/appActions';
 
 // ------------------------------------
 // Constants
@@ -90,6 +91,11 @@ function filterData(
 // Get Grid List
 export const getList = (options: GridQueryOptions = {}) => {
     return (dispatch, getState) => {
+        dispatch({
+            type: SHOWLOADING,
+            showLoading: true,
+        });
+
         return new Promise((resolve) => {
             setTimeout(() => {
                 const data = filterData(options.keyword,
@@ -97,11 +103,17 @@ export const getList = (options: GridQueryOptions = {}) => {
                     options.pagination,
                     options.filters,
                     options.sorter);
-                dispatch({
-                    type: WAREHOUSE_LIST,
-                    data: Immutable.fromJS(data),
-                })
+                resolve(data);
             }, 200)
+        }).then((data) => {
+            dispatch({
+                type: WAREHOUSE_LIST,
+                data: Immutable.fromJS(data),
+            });
+            dispatch({
+                type: SHOWLOADING,
+                showLoading: false,
+            });
         })
     }
 }

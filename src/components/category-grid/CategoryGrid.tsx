@@ -3,8 +3,6 @@
  */
 import * as React from 'react';
 import { Row, Col } from 'antd';
-import ui from 'redux-ui';
-
 import Category from './Category';
 import GridMain from './GridMain';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -14,10 +12,6 @@ export interface CategoryGridProps {
     store?: any;
     action?: any;
     pageSize?: number;
-    ui?: ui;
-    uiKey?: any;
-    updateUI?: Function;
-    resetUI?: Function;
 }
 
 export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
@@ -37,8 +31,7 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     }
 
     render(): JSX.Element {
-        const { store, action, pageSize, ui, uiKey, updateUI, resetUI } = this.props;
-        console.log('CategoryGrid got ui store ----------> ', ui, uiKey, updateUI, resetUI);
+        const { store, action, pageSize} = this.props;
 
         const data = store.get('data');
         const uiState = store.get('ui');
@@ -81,8 +74,6 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     componentDidMount() {
         const { action, pageSize } = this.props;
 
-        console.info('⛑ ------> warehouse componentDidMount');
-
         action.getList({
             pagination: {
                 page: 1,
@@ -92,13 +83,19 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         action.getCategory();
     }
 
+    componentDidUpdate() {
+        const { action, pageSize } = this.props;
+        const date = new Date();
+    }
+
     componentWillReceiveProps() {
-        console.info('⛑ ------> warehouse componentWillReceiveProps');
+        const date = new Date();
     }
 
     // Get data from server
     getData = (options: GridQueryOptions) => {
-        console.info('⛑ ------> get data: ', options);
+        const date = new Date();
+        console.info('⛑ ------> get data: ', date.getTime());
         const { action } = this.props;
 
         action.getList(options);

@@ -10,6 +10,7 @@ const MenuItemGroup = Menu.ItemGroup;
 
 @ui({
     key: 'AppLayout',
+    persist: true,
 })
 class Layout extends React.Component<any, any> {
 
@@ -27,8 +28,6 @@ class Layout extends React.Component<any, any> {
     }
 
     render() {
-        const { ui } = this.props;
-        console.log('layout ui state -----------------> ', ui);
         const collapse = this.state.collapse;
 
         return (

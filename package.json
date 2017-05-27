@@ -51,6 +51,7 @@
     "react-blocks": "^1.1.4",
     "react-virtualized": "^9.7.5",
     "redux-ui": "^0.1.1",
+    "reselect": "^3.0.1",
     "winston": "^2.1.1"
   },
   "devDependencies": {
