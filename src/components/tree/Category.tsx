@@ -3,23 +3,28 @@
  */
 import * as React from 'react';
 import { List } from 'immutable';
+import ButtonIcon from '../button-icon';
 import { Tree, Input, Button } from 'antd';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
 
 interface CategoryProps {
+    expand?: boolean;
     data: List<any>;
     height?: number;
     prefixCls?: string;
     onSelect?: (selectedKeys, e: any) => void;
+    onFold?: (fold: boolean) => void;
 }
 
-const externalHeight = 40;
+const externalHeight = 50;
 
 export default class Category extends React.Component<CategoryProps, any> {
     static defaultProps = {
         data: [],
         prefixCls: 'category',
+        expand: true,
+        onFold: () => {},
     }
 
     treeData: any
@@ -35,22 +40,42 @@ export default class Category extends React.Component<CategoryProps, any> {
     }
 
     render() {
+        const { prefixCls, expand } = this.props;
+
+        return (
+            <div className={ prefixCls }>
+                {
+                    expand ? this.renderCategory() : this.renderBlank()
+                }
+            </div>
+        )
+    }
+
+    private renderCategory = () => {
         this.treeData = this.preprocessData();
 
         const { expandedKeys, autoExpandParent } = this.state;
 
-        const { height, prefixCls, onSelect } = this.props;
+        const { height, prefixCls, onSelect, expand } = this.props;
 
         return (
-            <div className={ prefixCls }>
+            <div>
                 <div className={ `${prefixCls}-bar` }>
                     <Search
                         placeholder="Search"
                         onChange={ this.onChange } />
-                    <Button
-                        type="primary"
+                    <ButtonIcon
+                        icon='setting'
+                        title='维护分类'
+                        className='setting'
                         onClick={ this.createCategory }
-                    >创建分类</Button>
+                    />
+                    <ButtonIcon
+                        icon='left-square'
+                        title='收起分类'
+                        className='expand'
+                        onClick={ this.onFold }
+                    />
                 </div>
                 <div className={ `${prefixCls}-tree` } style={{ height: height - externalHeight }}>
                     <Tree
@@ -61,6 +86,23 @@ export default class Category extends React.Component<CategoryProps, any> {
                     >
                         { this.renderTreeNode(this.treeData) }
                     </Tree>
+                </div>
+            </div>
+        );
+    }
+
+    private renderBlank = () => {
+        const { prefixCls } = this.props;
+
+        return (
+            <div>
+                <div className={ `${prefixCls}-bar` }>
+                    <ButtonIcon
+                        icon='right-square'
+                        title='展开分类'
+                        className='expand'
+                        onClick={ this.onFold }
+                    />
                 </div>
             </div>
         );
@@ -192,5 +234,11 @@ export default class Category extends React.Component<CategoryProps, any> {
     // 编辑分类
     private editCategory = () => {
         // todo: 跳转通用分类编辑页面
+    }
+
+    // Fold the category panel
+    private onFold = () => {
+        const { expand, onFold } = this.props;
+        onFold(expand);
     }
 }

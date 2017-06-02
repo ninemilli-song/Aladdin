@@ -1,0 +1,64 @@
+$rex: 1px;
+
+// 新规范的色值
+$color0: rgba(0, 0, 0, 0); //透明
+$color1: #00ade9; //主色
+$color2: #00b246; //辅助色
+$color3: #ff5656; //点缀色
+$color4: #00b7ac; //点缀色
+$color5: #f9c069; //点缀色
+$color6: #a485f0; //点缀色
+$color7: #1e3c50; //强调文字
+$color8: #506478; //主要文字
+$color9: #0a1923; //辅助性文字
+$color10: #b9bec8; //提示性文字 置灰色
+$color11: #becdd7; //输入框颜色
+$color12: #ebf3f8; //表头， 间隔性
+$color13: #f2f6fa; //背景色
+$color14: #fff;
+
+// hover计算后的颜色值 on 20170407.
+$color1hover: #009fd6;
+$color2hover: #00a340;
+$color3hover: #ea4f4f;
+$color4hover: #00a89e;
+$color5hover: #e5b060;
+$color6hover: #967adc;
+$color7hover: #1b3749;
+$color8hover: #495c6e;
+$color9hover: #091720;
+$color10hover: #aaaeb8;
+$color11hover: #aebcc5;
+$color12hover: #d8dfe4;
+$color13hover: #dee2e6;
+$color14hover: #eaeaea;
+
+// active计算后的颜色值 on 20170407.
+$color1active: #008dbf;
+$color2active: #009139;
+$color3active: #d14646;
+$color4active: #00968d;
+$color5active: #cc9d56;
+$color6active: #866dc4;
+$color7active: #183141;
+$color8active: #415262;
+$color9active: #08141c;
+$color10active: #979ba4;
+$color11active: #9ba8b0;
+$color12active: #c0c7cb;
+$color13active: #c6c9cd;
+$color14active: #d1d1d1;
+
+// 页面与组件变量
+$bodyBG: $color14;  //body背景灰色
+$pageBG: $color13;  //页面背景颜色
+$mainFontColor: $color8;  //正文字体主色
+$assisFontColor: $color9; //辅助正文字体色
+$thirdFontColor: $color10;  //辅助正文字体色
+$placeHolder: $color10; //PlaceHolder灰色
+$mainBorderColor: $color11; //主边框颜色
+$assisBorderColor: $color12;  //辅助边框颜色
+$buttonDisabledColor: $color10; //button disabled color
+$ZIndexLoading: 6000; //loading
+$ZIndexTips: 6100;  //tips
+$ZIndexMenu: 8000;  //菜单

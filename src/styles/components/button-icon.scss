@@ -1,0 +1,14 @@
+$module: button-icon;
+
+.#{$module} {
+  display: inline-block;
+  margin: 2 * $rex;
+  cursor: pointer;
+
+  &-16 {
+    width: 16 * $rex;
+    height: 16 * $rex;
+    line-height: 16 * $rex;
+    font-size: 16 * $rex;
+  }
+}

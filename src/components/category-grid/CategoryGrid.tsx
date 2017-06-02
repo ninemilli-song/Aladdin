@@ -28,10 +28,15 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
 
     constructor (props, context) {
         super(props, context);
+
+        this.state = {
+            foldCategory: false,    // Fold the category panel
+        }
     }
 
     render(): JSX.Element {
         const { store, action, pageSize} = this.props;
+        const { foldCategory } = this.state;
 
         const data = store.get('data');
         const uiState = store.get('ui');
@@ -48,14 +53,16 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                     ({ width, height }) => (
                         <div style={{ width: width, height: height }}>
                             <Row gutter={ 16 }>
-                                <Col span={ 6 }>
+                                <Col span={ foldCategory ? 1 : 6 }>
                                     <Category
+                                        expand={ !foldCategory }
                                         category={ category }
                                         height={ height }
                                         onSelect = { this.selectCategory }
+                                        onFold = { this.onFoldCategory }
                                     />
                                 </Col>
-                                <Col span={ 18 }>
+                                <Col span={ foldCategory ? 23 : 18 }>
                                     <GridMain
                                         expand={ gridExpand }
                                         data={ list }
@@ -98,7 +105,6 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     // Get data from server
     getData = (options: GridQueryOptions) => {
         const date = new Date();
-        console.info('⛑ ------> get data: ', date.getTime());
         const { action } = this.props;
 
         action.getList(options);
@@ -130,9 +136,14 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     }
 
     private onSearch = (keyword) => {
-        console.log('category grid ------> keyword: ', keyword);
         this.reloadData({
             keyword,
         });
+    }
+
+    private onFoldCategory = (fold: boolean) => {
+        this.setState({
+            foldCategory: fold,
+        })
     }
 }
