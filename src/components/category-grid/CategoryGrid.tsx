@@ -9,9 +9,12 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import { GridQueryOptions } from '../../common/globalInterface';
 
 export interface CategoryGridProps {
-    store?: any;
-    action?: any;
     pageSize?: number;
+    gridData: any;  // The Data show in the grid
+    categoryData: any;  // The Data of category
+    keyword?: string;    // The keyword for keyword
+    fetchCategory: () => void;
+    fetchData: (option: GridQueryOptions) => void;
 }
 
 export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
@@ -32,20 +35,13 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         this.state = {
             foldCategory: false,    // Fold the category panel
         }
+
+        this.initData();
     }
 
     render(): JSX.Element {
-        const { store, action, pageSize} = this.props;
+        const { pageSize, gridData, categoryData, keyword } = this.props;
         const { foldCategory } = this.state;
-
-        const data = store.get('data');
-        const uiState = store.get('ui');
-        const keyword = store.get('keyword');
-
-        const list = data.get('list');
-        const category = data.get('category');
-
-        const gridExpand = uiState.get('gridExpand');
 
         return (
             <AutoSizer>
@@ -56,7 +52,7 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                                 <Col span={ foldCategory ? 1 : 6 }>
                                     <Category
                                         expand={ !foldCategory }
-                                        category={ category }
+                                        category={ categoryData }
                                         height={ height }
                                         onSelect = { this.selectCategory }
                                         onFold = { this.onFoldCategory }
@@ -64,8 +60,7 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                                 </Col>
                                 <Col span={ foldCategory ? 23 : 18 }>
                                     <GridMain
-                                        expand={ gridExpand }
-                                        data={ list }
+                                        data={ gridData }
                                         height={ height }
                                         onPageChange={ this.reloadData }
                                         pageSize = { pageSize }
@@ -81,38 +76,29 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         )
     }
 
-    componentDidMount() {
-        const { action, pageSize } = this.props;
+    initData() {
+        const { pageSize, fetchCategory, fetchData } = this.props;
 
-        action.getList({
+        fetchData({
             pagination: {
                 page: 1,
                 pageSize: pageSize,
             }
         });
-        action.getCategory();
-    }
 
-    componentDidUpdate() {
-        const { action, pageSize } = this.props;
-        const date = new Date();
-    }
-
-    componentWillReceiveProps() {
-        const date = new Date();
+        fetchCategory();
     }
 
     // Get data from server
     getData = (options: GridQueryOptions) => {
         const date = new Date();
-        const { action } = this.props;
+        const { fetchData } = this.props;
 
-        action.getList(options);
+        fetchData(options);
     }
 
     // 分类选中
     selectCategory = (keys, e) => {
-        console.info('selectCategory: ', keys, e);
         // set selected category
         this.category = keys[0] || '';
 

@@ -65,15 +65,15 @@ export default class Category extends React.Component<CategoryProps, any> {
                         placeholder="Search"
                         onChange={ this.onChange } />
                     <ButtonIcon
-                        icon='setting'
-                        title='维护分类'
-                        className='setting'
+                        icon="setting"
+                        title="维护分类"
+                        className="setting"
                         onClick={ this.createCategory }
                     />
                     <ButtonIcon
-                        icon='left-square'
-                        title='收起分类'
-                        className='expand'
+                        icon="left-square"
+                        title="收起分类"
+                        className="expand"
                         onClick={ this.onFold }
                     />
                 </div>
@@ -98,9 +98,9 @@ export default class Category extends React.Component<CategoryProps, any> {
             <div>
                 <div className={ `${prefixCls}-bar` }>
                     <ButtonIcon
-                        icon='right-square'
-                        title='展开分类'
-                        className='expand'
+                        icon="right-square"
+                        title="展开分类"
+                        className="expand"
                         onClick={ this.onFold }
                     />
                 </div>

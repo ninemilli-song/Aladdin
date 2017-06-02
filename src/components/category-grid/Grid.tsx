@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { Table, Button } from 'antd';
+import ButtonIcon from '../button-icon';
 // import Icon from 'antd/lib/icon';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
@@ -83,17 +84,15 @@ export default class Grid extends React.Component<GridProps, any> {
                     return (
                         <div>
                             <span className="grid-operator-button">
-                                <Button
+                                <ButtonIcon
                                     icon="edit"
-                                    shape="circle"
-                                    type="primary"
+                                    title="收起分类"
                                 />
                             </span>
                             <span className="grid-operator-button">
-                                <Button
+                                <ButtonIcon
                                     icon="delete"
-                                    shape="circle"
-                                    type="dashed"
+                                    title="收起分类"
                                 />
                             </span>
                         </div>

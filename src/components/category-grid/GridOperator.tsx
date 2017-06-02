@@ -7,7 +7,6 @@ const Search = Input.Search;
 
 interface GridOperatorProps {
     prefix?: string;
-    expand?: boolean; // 主区域是否展开
     height?: number;
     marginSpace?: number;
     onSearch?: (keyword: string) => void;
@@ -18,7 +17,6 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
 
     static defaultProps = {
         prefix: 'grid-bar',
-        expand: false,
         height: 60,
         onSearch: () => {},
         keyword: '',
@@ -29,13 +27,10 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
     }
 
     render() {
-        const { prefix, expand, height, marginSpace, keyword } = this.props;
-
-        const expandIcon = expand ? 'double-right' : 'double-left';
+        const { prefix, height, marginSpace, keyword } = this.props;
 
         return (
             <div className={ prefix } style={{ height: height, marginBottom: marginSpace }}>
-                <Button type="primary" icon={ expandIcon } />
                 <div className={ prefix + '-searchbox' }>
                     <Search
                         placeholder="请输入仓库名称"
