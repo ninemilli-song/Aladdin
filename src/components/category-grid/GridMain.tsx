@@ -19,6 +19,8 @@ interface GridMainProps {
     height?: number;
     pageSize?: number;
     onPageChange?: (options: GridQueryOptions) => void;
+    onSearch?: (keyword) => void;
+    keyword?: string;
 }
 
 export default class GridMain extends React.Component<GridMainProps, any> {
@@ -27,10 +29,12 @@ export default class GridMain extends React.Component<GridMainProps, any> {
         prefix: 'grid-main',
         data: [],
         expand: false,
+        onSearch: () => {},
+        keyword: '',
     }
 
     render(): JSX.Element {
-        const { data, expand, width, height, onPageChange, pageSize } = this.props;
+        const { data, expand, width, height, onPageChange, pageSize, onSearch, keyword } = this.props;
 
         return (
             <div>
@@ -38,6 +42,8 @@ export default class GridMain extends React.Component<GridMainProps, any> {
                     expand={ expand }
                     height={ headerHeight }
                     marginSpace={ marginSpace }
+                    onSearch = { onSearch }
+                    keyword = { keyword }
                 />
                 <Grid
                     data={ data }

@@ -22,7 +22,7 @@ export default class Category extends React.Component<CategoryProps, any> {
         prefixCls: 'category',
     }
 
-    gData: any
+    treeData: any
 
     constructor(props, context) {
         super(props, context);
@@ -35,7 +35,7 @@ export default class Category extends React.Component<CategoryProps, any> {
     }
 
     render() {
-        const treeData = this.preprocessData();
+        this.treeData = this.preprocessData();
 
         const { expandedKeys, autoExpandParent } = this.state;
 
@@ -59,7 +59,7 @@ export default class Category extends React.Component<CategoryProps, any> {
                       autoExpandParent={ autoExpandParent }
                       onSelect={ onSelect }
                     >
-                        { this.renderTreeNode(treeData) }
+                        { this.renderTreeNode(this.treeData) }
                     </Tree>
                 </div>
             </div>
@@ -69,11 +69,10 @@ export default class Category extends React.Component<CategoryProps, any> {
     private onChange = (e) => {
         const { data } = this.props;
         const value = e.target.value;
-        const gData = this.gData;
 
-        const expandedKeys = data.toArray().map((item, index) => {
+        const expandedKeys = data.toJS().map((item, index) => {
             if (item.name.indexOf(value) > -1) {
-                return this.getParentKey(item.id, gData);
+                return this.getParentKey(item.id, this.treeData);
             }
             return null;
         }).filter((item, i, self) => item && self.indexOf(item) === i);
@@ -134,6 +133,10 @@ export default class Category extends React.Component<CategoryProps, any> {
         return treeData;
     }
 
+    // Get the parentId by key.
+    // params:
+    //  @ key - search key
+    //  @ tree - data of tree structure
     private getParentKey = (key, tree) => {
         let parentKey;
         for (let i = 0; i < tree.length; i++) {

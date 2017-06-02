@@ -109,6 +109,7 @@ export const getList = (options: GridQueryOptions = {}) => {
             dispatch({
                 type: WAREHOUSE_LIST,
                 data: Immutable.fromJS(data),
+                keyword: options.keyword,
             });
             dispatch({
                 type: SHOWLOADING,
@@ -138,7 +139,7 @@ const ACTION_HANDLERS = {
     [WAREHOUSE_LIST]: (state, action) => {
         const data = state.get('data');
 
-        return state.set('data', data.set('list', action.data));
+        return state.set('data', data.set('list', action.data)).set('keyword', action.keyword);
     },
 
     [WAREHOUSE_CATEGORY]: (state, action) => {
@@ -214,6 +215,7 @@ const initialState = Immutable.fromJS({
         },
         category: [],
     },
+    keyword: '',
 });
 
 export default function warehouseReducer(state = initialState, action) {

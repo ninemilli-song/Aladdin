@@ -9,6 +9,11 @@ $module: grid;
     display: inline-block;
     width: 200px;
   }
+
+  &-search-kw {
+    display: inline-block;
+    margin-left: 20px;
+  }
 }
 
 .#{$module}-operator {

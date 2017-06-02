@@ -35,6 +35,7 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
 
         const data = store.get('data');
         const uiState = store.get('ui');
+        const keyword = store.get('keyword');
 
         const list = data.get('list');
         const category = data.get('category');
@@ -61,6 +62,8 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                                         height={ height }
                                         onPageChange={ this.reloadData }
                                         pageSize = { pageSize }
+                                        onSearch = { this.onSearch }
+                                        keyword = { keyword }
                                     />
                                 </Col>
                             </Row>
@@ -124,5 +127,12 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         }, options);
 
         this.getData(reloadOpts);
+    }
+
+    private onSearch = (keyword) => {
+        console.log('category grid ------> keyword: ', keyword);
+        this.reloadData({
+            keyword,
+        });
     }
 }

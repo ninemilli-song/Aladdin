@@ -2,7 +2,7 @@
  * Header of the Warehouse Grid.
  */
 import * as React from 'react';
-import { Button, Input } from 'antd';
+import { Button, Input, Tag } from 'antd';
 const Search = Input.Search;
 
 interface GridOperatorProps {
@@ -10,6 +10,8 @@ interface GridOperatorProps {
     expand?: boolean; // 主区域是否展开
     height?: number;
     marginSpace?: number;
+    onSearch?: (keyword: string) => void;
+    keyword?: string;
 }
 
 export default class GridOperator extends React.Component<GridOperatorProps, any> {
@@ -18,10 +20,16 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
         prefix: 'grid-bar',
         expand: false,
         height: 60,
+        onSearch: () => {},
+        keyword: '',
+    }
+
+    constructor(props, context) {
+        super(props, context);
     }
 
     render() {
-        const { prefix, expand, height, marginSpace } = this.props;
+        const { prefix, expand, height, marginSpace, keyword } = this.props;
 
         const expandIcon = expand ? 'double-right' : 'double-left';
 
@@ -31,14 +39,35 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
                 <div className={ prefix + '-searchbox' }>
                     <Search
                         placeholder="请输入仓库名称"
-                        onChange={ this.onChange } />
+                        onSearch={ this.onSearch }
+                    />
                 </div>
-
+                <div className={ `${prefix}-search-kw` }>
+                    {
+                        keyword ? (
+                            <Tag
+                                closable
+                                afterClose={ this.cancelKeyword }>
+                                { keyword }
+                            </Tag>
+                        ) : null
+                    }
+                </div>
             </div>
         )
     }
 
-    onChange() {
+    private onSearch = (value) => {
+        const { onSearch } = this.props;
 
+        onSearch(value);
+
+        this.setState({
+            keyword: value,
+        });
+    }
+
+    private cancelKeyword = () => {
+        this.onSearch('');
     }
 }
