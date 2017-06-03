@@ -51,7 +51,7 @@ class Layout extends React.Component<any, any> {
                                     <Icon type="mail" />
                                     <span className="nav-text"
                                         title="我是很长的标题"
-                                        >导航一
+                                        >基本档案
                                     </span>
                                 </span>
                             }>
@@ -146,33 +146,18 @@ class Layout extends React.Component<any, any> {
                     </div>
                 </aside>
                 <div className="ant-layout-main" style={{overflow: 'hidden'}}>
-                    <div className="ant-layout-header">
-                        <Menu mode="horizontal"
-                            defaultSelectedKeys={['2']} style={{
-                                lineHeight: '62px',
-                                float: 'right',
-                                borderBottom: 'none'
-                            }}>
-                            <Menu.Item key="1">导航一</Menu.Item>
-                            <Menu.Item key="2">导航二</Menu.Item>
-                            <Menu.Item key="3">导航三</Menu.Item>
-                        </Menu>
+                    <div className="layout-header">
+
                     </div>
-                    <div className="ant-layout-breadcrumb">
-                        <Breadcrumb>
-                            <Breadcrumb.Item href="#/">首页</Breadcrumb.Item>
-                            <Breadcrumb.Item href="#/counter">
-                                应用列表
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>某应用</Breadcrumb.Item>
-                        </Breadcrumb>
+                    <div className="layout-tabs">
+
                     </div>
                     <AutoSizer>
                         {
                             ({ width, height }) => (
                                 <div
                                     className="ant-layout-content"
-                                    style={{ width: width, height: height - 70 }}
+                                    style={{ width: width, height: height - 64 }}
                                 >
                                     {
                                         this.props.children
