@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { Button, Input, Tag } from 'antd';
+import Tree from '../refer/Tree';
 const Search = Input.Search;
 
 interface GridOperatorProps {
@@ -11,6 +12,7 @@ interface GridOperatorProps {
     marginSpace?: number;
     onSearch?: (keyword: string) => void;
     keyword?: string;
+    categoryData?: any,
 }
 
 export default class GridOperator extends React.Component<GridOperatorProps, any> {
@@ -20,6 +22,7 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
         height: 60,
         onSearch: () => {},
         keyword: '',
+        categoryData: null,
     }
 
     constructor(props, context) {
@@ -27,7 +30,7 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
     }
 
     render() {
-        const { prefix, height, marginSpace, keyword } = this.props;
+        const { prefix, height, marginSpace, keyword, categoryData } = this.props;
 
         return (
             <div className={ prefix } style={{ height: height, marginBottom: marginSpace }}>
@@ -35,6 +38,11 @@ export default class GridOperator extends React.Component<GridOperatorProps, any
                     <Search
                         placeholder="请输入仓库名称"
                         onSearch={ this.onSearch }
+                    />
+                </div>
+                <div className={ prefix + '-searchbox' }>
+                    <Tree
+                       data={ categoryData }
                     />
                 </div>
                 <div className={ `${prefix}-search-kw` }>

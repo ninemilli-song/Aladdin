@@ -2,7 +2,8 @@
  * View component
  */
 import * as React from 'react';
-import CategoryGrid from '../../../components/category-grid';
+// import CategoryGrid from '../../../components/category-grid';
+import CategoryGrid from '../../../components/archive-grid';
 
 interface WarehouseProps {
 
