@@ -29,7 +29,7 @@ export default class Loading extends React.Component<LoadingProps, any> {
                             <div className={ `${prefix}-mask` }></div>
                             <span className={ `${prefix}-spin-anchor` }>
                                 <div className={ `${prefix}-spin-wrapper` }>
-                                    <Spin spinning={ visible} delay={ 100 }>
+                                    <Spin spinning={ visible} delay={ 10 }>
                                         { children }
                                     </Spin>
                                 </div>

@@ -4,43 +4,48 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
 import GridMain from '../category-grid/GridMain';
+import Grid from '../category-grid/Grid';
+import GridOperator from '../category-grid/GridOperator';
+
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import { GridQueryOptions } from '../../common/globalInterface';
 
 export interface CategoryGridProps {
+    name?: string;  // The name of page
     pageSize?: number;
     gridData: any;  // The Data show in the grid
     categoryData: any;  // The Data of category
     keyword?: string;    // The keyword for keyword
+    selectedCategory?: string | string[];
     fetchCategory: () => void;
     fetchData: (option: GridQueryOptions) => void;
 }
 
+const headerHeight = 30;
+
+const marginSpace = 10;
+
 export default class CategoryGrid extends React.Component<CategoryGridProps, any> {
 
     // The id of selected category
-    category: string;
+    category: string | string[];
 
     // The keyword for search
     keyword: string;
 
     static defaultProps = {
         pageSize: 20,
+        name: 'noname',
     }
 
     constructor (props, context) {
         super(props, context);
 
-        this.state = {
-            foldCategory: false,    // Fold the category panel
-        }
-
         this.initData();
     }
 
     render(): JSX.Element {
-        const { pageSize, gridData, categoryData, keyword } = this.props;
-        const { foldCategory } = this.state;
+        const { pageSize, gridData, categoryData, keyword, selectedCategory, name } = this.props;
 
         return (
             <AutoSizer>
@@ -49,13 +54,22 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
                         <div style={{ width: width, height: height }}>
                             <Row gutter={ 16 }>
                                 <Col>
-                                    <GridMain
-                                        data={ gridData }
-                                        height={ height }
-                                        onPageChange={ this.reloadData }
-                                        pageSize = { pageSize }
+                                    <GridOperator
+                                        name = { name }
+                                        height = { headerHeight }
+                                        marginSpace={ marginSpace }
                                         onSearch = { this.onSearch }
                                         keyword = { keyword }
+                                        categoryData = { categoryData }
+                                        selectedCategory = { selectedCategory }
+                                        onCategorySelected = { this.selectCategory }
+                                    />
+                                    <Grid
+                                        data={ gridData }
+                                        width={ width }
+                                        height={ height - headerHeight - marginSpace }
+                                        onPageChange={ this.reloadData }
+                                        pageSize = { pageSize }
                                     />
                                 </Col>
                             </Row>
@@ -88,9 +102,9 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
     }
 
     // 分类选中
-    selectCategory = (keys, e) => {
+    selectCategory = (keys) => {
         // set selected category
-        this.category = keys[0] || '';
+        this.category = keys || [];
 
         // refresh grid's data
         this.reloadData();
@@ -115,11 +129,5 @@ export default class CategoryGrid extends React.Component<CategoryGridProps, any
         this.reloadData({
             keyword,
         });
-    }
-
-    private onFoldCategory = (fold: boolean) => {
-        this.setState({
-            foldCategory: fold,
-        })
     }
 }

@@ -4,6 +4,9 @@
 /* import public variable */
 @import './variable.scss';
 
+/* import common class */
+@import './common.scss';
+
 /* ******import modules style****** */
 
 /* we need import layout here,it override some antd styles */

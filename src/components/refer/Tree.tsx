@@ -7,8 +7,8 @@ import * as classNames from 'classnames';
 
 interface TreeProps {
     data: any;  // tree data source
-    selectedValue?: string; // selected value of the tree node
-    onChange?: (value: string) => void;
+    values?: string | string[]; // selected value of the tree node
+    onChange?: (value: string[]) => void;
     placeholder?: string;
     prefixCls?: string;
     className?: string;
@@ -20,34 +20,65 @@ export default class Tree extends React.Component<TreeProps, any> {
         prefixCls: 'tree-refer',
     }
 
+    constructor (props, context) {
+        super(props, context);
+
+        this.state = {
+            values: [],
+        }
+    }
+
     render() {
-        const {selectedValue, placeholder, prefixCls, className} = this.props;
+        const { placeholder, prefixCls, className } = this.props;
         const treeData = this.preprocessData();
 
+        const { values } = this.state;
         const cls = classNames(prefixCls, className);
         return (
             <div className= { cls }>
                 <TreeSelect
                     showSearch
-                    style = {{ width: 300 }}
-                    value = {selectedValue}
+                    allowClear
+                    style = {{ width: 200 }}
+                    value = { values }
                     dropdownStyle = {{ maxHeight: 400, overflow: 'auto' }}
-                    treeData = {treeData}
-                    placeholder = {placeholder || "Please select"}
+                    treeData = { treeData }
+                    placeholder = { placeholder || '选择分类' }
                     treeDefaultExpandAll
-                    multiple
-                    treeCheckable
                     showCheckedStrategy = "SHOW_PARENT"
-                    onChange = {this.onChange}
+                    onChange = { this.onChange }
                 />
             </div>
         )
     }
 
-    private onChange = (value) => {
-        // todo:
-        const {onChange} = this.props;
-        onChange(value);
+    private onSelect = (value) => {
+        const { onChange, data } = this.props;
+        console.log('tree selected node -----------> ', value);
+
+        // Set Selected values
+        this.setState({
+            values: value,
+        })
+
+        let ids = [];
+        if (value) {
+            ids = data.toJS().filter((item) => {
+                return value === item.name;
+            }).map((v) => {
+                return v.id;
+            });
+        }
+
+        console.log('tree selected ids -----------> ', ids);
+
+        // Invoke callback
+        onChange(ids);
+    }
+
+    private onChange = (value = null) => {
+        console.log('onSearch value -------> ', value);
+        this.onSelect(value);
     }
 
     // Transfer Origin Data to Tree Data
@@ -59,7 +90,7 @@ export default class Tree extends React.Component<TreeProps, any> {
         const childData = [];
         data.forEach((item) => {
             const node = item.toJS();
-                node.value = node.id;
+                node.value = node.name;
                 node.label = node.name;
                 node.key = node.id;
             if (!node.parentId || node.parentId === '0') {
@@ -75,10 +106,10 @@ export default class Tree extends React.Component<TreeProps, any> {
             rootData.forEach((rootDataItem) => {
                 childDataArr.forEach((childDataItem) => {
                     if (childDataItem.parentId === rootDataItem.id) {
-                        if (rootDataItem.child) {
-                            rootDataItem.child.push(childDataItem);
+                        if (rootDataItem.children) {
+                            rootDataItem.children.push(childDataItem);
                         } else {
-                            rootDataItem.child = [childDataItem];
+                            rootDataItem.children = [childDataItem];
                         }
                         nRootData.push(childDataItem);
                     } else if (nChildData.indexOf(childDataItem) !== -1) {

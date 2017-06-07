@@ -16,7 +16,7 @@ export interface sorterOptions {
 }
 
 export interface GridQueryOptions {
-    category?: string;  // the id of selected category
+    category?: string | string[];  // the id of selected category
     keyword?: string;   // the keyword
     pagination?: paginationOptions;   // the pagination pageParams
     filters?: filterOptions;   // the filter params

@@ -1,13 +1,23 @@
 $module: grid;
 
 .#{$module}-bar {
+  position: relative;
+
   &-grid-header {
     margin-bottom: 10px;
   }
 
-  &-searchbox {
+  &-search {
     display: inline-block;
-    width: 200px;
+
+    &-input {
+      display: inline-block;
+      width: 200px;
+    }
+  }
+
+  &-category {
+    display: inline-block;
   }
 
   &-search-kw {

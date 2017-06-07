@@ -43,7 +43,7 @@
     "url": "https://github.com/ninemilli-song/kyou/issues"
   },
   "dependencies": {
-    "antd": "^2.9.0",
+    "antd": "^2.10.4",
     "classnames": "^2.2.5",
     "express": "^4.13.4",
     "helmet": "^2.0.0",

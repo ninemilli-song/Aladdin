@@ -16,7 +16,8 @@
     "noEmitHelpers": false,
     "moduleResolution": "node",
     "types": [],
-    "declaration": false
+    "declaration": false,
+    "skipLibCheck": true
   },
   "awesomeTypescriptLoaderOptions": {
     "useBabel": true,

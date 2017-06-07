@@ -17,7 +17,7 @@ export const WAREHOUSE_CATEGORY = 'WAREHOUSE_CATEGORY';
 // ------------------------------------
 function filterData(
     keyword: string = '',
-    category: string = '',
+    category: string | string[] = '',
     pagination: paginationOptions = null,
     filters: filterOptions = {},
     sorter: sorterOptions = null
@@ -35,9 +35,18 @@ function filterData(
 
     // Category filter
     if (category) {
-        data = data.filter((item) => {
-            return item.category == category;
-        });
+        if (Array.isArray(category)) {
+            if (category.length > 0) {
+                data = data.filter((item) => {
+                    return category.indexOf(item.category + '') !== -1;
+                });
+            }
+        }
+        else {
+            data = data.filter((item) => {
+                return item.category == category;
+            });
+        }
     }
     console.info('🦀 ---------> category filter data: ', data);
 
@@ -104,16 +113,17 @@ export const getList = (options: GridQueryOptions = {}) => {
                     options.filters,
                     options.sorter);
                 resolve(data);
-            }, 200)
+            }, 100)
         }).then((data) => {
+            dispatch({
+                type: SHOWLOADING,
+                showLoading: false,
+            });
             dispatch({
                 type: WAREHOUSE_LIST,
                 data: Immutable.fromJS(data),
                 keyword: options.keyword,
-            });
-            dispatch({
-                type: SHOWLOADING,
-                showLoading: false,
+                selectedCategory: options.category,
             });
         })
     }
@@ -127,7 +137,7 @@ export const getCategory = () => {
                     type: WAREHOUSE_CATEGORY,
                     data: Immutable.fromJS(mockWarehouseCategory),
                 })
-            }, 200)
+            }, 100)
         })
     }
 }
@@ -139,7 +149,7 @@ const ACTION_HANDLERS = {
     [WAREHOUSE_LIST]: (state, action) => {
         const data = state.get('data');
 
-        return state.set('data', data.set('list', action.data)).set('keyword', action.keyword);
+        return state.set('data', data.set('list', action.data)).set('keyword', action.keyword).set('selectedCategory', action.selectedCategory);
     },
 
     [WAREHOUSE_CATEGORY]: (state, action) => {
@@ -172,6 +182,11 @@ const mockWarehouseList = Mock.mock({
 }).list;
 
 const mockWarehouseCategory = [
+    {
+        parentId: '0',
+        id: '0',
+        name: '未分类'
+    },
     {
         parentId: '0',
         id: '1',
@@ -216,6 +231,7 @@ const initialState = Immutable.fromJS({
         category: [],
     },
     keyword: '',
+    selectedCategory: [],
 });
 
 export default function warehouseReducer(state = initialState, action) {

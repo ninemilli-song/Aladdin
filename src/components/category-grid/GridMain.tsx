@@ -14,6 +14,7 @@ const marginSpace = 10;
 
 interface GridMainProps {
     data: any;
+    categoryData?: any;
     width?: number;
     height?: number;
     pageSize?: number;
@@ -32,7 +33,7 @@ export default class GridMain extends React.Component<GridMainProps, any> {
     }
 
     render(): JSX.Element {
-        const { data, width, height, onPageChange, pageSize, onSearch, keyword } = this.props;
+        const { data, width, height, onPageChange, pageSize, onSearch, keyword, categoryData } = this.props;
 
         return (
             <div>
@@ -41,6 +42,7 @@ export default class GridMain extends React.Component<GridMainProps, any> {
                     marginSpace={ marginSpace }
                     onSearch = { onSearch }
                     keyword = { keyword }
+                    categoryData = { categoryData }
                 />
                 <Grid
                     data={ data }
