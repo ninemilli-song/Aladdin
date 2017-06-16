@@ -2,12 +2,15 @@
  * The grid to show Warehouse list
  */
 import * as React from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import ButtonIcon from '../button-icon';
 // import Icon from 'antd/lib/icon';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
 import { GridQueryOptions } from '../../common/globalInterface';
+
+// Confirm Dialog
+const confirm = Modal.confirm;
 
 interface GridProps {
     prefix?: string;
@@ -45,6 +48,9 @@ export default class Grid extends React.Component<GridProps, any> {
                 key: 'name',
                 fixed: 'left' as 'left',
                 dataIndex: 'name',
+                render: (text, record, index) => {
+                    return <span className='single-line' style={{ display: 'inline-block', width: 100, padding: 0 }}>{ text }</span>
+                }
             },
             {
                 title: '编码',
@@ -80,19 +86,22 @@ export default class Grid extends React.Component<GridProps, any> {
                 className: `grid-operator`,
                 fixed: 'right' as 'right',
                 width: 100,
-                render: () => {
+                render: (text, record, index) => {
                     return (
                         <div>
                             <span className="grid-operator-button">
                                 <ButtonIcon
                                     icon="edit"
-                                    title="收起分类"
+                                    title="编辑"
                                 />
                             </span>
                             <span className="grid-operator-button">
                                 <ButtonIcon
                                     icon="delete"
-                                    title="收起分类"
+                                    title="删除"
+                                    onClick={ () => {
+
+                                    } }
                                 />
                             </span>
                         </div>
@@ -100,6 +109,90 @@ export default class Grid extends React.Component<GridProps, any> {
                 }
             }
         ],
+    }
+
+    columns: any[];
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.columns = [
+            {
+                title: '序号',
+                width: 80,
+                key: 'index',
+                fixed: 'left' as 'left',
+                render: (text, record, index) => {
+                    return <span>{ index + 1 }</span>
+                },
+            },
+            {
+                title: '名称',
+                width: 100,
+                key: 'name',
+                fixed: 'left' as 'left',
+                dataIndex: 'name',
+                render: (text, record, index) => {
+                    return <span>{ text }</span>
+                }
+            },
+            {
+                title: '编码',
+                width: 80,
+                key: 'code',
+                dataIndex: 'code',
+            }, {
+                title: '分类',
+                width: 60,
+                key: 'category',
+                dataIndex: 'category',
+            }, {
+                title: '结账状态',
+                key: 'stop',
+                width: 100,
+                dataIndex: 'stop',
+                render: (text, record) => {
+                    const statusText = text ? '停用' : '未停用';
+                    return (<div>{ statusText }</div>);
+                },
+            }, {
+                title: '建立时间',
+                width: 100,
+                key: 'createDate',
+                dataIndex: 'createDate',
+            }, {
+                title: '备注',
+                key: 'comment',
+                dataIndex: 'comment',
+            }, {
+                title: '操作',
+                key: 'operation',
+                className: `grid-operator`,
+                fixed: 'right' as 'right',
+                width: 100,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <span className="grid-operator-button">
+                                <ButtonIcon
+                                    icon="edit"
+                                    title="编辑"
+                                />
+                            </span>
+                            <span className="grid-operator-button">
+                                <ButtonIcon
+                                    icon="delete"
+                                    title="删除"
+                                    onClick={ () => {
+                                        this.showDeleteConfirm(record);
+                                    } }
+                                />
+                            </span>
+                        </div>
+                    )
+                }
+            }
+        ];
     }
 
     render(): JSX.Element {
@@ -110,21 +203,23 @@ export default class Grid extends React.Component<GridProps, any> {
         console.log('Grid -------> data: ', data);
 
         return (
-            <Table
-                columns={ columns }
-                rowClassName = {
-                    () => tableRowClass
-                }
-                dataSource={ data.get('data').toJS() }
-                pagination={
-                    {
-                        pageSize,
-                        total: data.get('total'),
+            <div className={ `${prefix}` }>
+                <Table
+                    columns={ this.columns }
+                    rowClassName = {
+                        () => tableRowClass
                     }
-                }
-                onChange={ this.pageChangeHandler }
-                scroll={{ x: 1500, y: height - externalHeight }}
-            />
+                    dataSource={ data.get('data').toJS() }
+                    pagination={
+                        {
+                            pageSize,
+                            total: data.get('total'),
+                        }
+                    }
+                    onChange={ this.pageChangeHandler }
+                    scroll={{ x: 1500, y: height - externalHeight }}
+                />
+            </div>
         )
     }
 
@@ -140,6 +235,23 @@ export default class Grid extends React.Component<GridProps, any> {
             pagination: paginationOpt,
             filters,
             sorter,
+        });
+    }
+
+    onDelete = () => {
+
+    }
+
+    private showDeleteConfirm = (record) => {
+        confirm({
+            title: `Do you want to delete ${record.name}?`,
+            content: 'When clicked the OK button, this dialog will be closed after 1 second',
+            onOk() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
         });
     }
 }

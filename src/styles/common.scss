@@ -7,3 +7,9 @@
   position: absolute;
   right: 0;
 }
+
+.wordQ {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
