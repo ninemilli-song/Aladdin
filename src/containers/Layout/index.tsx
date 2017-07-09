@@ -157,7 +157,7 @@ class Layout extends React.Component<any, any> {
                             ({ width, height }) => (
                                 <div
                                     className="ant-layout-content"
-                                    style={{ width: width, height: height - 64 }}
+                                    style={{ width: width, height: height - 60 }}
                                 >
                                     {
                                         this.props.children
