@@ -2,7 +2,7 @@
  * View component
  */
 import * as React from 'react';
-import ArchiveGrid from '../../../components/archive-grid';
+// import ArchiveGrid from '../../../components/archive-grid';
 
 interface WarehouseProps {
 
@@ -23,15 +23,7 @@ export default class Warehouse extends React.Component<any, any> {
         const category = data.get('category');
 
         return (
-            <ArchiveGrid
-                name='仓库'
-                gridData = { list }
-                categoryData = { category }
-                selectedCategory = { selectedCategory }
-                keyword = { keyword }
-                fetchCategory = { this.fetchCategory }
-                fetchData = { this.fetchData }
-            />
+            <div></div>
         )
     }
 
