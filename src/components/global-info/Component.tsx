@@ -5,12 +5,12 @@ import * as React from 'react';
 import { Menu, Icon, Dropdown } from 'antd';
 import { IAction } from './module';
 
-interface props {
+interface ComponentProps {
     action: IAction;
     data: any;
 }
 
-export default class Component extends React.Component<props, any> {
+export default class Component extends React.Component<ComponentProps, any> {
 
     constructor(props, context) {
         super(props, context);
@@ -45,7 +45,7 @@ export default class Component extends React.Component<props, any> {
         );
 
         return (
-            <ul className='info'>
+            <ul className="info">
                 <li className="menu-item">消息</li>
                 <li className="menu-item">
                     <Dropdown overlay={menu} trigger={['click']}>

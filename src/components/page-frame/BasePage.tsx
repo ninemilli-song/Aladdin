@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Menu, Breadcrumb, Icon, Input } from 'antd';
+import { Menu, Breadcrumb, Icon, Input, Row, Col } from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Search = Input.Search;
@@ -59,17 +59,21 @@ export default class BasePage<T extends BasePageProps> extends React.Component<T
                     </div>
                 </div>
                 <div className="layout-content">
-                    {this.renderContent()}
+                    <div>
+                        <Row gutter={8}>
+                            <Col span={16}>
+                                {this.renderContent()}
+                            </Col>
+                            <Col span={8}>
+                                hello!!! base page side!
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
             </div>
         );
     }
 
     protected renderContent() {
-        return (
-            <span>
-                hello!!! base page!
-            </span>
-        )
     }
 }

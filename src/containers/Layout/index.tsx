@@ -24,21 +24,21 @@ class Layout extends React.Component<any, any> {
             <div className={''}>
                 <div className="">
                     <div className="layout-nav-primary-wrapper">
-                        <div className='info'>
+                        <div className="info">
                             <GlobalInfo />
                         </div>
                         <ul className="menu">
                             <li className="menu-item">
-                                <a>A</a>
+                                <a>首页</a>
                             </li>
                             <li className="menu-item">
-                                <a>B</a>
+                                <a>蛙泳</a>
                             </li>
                             <li className="menu-item">
-                                <a>C</a>
+                                <a>自由泳</a>
                             </li>
                             <li className="menu-item">
-                                <a>D</a>
+                                <a>蝶泳</a>
                             </li>
                         </ul>
                     </div>

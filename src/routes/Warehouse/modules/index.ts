@@ -41,10 +41,9 @@ function filterData(
                     return category.indexOf(item.category + '') !== -1;
                 });
             }
-        }
-        else {
+        } else {
             data = data.filter((item) => {
-                return item.category == category;
+                return item.category === category;
             });
         }
     }
@@ -149,7 +148,8 @@ const ACTION_HANDLERS = {
     [WAREHOUSE_LIST]: (state, action) => {
         const data = state.get('data');
 
-        return state.set('data', data.set('list', action.data)).set('keyword', action.keyword).set('selectedCategory', action.selectedCategory);
+        return state.set('data', data.set('list', action.data)).
+            set('keyword', action.keyword).set('selectedCategory', action.selectedCategory);
     },
 
     [WAREHOUSE_CATEGORY]: (state, action) => {
