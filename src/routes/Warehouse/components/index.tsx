@@ -2,34 +2,46 @@
  * View component
  */
 import * as React from 'react';
+import {BasePage} from '../../../components/page-frame';
 // import ArchiveGrid from '../../../components/archive-grid';
 
 interface WarehouseProps {
-
+    store: any,
+    action: any,
 }
 
-export default class Warehouse extends React.Component<any, any> {
+export default class Warehouse extends BasePage<WarehouseProps> {
 
     entityName = 'Warehouse';
 
-    render () {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    renderContent () {
         const { store, action } = this.props;
 
-        const data = store.get('data');
-        const keyword = store.get('keyword');
-        const selectedCategory = store.get('selectedCategory');
-
-        const list = data.get('list');
-        const category = data.get('category');
-
         return (
-            <div></div>
+            <div>
+                <div>
+                    {
+                        store.warehouseUserInfo.name
+                    }
+                </div>
+                <button
+                    onClick={() => {
+                        this.getUserInfo();
+                    }} 
+                >
+                    click me!
+                </button>
+            </div>
         )
     }
 
-    private fetchCategory = () => {
+    private getUserInfo = () => {
         const { action } = this.props;
-        action.getCategory();
+        action.getUserInfo();
     }
 
     private fetchData = (options) => {

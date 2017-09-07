@@ -6,11 +6,13 @@ const Mock = require('mockjs');
 import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
 import { SHOWLOADING } from '../../../common/appActions';
 
+import { createReducer } from '../../../utils/reducer-helper';
+
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const WAREHOUSE_LIST = 'WAREHOUSE_LIST';
-export const WAREHOUSE_CATEGORY = 'WAREHOUSE_CATEGORY';
+export const WAREHOUSE_CETUSERINFO = 'WAREHOUSE_CETUSERINFO';
 
 // ------------------------------------
 // Action
@@ -128,40 +130,48 @@ export const getList = (options: GridQueryOptions = {}) => {
     }
 }
 
-export const getCategory = () => {
+export const getUserInfo = () => {
     return (dispatch, getState) => {
+        // 数据共享
+        const state = getState();
+        const { userInfo } = state;
+
         return new Promise((resolve) => {
             setTimeout(() => {
                 dispatch({
-                    type: WAREHOUSE_CATEGORY,
-                    data: Immutable.fromJS(mockWarehouseCategory),
+                    type: WAREHOUSE_CETUSERINFO,
+                    data: userInfo,
                 })
             }, 100)
         })
     }
 }
 
-// ------------------------------------
-// Action Handlers
-// ------------------------------------
-const ACTION_HANDLERS = {
-    [WAREHOUSE_LIST]: (state, action) => {
-        const data = state.get('data');
-
-        return state.set('data', data.set('list', action.data)).
-            set('keyword', action.keyword).set('selectedCategory', action.selectedCategory);
-    },
-
-    [WAREHOUSE_CATEGORY]: (state, action) => {
-        const data = state.get('data');
-
-        return state.set('data', data.set('category', action.data));
-    }
-}
 
 // -------------------------------------
 // Reducer
 // -------------------------------------
+
+// ------------------------------------
+// Case reducer
+// ------------------------------------
+
+const warehouseList = (state, action) => {
+    return Object.assign({}, state, {
+        a: 'new-a',
+    });
+}
+
+const warehouseUserInfo = (state, action) => {
+    return Object.assign({}, state, {
+        warehouseUserInfo: action.data,
+    })
+}
+
+const ACTION_HANDLERS = {
+    [WAREHOUSE_LIST]: warehouseList,
+    [WAREHOUSE_CETUSERINFO]: warehouseUserInfo,
+}
 
 const mockWarehouseList = Mock.mock({
     'list|200': [{
@@ -181,61 +191,11 @@ const mockWarehouseList = Mock.mock({
     }]
 }).list;
 
-const mockWarehouseCategory = [
-    {
-        parentId: '0',
-        id: '0',
-        name: '未分类'
-    },
-    {
-        parentId: '0',
-        id: '1',
-        name: 'a',
-    },
-    {
-        parentId: '0',
-        id: '2',
-        name: 'b',
-    },
-    {
-        parentId: '0',
-        id: '3',
-        name: 'c',
-    },
-    {
-        parentId: '1',
-        id: '4',
-        name: 'aa',
-    },
-    {
-        parentId: '2',
-        id: '5',
-        name: 'ba',
-    },
-    {
-        parentId: '1',
-        id: '6',
-        name: 'ab',
-    },
-];
+const initialState = {
+    a: 'a',
+    warehouseUserInfo: [],
+};
 
-const initialState = Immutable.fromJS({
-    ui: {
-        gridExpand: false,
-    },
-    data: {
-        list: {
-            data: [],
-            total: 0,
-        },
-        category: [],
-    },
-    keyword: '',
-    selectedCategory: [],
-});
-
-export default function warehouseReducer(state = initialState, action) {
-    const handler = ACTION_HANDLERS[action.type];
-
-    return handler ? handler(state, action) : state;
-}
+// Slice reducer
+const warehouseReducer = createReducer(initialState, ACTION_HANDLERS);
+export default warehouseReducer;

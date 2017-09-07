@@ -2,7 +2,6 @@
  * Created by songxg on 16/7/19.
  */
 const router = require('koa-router')();
-const bodyParse = require('koa-body')();
 const User = require('../model/user');
 const ResponsePacker = require('../lib/responsePacker');
 
@@ -30,19 +29,15 @@ router.post('/', async (ctx, next) => {
         if (u) {
             // The user name has duplicated.
             result = ResponsePacker.error('亲，用户名已存在，换个用户名再试试！');
-        }
-        else {
+        } else {
             // The user name has not exist, it can be registered.
             if (!user.name) {
                 result = ResponsePacker.error('亲，用户名不可为空！');
-            }
-            else if (!user.mobile) {
+            } else if (!user.mobile) {
                 result = ResponsePacker.error('亲，手机不可为空！');
-            }
-            else if (!user.password) {
+            } else if (!user.password) {
                 result = ResponsePacker.error('亲，密码不可为空！');
-            }
-            else {
+            } else {
                 // Do register
                 const newUser = new User({
                     name: user.name,

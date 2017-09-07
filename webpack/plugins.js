@@ -1,7 +1,7 @@
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const basePlugins = [
   new webpack.DefinePlugin({
@@ -17,7 +17,7 @@ const basePlugins = [
     },
   }),
   new webpack.NoErrorsPlugin(),
-]
+];
 
 const devPlugins = [
   new webpack.HotModuleReplacementPlugin(),
@@ -26,7 +26,7 @@ const devPlugins = [
     files: ['src/styles/*.**'],
     failOnError: false,
   }),
-]
+];
 
 const prodPlugins = [
   new ExtractTextPlugin('[name]-[chunkhash].css', {
@@ -48,8 +48,8 @@ const prodPlugins = [
     names: ['vendor']
   })
 
-]
+];
 
 module.exports = basePlugins
   .concat(process.env.NODE_ENV === 'production' ? prodPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? devPlugins : [])
+  .concat(process.env.NODE_ENV === 'development' ? devPlugins : []);

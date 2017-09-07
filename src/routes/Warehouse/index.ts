@@ -14,10 +14,9 @@ export default (store) => ({
             // `import ... require` statements). `require.ensure` is defined in
             // require.d.ts. Webpack sees this and automatically puts c and d
             // into a separate chunk.
+            const Warehouse = require('./containers/index').default;
 
-            const Warehouse = require('./containers').default;
-
-            const reducer = require('./modules').default;
+            const reducer = require('./modules/index').default;
 
             store.injectReducer({
                 key: 'warehouse',

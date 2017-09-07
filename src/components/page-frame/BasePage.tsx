@@ -24,10 +24,14 @@ export default class BasePage<T extends BasePageProps> extends React.Component<T
                                 mode="horizontal"
                             >
                                 <Menu.Item key="mail">
-                                    <Icon type="mail" />One
+                                    <a href="#/">
+                                        <Icon type="mail" />
+                                        home
+                                    </a>
                                 </Menu.Item>
                                 <Menu.Item key="app" disabled>
-                                    <Icon type="appstore" />Two
+                                    <Icon type="appstore" />
+                                    disabled
                                 </Menu.Item>
                                 <SubMenu title={<span><Icon type="setting" />Three - Submenu</span>}>
                                     <MenuItemGroup title="Item 1">
@@ -40,11 +44,8 @@ export default class BasePage<T extends BasePageProps> extends React.Component<T
                                     </MenuItemGroup>
                                 </SubMenu>
                                 <Menu.Item key="alipay">
-                                    <a
-                                        href="https://ant.design"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        Four - Link
+                                    <a href="#/warehouse">
+                                        仓库
                                     </a>
                                 </Menu.Item>
                             </Menu>
@@ -65,7 +66,7 @@ export default class BasePage<T extends BasePageProps> extends React.Component<T
                                 {this.renderContent()}
                             </Col>
                             <Col span={8}>
-                                hello!!! base page side!
+                                {this.renderSide()}
                             </Col>
                         </Row>
                     </div>
@@ -75,5 +76,14 @@ export default class BasePage<T extends BasePageProps> extends React.Component<T
     }
 
     protected renderContent() {
+        return (
+            <div>BasePage default content......</div>
+        )
+    }
+
+    protected renderSide() {
+        return (
+            <div>BasePage default side......</div>
+        )
     }
 }

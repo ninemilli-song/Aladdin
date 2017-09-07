@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ui from 'redux-ui';
 
 import Warehouse from '../components';
-import { getList, getCategory } from '../modules';
+import { getList, getUserInfo } from '../modules';
 
 import { GridQueryOptions } from '../../../common/globalInterface';
 
@@ -15,8 +15,8 @@ const mapActionCreators = (dispatch) => {
             getList: (options: GridQueryOptions) => {
                 dispatch(getList(options));
             },
-            getCategory: () => {
-                dispatch(getCategory());
+            getUserInfo: () => {
+                dispatch(getUserInfo());
             },
         },
     }

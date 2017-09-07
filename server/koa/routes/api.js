@@ -4,8 +4,7 @@
  * Date: 16/12/1
  * Time: 下午3:00
  */
-var router = require('koa-router')();
-var bodyParse = require('koa-body')();
+const router = require('koa-router')();
 
 router.get('/register', (ctx, next) => {
     ctx.body = 'hello api register!!';
