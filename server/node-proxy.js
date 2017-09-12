@@ -13,7 +13,6 @@ module.exports = (router) => {
         return;
     }
 
-
     paths.forEach(path => {
         const config = proxyConfig[path];
 

@@ -9,13 +9,16 @@ const json = require('koa-json')();
 const bodyparser = require('koa-bodyparser')();
 // const koabody = require('koa-body')();
 const logger = require('koa-logger')();
-
 const index = require('./routes/index');
 // const users = require('./routes/users');
 // const register = require('./routes/register');
 const api = require('./routes/api');
+const users = require('./routes/users');
 
 const nodeProxy = require('../node-proxy');
+const jwtKoa = require('koa-jwt');
+// const util = require('util');
+const secret = require('../secret-key').secret;
 
 // middlewares
 // app.use(convert(koabody));
@@ -38,9 +41,35 @@ app.use((ctx, next) => {
     });
 });
 
+/**
+ * 应用异常处理
+ */
+app.use((ctx, next) => {
+    return next().catch((err) => {
+        if (err.status === 401) {
+            ctx.status = 401;
+            ctx.body = `Protected resource, ${err}\n`;
+        } else {
+            throw err;
+        }
+    });
+});
+
+/**
+ * jwt 认证
+ */
+app.use(jwtKoa({ 
+    secret, 
+    cookie: 'authorization'
+}).unless({
+    path: [/^\/users\/login/] // 数组中的路径不需要通过jwt验证
+}));
+
 // define router address
 // router.use('/users', users.routes(), users.allowedMethods());
 // router.use('/register', register.routes(), register.allowedMethods());
+
+router.use('/users', users.routes(), users.allowedMethods());
 
 // API proxy logic: if you need to talk to a remote server from your client-side
 // app you can proxy it though here by editing ./proxy-config.js
