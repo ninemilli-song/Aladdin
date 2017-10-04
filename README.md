@@ -57,6 +57,12 @@ Edit [this file](server/proxy-config.js) to mount such APIs at a given path.
 webpack -p //
 ```
 
+## Project Structure
+
+|-- src     `the code for front end`
+
+|-- server      `the code for node`
+
 ## License
 
 Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)

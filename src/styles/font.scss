@@ -1,0 +1,37 @@
+// font size
+@mixin font-size($size: 12) {
+  font-size: $size + px;
+}
+
+@mixin font-size-12() {
+  @include font-size();
+}
+
+.font-size-14 {
+  @include font-size(14);
+}
+
+@mixin font-size-16 {
+  @include font-size(16);
+}
+
+@mixin font-size-18 {
+  @include font-size(18);
+}
+
+.font-size-20 {
+  @include font-size(20);
+}
+
+.font-size-24 {
+  @include font-size(24);
+}
+
+.font-size-48 {
+  @include font-size(48);
+}
+
+// font bold
+@mixin font-bold() {
+  font-weight: bold;
+}

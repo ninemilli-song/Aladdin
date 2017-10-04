@@ -1,7 +1,7 @@
 // We only need to import the modules necessary for initial render
 import Layout from '../containers/Layout';
 
-import Home from './Home';
+import HomeRoute from './Home';
 import CounterRoute from './Counter';
 import Warehouse from './Warehouse';
 
@@ -11,7 +11,7 @@ import Warehouse from './Warehouse';
 export const createRoutes = (store) => ({
   path: '/',
   component: Layout,
-  indexRoute: Home,
+  indexRoute: HomeRoute(store),
   childRoutes: [
     CounterRoute(store),
     Warehouse(store),

@@ -1,7 +1,6 @@
 const router = require('koa-router')();
 const authPassport = require('../../auth-passport');
 const jwt = require('jsonwebtoken');
-const verify = jwt.verify; // 解密
 const winston = require('winston');
 const secret = require('../../secret-key').secret;
 
@@ -15,7 +14,7 @@ authPassport.readUsers()
         winston.info('error', error);
     });
 
-router.get('/login', (ctx, next) => {
+router.get('/login', (ctx) => {
     // const user = ctx.request.body;
     const user = ctx.request.query;
 
@@ -39,9 +38,9 @@ router.get('/login', (ctx, next) => {
                 });
 
                 ctx.body = {
-                    message: '获取token成功',
+                    message: 'login success',
                     code: 1,
-                    token
+                    userInfo
                 };
             })
             .catch((error) => {
@@ -58,7 +57,7 @@ router.get('/login', (ctx, next) => {
     }
 });
 
-router.get('/userInfo', (ctx, next) => {
+router.get('/userInfo', (ctx) => {
     if (ctx.state.user) {
         ctx.body = ctx.state.user;
     } else {
