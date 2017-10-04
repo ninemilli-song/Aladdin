@@ -24,7 +24,13 @@ export default class TextLink extends React.Component<TextLinkProps, any> {
 
         return (
             <div className={`${this.prefixCls}`}>
-                <a href={`${link}`}>{text}</a>
+                <a 
+                    href={`${link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {text}
+                </a>
             </div>
         )
     }

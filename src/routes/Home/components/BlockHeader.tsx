@@ -26,7 +26,13 @@ export default class BlockHeader extends React.Component<BlockHeaderProps, any> 
                 {
                     moreLink ? (
                         <span className={`${this.prefixCls}-more`}>
-                            <a href={`${moreLink}`}>更多</a>
+                            <a 
+                                href={`${moreLink}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                更多…
+                            </a>
                         </span>
                     ) : null
                 }
