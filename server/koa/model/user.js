@@ -1,22 +1,22 @@
 /**
  * Created by songxg on 16/7/18.
  */
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-var db = mongoose.connect('mongodb://localhost/scm');
+const db = mongoose.connect('mongodb://localhost/scm');
 
-var userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     name: String,
     mobile: String,
     password: String,
     passSalt: String
 });
 
-var UserModel = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 
-function User (obj) {
-    for (var key in obj) {
+function User(obj) {
+    for (const key in obj) {
         this[key] = obj[key];
     }
 }
@@ -28,29 +28,28 @@ function User (obj) {
  * @param fn
  */
 User.prototype.save = function (fn) {
-    var that = this;
+    const that = this;
 
-    that.hashPassword(function(err) {
+    that.hashPassword((err) => {
         if (err) return fn(err);
         that.update(fn);
     });
-}
+};
 
 User.prototype.update = function (fn) {
     console.log('user update enter ');
-    var that = this;
+    const that = this;
 
     UserModel.find({
         name: that.name,
         mobile: that.mobile
-    }, function (err, user) {
+    }, (err, user) => {
         if (err) return fn(err);
         if (user && user.length > 0) {
             fn(null, new User(user));
-        }
-        else {
+        } else {
             console.log('user update enter go save');
-            var u = new UserModel({
+            const u = new UserModel({
                 name: that.name,
                 mobile: that.mobile,
                 password: that.password,
@@ -59,13 +58,13 @@ User.prototype.update = function (fn) {
 
             console.log('user update ', u);
 
-            u.save(function(err, u) {
+            u.save((err, u) => {
                 if (err) return fn(err);
                 console.log('user save success!', u);
             });
         }
     });
-}
+};
 
 /**
  * 密码加盐处理
@@ -73,20 +72,20 @@ User.prototype.update = function (fn) {
  */
 User.prototype.hashPassword = function (fn) {
     console.log('user hashPassword enter ');
-    var that = this;
-    //加盐处理
-    bcrypt.genSalt(12, function(err, salt) {
+    const that = this;
+    // 加盐处理
+    bcrypt.genSalt(12, (err, salt) => {
         if (err) return fn(err);
         console.log('user hashPassword salt ', salt);
         that.salt = salt;
-        bcrypt.hash(that.password, salt, function(err, hash) {
+        bcrypt.hash(that.password, salt, (err, hash) => {
             if (err) return fn(err);
             console.log('user hashPassword generate ', hash);
             that.password = hash;
             fn();
         });
     });
-}
+};
 
 /**
  * 用户认证
@@ -96,17 +95,17 @@ User.prototype.hashPassword = function (fn) {
  */
 User.authenticate = function (name, pass, fn) {
     UserModel.find({
-        name: name
-    }, function (err, user) {
+        name
+    }, (err, user) => {
         if (err) return fn(err);
         if (user.length == 0) return fn();
-        bcrypt.hash(pass, user.salt, function (err, hash) {
+        bcrypt.hash(pass, user.salt, (err, hash) => {
             if (err) return fn(err);
             if (hash == user.pass) return fn(null, user);
             fn();
         });
     });
-}
+};
 
 /**
  * Get User by Name from MongoDB
@@ -115,33 +114,31 @@ User.authenticate = function (name, pass, fn) {
  */
 User.getByName = async function (name, fn) {
     await UserModel.find({
-        name: name
-    }, function (err, users) {
+        name
+    }, (err, users) => {
         if (err) {
             return fn(null, err);
         }
 
         if (users && users.length > 0) {
             console.log('User --> getByName:', users[0]);
-            let u = new User(users[0]);
+            const u = new User(users[0]);
 
             return fn(u);
-        }
-        else {
-            fn(null);
-        }
+        }        
+        fn(null);
     });
-}
+};
 
 module.exports = User;
 
-//var tobi = new User({
+// var tobi = new User({
 //    name: 'ninemilliii',
 //    mobile: '12345679823',
 //    password: '123456'
-//});
+// });
 //
-//tobi.save(function(err) {
+// tobi.save(function(err) {
 //    if (err) console.log('save error ', err);
 //    console.log('user save success!');
-//});
+// });

@@ -30,15 +30,14 @@ exports.css = {
     test: /\.css$/,
     loader: process.env.NODE_ENV === 'development' ?
         'style!css!postcss!sass' :
-        ExtractTextPlugin.extract('style', 'css!postcss'),
-    exclude: /node_modules/,
+        ExtractTextPlugin.extract('style', 'css!postcss!sass'),
 };
 
 exports.less = {
     test: /\.less$/,
     loader: process.env.NODE_ENV === 'development' ?
         'style!css!postcss!less' :
-        ExtractTextPlugin.extract('style', 'css!postcss'),
+        ExtractTextPlugin.extract('style', 'css!postcss!less'),
 };
 
 exports.scss = {

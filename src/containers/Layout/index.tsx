@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { Menu, Breadcrumb, Icon, Dropdown } from 'antd';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import ui from 'redux-ui';
 import Loading from '../../components/loading';
 import GlobalInfo from '../../components/global-info';
 
 const Block = require('react-blocks');
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 @ui({
     key: 'AppLayout',

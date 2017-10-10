@@ -3,7 +3,7 @@ import * as React from 'react';
 import {BasePage} from '../../../components/page-frame';
 import SecondaryNav from '../../../components/page-components/SecondaryNav';
 const Carousel = require('antd/lib/carousel');
-import 'antd/lib/carousel/style';
+import 'antd/lib/carousel/style/css.js';
 import '../assets/style.scss';
 import Block from './Block';
 import { BlockItemMode } from './BlockBody';

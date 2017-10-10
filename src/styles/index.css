@@ -1,5 +1,6 @@
 /* import antd style. you can remove next line if you use babel-plugin-antd */
-@import 'antd/dist/antd.css';
+
+/* @import 'antd/dist/antd.css'; */
 
 /* import public variable */
 @import './variable.scss';

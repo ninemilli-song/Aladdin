@@ -2,9 +2,12 @@
  * 二级导航栏
  */
 import * as React from 'react';
-import { Menu, Breadcrumb, Icon, Input } from 'antd';
+// import { Menu, Breadcrumb, Icon, Input } from 'antd';
+const Icon = require('antd/lib/icon');
+const Menu = require('antd/lib/menu');
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+const Input = require('antd/lib/input');
 const Search = Input.Search;
 
 export default class SecondaryNav extends React.Component<any, any> {

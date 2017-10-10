@@ -12,7 +12,7 @@ import configureStore from './store/configure-store';
 
 // Global styles
 // import 'antd/dist/antd.css';
-import './styles/index.css';
+import './styles';
 // import './styles/index.scss';
 
 const store = configureStore({});

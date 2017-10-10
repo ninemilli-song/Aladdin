@@ -4,20 +4,20 @@
  * Date: 16/12/2
  * Time: 下午2:24
  */
-let messageTpl = {
+const messageTpl = {
     success: null,
     error: null,
-}
+};
 
 const ResponsePacker = {
     // Pack success result.
     success: (data) => {
         return {
             success: {
-                data: data
+                data
             },
             error: null,
-        }
+        };
     },
 
     // Pack error result.
@@ -27,8 +27,8 @@ const ResponsePacker = {
             error: {
                 massage: msg,
             },
-        }
+        };
     }
-}
+};
 
 module.exports = ResponsePacker;
