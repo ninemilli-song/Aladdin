@@ -26,20 +26,11 @@ class Layout extends React.Component<any, any> {
                         </div>
                         <ul className="menu">
                             <li className="menu-item">
-                                <a>首页</a>
-                            </li>
-                            <li className="menu-item">
-                                <a>蛙泳</a>
-                            </li>
-                            <li className="menu-item">
-                                <a>自由泳</a>
-                            </li>
-                            <li className="menu-item">
-                                <a
-                                    href="https://ant.design"
+                                <a 
+                                    href="#/"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    蝶泳
+                                    首页
                                 </a>
                             </li>
                         </ul>

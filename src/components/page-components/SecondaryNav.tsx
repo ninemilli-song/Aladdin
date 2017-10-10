@@ -20,7 +20,7 @@ export default class SecondaryNav extends React.Component<any, any> {
                             mode="horizontal"
                         >
                             <Menu.Item key="training">
-                                <a href="#/">
+                                <a>
                                     <Icon type="mail" />
                                     实战
                                 </a>
