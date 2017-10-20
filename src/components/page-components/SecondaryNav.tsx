@@ -10,57 +10,80 @@ const MenuItemGroup = Menu.ItemGroup;
 const Input = require('antd/lib/input');
 const Search = Input.Search;
 
-export default class SecondaryNav extends React.Component<any, any> {
+type MenuConfig = {
+    label: string,
+    key: string,
+    icon: string,
+}
+
+interface SecondaryNavProps {
+    menuConfig?: Array<MenuConfig>,
+    hasSearch?: boolean
+}
+
+export default class SecondaryNav extends React.Component<SecondaryNavProps, any> {
+
+    static defaultProps = {
+        menuConfig: [],
+        hasSearch: true
+    }
+
     render() {
         return (
             <div className="layout-nav-secondary-wrapper">
                 <div className="layout-nav-secondary">
-                    <div className="menu">
-                        <Menu
-                            mode="horizontal"
-                        >
-                            <Menu.Item key="training">
-                                <a>
-                                    <Icon type="mail" />
-                                    实战
-                                </a>
-                            </Menu.Item>
-                            <Menu.Item key="news" disabled>
-                                <Icon type="appstore" />
-                                动态
-                            </Menu.Item>
-                            <Menu.Item key="account">
-                                <a href="#/warehouse">
-                                    会计
-                                </a>
-                            </Menu.Item>
-                            <Menu.Item key="finance">
-                                <Icon type="pay-circle" />
-                                财管
-                            </Menu.Item>
-                            <Menu.Item key="tax">
-                                <Icon type="switcher" />
-                                税务
-                            </Menu.Item>
-                            <Menu.Item key="work">
-                                <Icon type="tool" />
-                                工作
-                            </Menu.Item>
-                            <Menu.Item key="team">
-                                <Icon type="team" />
-                                圈子
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                    <div className="search-box">
-                        <Search
-                            placeholder="input search text"
-                            style={{ width: 200 }}
-                            onSearch={value => console.log(value)}
-                        />
-                    </div>
+                    {this.renderMenu()}
+                    {this.renderSearchBox()}
                 </div>
             </div>
         )
+    }
+
+    renderMenu() {
+        const { menuConfig, hasSearch } = this.props;
+        
+        if (menuConfig && menuConfig.length > 0) {
+            const menuItems = [];
+            menuConfig.forEach((item) => {
+                menuItems.push(
+                    <Menu.Item key={item.key}>
+                        <Icon type={item.icon} />
+                        {item.label}
+                    </Menu.Item>
+                );
+            })
+
+            return (
+                <div className="menu">
+                    <Menu
+                        mode="horizontal"
+                    >
+                        {
+                            menuItems
+                        }
+                    </Menu>
+                </div>
+            )
+        } else {
+            return null;
+        }
+    }
+
+    renderSearchBox() {
+        const { hasSearch } = this.props;
+
+        if (hasSearch) {
+            return (
+                <div className="search-box">
+                    <Search
+                        placeholder="input search text"
+                        style={{ width: 200 }}
+                        onSearch={value => console.log(value)}
+                    />
+                </div>
+            )
+        } else {
+            return null;
+        }
     }
 }

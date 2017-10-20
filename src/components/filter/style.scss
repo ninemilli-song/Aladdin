@@ -1,0 +1,12 @@
+@import '../../styles/variable.scss';
+
+$prefixCls: default;
+
+.#{$prefixCls} {
+    &-accounting {
+        &-filter {
+            height: 100px;
+            background-color: #{$color3};
+        }
+    }
+}
