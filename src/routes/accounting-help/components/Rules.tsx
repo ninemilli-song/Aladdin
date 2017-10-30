@@ -48,7 +48,7 @@ export default class Rules extends React.Component<RulesProps, any> {
         const { filterOptions } = this.props;
 
         return (
-            <div>
+            <div className="content">
                 <AccountingFilter 
                     options = {filterOptions}
                 />

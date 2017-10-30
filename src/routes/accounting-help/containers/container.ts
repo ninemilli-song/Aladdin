@@ -4,65 +4,56 @@
 import { connect } from 'react-redux';
 
 import ViewComponent from '../components';
-import { HOMEVIEW_QUANZI_DATA, HOMEVIEW_WENDA_DATA } from '../modules/modules';
+import { ACCOUNTING_ROLE_FILTER_DATA } from '../modules/modules';
 
-// const mockWendaData = [
-//     {
-        // tslint:disable-next-line:max-line-length
-//         showImg: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/21985097_155852271671269_5355077937479548928_n.jpg',
-//         title: 'DefalutTitle',
-        // tslint:disable-next-line:max-line-length
-//         contentText: 'The man with bold earrings and mustache who offered us butter is named Tundu….he loads yak meat and potatoes on the four remaining yaks and dzos that stand hobbled in front of the gompa. With their short noses and short fluffy tails, yaks have an appealing air, but they are shaggy brutes of a half-ton or better, with rude temperaments to match….Tundu is firm and gentle with the balky animals, talking to them in a soft no-nonsense way as he straps on pack saddles of wood and leather, hoists cargo sacks of striped brown-and-white homespun, and lashes down the lot with braided rope. There is a quiet in his actions that gives him a strong presence, apparently he is the headman here…” From “The Snow Leopard” by Peter Matthiessen On this day last year, Dolpo men load their yaks with wooden planks below Shey Gompa in #Dolpo, a remote region of northwestern #Nepal. The wood was cut in forests several days walk away, and the men are transporting it to their village in treeless Upper Dolpo',
-//         comment: 'thephotosocietyPhoto by @bethjwald'
-//     },
-//     {
-        // tslint:disable-next-line:max-line-length
-//         showImg: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/21985097_155852271671269_5355077937479548928_n.jpg',
-//         title: 'DefalutTitle2',
-        // tslint:disable-next-line:max-line-length
-//         contentText: 'The man with bold earrings and mustache who offered us butter is named Tundu….he loads yak meat and potatoes on the four remaining yaks and dzos that stand hobbled in front of the gompa. With their short noses and short fluffy tails, yaks have an appealing air, but they are shaggy brutes of a half-ton or better, with rude temperaments to match….Tundu is firm and gentle with the ',
-//         comment: 'thephotosocietyPhoto by @bethjwald2'
-//     }
-// ];
+const getFilterData = () => {
+    return (dispatch, getState) => {
+        // 数据共享
+        const state = getState();
+        const { globalInfo } = state;
+        const { accountingRoleTypes, accountingRoleYears } = globalInfo;
 
-// const wendaData = [
-//     {
-//         text: 'The man with bold earrings and mustache',
-//         link: 'www.google.com',
-//     },
-//     {
-//         text: 'The man with bold earrings and mustache2',
-//         link: 'www.google.com',
-//     }
-// ];
+        const filterData = [];
 
-// const getQuanziData = () => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: HOMEVIEW_QUANZI_DATA,
-//             data: mockWendaData
-//         });
-//     }
-// }
+        // 准则/制度
+        const roleTypes = {
+            label: '准则/制度',
+            options: []
+        };
+        accountingRoleTypes.forEach((item, index) => {
+            const checked = index === 0 ? true : false;
+            roleTypes.options.push(Object.assign({}, item, {
+                checked: checked
+            }));
+        });
+        filterData.push(roleTypes);
 
-// const getWendaData = () => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: HOMEVIEW_WENDA_DATA,
-//             data: mockWendaData
-//         });
-//     }
-// }
+        // 年份
+        const roleYears = {
+            label: '执行年份',
+            options: []
+        };
+        accountingRoleYears.forEach((item, index) => {
+            const checked = index === 0 ? true : false;
+            roleYears.options.push(Object.assign({}, item, {
+                checked: checked
+            }));
+        });
+        filterData.push(roleYears);
+
+        dispatch({
+            type: ACCOUNTING_ROLE_FILTER_DATA,
+            data: filterData
+        });
+    }
+}
 
 const mapActionCreators = (dispatch) => {
     return {
         action: {
-            // getQuanziData: () => {
-            //     dispatch(getQuanziData());
-            // },
-            // getWendaData: () => {
-            //     dispatch(getWendaData());
-            // },
+            getFilterData: () => {
+                dispatch(getFilterData());
+            }
         },
     }
 }

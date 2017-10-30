@@ -1,12 +1,13 @@
 @import '../../styles/variable.scss';
+@import '../../styles/mixin.scss';
 
 $prefixCls: default;
 
 .#{$prefixCls} {
     &-accounting {
         &-filter {
-            height: 100px;
-            background-color: #{$color3};
+            @include dash-border();
+            @include content-padding();
         }
     }
 }

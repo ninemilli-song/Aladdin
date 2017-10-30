@@ -2,12 +2,17 @@
  * 会计制度相关过滤条件组件
  */
 import * as React from 'react';
-import { Row, Col } from 'antd';
+// import { Row, Col } from 'antd';
+const Row = require('antd/lib/row');
+const Col = require('antd/lib/col');
+const Tag = require('antd/lib/tag');
+const { CheckableTag } = Tag;
 import './style.scss';
 
 type FilterOptions = {
     label: string,
     value: string,
+    checked: boolean,
 }
 
 export interface FilterItemProps {
@@ -53,7 +58,12 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
 
         options.forEach((item) => {
             optsWidgets.push(
-                <span key={item.value}>{item.label}</span>
+                <CheckableTag 
+                    key={item.value}
+                    checked={item.checked}
+                >
+                    {item.label}
+                </CheckableTag>
             );
         });
 

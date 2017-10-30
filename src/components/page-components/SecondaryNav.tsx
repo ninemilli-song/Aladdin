@@ -18,7 +18,8 @@ type MenuConfig = {
 
 interface SecondaryNavProps {
     menuConfig?: Array<MenuConfig>,
-    hasSearch?: boolean
+    hasSearch?: boolean,
+    title?: string,
 }
 
 export default class SecondaryNav extends React.Component<SecondaryNavProps, any> {
@@ -32,9 +33,19 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
         return (
             <div className="layout-nav-secondary-wrapper">
                 <div className="layout-nav-secondary">
+                    {this.renderTitle()}
                     {this.renderMenu()}
                     {this.renderSearchBox()}
                 </div>
+            </div>
+        )
+    }
+
+    renderTitle() {
+        const {title} = this.props;
+        return (
+            <div className="title">
+                <span>{title}</span>
             </div>
         )
     }

@@ -11,8 +11,7 @@ import { createReducer } from '../../../utils/reducer-helper';
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const HOMEVIEW_QUANZI_DATA = 'HOMEVIEW_QUANZI_LIST';
-export const HOMEVIEW_WENDA_DATA = 'HOMEVIEW_WENDA_DATA';
+export const ACCOUNTING_ROLE_FILTER_DATA = 'ACCOUNTING_ROLE_FILTER_DATA';
 
 // -------------------------------------
 // Reducer
@@ -22,28 +21,20 @@ export const HOMEVIEW_WENDA_DATA = 'HOMEVIEW_WENDA_DATA';
 // Case reducer
 // ------------------------------------
 
-const quanziData = (state, action) => {
+const filterData = (state, action) => {
     return Object.assign({}, state, {
-        quanziData: action.data,
+        filterData: action.data,
     });
 }
 
-const wendaData = (state, action) => {
-    return Object.assign({}, state, {
-        wendaData: action.data,
-    })
-}
-
 const ACTION_HANDLERS = {
-    [HOMEVIEW_QUANZI_DATA]: quanziData,
-    [HOMEVIEW_WENDA_DATA]: wendaData,
+    [ACCOUNTING_ROLE_FILTER_DATA]: filterData
 }
 
 const initialState = {
-    quanziData: [],
-    wendaData: [],
+    filterData: []
 };
 
 // Slice reducer
-const homeViewReducer = createReducer(initialState, ACTION_HANDLERS);
-export default homeViewReducer;
+const reducer = createReducer(initialState, ACTION_HANDLERS);
+export default reducer;

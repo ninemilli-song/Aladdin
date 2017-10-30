@@ -41,8 +41,18 @@ $module: layout;
     // height: 30px;
     // border-bottom: 1px solid #e9e9e9;
 
+    .title {
+      // display: inline-block;
+      float: left;
+      width: 100px;
+      height: 50px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+
     .menu {
-      display: inline-block;
+      float: left;
+      // display: inline-block;
     }
 
     .search-box {
