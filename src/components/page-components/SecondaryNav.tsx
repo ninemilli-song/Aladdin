@@ -14,12 +14,14 @@ type MenuConfig = {
     label: string,
     key: string,
     icon: string,
+    selected: boolean,
 }
 
 interface SecondaryNavProps {
     menuConfig?: Array<MenuConfig>,
     hasSearch?: boolean,
     title?: string,
+    onClick?: (item, key, keyPath) => void,
 }
 
 export default class SecondaryNav extends React.Component<SecondaryNavProps, any> {
@@ -51,10 +53,11 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
     }
 
     renderMenu() {
-        const { menuConfig, hasSearch } = this.props;
+        const { menuConfig, hasSearch, onClick } = this.props;
         
         if (menuConfig && menuConfig.length > 0) {
             const menuItems = [];
+            const selectedKeys = [];
             menuConfig.forEach((item) => {
                 menuItems.push(
                     <Menu.Item key={item.key}>
@@ -62,12 +65,18 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
                         {item.label}
                     </Menu.Item>
                 );
+
+                if (item.selected) {
+                    selectedKeys.push(item.key);
+                }
             })
 
             return (
                 <div className="menu">
                     <Menu
                         mode="horizontal"
+                        selectedKeys={ selectedKeys }
+                        onClick={ onClick }
                     >
                         {
                             menuItems

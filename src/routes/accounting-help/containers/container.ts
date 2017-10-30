@@ -4,8 +4,11 @@
 import { connect } from 'react-redux';
 
 import ViewComponent from '../components';
-import { ACCOUNTING_ROLE_FILTER_DATA } from '../modules/modules';
+import { ACCOUNTING_ROLE_FILTER_DATA, ACCOUNTINT_CHANNELS } from '../modules/modules';
 
+// ---------------------------
+// Actions
+// ---------------------------
 const getFilterData = () => {
     return (dispatch, getState) => {
         // 数据共享
@@ -48,11 +51,54 @@ const getFilterData = () => {
     }
 }
 
+const getChannels = () => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {globalInfo} = state;
+        const {accountingChannels} = globalInfo;
+
+        dispatch({
+            type: ACCOUNTINT_CHANNELS,
+            data: accountingChannels
+        })
+    }
+}
+
+const selectMenu = (selectedKey) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {globalInfo} = state;
+        const {accountingChannels} = globalInfo;
+
+        accountingChannels.forEach(item => {
+            if (item.key === selectedKey) {
+                item.selected = true;
+            } else {
+                item.selected = false;
+            }
+        });
+
+        console.log('selectMenu >>>>>>>>>>> ', selectedKey);
+        console.log('selectMenu >>>>>>>>>>> ', accountingChannels);
+
+        dispatch({
+            type: ACCOUNTINT_CHANNELS,
+            data: accountingChannels
+        })
+    }
+}
+
 const mapActionCreators = (dispatch) => {
     return {
         action: {
             getFilterData: () => {
                 dispatch(getFilterData());
+            },
+            getChannels: () => {
+                dispatch(getChannels());
+            },
+            selectMenu: (selectedKey) => {
+                dispatch(selectMenu(selectedKey));
             }
         },
     }
