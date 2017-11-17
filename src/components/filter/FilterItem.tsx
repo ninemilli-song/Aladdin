@@ -2,6 +2,7 @@
  * 会计制度相关过滤条件组件
  */
 import * as React from 'react';
+import { autobind } from 'core-decorators';
 // import { Row, Col } from 'antd';
 const Row = require('antd/lib/row');
 const Col = require('antd/lib/col');
@@ -9,7 +10,7 @@ const Tag = require('antd/lib/tag');
 const { CheckableTag } = Tag;
 import './style.scss';
 
-type FilterOptions = {
+export type FilterOptions = {
     label: string,
     value: string,
     checked: boolean,
@@ -19,8 +20,10 @@ export interface FilterItemProps {
     prefixCls?: string,
     label?: string,
     options?: Array<FilterOptions>,
+    onChange?: (item: FilterOptions) => void,
 }
 
+@autobind
 export default class FilterItem extends React.Component<FilterItemProps, any> {
 
     static defaultProps = {
@@ -61,6 +64,9 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
                 <CheckableTag 
                     key={item.value}
                     checked={item.checked}
+                    onChange={checked => {
+                        this.onChange(item, checked)
+                    }}
                 >
                     {item.label}
                 </CheckableTag>
@@ -68,5 +74,14 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
         });
 
         return optsWidgets;
+    }
+
+    onChange(item: FilterOptions, checked) {
+        const {onChange} = this.props;
+
+        if (onChange) {
+            item.checked = checked;
+            onChange(item);
+        }
     }
 }

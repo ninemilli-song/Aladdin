@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 
 import ViewComponent from '../components';
 import { ACCOUNTING_ROLE_FILTER_DATA, ACCOUNTINT_CHANNELS } from '../modules/modules';
+import { FilterOptions } from '../../../components/filter/FilterItem';
 
 // ---------------------------
 // Actions
 // ---------------------------
-const getFilterData = () => {
+const getFilterData = (value?: FilterOptions) => {
     return (dispatch, getState) => {
         // 数据共享
         const state = getState();
@@ -65,6 +66,34 @@ const getChannels = () => {
 }
 
 const selectMenu = (selectedKey) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const {globalInfo} = state;
+        const {accountingChannels} = globalInfo;
+
+        accountingChannels.forEach(item => {
+            if (item.key === selectedKey) {
+                item.selected = true;
+            } else {
+                item.selected = false;
+            }
+        });
+
+        console.log('selectMenu >>>>>>>>>>> ', selectedKey);
+        console.log('selectMenu >>>>>>>>>>> ', accountingChannels);
+
+        dispatch({
+            type: ACCOUNTINT_CHANNELS,
+            data: accountingChannels
+        })
+    }
+}
+
+/**
+ * 修改当前选中的过滤条件
+ * @param value 
+ */
+const changeRole = (selectedKey) => {
     return (dispatch, getState) => {
         const state = getState();
         const {globalInfo} = state;

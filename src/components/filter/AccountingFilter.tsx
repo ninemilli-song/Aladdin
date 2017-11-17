@@ -3,15 +3,18 @@
  */
 import * as React from 'react';
 import './style.scss';
-import FilterItem, { FilterItemProps } from './FilterItem';
+import FilterItem, { FilterItemProps, FilterOptions } from './FilterItem';
+import { autobind } from 'core-decorators';
 
 export type AccountingFilterOptions = Array<FilterItemProps>
 
 interface AccountingFilterProps {
     prefixCls?: string,
     options?: AccountingFilterOptions,
+    onChange?: (item: FilterOptions) => void,
 }
 
+@autobind
 export default class AccountingFilter extends React.Component<AccountingFilterProps, any> {
 
     static defaultProps = {
@@ -41,10 +44,19 @@ export default class AccountingFilter extends React.Component<AccountingFilterPr
                     key={ `${index}` }
                     label={ item.label }
                     options={ item.options }
+                    onChange={ this.onChange }
                 />
             )
         })
 
         return filters;
+    }
+
+    onChange(item) {
+        const { onChange } = this.props;
+
+        if (onChange) {
+            onChange(item);
+        }
     }
 }

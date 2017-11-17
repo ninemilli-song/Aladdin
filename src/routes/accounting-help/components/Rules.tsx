@@ -2,63 +2,44 @@
  * 会计准则
  */
 import * as React from 'react';
-import MainSider from '../../../components/page-frame/MainSider';
+import MainSider, { MainSiderProps } from '../../../components/page-frame/MainSider';
 import { AccountingFilter, AccountingFilterOptions } from '../../../components/filter';
+import { autobind } from 'core-decorators';
+import { FilterOptions } from '../../../components/filter/FilterItem';
 
-interface RulesProps {
+interface RulesProps extends MainSiderProps {
     prefixCls?: string,
-    filterOptions?: AccountingFilterOptions
+    filterOptions?: AccountingFilterOptions,
+    onChange?: (value: FilterOptions) => void;
 }
 
-export default class Rules extends React.Component<RulesProps, any> {
+@autobind
+export default class Rules extends MainSider<RulesProps> {
 
-    static defaultProps = {
-        prefixCls: 'default',
-        filterOptions: [
-            {
-                label: '列1',
-                options: [
-                    {
-                        label: '选项1',
-                        value: 'option1'
-                    },
-                    {
-                        label: '选项2',
-                        value: 'option2'
-                    }
-                ]
-            }
-        ]
-    }
-
-    render() {
-        const { prefixCls } = this.props;
-
-        return (
-            <div className={`${prefixCls}-rules`}>
-                <MainSider 
-                    renderMain={this.renderMain}
-                    renderSider={this.renderSider}
-                />
-            </div>
-        )
-    }
-
-    private renderMain = () => {
+    protected renderMain()  {
         const { filterOptions } = this.props;
 
         return (
             <div className="content">
                 <AccountingFilter 
                     options = {filterOptions}
+                    onChange = {this.onChange}
                 />
             </div>
         )
     }
 
-    private renderSider = () => {
+    protected renderSider() {
         return (
             <div>Sider</div>
         )
+    }
+
+    private onChange(value) {
+        const {onChange} = this.props;
+
+        if (onChange) {
+            onChange(value);
+        }
     }
 }

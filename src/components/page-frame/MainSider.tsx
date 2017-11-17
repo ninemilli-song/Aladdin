@@ -4,32 +4,36 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
 
-interface MainSiderProps {
+export interface MainSiderProps {
     prefixCls?: string,
-    renderMain: () => JSX.Element,
-    renderSider: () => JSX.Element,
 }
 
-export default class MainSider extends React.Component<MainSiderProps, any> {
+export default class MainSider<T extends MainSiderProps> extends React.Component<T, any> {
 
     static defaultProps = {
         prefixCls: 'default'
     }
 
     render() {
-        const { renderMain, renderSider, prefixCls } = this.props;
+        const { prefixCls } = this.props;
 
         return (
             <div className={ `${prefixCls}-main-sider` }>
                 <Row gutter={8}>
-                    <Col span={16}>
-                        {renderMain()}
+                    <Col span={18}>
+                        {this.renderMain()}
                     </Col>
-                    <Col span={8}>
-                        {renderSider()}
+                    <Col span={6}>
+                        {this.renderSider()}
                     </Col>
                 </Row>
             </div>
         )
+    }
+
+    protected renderMain(): JSX.Element | any {
+    }
+
+    protected renderSider(): JSX.Element | any {
     }
 }
