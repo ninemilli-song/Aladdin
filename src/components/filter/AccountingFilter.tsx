@@ -4,7 +4,6 @@
 import * as React from 'react';
 import './style.scss';
 import FilterItem, { FilterItemProps, FilterOptions } from './FilterItem';
-import { autobind } from 'core-decorators';
 
 export type AccountingFilterOptions = Array<FilterItemProps>
 
@@ -14,7 +13,6 @@ interface AccountingFilterProps {
     onChange?: (item: FilterOptions) => void,
 }
 
-@autobind
 export default class AccountingFilter extends React.Component<AccountingFilterProps, any> {
 
     static defaultProps = {
@@ -47,12 +45,12 @@ export default class AccountingFilter extends React.Component<AccountingFilterPr
                     onChange={ this.onChange }
                 />
             )
-        })
+        });
 
         return filters;
     }
 
-    onChange(item) {
+    onChange = (item) => {
         const { onChange } = this.props;
 
         if (onChange) {

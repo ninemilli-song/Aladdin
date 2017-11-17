@@ -35,7 +35,7 @@ export default class Rules extends MainSider<RulesProps> {
         )
     }
 
-    private onChange(value) {
+    private onChange = (value) => {
         const {onChange} = this.props;
 
         if (onChange) {

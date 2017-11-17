@@ -47,7 +47,7 @@ module.exports = {
         chunkFilename: '[id].chunk.js',
     },
 
-    devtool: 'cheap-module-source-map',
+    devtool: 'eval',
 
     resolveLoader: { root: resolve('./node_modules') },
 

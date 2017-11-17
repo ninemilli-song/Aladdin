@@ -12,7 +12,7 @@ exports.tslint = {
 
 exports.tsx = {
     test: /\.(tsx|ts)?$/,
-    loaders: ['react-hot', 'awesome-typescript-loader'],
+    loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
     include: [
         sources,
     ],
