@@ -21,6 +21,7 @@ export interface FilterItemProps {
     label?: string,
     options?: Array<FilterOptions>,
     onChange?: (item: FilterOptions) => void,
+    selectedValue?: string, // 选中值
 }
 
 @autobind
@@ -55,20 +56,21 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
     }
 
     renderOpts() {
-        const { options } = this.props;
-
+        const { options, selectedValue } = this.props;
         const optsWidgets = [];
 
         options.forEach((item) => {
+            const checked = item.value === selectedValue ? true : false;
+
             optsWidgets.push(
                 <CheckableTag 
-                    key={item.value}
-                    checked={item.checked}
-                    onChange={checked => {
-                        this.onChange(item, checked)
-                    }}
+                    key={ item.value }
+                    checked={ checked }
+                    onChange={ value => {
+                        this.onChange(item, value)
+                    } }
                 >
-                    {item.label}
+                    { item.label }
                 </CheckableTag>
             );
         });

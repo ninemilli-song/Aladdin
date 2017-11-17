@@ -4,15 +4,31 @@
 import * as React from 'react';
 import './style.scss';
 import FilterItem, { FilterItemProps, FilterOptions } from './FilterItem';
+import { autobind } from 'core-decorators';
 
-export type AccountingFilterOptions = Array<FilterItemProps>
+export type AccountingFilterOptions = {
+    roleOptions: FilterItemProps;
+    yearOptions: FilterItemProps;
+}
+
+/**
+ * 会计准则 过滤条件类型
+ */ 
+export const AccountingFilterTypeEnum = {
+    ROLE: 'role',
+    YEAR: 'year'
+}
 
 interface AccountingFilterProps {
     prefixCls?: string,
-    options?: AccountingFilterOptions,
-    onChange?: (item: FilterOptions) => void,
+    onChange?: (item: FilterOptions, type: string) => void,
+    roleOptions: FilterItemProps;
+    yearOptions: FilterItemProps;
+    role?: string,  // 选中的会计制度
+    year?: string,  // 选中的年份
 }
 
+@autobind
 export default class AccountingFilter extends React.Component<AccountingFilterProps, any> {
 
     static defaultProps = {
@@ -25,36 +41,60 @@ export default class AccountingFilter extends React.Component<AccountingFilterPr
         return (
             <div className={`${prefixCls}-accounting-filter`}>
                 {
-                    this.renderFilters()
+                    this.renderRoles()
+                }
+                {
+                    this.renderYears()
                 }
             </div>
         )
     }
 
-    renderFilters() {
-        const { options } = this.props;
+    /**
+     * 渲染制度
+     */
+    renderRoles() {
+        const { roleOptions, role } = this.props;
 
         const filters = [];
 
-        options.forEach((item, index) => {
-            filters.push(
-                <FilterItem 
-                    key={ `${index}` }
-                    label={ item.label }
-                    options={ item.options }
-                    onChange={ this.onChange }
-                />
-            )
-        });
-
-        return filters;
+        return (
+            <FilterItem 
+                { ...roleOptions }
+                selectedValue = { role }
+                onChange={ this.onRoleChange }
+            />
+        )
     }
 
-    onChange = (item) => {
+    // 渲染年份
+    renderYears() {
+        const { yearOptions, year } = this.props;
+        
+        const filters = [];
+
+        return (
+            <FilterItem 
+                { ...yearOptions }
+                selectedValue = { year }
+                onChange={ this.onYearChange }
+            />
+        )
+    }
+
+    onRoleChange (item) {
         const { onChange } = this.props;
 
         if (onChange) {
-            onChange(item);
+            onChange(item, AccountingFilterTypeEnum.ROLE);
+        }
+    }
+
+    onYearChange (item) {
+        const { onChange } = this.props;
+
+        if (onChange) {
+            onChange(item, AccountingFilterTypeEnum.YEAR);
         }
     }
 }

@@ -4,6 +4,7 @@ export default function globalInfoReducer() {
             {
                 label: '企业会计准则',
                 value: 'option1',
+
             },
             {
                 label: '小企业会计准则',

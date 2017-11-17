@@ -2,11 +2,20 @@ import * as React from 'react';
 import { SecondaryNav } from '../../../components/page-components';
 import Rules from './Rules';
 import { autobind } from 'core-decorators';
+import { AccountingFilterOptions } from '../../../components/filter/index';
+import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
 
+interface StoreType {
+    filterData: AccountingFilterOptions, // 会计制度的过滤数据
+    channels: Array<any>,   // 频道配置数据
+    selectedRole: string, // 选中的“制度/准则”
+    selectedYear: string, // 选中的“执行年份”
+}
+
 export interface HomeProps  {
-    store: any;
+    store: StoreType;
     action: {[key: string]: Function};
 }
 
@@ -51,13 +60,15 @@ class Home extends React.Component<HomeProps, any> {
 
     getContent() {
         const { store } = this.props;
-        const { filterData } = store;
+        const { filterData, selectedRole, selectedYear } = store;
         console.log('accounting help home view >>>>> ', filterData);
         return (
             <div>
                 <Rules 
                     filterOptions = { filterData }
                     onChange = { this.onRulesChanged }
+                    role = { selectedRole }
+                    year = { selectedYear }
                 />
                 <div className="content">
 
@@ -85,11 +96,14 @@ class Home extends React.Component<HomeProps, any> {
         action.selectMenu(item.key);
     }
     
-    onRulesChanged(value) {
-        console.log('👉🏻 --------- onRulesChanged -------- ', value);
-        const {action} = this.props;
+    onRulesChanged(val, type) {
+        const { action } = this.props;
 
-        action.changeRole(value);
+        if (type === AccountingFilterTypeEnum.ROLE) {
+            action.changeRoleType(val.value);
+        } else if (AccountingFilterTypeEnum.YEAR) {
+            action.changeRoleYear(val.value);
+        }
     }
 }
 

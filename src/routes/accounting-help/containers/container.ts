@@ -4,51 +4,80 @@
 import { connect } from 'react-redux';
 
 import ViewComponent from '../components';
-import { ACCOUNTING_ROLE_FILTER_DATA, ACCOUNTINT_CHANNELS } from '../modules/modules';
+import { 
+    ACCOUNTING_ROLE_FILTER_DATA, 
+    ACCOUNTINT_CHANNELS, 
+    ACCOUNTINT_SELECT_YEAR, 
+    ACCOUNTINT_SELECT_ROLE 
+} from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 
 // ---------------------------
 // Actions
 // ---------------------------
-const getFilterData = (value?: FilterOptions) => {
+// 准则/制度 数据
+const getRoleType = (accountingRoleTypes) => {
+    const roleTypes = {
+        label: '准则/制度',
+        options: []
+    };
+
+    accountingRoleTypes.forEach((item, index) => {
+        roleTypes.options.push(Object.assign({}, item));
+    });
+    
+    return roleTypes;
+}
+
+// 年份 数据
+const getRoleYears = (accountingRoleYears) => {
+    const roleYears = {
+        label: '执行年份',
+        options: []
+    };
+
+    accountingRoleYears.forEach((item, index) => {
+        roleYears.options.push(Object.assign({}, item));
+    });
+
+    return roleYears;
+}
+
+/**
+ * 获取 会计制度 过滤条件数据
+ * @param options
+ */
+const getFilterData = () => {
     return (dispatch, getState) => {
         // 数据共享
         const state = getState();
         const { globalInfo } = state;
         const { accountingRoleTypes, accountingRoleYears } = globalInfo;
 
-        const filterData = [];
-
-        // 准则/制度
-        const roleTypes = {
-            label: '准则/制度',
-            options: []
-        };
-        accountingRoleTypes.forEach((item, index) => {
-            const checked = index === 0 ? true : false;
-            roleTypes.options.push(Object.assign({}, item, {
-                checked: checked
-            }));
-        });
-        filterData.push(roleTypes);
+        const roleTypes = getRoleType(accountingRoleTypes);
 
         // 年份
-        const roleYears = {
-            label: '执行年份',
-            options: []
-        };
-        accountingRoleYears.forEach((item, index) => {
-            const checked = index === 0 ? true : false;
-            roleYears.options.push(Object.assign({}, item, {
-                checked: checked
-            }));
-        });
-        filterData.push(roleYears);
+        const roleYears = getRoleYears(accountingRoleYears);
 
         dispatch({
             type: ACCOUNTING_ROLE_FILTER_DATA,
-            data: filterData
+            data: {
+                roleOptions: roleTypes,
+                yearOptions: roleYears
+            }
         });
+
+        // // 选中 '制度'
+        // dispatch({
+        //     type: ACCOUNTINT_SELECT_ROLE,
+        //     data: role
+        // });
+
+        // // 选中 '年份'
+        // dispatch({
+        //     type: ACCOUNTINT_SELECT_YEAR,
+        //     data: year
+        // });
     }
 }
 
@@ -90,29 +119,23 @@ const selectMenu = (selectedKey) => {
 }
 
 /**
- * 修改当前选中的过滤条件
+ * 修改当前选中的会计制度
  * @param value 
  */
-const changeRole = (selectedKey) => {
+const changeRoleType = (value) => {
     return (dispatch, getState) => {
-        const state = getState();
-        const {globalInfo} = state;
-        const {accountingChannels} = globalInfo;
-
-        accountingChannels.forEach(item => {
-            if (item.key === selectedKey) {
-                item.selected = true;
-            } else {
-                item.selected = false;
-            }
-        });
-
-        console.log('selectMenu >>>>>>>>>>> ', selectedKey);
-        console.log('selectMenu >>>>>>>>>>> ', accountingChannels);
-
         dispatch({
-            type: ACCOUNTINT_CHANNELS,
-            data: accountingChannels
+            type: ACCOUNTINT_SELECT_ROLE,
+            data: value
+        })
+    }
+}
+
+const changeRoleYear = (value) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: ACCOUNTINT_SELECT_YEAR,
+            data: value
         })
     }
 }
@@ -128,6 +151,12 @@ const mapActionCreators = (dispatch) => {
             },
             selectMenu: (selectedKey) => {
                 dispatch(selectMenu(selectedKey));
+            },
+            changeRoleType: (key) => {
+                dispatch(changeRoleType(key));
+            },
+            changeRoleYear: (key) => {
+                dispatch(changeRoleYear(key));
             }
         },
     }

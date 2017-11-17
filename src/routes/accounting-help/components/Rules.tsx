@@ -10,20 +10,26 @@ import { FilterOptions } from '../../../components/filter/FilterItem';
 interface RulesProps extends MainSiderProps {
     prefixCls?: string,
     filterOptions?: AccountingFilterOptions,
-    onChange?: (value: FilterOptions) => void;
+    onChange?: (value: FilterOptions, type: string) => void,
+    role?: string,  // 选中的会计制度
+    year?: string,  // 选中的年份
 }
 
 @autobind
 export default class Rules extends MainSider<RulesProps> {
 
     protected renderMain()  {
-        const { filterOptions } = this.props;
+        const { filterOptions, role, year } = this.props;
+        const { roleOptions, yearOptions } = filterOptions;
 
         return (
             <div className="content">
                 <AccountingFilter 
-                    options = {filterOptions}
+                    roleOptions = { roleOptions }
+                    yearOptions = { yearOptions }
                     onChange = {this.onChange}
+                    role = { role }
+                    year = { year }
                 />
             </div>
         )
@@ -35,11 +41,11 @@ export default class Rules extends MainSider<RulesProps> {
         )
     }
 
-    private onChange = (value) => {
+    private onChange(value, type) {
         const {onChange} = this.props;
 
         if (onChange) {
-            onChange(value);
+            onChange(value, type);
         }
     }
 }
