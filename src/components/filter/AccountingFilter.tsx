@@ -16,7 +16,7 @@ export type AccountingFilterOptions = {
  */ 
 export const AccountingFilterTypeEnum = {
     ROLE: 'role',
-    YEAR: 'year'
+    YEAR: 'year' 
 }
 
 interface AccountingFilterProps {

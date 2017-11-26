@@ -8,7 +8,8 @@ import {
     ACCOUNTING_ROLE_FILTER_DATA, 
     ACCOUNTINT_CHANNELS, 
     ACCOUNTINT_SELECT_YEAR, 
-    ACCOUNTINT_SELECT_ROLE 
+    ACCOUNTINT_SELECT_ROLE, 
+    ACCOUNTINT_SELECT_MENU
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 
@@ -96,24 +97,9 @@ const getChannels = () => {
 
 const selectMenu = (selectedKey) => {
     return (dispatch, getState) => {
-        const state = getState();
-        const {globalInfo} = state;
-        const {accountingChannels} = globalInfo;
-
-        accountingChannels.forEach(item => {
-            if (item.key === selectedKey) {
-                item.selected = true;
-            } else {
-                item.selected = false;
-            }
-        });
-
-        console.log('selectMenu >>>>>>>>>>> ', selectedKey);
-        console.log('selectMenu >>>>>>>>>>> ', accountingChannels);
-
         dispatch({
-            type: ACCOUNTINT_CHANNELS,
-            data: accountingChannels
+            type: ACCOUNTINT_SELECT_MENU,
+            data: selectedKey
         })
     }
 }

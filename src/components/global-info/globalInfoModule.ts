@@ -74,43 +74,36 @@ export default function globalInfoReducer() {
                 label: '准则',
                 key: 'rules',
                 icon: 'mail',
-                selected: true
             },
             {
                 label: '科目',
                 key: 'subjects',
                 icon: 'appstore',
-                selected: false
             },
             {
                 label: '报表',
                 key: 'reports',
                 icon: 'pay-circle',
-                selected: false
             },
             {
                 label: '行业',
                 key: 'indus',
                 icon: 'switcher',
-                selected: false
             },
             {
                 label: '解读',
                 key: 'analysis',
                 icon: 'tool',
-                selected: false
             },
             {
                 label: '分录',
                 key: 'entries',
                 icon: 'team',
-                selected: false
             },
             {
                 label: '实务',
                 key: 'practice',
                 icon: 'team',
-                selected: false
             }
         ]
     }

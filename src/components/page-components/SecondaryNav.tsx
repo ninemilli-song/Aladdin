@@ -13,12 +13,12 @@ const Search = Input.Search;
 type MenuConfig = {
     label: string,
     key: string,
-    icon: string,
-    selected: boolean,
+    icon: string
 }
 
 interface SecondaryNavProps {
     menuConfig?: Array<MenuConfig>,
+    selected?: string;                  // The selected menu key
     hasSearch?: boolean,
     title?: string,
     onClick?: (item, key, keyPath) => void,
@@ -53,7 +53,7 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
     }
 
     renderMenu() {
-        const { menuConfig, hasSearch, onClick } = this.props;
+        const { menuConfig, hasSearch, onClick, selected } = this.props;
         
         if (menuConfig && menuConfig.length > 0) {
             const menuItems = [];
@@ -66,7 +66,7 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
                     </Menu.Item>
                 );
 
-                if (item.selected) {
+                if (selected && item.key === selected) {
                     selectedKeys.push(item.key);
                 }
             })

@@ -4,14 +4,16 @@ import Rules from './Rules';
 import { autobind } from 'core-decorators';
 import { AccountingFilterOptions } from '../../../components/filter/index';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
+import RulesPage from './RulesPage';
 const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
 
 interface StoreType {
     filterData: AccountingFilterOptions, // 会计制度的过滤数据
     channels: Array<any>,   // 频道配置数据
+    selectedMenu: string,   // The selected menus key
     selectedRole: string, // 选中的“制度/准则”
-    selectedYear: string, // 选中的“执行年份”
+    selectedYear: string, // 选中的“执行年份” 
 }
 
 export interface HomeProps  {
@@ -37,7 +39,7 @@ class Home extends React.Component<HomeProps, any> {
 
     render() {
         const { store } = this.props;
-        const { channels } = store;
+        const { channels, selectedMenu } = store;
         const prefixCls = 'accounting-help-home';
 
         const contentComponent = this.getContent();
@@ -47,6 +49,7 @@ class Home extends React.Component<HomeProps, any> {
                 <SecondaryNav 
                     title = {this.title}
                     menuConfig = { channels }
+                    selected = { selectedMenu }
                     onClick = { this.onMenuSelected }
                 />
                 <div className="layout-content">
@@ -59,21 +62,26 @@ class Home extends React.Component<HomeProps, any> {
     }
 
     getContent() {
-        const { store } = this.props;
-        const { filterData, selectedRole, selectedYear } = store;
-        console.log('accounting help home view >>>>> ', filterData);
-        return (
-            <div>
-                <Rules 
-                    filterOptions = { filterData }
-                    onChange = { this.onRulesChanged }
-                    role = { selectedRole }
-                    year = { selectedYear }
-                />
-                <div className="content">
+        const { store, action } = this.props;
+        const { filterData, selectedRole, selectedYear, selectedMenu } = store;
+        console.log('👉🏻 ------> accounting help home view >>>>> ', filterData);
 
-                </div>
-            </div>
+        let component = null;
+        switch (selectedMenu) {
+            case 'rules':
+                component = (
+                    <RulesPage 
+                        filterData = { filterData }
+                        selectedRole = { selectedRole }
+                        selectedYear = { selectedYear }
+                        action = { action }
+                    />
+                );
+                break;
+        }
+
+        return (
+            component
         )
     }
 
