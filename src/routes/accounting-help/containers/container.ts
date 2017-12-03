@@ -82,6 +82,28 @@ const getFilterData = () => {
     }
 }
 
+const getFilter = () => {
+    return (dispatch, getState) => {
+        
+        fetch('api/register', {
+            credentials: 'same-origin'
+        }).then((response) => {
+            return response.text();
+        }).then((result) => {
+            console.log('👉🏻 ------> fetch get response: ', result);
+        });
+        
+
+        // dispatch({
+        //     type: ACCOUNTING_ROLE_FILTER_DATA,
+        //     data: {
+        //         roleOptions: roleTypes,
+        //         yearOptions: roleYears
+        //     }
+        // });
+    }
+}
+
 const getChannels = () => {
     return (dispatch, getState) => {
         const state = getState();
@@ -131,6 +153,9 @@ const mapActionCreators = (dispatch) => {
         action: {
             getFilterData: () => {
                 dispatch(getFilterData());
+            },
+            getFilter: () => {
+                dispatch(getFilter());
             },
             getChannels: () => {
                 dispatch(getChannels());

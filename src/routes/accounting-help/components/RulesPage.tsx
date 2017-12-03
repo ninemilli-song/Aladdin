@@ -17,7 +17,7 @@ interface RulesPageProps {
 @autobind
 export default class RulesPage extends React.Component<RulesPageProps, any> {
     render() {
-        const { filterData, selectedRole, selectedYear } = this.props;
+        const { filterData, selectedRole, selectedYear, action } = this.props;
 
         return (
             <div>
@@ -26,10 +26,8 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
                     onChange = { this.onRulesChanged }
                     role = { selectedRole }
                     year = { selectedYear }
+                    action = { action }
                 />
-                <div className="content">
-
-                </div>
             </div>
         )
     }

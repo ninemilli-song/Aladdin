@@ -15,7 +15,6 @@ const index = require('./routes/index');
 const api = require('./routes/api');
 const users = require('./routes/users');
 
-const nodeProxy = require('../node-proxy');
 const jwtKoa = require('koa-jwt');
 // const util = require('util');
 const secret = require('../secret-key').secret;
@@ -70,10 +69,6 @@ app.use(jwtKoa({
 // router.use('/register', register.routes(), register.allowedMethods());
 
 router.use('/users', users.routes(), users.allowedMethods());
-
-// API proxy logic: if you need to talk to a remote server from your client-side
-// app you can proxy it though here by editing ./proxy-config.js
-nodeProxy(router);
 
 router.use('/api', api.routes(), api.allowedMethods());
 router.use('*', index.routes(), index.allowedMethods());

@@ -18,4 +18,8 @@ module.exports = {
         target: 'http://jsonplaceholder.typicode.com',
         changeOrigin: true,
     },
+    '/(api|users)/*': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+    }
 };

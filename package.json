@@ -66,12 +66,14 @@
     "koa-static": "^3.0.0",
     "koa-views": "^6.0.2",
     "koa2-connect": "^1.0.2",
+    "marked": "^0.3.6",
     "mongoose": "^4.10.5",
     "react-blocks": "^1.1.4",
     "react-virtualized": "^9.7.5",
     "redux-ui": "^0.1.1",
     "reselect": "^3.0.1",
     "runkoa": "^1.5.9",
+    "showdown": "^1.8.3",
     "winston": "^2.1.1"
   },
   "devDependencies": {

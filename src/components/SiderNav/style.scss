@@ -1,0 +1,13 @@
+$module: sider-nav;
+
+.#{$module} {
+    &-container {
+        padding: 10px;
+    }
+
+    &-group {
+        &-item {
+            cursor: pointer;
+        }
+    }
+}
