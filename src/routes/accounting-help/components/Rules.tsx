@@ -7,8 +7,10 @@ import { AccountingFilter, AccountingFilterOptions } from '../../../components/f
 import { autobind } from 'core-decorators';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import SiderNav from '../../../components/SiderNav/SiderNav';
+import request from '../../../utils/fetch';
 const showdown = require('showdown');
 const Input = require('antd/lib/input');
+const Button = require('antd/lib/button');
 
 interface RulesProps extends MainSiderProps {
     prefixCls?: string,
@@ -24,6 +26,9 @@ export default class Rules extends MainSider<RulesProps> {
 
     // The showdown Obj to converter md string to htm string.
     mdConverter = new showdown.Converter();
+
+    // 准则文本
+    roleHtml = null;
 
     protected renderMain()  {
         const { filterOptions, role, year } = this.props;
@@ -83,41 +88,53 @@ export default class Rules extends MainSider<RulesProps> {
 
         console.log(markupText);
 
-        // return (
-        //     <Input type="textarea" onChange={ this.onTextChange } rows={4} />
-        // )
         return (
             <div>
+                <div className="editor">
+                    <Input type="textarea" onBlur={ this.onTextBlur } rows={10} />
+                    <Button onClick={ this.uploadRoleText }>上传文本</Button>
+                </div>
                 <div dangerouslySetInnerHTML={{__html: markupText}}>
                 </div>
-                <span onClick={ this.getData }>click me</span>
             </div>
         )
     }
 
-    private onTextChange(evt) {
-        
+    private onTextBlur(evt) {
         const val = evt.target.value;
         console.log('👉🏻 before convert -----> ', val);
-        const htmVal = this.mdConverter.makeHtml(val);
+        this.roleHtml = this.mdConverter.makeHtml(val);
 
-        console.log('👉🏻 after convert -----> ', htmVal);
+        console.log('👉🏻 after convert -----> ', this.roleHtml);
     }
 
-    private makeHtml(data) {
-        let htmlStr = '';
-        if (data && Array.isArray(data)) {
-            data.forEach(item => {
-                htmlStr += this.mdConverter.makeHtml(item);
-            })
-        }
+    /**
+     * Upload text to server
+     */
+    private uploadRoleText() {
+        const { filterOptions, role, year } = this.props;
+        const { roleOptions, yearOptions } = filterOptions;
 
-        return htmlStr;
-    }
+        const roleObj = roleOptions.options.find(item => {
+            return item.value === role;
+        });
+        
+        const yearObj = yearOptions.options.find(item => {
+            return item.value === year;
+        });
+        // const { action } = this.props;
 
-    private getData() {
-        const { action } = this.props;
+        const params = {
+            year: yearObj.id,
+            type: roleObj.id,
+            content: this.roleHtml
+        };
 
-        action.getFilter();
+        request.post('/uploadRole', params).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+                console.log('uploadRole success 👉🏻 ------> ', data);
+            }
+        });
     }
 }

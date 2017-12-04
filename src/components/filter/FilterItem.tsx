@@ -11,6 +11,7 @@ const { CheckableTag } = Tag;
 import './style.scss';
 
 export type FilterOptions = {
+    id: number,
     label: string,
     value: string,
     checked: boolean,

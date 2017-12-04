@@ -5,7 +5,7 @@
  * Time: 下午3:00
  */
 const router = require('koa-router')();
-const getRolesFilters = require('../model/rolesFilter');
+const { getRolesFilters, uploadRole } = require('../model/roles');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -19,6 +19,20 @@ router.get('/getRolesFilters', async (ctx) => {
     const data = await getRolesFilters(ctx.db);
 
     ctx.body = data;
+});
+
+router.post('/uploadRole', async (ctx) => {
+    const data = ctx.request.body;
+
+    const { type, year, content } = data;
+
+    const result = await uploadRole(ctx.db, {
+        typeId: type,
+        yearId: year,
+        content,
+    });
+
+    ctx.body = result;
 });
 
 module.exports = router;
