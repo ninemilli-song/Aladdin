@@ -67,7 +67,7 @@ const initialState = {
     filterData: {},             // 会计制度的过滤数据
     channels: [],               // 频道配置数据
     selectedMenu: 'rules',           // The selected menu key
-    selectedRole: 'option1',    // 选中的“制度/准则”
+    selectedRole: '1',    // 选中的“制度/准则”
     selectedYear: '2006',       // 选中的“执行年份”
 };
 

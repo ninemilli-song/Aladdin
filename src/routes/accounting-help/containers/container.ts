@@ -49,55 +49,62 @@ const getRoleYears = (accountingRoleYears) => {
  * 获取 会计制度 过滤条件数据
  * @param options
  */
+// const getFilterData = () => {
+//     return (dispatch, getState) => {
+//         // 数据共享
+//         const state = getState();
+//         const { globalInfo } = state;
+//         const { accountingRoleTypes, accountingRoleYears } = globalInfo;
+
+//         const roleTypes = getRoleType(accountingRoleTypes);
+
+//         // 年份
+//         const roleYears = getRoleYears(accountingRoleYears);
+
+//         dispatch({
+//             type: ACCOUNTING_ROLE_FILTER_DATA,
+//             data: {
+//                 roleOptions: roleTypes,
+//                 yearOptions: roleYears
+//             }
+//         });
+
+//         // // 选中 '制度'
+//         // dispatch({
+//         //     type: ACCOUNTINT_SELECT_ROLE,
+//         //     data: role
+//         // });
+
+//         // // 选中 '年份'
+//         // dispatch({
+//         //     type: ACCOUNTINT_SELECT_YEAR,
+//         //     data: year
+//         // });
+//     }
+// }
+
 const getFilterData = () => {
-    return (dispatch, getState) => {
-        // 数据共享
-        const state = getState();
-        const { globalInfo } = state;
-        const { accountingRoleTypes, accountingRoleYears } = globalInfo;
-
-        const roleTypes = getRoleType(accountingRoleTypes);
-
-        // 年份
-        const roleYears = getRoleYears(accountingRoleYears);
-
-        dispatch({
-            type: ACCOUNTING_ROLE_FILTER_DATA,
-            data: {
-                roleOptions: roleTypes,
-                yearOptions: roleYears
-            }
-        });
-
-        // // 选中 '制度'
-        // dispatch({
-        //     type: ACCOUNTINT_SELECT_ROLE,
-        //     data: role
-        // });
-
-        // // 选中 '年份'
-        // dispatch({
-        //     type: ACCOUNTINT_SELECT_YEAR,
-        //     data: year
-        // });
-    }
-}
-
-const getFilter = () => {
     return (dispatch, getState) => {
 
         return request.get('api/getRolesFilters').then((result) => {
-            console.log('api/getRolesFilter 👉🏻 ------> : ', result);
-        });
-        
+            if (result.success) {
+                const data = result.success.data;
 
-        // dispatch({
-        //     type: ACCOUNTING_ROLE_FILTER_DATA,
-        //     data: {
-        //         roleOptions: roleTypes,
-        //         yearOptions: roleYears
-        //     }
-        // });
+                // 分类
+                const roleTypes = getRoleType(data.types);
+        
+                // 年份
+                const roleYears = getRoleYears(data.years);
+
+                dispatch({
+                    type: ACCOUNTING_ROLE_FILTER_DATA,
+                    data: {
+                        roleOptions: roleTypes,
+                        yearOptions: roleYears
+                    }
+                });
+            }
+        });
     }
 }
 
@@ -150,9 +157,6 @@ const mapActionCreators = (dispatch) => {
         action: {
             getFilterData: () => {
                 dispatch(getFilterData());
-            },
-            getFilter: () => {
-                dispatch(getFilter());
             },
             getChannels: () => {
                 dispatch(getChannels());
