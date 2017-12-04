@@ -12,6 +12,7 @@ import {
     ACCOUNTINT_SELECT_MENU
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
+import request from '../../../utils/fetch';
 
 // ---------------------------
 // Actions
@@ -84,13 +85,9 @@ const getFilterData = () => {
 
 const getFilter = () => {
     return (dispatch, getState) => {
-        
-        fetch('api/register', {
-            credentials: 'same-origin'
-        }).then((response) => {
-            return response.text();
-        }).then((result) => {
-            console.log('👉🏻 ------> fetch get response: ', result);
+
+        return request.get('api/getRolesFilters').then((result) => {
+            console.log('api/getRolesFilter 👉🏻 ------> : ', result);
         });
         
 

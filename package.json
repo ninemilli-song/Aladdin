@@ -68,6 +68,7 @@
     "koa2-connect": "^1.0.2",
     "marked": "^0.3.6",
     "mongoose": "^4.10.5",
+    "mysql": "^2.15.0",
     "react-blocks": "^1.1.4",
     "react-virtualized": "^9.7.5",
     "redux-ui": "^0.1.1",

@@ -10,7 +10,7 @@ export const BASE_URL = '/api';
  * @param path the request url
  * @param params request params
  */
-function get(path, params) {
+function get(path, params?) {
   let url = path;
 
   // Concat url and params
