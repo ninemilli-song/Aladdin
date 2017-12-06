@@ -15,6 +15,13 @@ interface RulesPageProps {
 
 @autobind
 export default class RulesPage extends React.Component<RulesPageProps, any> {
+
+    componentWillMount() {
+        const { action, role } = this.props;
+        
+        action.getRole(role.roleType, role.roleYear);
+    }
+
     render() {
         const { filterData, action, role } = this.props;
 
