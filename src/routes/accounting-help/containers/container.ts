@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import ViewComponent from '../components';
 import { 
     ACCOUNTING_ROLE_FILTER_DATA, 
-    ACCOUNTINT_CHANNELS, 
-    ACCOUNTINT_SELECT_YEAR, 
-    ACCOUNTINT_SELECT_ROLE, 
-    ACCOUNTINT_SELECT_MENU
+    ACCOUNTINT_CHANNELS,  
+    ACCOUNTINT_SELECT_MENU,
+    ACCOUNTINT_ROLE_CHANGED
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -49,40 +48,6 @@ const getRoleYears = (accountingRoleYears) => {
  * 获取 会计制度 过滤条件数据
  * @param options
  */
-// const getFilterData = () => {
-//     return (dispatch, getState) => {
-//         // 数据共享
-//         const state = getState();
-//         const { globalInfo } = state;
-//         const { accountingRoleTypes, accountingRoleYears } = globalInfo;
-
-//         const roleTypes = getRoleType(accountingRoleTypes);
-
-//         // 年份
-//         const roleYears = getRoleYears(accountingRoleYears);
-
-//         dispatch({
-//             type: ACCOUNTING_ROLE_FILTER_DATA,
-//             data: {
-//                 roleOptions: roleTypes,
-//                 yearOptions: roleYears
-//             }
-//         });
-
-//         // // 选中 '制度'
-//         // dispatch({
-//         //     type: ACCOUNTINT_SELECT_ROLE,
-//         //     data: role
-//         // });
-
-//         // // 选中 '年份'
-//         // dispatch({
-//         //     type: ACCOUNTINT_SELECT_YEAR,
-//         //     data: year
-//         // });
-//     }
-// }
-
 const getFilterData = () => {
     return (dispatch, getState) => {
 
@@ -132,23 +97,27 @@ const selectMenu = (selectedKey) => {
 
 /**
  * 修改当前选中的会计制度
- * @param value 
+ * @param type  会计制度类型
+ * @param year  会计制度年份
  */
-const changeRoleType = (value) => {
+const getRole = (type, year) => {
     return (dispatch, getState) => {
-        dispatch({
-            type: ACCOUNTINT_SELECT_ROLE,
-            data: value
-        })
-    }
-}
+        return request.get(`api/getRole?type=${type}&year=${year}`).then((result) => {
+            const roleType = result.success ? result.success.data.type : type;
+            const roleYear = result.success ? result.success.data.year : year;
+            const roleText = result.success ? result.success.data.content : '';
 
-const changeRoleYear = (value) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: ACCOUNTINT_SELECT_YEAR,
-            data: value
-        })
+            const role = Object.assign({}, {
+                roleType,
+                roleYear,
+                roleText,
+            });
+            
+            dispatch({
+                type: ACCOUNTINT_ROLE_CHANGED,
+                data: role
+            });
+        });
     }
 }
 
@@ -164,11 +133,8 @@ const mapActionCreators = (dispatch) => {
             selectMenu: (selectedKey) => {
                 dispatch(selectMenu(selectedKey));
             },
-            changeRoleType: (key) => {
-                dispatch(changeRoleType(key));
-            },
-            changeRoleYear: (key) => {
-                dispatch(changeRoleYear(key));
+            getRole: (type, year) => {
+                dispatch(getRole(type, year));
             }
         },
     }

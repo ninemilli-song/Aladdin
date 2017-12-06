@@ -13,9 +13,8 @@ import { createReducer } from '../../../utils/reducer-helper';
 // ------------------------------------
 export const ACCOUNTING_ROLE_FILTER_DATA = 'ACCOUNTING_ROLE_FILTER_DATA';
 export const ACCOUNTINT_CHANNELS = 'ACCOUNTINT_CHANNELS';
-export const ACCOUNTINT_SELECT_ROLE = 'ACCOUNTINT_SELECT_ROLE';
-export const ACCOUNTINT_SELECT_YEAR = 'ACCOUNTINT_SELECT_YEAR';
 export const ACCOUNTINT_SELECT_MENU = 'ACCOUNTINT_SELECT_MENU';
+export const ACCOUNTINT_ROLE_CHANGED = 'ACCOUNTINT_ROLE_CHANGED';
 
 // -------------------------------------
 // Reducer
@@ -36,39 +35,35 @@ const channels = (state, action) => {
     });
 }
 
-const selectedRole = (state, action) => {
-    return Object.assign({}, state, {
-        selectedRole: action.data,
-    });
-}
-
-const selectedYear = (state, action) => {
-    return Object.assign({}, state, {
-        selectedYear: action.data,
-    });
-}
-
 const selectedMenu = (state, action) => {
     return Object.assign({}, state, {
         selectedMenu: action.data,
     });
 }
 
+const onRoleChanged = (state, action) => {
+    return Object.assign({}, state, {
+        role: action.data,
+    })
+}
+
 const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_FILTER_DATA]: filterData,
     [ACCOUNTINT_CHANNELS]: channels,
-    [ACCOUNTINT_SELECT_ROLE]: selectedRole,
-    [ACCOUNTINT_SELECT_YEAR]: selectedYear,
     [ACCOUNTINT_SELECT_MENU]: selectedMenu,
+    [ACCOUNTINT_ROLE_CHANGED]: onRoleChanged
 }
 
 // 初始化模块数据
 const initialState = {
-    filterData: {},             // 会计制度的过滤数据
-    channels: [],               // 频道配置数据
-    selectedMenu: 'rules',           // The selected menu key
-    selectedRole: '1',    // 选中的“制度/准则”
-    selectedYear: '2006',       // 选中的“执行年份”
+    filterData: {},                 // 会计制度的过滤数据
+    channels: [],                   // 频道配置数据
+    selectedMenu: 'rules',          // The selected menu key
+    role: {
+        roleType: '1',       // roleType value
+        roleYear: '2006',    // roleYear value
+        roleText: '',        // roleText content
+    }
 };
 
 // --------------------------------------

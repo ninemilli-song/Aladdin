@@ -9,11 +9,13 @@ const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
 
 interface StoreType {
-    filterData: AccountingFilterOptions, // 会计制度的过滤数据
-    channels: Array<any>,   // 频道配置数据
-    selectedMenu: string,   // The selected menus key
-    selectedRole: string, // 选中的“制度/准则”
-    selectedYear: string, // 选中的“执行年份” 
+    filterData: AccountingFilterOptions,    // 会计制度的过滤数据
+    channels: Array<any>,                   // 频道配置数据
+    selectedMenu: string,                   // The selected menus key
+    selectedRole: string,                   // 选中的“制度/准则”
+    selectedYear: string,                   // 选中的“执行年份” 
+    selectedRoleContent: string,            // 选中准则的文本
+    role: any                               // 准则数据
 }
 
 export interface HomeProps  {
@@ -63,7 +65,7 @@ class Home extends React.Component<HomeProps, any> {
 
     getContent() {
         const { store, action } = this.props;
-        const { filterData, selectedRole, selectedYear, selectedMenu } = store;
+        const { filterData, selectedRole, selectedYear, selectedMenu, selectedRoleContent, role } = store;
         console.log('👉🏻 ------> accounting help home view >>>>> ', filterData);
 
         let component = null;
@@ -72,8 +74,7 @@ class Home extends React.Component<HomeProps, any> {
                 component = (
                     <RulesPage 
                         filterData = { filterData }
-                        selectedRole = { selectedRole }
-                        selectedYear = { selectedYear }
+                        role = { role }
                         action = { action }
                     />
                 );
@@ -102,16 +103,6 @@ class Home extends React.Component<HomeProps, any> {
         const { action } = this.props;
 
         action.selectMenu(item.key);
-    }
-    
-    onRulesChanged(val, type) {
-        const { action } = this.props;
-
-        if (type === AccountingFilterTypeEnum.ROLE) {
-            action.changeRoleType(val.value);
-        } else if (AccountingFilterTypeEnum.YEAR) {
-            action.changeRoleYear(val.value);
-        }
     }
 }
 

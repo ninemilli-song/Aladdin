@@ -57,6 +57,66 @@ const findRole = (db, params) => {
                 resolve(results);
             }
         });
+    }).then((results) => {
+        return results[0];
+    });
+};
+
+/**
+ * Find role by type's value and year's value
+ * @param {*} db 
+ * @param {*} params 
+ */
+const findRoleByValue = (db, params) => {
+    const { type, year } = params;
+
+    // The promise to get roletype's id
+    const getRoleTypeIdPms = new Promise((resolve, reject) => {
+        const sql = 'SELECT id FROM `RuleType` WHERE `value` = ?';
+        const sqlParam = [type];
+        db.query(sql, sqlParam, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    }).then((results) => {
+        return results[0].id;
+    });
+
+    // The Promise to get roleyear's id
+    const getRoleYearIdPms = new Promise((resolve, reject) => {
+        const sql = 'SELECT id FROM `RuleYear` WHERE `value` = ?';
+        const sqlParam = [year];
+        db.query(sql, sqlParam, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    }).then((results) => {
+        return results[0].id;
+    });
+
+    return Promise.all([getRoleTypeIdPms, getRoleYearIdPms]).then(async ([typeId, yearId]) => {
+        const result = await findRole(db, {
+            typeId,
+            yearId,
+        });
+
+        if (result) {
+            return ResponsePacker.success({
+                id: result.id,
+                type,
+                year,
+                content: result.content,
+            });
+        } 
+        return ResponsePacker.error(`can not find role. roleType: ${type}, roleYear: ${year}`);
+    }).catch((error) => {
+        return ResponsePacker.error(error);
     });
 };
 
@@ -122,10 +182,10 @@ const uploadRole = async (db, params) => {
 
     let result;
 
-    if (role && role.length > 0) {
+    if (role) {
         // Already exist. Do update
         result = await updateRole(db, {
-            id: role[0].id,
+            id: role.id,
             content,
         });
     } else {
@@ -138,5 +198,6 @@ const uploadRole = async (db, params) => {
 
 module.exports = {
     getRolesFilters,
-    uploadRole
+    uploadRole,
+    findRoleByValue
 };

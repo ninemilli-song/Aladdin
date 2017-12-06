@@ -5,7 +5,7 @@
  * Time: 下午3:00
  */
 const router = require('koa-router')();
-const { getRolesFilters, uploadRole } = require('../model/roles');
+const { getRolesFilters, uploadRole, findRoleByValue } = require('../model/roles');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -30,6 +30,18 @@ router.post('/uploadRole', async (ctx) => {
         typeId: type,
         yearId: year,
         content,
+    });
+
+    ctx.body = result;
+});
+
+// Get Accounting Role.
+router.get('/getRole', async (ctx) => {
+    const { type, year } = ctx.request.query;
+
+    const result = await findRoleByValue(ctx.db, {
+        type,
+        year,
     });
 
     ctx.body = result;

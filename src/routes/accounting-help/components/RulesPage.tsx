@@ -2,30 +2,28 @@
  * 准则页面
  */
 import * as React from 'react';
-import Rules from './Rules';
+import Rules, { IRule } from './Rules';
 import { AccountingFilterOptions } from '../../../components/filter/index';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import { autobind } from 'core-decorators';
 
 interface RulesPageProps {
     filterData: AccountingFilterOptions, // 会计制度的过滤数据
-    selectedRole: string,                // 选中的“制度/准则”
-    selectedYear: string,                // 选中的“执行年份” 
-    action: {[key: string]: Function};
+    action: {[key: string]: Function},
+    role: IRule,                           // role data
 }
 
 @autobind
 export default class RulesPage extends React.Component<RulesPageProps, any> {
     render() {
-        const { filterData, selectedRole, selectedYear, action } = this.props;
+        const { filterData, action, role } = this.props;
 
         return (
             <div>
                 <Rules 
                     filterOptions = { filterData }
                     onChange = { this.onRulesChanged }
-                    role = { selectedRole }
-                    year = { selectedYear }
+                    role = { role }
                     action = { action }
                 />
             </div>
@@ -33,12 +31,12 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
     }
 
     onRulesChanged(val, type) {
-        const { action } = this.props;
+        const { action, role } = this.props;
 
         if (type === AccountingFilterTypeEnum.ROLE) {
-            action.changeRoleType(val.value);
+            action.getRole(val.value, role.roleYear);
         } else if (AccountingFilterTypeEnum.YEAR) {
-            action.changeRoleYear(val.value);
+            action.getRole(role.roleType, val.value);
         }
     }
 }
