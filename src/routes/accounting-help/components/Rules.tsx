@@ -74,11 +74,11 @@ export default class Rules extends MainSider<RulesProps> {
 
         return (
             <div>
+                <div dangerouslySetInnerHTML={{__html: role.roleText}}>
+                </div>
                 <div className="editor">
                     <Input type="textarea" onBlur={ this.onTextBlur } rows={10} />
                     <Button onClick={ this.uploadRoleText }>上传文本</Button>
-                </div>
-                <div dangerouslySetInnerHTML={{__html: role.roleText}}>
                 </div>
             </div>
         )
