@@ -11,6 +11,8 @@ import request from '../../../utils/fetch';
 const showdown = require('showdown');
 const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
+const BackTop = require('antd/lib/back-top');
+const Icon = require('antd/lib/icon');
 
 export type IRule = {
     roleType: string,   // role type value
@@ -35,6 +37,9 @@ export default class Rules extends MainSider<RulesProps> {
     // 准则文本
     roleHtml = null;
 
+    // 样式前缀
+    prefixCls = 'accounting-rule';
+
     protected renderMain()  {
         const { filterOptions, role } = this.props;
         const { roleOptions, yearOptions } = filterOptions;
@@ -49,6 +54,11 @@ export default class Rules extends MainSider<RulesProps> {
                     year = { role.roleYear }
                 />
                 { this.renderText() }
+                <BackTop>
+                    <div className={`${this.prefixCls}-back-top`} title="返回到顶部">
+                        <Icon type="to-top" />
+                    </div>
+                </BackTop>
             </div>
         )
     }
@@ -73,8 +83,8 @@ export default class Rules extends MainSider<RulesProps> {
         const { role } = this.props;
 
         return (
-            <div>
-                <div dangerouslySetInnerHTML={{__html: role.roleText}}>
+            <div className={ this.prefixCls }>
+                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: role.roleText}}>
                 </div>
                 <div className="editor">
                     <Input type="textarea" onBlur={ this.onTextBlur } rows={10} />

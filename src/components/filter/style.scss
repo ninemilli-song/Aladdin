@@ -8,6 +8,7 @@ $prefixCls: default;
         &-filter {
             @include dash-border();
             @include content-padding();
+            margin-bottom: 20px;
         }
     }
 }

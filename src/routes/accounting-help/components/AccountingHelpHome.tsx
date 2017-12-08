@@ -7,6 +7,7 @@ import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingF
 import RulesPage from './RulesPage';
 const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
+import '../assets/style.scss';
 
 interface StoreType {
     filterData: AccountingFilterOptions,    // 会计制度的过滤数据

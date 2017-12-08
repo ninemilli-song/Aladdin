@@ -12,3 +12,45 @@
 @mixin content-padding($top: 8, $right: 8, $bottom:8, $left: 8) {
   padding: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
+
+// ----------------------------------------------------------
+// ------------------------- Font ---------------------------
+// ----------------------------------------------------------
+
+// font bold
+@mixin font-bold() {
+  font-weight: bold;
+}
+
+// font size
+@mixin font-size($size: 12) {
+  font-size: $size + px;
+}
+
+@mixin font-size-12() {
+  @include font-size();
+}
+
+@mixin font-size-14 {
+  @include font-size(14);
+}
+
+@mixin font-size-16 {
+  @include font-size(16);
+}
+
+@mixin font-size-18 {
+  @include font-size(18);
+}
+
+@mixin font-size-20 {
+  @include font-size(20);
+}
+
+@mixin font-size-24 {
+  @include font-size(24);
+}
+
+@mixin font-size-48 {
+  @include font-size(48);
+}
