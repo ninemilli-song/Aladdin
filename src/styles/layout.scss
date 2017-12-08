@@ -1,0 +1,76 @@
+@import './variable.scss';
+
+$module: layout;
+
+.#{$module} {
+  &-nav-primary-wrapper {
+    background: $pageBG;
+    height: 30px;
+    border-bottom: 1px solid #e9e9e9;
+
+    .menu {
+      padding: 0 10px;
+      height: 30px;
+      line-height: 30px;
+
+      &-item {
+        padding: 0 6px;
+      }
+    }
+
+    .info {
+      height: 30px;
+      line-height: 30px;
+      float: right;
+    }
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  &-nav-secondary-wrapper {
+    width: 100%;
+  }
+
+  &-nav-secondary {
+    position: relative;
+    width: 950px;
+    height: 50px;
+    margin: 0 auto;
+    // height: 30px;
+    // border-bottom: 1px solid #e9e9e9;
+
+    .title {
+      // display: inline-block;
+      float: left;
+      width: 100px;
+      height: 50px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+
+    .menu {
+      float: left;
+      // display: inline-block;
+    }
+
+    .search-box {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      // float: right;
+      // display: inline-block;
+    }
+  }
+
+  &-content {
+    width: 950px;
+    margin: 0 auto;
+  }
+}
+
+/* 覆盖antd 样式 */
+.ant-menu-horizontal {
+  border: none;
+}

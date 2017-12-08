@@ -22,16 +22,15 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 authPassport.readUsers()
-  .then((_users) => {
-    users = _users;
-  })
-  .catch((err) => {
-    throw err;
-  });
+    .then((_users) => {
+        users = _users;
+    })
+    .catch((err) => {
+        throw err;
+    });
 
 // Enable various security helpers.
 app.use(helmet());
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -40,31 +39,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy(
-  (username, password, done) => {
-    authPassport.authenticateUser(username, password, users)
-    .then((authResult) => {
-      return done(null, authResult);
-    })
-    .then(null, (message) => {
-      return done(null, false, message);
-    });
-  }
+    (username, password, done) => {
+        authPassport.authenticateUser(username, password, users)
+            .then((authResult) => {
+                return done(null, authResult);
+            })
+            .then(null, (message) => {
+                return done(null, false, message);
+            });
+    }
 
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user.meta.id);
+    done(null, user.meta.id);
 });
 
 passport.deserializeUser((id, done) => {
-  done(null, authPassport.getUserById(id, users));
+    done(null, authPassport.getUserById(id, users));
 });
 
 app.post('/api/auth/login',
-  passport.authenticate('local'),
-  (req, res) => {
-    res.status(200).send(JSON.stringify(req.user));
-  }
+    passport.authenticate('local'),
+    (req, res) => {
+        res.status(200).send(JSON.stringify(req.user));
+    }
 );
 
 
@@ -77,10 +76,10 @@ nodeAppServer(app);
 
 // Start up the server.
 app.listen(PORT, (err) => {
-  if (err) {
-    winston.error(err);
-    return;
-  }
+    if (err) {
+        winston.error(err);
+        return;
+    }
 
-  winston.info(`Listening on port ${PORT}`);
+    winston.info(`Listening on port ${PORT}`);
 });

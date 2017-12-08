@@ -1,4 +1,3 @@
-
 // Proxying to remote HTTP APIs:
 //
 // Proxy settings in this file are used by both the production express server
@@ -13,12 +12,14 @@
 // 3. use a dedicated reverse proxy (e.g. Nginx) to do this instead.
 
 module.exports = {
-  // Calls to /api/foo will get routed to
-  // http://jsonplaceholder.typicode.com/foo.
-  /*
-  '/api/': {
-    target: 'http://jsonplaceholder.typicode.com',
-    changeOrigin: true,
-  },
-  */
+    // Calls to /api/foo will get routed to
+    // http://jsonplaceholder.typicode.com/foo.
+    '/proxy-api/': {
+        target: 'http://jsonplaceholder.typicode.com',
+        changeOrigin: true,
+    },
+    '/(api|users)/*': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+    }
 };

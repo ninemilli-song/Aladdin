@@ -1,0 +1,14 @@
+@import '../../styles/variable.scss';
+@import '../../styles/mixin.scss';
+
+$prefixCls: default;
+
+.#{$prefixCls} {
+    &-accounting {
+        &-filter {
+            @include dash-border();
+            @include content-padding();
+            margin-bottom: 20px;
+        }
+    }
+}

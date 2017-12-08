@@ -1,0 +1,10 @@
+@import '../common.scss';
+
+$module: kyou-grid;
+
+.#{$module}-rowCls {
+  .single-line {
+    padding: 0;
+    @extend .wordQ;
+  }
+}

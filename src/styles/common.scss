@@ -1,0 +1,31 @@
+.inline-block {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pos-right {
+  position: absolute;
+  right: 0;
+}
+
+.wordQ {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+.clearfix {
+  display: block;
+}
