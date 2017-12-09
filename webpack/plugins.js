@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const postcssInit = require('./postcss');
+const proxy = require('../server/webpack-dev-proxy');
 
 const basePlugins = [
     new webpack.DefinePlugin({
@@ -16,23 +18,37 @@ const basePlugins = [
             collapseWhitespace: true,
         },
     }),
-    new webpack.NoErrorsPlugin(),
+
+    new webpack.NoEmitOnErrorsPlugin(),
 ];
 
 const devPlugins = [
     new webpack.HotModuleReplacementPlugin(),
+
     new StyleLintPlugin({
         configFile: './.stylelintrc',
         files: ['src/styles/*.scss'],
         failOnError: false,
     }),
+
+    new webpack.LoaderOptionsPlugin({
+        options: {
+            postcss: postcssInit,
+            devServer: {
+                historyApiFallback: { index: '/' },
+                proxy: Object.assign({}, proxy(), { '/api/*': 'http://localhost:3000' }),
+            },
+        }
+    })
 ];
 
 const prodPlugins = [
-    new ExtractTextPlugin('[name]-[chunkhash].css', {
+    new ExtractTextPlugin({
+        filename: '[name]-[chunkhash].css',
         disable: false,
         allChunks: true,
     }),
+
     new webpack.optimize.UglifyJsPlugin({
         compress: {
             unused: true,
@@ -40,9 +56,14 @@ const prodPlugins = [
             warnings: false
         }
     }),
-    // new webpack.optimize.CommonsChunkPlugin('common', commonName),
 
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.LoaderOptionsPlugin({
+        options: {
+            postcss: postcssInit
+        }
+    }),
+
+    new webpack.optimize.OccurrenceOrderPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor']

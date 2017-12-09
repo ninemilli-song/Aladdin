@@ -1,15 +1,15 @@
 const path = require('path');
-const proxy = require('./server/webpack-dev-proxy');
+// const proxy = require('./server/webpack-dev-proxy');
 const loaders = require('./webpack/loaders');
 const plugins = require('./webpack/plugins');
-const postcssInit = require('./webpack/postcss');
+// const postcssInit = require('./webpack/postcss');
 const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
 const baseAppEntries = ['./src/index.tsx'];
 const devAppEntries = [
     'webpack-dev-server/client?http://localhost:3001', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors]
+    'webpack/hot/dev-server', // "only" prevents reload on syntax errors]
 ];
 const appEntries = baseAppEntries
     .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
@@ -49,25 +49,30 @@ module.exports = {
 
     devtool: 'eval',
 
-    resolveLoader: { root: resolve('./node_modules') },
+    // resolveLoader: { root: resolve('./node_modules') },
 
     resolve: {
-        modulesDirectories: ['node_modules'],
-        extensions: ['', '.webpack.js', '.web.js', '.tsx', '.ts', '.js']
+        modules: [resolve('./node_modules')],
+        extensions: ['.webpack.js', '.web.js', '.tsx', '.ts', '.js', 'scss']
+    },
+
+    resolveLoader: {
+        modules: [resolve('./node_modules')]
     },
 
     plugins,
 
-    devServer: {
-        historyApiFallback: { index: '/' },
-        proxy: Object.assign({}, proxy(), { '/api/*': 'http://localhost:3000' }),
-    },
+    // devServer: {
+    //     historyApiFallback: { index: '/' },
+    //     proxy: Object.assign({}, proxy(), { '/api/*': 'http://localhost:3000' }),
+    // },
 
     module: {
-        preLoaders: [
+        // preLoaders: [
+        //     loaders.tslint,
+        // ],
+        rules: [
             loaders.tslint,
-        ],
-        loaders: [
             loaders.tsx,
             loaders.html,
             loaders.scss,
@@ -82,5 +87,5 @@ module.exports = {
         ],
     },
 
-    postcss: postcssInit,
+    // postcss: postcssInit,
 };

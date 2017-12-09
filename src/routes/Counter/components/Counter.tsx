@@ -10,13 +10,10 @@ class Counter extends React.Component<CounterProps, any> {
     render() {
         return (
             <div>
-
                 <Tag> Counter {this.props.counter}</Tag>
-
                 <Button type="primary" onClick={() => {
                     this.props.increment()
                 } }>increment</Button>
-
                 <Button type="primary"
                     onClick={this.props.doubleAsync}>doubleAsync</Button>
             </div>

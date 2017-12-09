@@ -4,7 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 exports.tslint = {
     test: /\.tsx?$/,
-    loader: 'tslint',
+    enforce: 'pre',
+    loader: 'tslint-loader',
     include: [
         sources,
     ],
@@ -20,7 +21,7 @@ exports.tsx = {
 
 exports.html = {
     test: /\.html$/,
-    loader: 'raw',
+    loader: 'raw-loader',
     include: [
         sources,
     ],
@@ -29,32 +30,56 @@ exports.html = {
 exports.css = {
     test: /\.css$/,
     loader: process.env.NODE_ENV === 'development' ?
-        'style!css!postcss!sass' :
-        ExtractTextPlugin.extract('style', 'css!postcss!sass'),
+        'style-loader!css-loader!postcss-loader!sass-loader' :
+        ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader'),
 };
 
 exports.less = {
     test: /\.less$/,
     loader: process.env.NODE_ENV === 'development' ?
-        'style!css!postcss!less' :
-        ExtractTextPlugin.extract('style', 'css!postcss!less'),
+        'style-loader!css-loader!postcss-loader!less-loader' :
+        ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
 };
 
 exports.scss = {
     test: /\.scss$/,
-    loader: process.env.NODE_ENV === 'development' ?
-        'style!css!postcss!sass' :
-        ExtractTextPlugin.extract('style', 'css!postcss!sass'),
+    use: process.env.NODE_ENV === 'development' ? [
+        {
+            loader: 'style-loader'
+        },
+        {
+            loader: 'css-loader',
+            options: {
+                // If you are having trouble with urls not resolving add this setting.
+                // See https://github.com/webpack-contrib/css-loader#url
+                url: false,
+                minimize: true,
+                sourceMap: true
+            }
+        }, 
+        {
+            loader: 'postcss-loader',
+            options: {
+                sourceMap: true
+            }
+        }, 
+        {
+            loader: 'sass-loader',
+            options: {
+                sourceMap: true
+            }
+        }
+    ] : ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', 'postcss-loader', 'sass-loader']
+    }),
     exclude: /node_modules/,
-    options: {
-        includePaths: [path.resolve('./src/styles')]
-    }
 };
 
 function makeUrlLoader(pattern) {
     return {
         test: pattern,
-        loader: 'url',
+        loader: 'url-loader',
         exclude: /node_modules/,
     };
 }
