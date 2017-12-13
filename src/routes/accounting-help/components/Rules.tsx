@@ -56,7 +56,7 @@ export default class Rules extends MainSider<RulesProps> {
                 { this.renderText() }
                 <BackTop>
                     <div className={`${this.prefixCls}-back-top`} title="返回到顶部">
-                        <Icon type="to-top" />
+                        <i className="iconfont icon-zhiding"></i>
                     </div>
                 </BackTop>
             </div>
