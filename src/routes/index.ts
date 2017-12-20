@@ -5,6 +5,7 @@ import HomeRoute from './Home';
 import CounterRoute from './Counter';
 import Warehouse from './Warehouse';
 import AccountingHelpHome from './accounting-help';
+import QAS from './qas';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -16,7 +17,8 @@ export const createRoutes = (store) => ({
   childRoutes: [
     CounterRoute(store),
     Warehouse(store),
-    AccountingHelpHome(store)
+    AccountingHelpHome(store),
+    QAS(store)
   ]
 })
 

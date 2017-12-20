@@ -30,7 +30,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/question"
+                        href="#/qas"
                         target="_blank"
                         rel="noopener noreferrer">
                         问答
