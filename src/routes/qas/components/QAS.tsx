@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Body from './Body';
-import SearchHeader from '../../../components/page-components/SearchHeader';
+import SecondarySearchNav from '../../../components/page-components/SecondarySearchNav';
 
 interface QASProps {
     
@@ -13,7 +13,7 @@ export default class QAS extends React.Component<QASProps, any> {
         return (
             <div className={ this.prefixCls }>
                 <div className={ `layout-content` }>
-                    <SearchHeader 
+                    <SecondarySearchNav 
                         title="问答"
                     />
                     <Body />

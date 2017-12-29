@@ -37,6 +37,7 @@ $module: layout;
     position: relative;
     width: 950px;
     height: 50px;
+    line-height: 50px;
     margin: 0 auto;
     // height: 30px;
     // border-bottom: 1px solid #e9e9e9;
@@ -59,8 +60,17 @@ $module: layout;
       position: absolute;
       right: 0;
       top: 10px;
-      // float: right;
-      // display: inline-block;
+    }
+
+    &-search {
+      .search-box-nav {
+        margin-right: 10px;
+        float: left;
+      }
+
+      .buttons {
+        float: left;
+      }
     }
   }
 
