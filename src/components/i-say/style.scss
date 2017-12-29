@@ -1,0 +1,20 @@
+@import '../../styles/variable.scss';
+@import '../../styles/mixin.scss';
+
+$prefixCls: i-say;
+
+.#{$prefixCls} {
+    &-text {
+        @include normal-border();
+    }
+
+    textarea {
+        border: none;
+        padding: 7px 25px 7px 7px;
+        // float: left;
+    }
+    
+    &-footer {
+        padding: 8px;
+    }
+}

@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+@mixin normal-border($color: $mainBorderColor) {
+  border: 1px solid #{$mainBorderColor};
+}
+
 @mixin dash-border($color: $assisBorderColor) {
   border: 1px dashed #{$color};
 }
