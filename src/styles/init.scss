@@ -1,5 +1,7 @@
-textarea {
-  width: 100%;
+input,
+textarea,
+select,
+button {
   resize: none;
   text-rendering: auto;
   color: initial;
@@ -11,9 +13,10 @@ textarea {
   display: inline-block;
   text-align: start;
   margin: 0;
+  outline: none;
+}
 
-  &:focus {
-    border: none !important;
-  }
+textarea {
+  width: 100%;
 }
 

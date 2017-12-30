@@ -13,7 +13,7 @@
   border: 1px dashed #{$color};
 }
 
-@mixin content-padding($top: 8, $right: 8, $bottom:8, $left: 8) { 
+@mixin content-padding($top: 8, $right: 8, $bottom:8, $left: 8) {
   padding: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
 
