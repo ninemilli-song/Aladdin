@@ -20,10 +20,10 @@ export default class MainSider<T extends MainSiderProps> extends React.Component
         return (
             <div className={ `${prefixCls}-main-sider` }>
                 <Row gutter={8}>
-                    <Col span={18}>
+                    <Col span={16}>
                         {this.renderMain()}
                     </Col>
-                    <Col span={6}>
+                    <Col span={8}>
                         {this.renderSider()}
                     </Col>
                 </Row>

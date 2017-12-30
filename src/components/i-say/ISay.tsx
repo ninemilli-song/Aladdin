@@ -9,11 +9,16 @@ const _ = {
 
 interface ISayProps {
     className?: string;
+    onSubmit?: (data) => void;
 }
 
 @autobind
 export default class ISay extends React.Component<ISayProps, any> {
+
     prefixCls = 'i-say';
+
+    // The Textarea dom
+    textarea: any = null;
 
     constructor(props, context) {
         super(props, context);
@@ -42,9 +47,10 @@ export default class ISay extends React.Component<ISayProps, any> {
                         name="i-say" 
                         id={ _.uniqueId(this.prefixCls) } 
                         rows={1}
-                        placeholder="说点啥吧…"
+                        placeholder="说点啥…"
                         style= { textStyle }
                         onFocus={ this.textAreaOnFocus }
+                        ref={ this.getTextareaRef }
                     />
                 </div>
                 {
@@ -54,7 +60,7 @@ export default class ISay extends React.Component<ISayProps, any> {
         )
     }
 
-    renderMention() {
+    private renderMention() {
         return (
             <p className={`highlighter ${this.prefixCls}-mention`}>
             
@@ -62,7 +68,7 @@ export default class ISay extends React.Component<ISayProps, any> {
         )
     }
 
-    renderError() {
+    private renderError() {
         return (
             <p className={`highlighter ${this.prefixCls}-error`}>
 
@@ -70,18 +76,36 @@ export default class ISay extends React.Component<ISayProps, any> {
         )
     }
 
-    renderFooter() {
+    private renderFooter() {
         return (
-            <div className={`${this.prefixCls}-footer`}>
-                <Button>发布</Button>
+            <div className={`${this.prefixCls}-footer clearfix`}>
+                <Button 
+                    className="submit-btn"
+                    onClick={ this.onSubmit }
+                >
+                    发布
+                </Button>
             </div>
         )
     }
 
-    textAreaOnFocus() {
+    private textAreaOnFocus() {
         // Expand the textarea
         this.setState({
             mode: 'expand'
         });
+    }
+
+    private getTextareaRef(textarea) {
+        this.textarea = textarea;
+    }
+
+    private onSubmit(evt) {
+        const { onSubmit } = this.props;
+        const data = this.textarea.value;
+
+        if (onSubmit) {
+            onSubmit(data);
+        }
     }
 }

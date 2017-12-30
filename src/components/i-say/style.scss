@@ -16,5 +16,13 @@ $prefixCls: i-say;
     
     &-footer {
         padding: 8px;
+        border-left: 1px solid #{$mainBorderColor};
+        border-right: 1px solid #{$mainBorderColor};
+        border-bottom: 1px solid #{$mainBorderColor};
+        background-color: $color13;
+
+        .submit-btn {
+            float: right;
+        }
     }
 }

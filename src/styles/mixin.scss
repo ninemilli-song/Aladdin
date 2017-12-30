@@ -6,7 +6,7 @@
 }
 
 @mixin normal-border($color: $mainBorderColor) {
-  border: 1px solid #{$mainBorderColor};
+  border: 1px solid #{$color};
 }
 
 @mixin dash-border($color: $assisBorderColor) {
