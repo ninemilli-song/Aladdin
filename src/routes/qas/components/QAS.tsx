@@ -14,9 +14,13 @@ export default class QAS extends React.Component<QASProps, any> {
 
     componentWillMount() {
         const { action } = this.props;
+        console.log('QAS ------> action', action);
     }
 
     render() {
+        const {action, store} = this.props;
+        console.log('QAS ------> store', store);
+
         return (
             <div className={ this.prefixCls }>
                 <div className={ `layout-content` }>
