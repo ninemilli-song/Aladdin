@@ -1,0 +1,64 @@
+@import '../../../styles/variable.scss';
+@import '../../../styles/mixin.scss';
+
+$moduleName: qas;
+
+.#{$moduleName} {
+    &-body {
+        &-question {
+            &-area {
+                margin-bottom: 10px;
+            }
+
+            
+        }
+    }
+
+    .q-item {
+        @include normal-border();
+        padding: 10px;
+
+        &-user {
+            height: 32px;
+            line-height: 32px;
+            margin-bottom: 10px;
+
+            .profile {
+                // display: inline-block;
+                margin-right: 10px;
+                float: left;
+                line-height: 0;
+            }
+
+            .name {
+                display: inline-block;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+
+        &-title {
+            @include font-size-16();
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        &-text {
+            margin-bottom: 10px;
+        }
+
+        &-time {
+            color: $thirdFontColor;
+        }
+
+        &-operaters {
+            color: $thirdFontColor;
+
+            li {
+                display: inline-block;
+                margin-right: 8px;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import MainSider, { MainSiderProps } from '../../../components/page-frame/MainSider';
 import ISay from '../../../components/i-say/ISay';
+import QItem from './QItem';
 
 interface BodyProps extends MainSiderProps {
 
@@ -18,7 +19,7 @@ export default class Body extends MainSider<BodyProps> {
                     <ISay />
                 </div>
                 <div className={ `${this.prefixCls}-question-list` }>
-                    qqq
+                    <QItem />
                 </div>
             </div>
         )
