@@ -10,6 +10,8 @@ const _ = {
 interface ISayProps {
     className?: string;
     onSubmit?: (data) => void;
+    placeholder?: string;
+    title?: string;
 }
 
 @autobind
@@ -20,6 +22,11 @@ export default class ISay extends React.Component<ISayProps, any> {
     // The Textarea dom
     textarea: any = null;
 
+    static defaultProps = {
+        placeholder: '有问题在这儿说说…',
+        title: '提问'
+    }
+
     constructor(props, context) {
         super(props, context);
 
@@ -29,13 +36,19 @@ export default class ISay extends React.Component<ISayProps, any> {
     }
 
     render() {
-        const { className } = this.props;
+        const { className, placeholder, title } = this.props;
         const { mode } = this.state;
 
         const textStyle = mode === 'expand' ? { height: 70 } : null
 
         return (
             <div className={ `${this.prefixCls} ${className}`  }>
+                <ul className={`${this.prefixCls}-title`}>
+                    <li className={`${this.prefixCls}-title-item`}>
+                        <i className="iconfont icon-message_fill"></i>
+                        { title }
+                    </li>
+                </ul>
                 <div className={`${this.prefixCls}-text`}>
                     {
                         this.renderMention()
@@ -47,7 +60,7 @@ export default class ISay extends React.Component<ISayProps, any> {
                         name="i-say" 
                         id={ _.uniqueId(this.prefixCls) } 
                         rows={1}
-                        placeholder="说点啥…"
+                        placeholder={ placeholder }
                         style= { textStyle }
                         onFocus={ this.textAreaOnFocus }
                         ref={ this.getTextareaRef }

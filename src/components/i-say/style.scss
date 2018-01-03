@@ -4,13 +4,41 @@
 $prefixCls: i-say;
 
 .#{$prefixCls} {
+    &-title {
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+
+        &-item {
+            &::after {
+                display: none\9;
+                content: "";
+                position: absolute;
+                bottom: -4px;
+                left: 20px;
+                height: 7px;
+                width: 7px;
+                border: 1px solid #{$mainBorderColor};
+                border-width: 1px 1px 0 0;
+                background: $white;
+                transform: rotate(-45deg);
+            }
+        }
+
+        li {
+            display: inline-block;
+        }
+    }
+
     &-text {
         @include normal-border();
+        font-size: 0;
     }
 
     textarea {
         border: none;
         padding: 7px 25px 7px 7px;
+        font-size: 14px;
         // float: left;
     }
     
