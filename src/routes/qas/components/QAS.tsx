@@ -15,6 +15,7 @@ export default class QAS extends React.Component<QASProps, any> {
     componentWillMount() {
         const { action } = this.props;
         console.log('QAS ------> action', action);
+        action.getQuestionList();
     }
 
     render() {
@@ -25,7 +26,7 @@ export default class QAS extends React.Component<QASProps, any> {
             <div className={ this.prefixCls }>
                 <div className={ `layout-content` }>
                     <SecondarySearchNav 
-                        title="问答1"
+                        title="问答"
                     />
                     <Body />
                 </div>

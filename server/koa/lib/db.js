@@ -3,13 +3,17 @@
  */
 const mysql = require('mysql');
 
-const mysqlConnection = mysql.createConnection({
+let mysqlConnection = null;
+
+mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '19851005',
     database: 'test'
 });
 
-mysqlConnection.connect();
+mysqlConnection.connect((error) => {
+    console.error('🚗 ---> mysql connection error!\n', error);
+});
 
 module.exports = mysqlConnection;

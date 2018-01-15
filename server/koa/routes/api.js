@@ -47,4 +47,12 @@ router.get('/getRole', async (ctx) => {
     ctx.body = result;
 });
 
+router.get('/qas/getQuestions', async (ctx) => {
+    console.log('/qas/getQuestions ----> ', ctx);
+
+    ctx.body = {
+        a: 'a'
+    };
+});
+
 module.exports = router;
