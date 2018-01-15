@@ -2,6 +2,7 @@
  * The roles model
  */
 const ResponsePacker = require('../lib/responsePacker');
+const fetch = require('../lib/fetch');
 
 function getRolesTypes(db) {
     return new Promise((resolve, reject) => {
@@ -34,6 +35,28 @@ const getRolesFilters = (db) => {
             years
         });
     }).catch((error) => {
+        return ResponsePacker.error(error);
+    });
+};
+
+/**
+ * Get rules from server
+ */
+const getRules = () => {
+    return fetch.get('accStandard/getDistinctName').then((res) => {
+        console.log('👉🏻 ---> accStandard/getDistinctName:\n', res);
+        const { data, meta } = res;
+
+        let rules = null;
+        if (meta.success) {
+            rules = ResponsePacker.success(data);
+        } else {
+            rules = ResponsePacker.error('remote server result error!');
+        }
+
+        return rules;
+    }).catch((error) => {
+        console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
         return ResponsePacker.error(error);
     });
 };
@@ -199,5 +222,6 @@ const uploadRole = async (db, params) => {
 module.exports = {
     getRolesFilters,
     uploadRole,
-    findRoleByValue
+    findRoleByValue,
+    getRules
 };

@@ -13,7 +13,9 @@ mysqlConnection = mysql.createConnection({
 });
 
 mysqlConnection.connect((error) => {
-    console.error('🚗 ---> mysql connection error!\n', error);
+    if (error) {
+        console.error('🚗 ---> mysql connection error!\n', error);
+    }
 });
 
 module.exports = mysqlConnection;
