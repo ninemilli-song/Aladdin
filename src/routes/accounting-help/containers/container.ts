@@ -100,10 +100,10 @@ const selectMenu = (selectedKey) => {
  */
 const getRole = (type, year) => {
     return (dispatch, getState) => {
-        return request.get(`api/getRole?type=${type}&year=${year}`).then((result) => {
-            const roleType = result.success ? result.success.data.type : type;
-            const roleYear = result.success ? result.success.data.year : year;
-            const roleText = result.success ? result.success.data.content : '';
+        return request.get(`api/getGBRule?type=${type}&year=${year}`).then((result) => {
+            const roleType = type;
+            const roleYear = year;
+            const roleText = result.success ? result.success.data.generalPrinciple : '';
 
             const role = Object.assign({}, {
                 roleType,

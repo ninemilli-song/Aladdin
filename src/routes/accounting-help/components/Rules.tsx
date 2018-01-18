@@ -82,9 +82,11 @@ export default class Rules extends MainSider<RulesProps> {
     private renderText() {
         const { role } = this.props;
 
+        const ruleHtmlText = this.mdConverter.makeHtml(role.roleText);
+
         return (
             <div className={ this.prefixCls }>
-                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: role.roleText}}>
+                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}}>
                 </div>
                 <div className="editor">
                     <Input type="textarea" onBlur={ this.onTextBlur } rows={10} />
