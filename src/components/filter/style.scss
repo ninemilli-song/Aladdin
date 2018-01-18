@@ -9,6 +9,12 @@ $prefixCls: default;
             @include dash-border();
             @include content-padding();
             margin-bottom: 20px;
+
+            .filter {
+                &-item {
+                    padding: 4px;
+                }
+            }
         }
     }
 }

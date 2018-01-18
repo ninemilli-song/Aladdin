@@ -8,7 +8,8 @@ import {
     ACCOUNTING_ROLE_FILTER_DATA, 
     ACCOUNTINT_CHANNELS,  
     ACCOUNTINT_SELECT_MENU,
-    ACCOUNTINT_ROLE_CHANGED
+    ACCOUNTINT_ROLE_CHANGED,
+    ACCOUNTING_ROLE_TYPES
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -55,19 +56,16 @@ const getFilterData = () => {
             if (result.success) {
                 const data = result.success.data;
 
-                // 分类
-                const roleTypes = getRoleType(data.types);
-        
-                // 年份
-                const roleYears = getRoleYears(data.years);
-
+                // 添加规则类型数据
                 dispatch({
-                    type: ACCOUNTING_ROLE_FILTER_DATA,
-                    data: {
-                        roleOptions: roleTypes,
-                        yearOptions: roleYears
-                    }
+                    type: ACCOUNTING_ROLE_TYPES,
+                    data: data,
                 });
+
+                // 获取准则内容
+                if (data && data.length > 0) {
+                    dispatch(getRole(data[0].code, data[0].exeYears[0]));
+                }
             }
         });
     }

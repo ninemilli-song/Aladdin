@@ -8,7 +8,7 @@ import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingF
 import { autobind } from 'core-decorators';
 
 interface RulesPageProps {
-    filterData: AccountingFilterOptions, // 会计制度的过滤数据
+    roleTypes: Array<any>, // 会计制度的过滤数据
     action: {[key: string]: Function},
     role: IRule,                           // role data
 }
@@ -19,11 +19,13 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
     componentWillMount() {
         const { action, role } = this.props;
         
-        action.getRole(role.roleType, role.roleYear);
+        // action.getRole(role.roleType, role.roleYear);
     }
 
     render() {
-        const { filterData, action, role } = this.props;
+        const { roleTypes, action, role } = this.props;
+
+        const filterData = this.packFilterData();
 
         return (
             <div>
@@ -44,6 +46,41 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
             action.getRole(val.value, role.roleYear);
         } else if (AccountingFilterTypeEnum.YEAR) {
             action.getRole(role.roleType, val.value);
+        }
+    }
+
+    packFilterData(): AccountingFilterOptions {
+        const { roleTypes, role } = this.props;
+
+        const roleOptions = {
+            label: '准则/制度',
+            options: []
+        };
+
+        const yearOptions = {
+            label: '执行年份',
+            options: []
+        }
+
+        roleTypes.forEach((item) => {
+            roleOptions.options.push({
+                label: item.name,
+                value: item.code
+            });
+
+            if (role.roleType === item.code) {
+                item.exeYears.forEach((year) => {
+                    yearOptions.options.push({
+                        label: year,
+                        value: year
+                    });
+                });
+            }
+        })
+
+        return {
+            roleOptions,
+            yearOptions
         }
     }
 }

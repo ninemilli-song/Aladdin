@@ -16,7 +16,8 @@ interface StoreType {
     selectedRole: string,                   // 选中的“制度/准则”
     selectedYear: string,                   // 选中的“执行年份” 
     selectedRoleContent: string,            // 选中准则的文本
-    role: any                               // 准则数据
+    role: any,                              // 准则数据
+    roleTypes: any                          // 制度数据
 }
 
 export interface HomeProps  {
@@ -66,15 +67,14 @@ class Home extends React.Component<HomeProps, any> {
 
     getContent() {
         const { store, action } = this.props;
-        const { filterData, selectedRole, selectedYear, selectedMenu, selectedRoleContent, role } = store;
-        console.log('👉🏻 ------> accounting help home view >>>>> ', filterData);
+        const { selectedRole, selectedYear, selectedMenu, selectedRoleContent, role, roleTypes } = store;
 
         let component = null;
         switch (selectedMenu) {
             case 'rules':
                 component = (
                     <RulesPage 
-                        filterData = { filterData }
+                        roleTypes = { roleTypes }
                         role = { role }
                         action = { action }
                     />

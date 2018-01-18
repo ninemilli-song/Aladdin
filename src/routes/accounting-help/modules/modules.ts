@@ -15,6 +15,7 @@ export const ACCOUNTING_ROLE_FILTER_DATA = 'ACCOUNTING_ROLE_FILTER_DATA';
 export const ACCOUNTINT_CHANNELS = 'ACCOUNTINT_CHANNELS';
 export const ACCOUNTINT_SELECT_MENU = 'ACCOUNTINT_SELECT_MENU';
 export const ACCOUNTINT_ROLE_CHANGED = 'ACCOUNTINT_ROLE_CHANGED';
+export const ACCOUNTING_ROLE_TYPES = 'ACCOUNTING_ROLE_TYPES';
 
 // -------------------------------------
 // Reducer
@@ -27,6 +28,12 @@ const filterData = (state, action) => {
     return Object.assign({}, state, {
         filterData: action.data,
     });
+}
+
+const roleTypes = (state, action) => {
+    return Object.assign({}, state, {
+        roleTypes: action.data,
+    })
 }
 
 const channels = (state, action) => {
@@ -49,6 +56,7 @@ const onRoleChanged = (state, action) => {
 
 const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_FILTER_DATA]: filterData,
+    [ACCOUNTING_ROLE_TYPES]: roleTypes,
     [ACCOUNTINT_CHANNELS]: channels,
     [ACCOUNTINT_SELECT_MENU]: selectedMenu,
     [ACCOUNTINT_ROLE_CHANGED]: onRoleChanged
@@ -59,6 +67,7 @@ const initialState = {
     filterData: {},                 // 会计制度的过滤数据
     channels: [],                   // 频道配置数据
     selectedMenu: 'rules',          // The selected menu key
+    roleTypes: [],                  // 会计制度类型
     role: {
         roleType: '1',       // roleType value
         roleYear: '2006',    // roleYear value

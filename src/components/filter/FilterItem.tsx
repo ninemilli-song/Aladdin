@@ -43,7 +43,7 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
         const {prefixCls, label} = this.props;
 
         return (
-            <div className={`${prefixCls}-filter-item`}>
+            <div className={`filter-item`}>
                 <Row gutter={8}>
                     <Col span={4}>
                         {label}
