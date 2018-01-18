@@ -9,6 +9,8 @@ export interface MainSiderProps {
 }
 
 export default class MainSider<T extends MainSiderProps> extends React.Component<T, any> {
+    // 子类可以定义自己的样式
+    protected className: string;
 
     static defaultProps = {
         prefixCls: 'default'
@@ -18,7 +20,7 @@ export default class MainSider<T extends MainSiderProps> extends React.Component
         const { prefixCls } = this.props;
 
         return (
-            <div className={ `${prefixCls}-main-sider` }>
+            <div className={ `${prefixCls}-main-sider ${this.className}` }>
                 <Row gutter={8}>
                     <Col span={16}>
                         {this.renderMain()}

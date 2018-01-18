@@ -5,7 +5,7 @@
  * Time: 下午3:00
  */
 const router = require('koa-router')();
-const { uploadRole, getGPByCodeYear, getRules } = require('../model/roles');
+const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear } = require('../model/roles');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -37,10 +37,10 @@ router.post('/uploadRole', async (ctx) => {
 });
 
 // Get Accounting Role.
-router.get('/getGBRule', async (ctx) => {
+router.get('/getRule', async (ctx) => {
     const { type, year } = ctx.request.query;
 
-    const result = await getGPByCodeYear({
+    const result = await getRuleByCodeYear({
         type,
         year,
     });

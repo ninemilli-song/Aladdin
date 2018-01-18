@@ -85,6 +85,44 @@ const getGPByCodeYear = (params) => {
 }
 
 /**
+ * 具体准则-通过准则代码和执行年份查询
+ * @param {accStandardCode: string, exeYear: string} params 
+ */
+const getSPByCodeYear = (params) => {
+    return fetch.get('sp/queryByCodeYear', params).then((res) => {
+        console.log('👉🏻 ---> sp/queryByCodeYear:\n', res);
+        const { data, meta } = res;
+
+        let rules = null;
+        if (meta.success) {
+            rules = ResponsePacker.success(data);
+        } else {
+            rules = ResponsePacker.error('remote server result error!');
+        }
+
+        return rules;
+    }).catch((error) => {
+        console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
+/**
+ * 查询基本准则和具体准则
+ * @param {accStandardCode: string, exeYear: string} params 
+ */
+const getRuleByCodeYear = (params) => {
+    return Promise.all([getGPByCodeYear(params), getSPByCodeYear(params)]).then(([gpRes, spRes]) => {
+        return ResponsePacker.success({
+            gpRule: gpRes.success.data,
+            spRule: spRes.success.data
+        });
+    }).catch((error) => {
+        return ResponsePacker.error(error);
+    });
+}
+
+/**
  * Find role by typeId and yearId
  * @param {*} db  
  * @param {*} params { typeId: number, yearId: number } 
@@ -247,5 +285,7 @@ module.exports = {
     uploadRole,
     findRoleByValue,
     getGPByCodeYear,
+    getSPByCodeYear,
+    getRuleByCodeYear,
     getRules
 };

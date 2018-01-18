@@ -3,10 +3,19 @@
  */
 import * as React from 'react';
 import { Row, Col } from 'antd';
+const Anchor = require('antd/lib/anchor');
+const { Link } = Anchor;
 import './style.scss';
+
+interface LinkProps {
+    href: string,                   // 目标元素的id
+    title: string,                  // 显示标题
+    childs?: Array<LinkProps>         // 子元素
+}
 
 export interface SiderNavProps {
     prefixCls?: string,
+    data?: Array<LinkProps>,
 }
 
 export default class SiderNav extends React.Component<SiderNavProps, any> {
@@ -16,18 +25,51 @@ export default class SiderNav extends React.Component<SiderNavProps, any> {
     }
 
     render() {
-        const { prefixCls } = this.props;
+        const { prefixCls, data } = this.props;
 
         return (
             <div className={ `${prefixCls}-container` }>
-                <ul className={ `${prefixCls}-group` }>
-                    <li className={ `${prefixCls}-group-item` }>第一章</li>
-                    <li className={ `${prefixCls}-group-item` }>第二章</li>
-                    <li className={ `${prefixCls}-group-item` }>第三章</li>
-                    <li className={ `${prefixCls}-group-item` }>第四章</li>
-                </ul>
+                <Anchor className={ `${prefixCls}-group` }>
+                    {
+                        this.renderLinks(data)
+                    }
+                </Anchor>
             </div>
         )
     }
 
+    renderLinks(data) {
+        const { prefixCls } = this.props;
+
+        let links = [];
+        if (data && data.length > 0) {
+            data.forEach((item, index) => {
+                if (item.childs) {      // 添加子节点
+                    links.push((
+                        <Link 
+                            key={ `nav-link-${item.href}-${index}` }
+                            className={ `${prefixCls}-group-item` } 
+                            title={ item.title } 
+                            href={ `#${item.href}` } 
+                        >
+                        {
+                            this.renderLinks(item.childs)
+                        }
+                        </Link>
+                    ));
+                } else {
+                    links.push((
+                        <Link 
+                            key={ `nav-link-${item.href}-${index}` }
+                            className={ `${prefixCls}-group-item` } 
+                            title={ item.title } 
+                            href={ `#${item.href}` } 
+                        />
+                    ));
+                }
+            });
+        }
+
+        return links;
+    }
 }

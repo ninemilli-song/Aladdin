@@ -100,15 +100,17 @@ const selectMenu = (selectedKey) => {
  */
 const getRole = (type, year) => {
     return (dispatch, getState) => {
-        return request.get(`api/getGBRule?type=${type}&year=${year}`).then((result) => {
+        return request.get(`api/getRule?type=${type}&year=${year}`).then((result) => {
             const roleType = type;
             const roleYear = year;
-            const roleText = result.success ? result.success.data.generalPrinciple : '';
+            const roleGPData = result.success ? result.success.data.gpRule.generalPrinciple : '';
+            const roleSPData = result.success ? result.success.data.spRule : [];
 
             const role = Object.assign({}, {
                 roleType,
                 roleYear,
-                roleText,
+                roleGPData,
+                roleSPData
             });
             
             dispatch({

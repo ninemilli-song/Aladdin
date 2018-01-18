@@ -15,13 +15,13 @@ const BackTop = require('antd/lib/back-top');
 const Icon = require('antd/lib/icon');
 
 export type IRule = {
-    roleType: string,   // role type value
-    roleYear: string,   // role year value
-    roleText: string,   // role text content
+    roleType: string,               // role type value
+    roleYear: string,               // role year value
+    roleGPData: string,             // 基本准则数据
+    roleSPData: Array<any>,         // 具体准则数据
 }
 
 interface RulesProps extends MainSiderProps {
-    prefixCls?: string,
     filterOptions?: AccountingFilterOptions,
     onChange?: (value: FilterOptions, type: string) => void,
     role?: IRule,      // 当前会计数据
@@ -40,12 +40,14 @@ export default class Rules extends MainSider<RulesProps> {
     // 样式前缀
     prefixCls = 'accounting-rule';
 
+    className = 'accounting-rule';
+
     protected renderMain()  {
         const { filterOptions, role } = this.props;
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
-            <div className="content">
+            <div className={`${this.props}-body`}>
                 <AccountingFilter 
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
@@ -66,7 +68,45 @@ export default class Rules extends MainSider<RulesProps> {
     protected renderSider() {
         return (
             <div className="sider-content">
-                <SiderNav />
+                {
+                    this.renderSiderNav()
+                }
+            </div>
+        )
+    }
+
+    renderSiderNav() {
+        const { role } = this.props;
+        const spData = role.roleSPData;
+
+        // SiderNav 导航数据
+        const navAnchorData = [
+            {
+                href: 'gpRuleAnchor',
+                title: '基本准则'
+            }
+        ];
+
+        const spAnchordata = {
+            href: 'spRuleAnchor',
+            title: '具体准则',
+            childs: []
+        }
+
+        spData.forEach((item, index) => {
+            spAnchordata.childs.push({
+                href: `sp_rule_${item.id}_${index}`,
+                title: item.title,
+            });
+        })
+
+        navAnchorData.push(spAnchordata);
+
+        return (
+            <div className="sider-nav-anchor">
+                <SiderNav 
+                    data = { navAnchorData }
+                />
             </div>
         )
     }
@@ -80,18 +120,70 @@ export default class Rules extends MainSider<RulesProps> {
     }
 
     private renderText() {
-        const { role } = this.props;
-
-        const ruleHtmlText = this.mdConverter.makeHtml(role.roleText);
-
         return (
             <div className={ this.prefixCls }>
-                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}}>
-                </div>
-                <div className="editor">
+                {
+                    this.renderGPRuleText()
+                }
+                {
+                    this.renderSPRuleText()
+                }
+                {/* <div className="editor">
                     <Input type="textarea" onBlur={ this.onTextBlur } rows={10} />
                     <Button onClick={ this.uploadRoleText }>上传文本</Button>
-                </div>
+                </div> */}
+            </div>
+        )
+    }
+
+    /**
+     * 渲染基本准则
+     */
+    private renderGPRuleText() {
+        const { role } = this.props;
+
+        const ruleHtmlText = this.mdConverter.makeHtml(role.roleGPData);
+
+        return (
+            <div className="gp-rule">
+                <h1 id="gpRuleAnchor" className="gp-rule-header">基本准则</h1>
+                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
+            </div>
+        )
+    }
+
+    /**
+     * 渲染具体准则
+     */
+    private renderSPRuleText() {
+        const { role } = this.props;
+        const titleList = [];
+        const spData = role.roleSPData;
+
+        spData.forEach((item, index) => {
+            titleList.push((
+                <li 
+                    id={ `sp_rule_${item.id}_${index}` }
+                    key={ `${item.id}_${index}` } 
+                    className="sp-rule-item"
+                >
+                    <a href="">
+                        {
+                            item.title
+                        }
+                    </a>
+                </li>
+            ));
+        })
+
+        return (
+            <div className="sp-rule">
+                <h1 id="spRuleAnchor" className="sp-rule-header">具体准则</h1>
+                <ul className="sp-rule-title">
+                    {
+                        titleList
+                    }
+                </ul>
             </div>
         )
     }

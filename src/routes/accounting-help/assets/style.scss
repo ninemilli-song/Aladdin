@@ -5,6 +5,16 @@
 // --------- acconting style ------------
 // --------------------------------------
 .accounting-rule {
+    .sider-content {
+        position: relative;
+
+        .sider-nav-anchor {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
     &-text {
         h1, h2, h3, h4, h5, h6 {
             margin-bottom: 8px;
@@ -31,6 +41,12 @@
             &:hover {
                 color: $color4hover;
             }
+        }
+    }
+
+    .sp-rule {
+        &-item {
+            padding: 4px;
         }
     }
 }

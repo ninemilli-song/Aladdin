@@ -69,9 +69,10 @@ const initialState = {
     selectedMenu: 'rules',          // The selected menu key
     roleTypes: [],                  // 会计制度类型
     role: {
-        roleType: '1',       // roleType value
-        roleYear: '2006',    // roleYear value
-        roleText: '',        // roleText content
+        roleType: '1',              // roleType value
+        roleYear: '2006',           // roleYear value
+        roleGPData: '',             // roleText content
+        roleSPData: [],             // roleText content
     }
 };
 
