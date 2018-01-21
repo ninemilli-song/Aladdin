@@ -16,13 +16,13 @@ export default class PrimaryNav extends React.Component<any, any> {
             <ul className="menu">
                 <li className="menu-item">
                     <a 
-                        href="#/">
+                        href="/">
                         首页
                     </a>
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/coterie"
+                        href="/coterie"
                         target="_blank"
                         rel="noopener noreferrer">
                         圈子
@@ -30,7 +30,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/qas"
+                        href="/qas"
                         target="_blank"
                         rel="noopener noreferrer">
                         问答
@@ -38,7 +38,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/policy"
+                        href="/policy"
                         target="_blank"
                         rel="noopener noreferrer">
                         政策
@@ -46,7 +46,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/accountinghelp"
+                        href="/accountinghelp"
                         target="_blank"
                         rel="noopener noreferrer">
                         财会
@@ -54,7 +54,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/accountingmanage"
+                        href="/accountingmanage"
                         target="_blank"
                         rel="noopener noreferrer">
                         财管
@@ -70,7 +70,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/career"
+                        href="/career"
                         target="_blank"
                         rel="noopener noreferrer">
                         生涯
@@ -78,7 +78,7 @@ export default class PrimaryNav extends React.Component<any, any> {
                 </li>
                 <li className="menu-item">
                     <a 
-                        href="#/video"
+                        href="/video"
                         target="_blank"
                         rel="noopener noreferrer">
                         视频

@@ -5,7 +5,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
+import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import 'whatwg-fetch';
 import request from './utils/fetch';
@@ -18,7 +18,7 @@ import './styles';
 // import './styles/index.scss';
 
 const store = configureStore({});
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 import defaultRoutes from './routes';
 const routes = defaultRoutes(store);
 
