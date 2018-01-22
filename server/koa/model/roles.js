@@ -123,6 +123,29 @@ const getRuleByCodeYear = (params) => {
 }
 
 /**
+ * 查询基本准则详情
+ * @param { spID } params 
+ */
+const getSPRuleDetail = (params) => {
+    return fetch.get('sp/detail', params).then((res) => {
+        console.log('👉🏻 ---> sp/detail: \n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            result = ResponsePacker.error(`remote server result error! ${meta.message}`);
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> sp/detail error: \n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
+/**
  * Find role by typeId and yearId
  * @param {*} db  
  * @param {*} params { typeId: number, yearId: number } 
@@ -287,5 +310,6 @@ module.exports = {
     getGPByCodeYear,
     getSPByCodeYear,
     getRuleByCodeYear,
-    getRules
+    getRules,
+    getSPRuleDetail
 };

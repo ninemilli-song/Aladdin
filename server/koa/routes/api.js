@@ -5,7 +5,7 @@
  * Time: 下午3:00
  */
 const router = require('koa-router')();
-const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear } = require('../model/roles');
+const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -43,6 +43,17 @@ router.get('/getRule', async (ctx) => {
     const result = await getRuleByCodeYear({
         type,
         year,
+    });
+
+    ctx.body = result;
+});
+
+// Get sp rule detail
+router.get('/getSPRuleDetail', async (ctx) => {
+    const { spID } = ctx.request.query;
+
+    const result = await getSPRuleDetail({
+        spID
     });
 
     ctx.body = result;

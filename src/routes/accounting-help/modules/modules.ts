@@ -16,6 +16,7 @@ export const ACCOUNTINT_CHANNELS = 'ACCOUNTINT_CHANNELS';
 export const ACCOUNTINT_SELECT_MENU = 'ACCOUNTINT_SELECT_MENU';
 export const ACCOUNTINT_ROLE_CHANGED = 'ACCOUNTINT_ROLE_CHANGED';
 export const ACCOUNTING_ROLE_TYPES = 'ACCOUNTING_ROLE_TYPES';
+export const ACCOUNTING_ROLE_SP_DETAIL = 'ACCOUNTING_ROLE_SP_DETAIL';
 
 // -------------------------------------
 // Reducer
@@ -54,12 +55,19 @@ const onRoleChanged = (state, action) => {
     })
 }
 
+const getSPRuleDetail = (state, action) => {
+    return Object.assign({}, state, {
+        spRuleDetail: action.data,
+    })
+}
+
 const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_FILTER_DATA]: filterData,
     [ACCOUNTING_ROLE_TYPES]: roleTypes,
     [ACCOUNTINT_CHANNELS]: channels,
     [ACCOUNTINT_SELECT_MENU]: selectedMenu,
-    [ACCOUNTINT_ROLE_CHANGED]: onRoleChanged
+    [ACCOUNTINT_ROLE_CHANGED]: onRoleChanged,
+    [ACCOUNTING_ROLE_SP_DETAIL]: getSPRuleDetail,
 }
 
 // 初始化模块数据
@@ -73,7 +81,8 @@ const initialState = {
         roleYear: '2006',           // roleYear value
         roleGPData: '',             // roleText content
         roleSPData: [],             // roleText content
-    }
+    },
+    spRuleDetail: {}                // 具体准则内容
 };
 
 // --------------------------------------

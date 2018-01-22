@@ -13,6 +13,7 @@ const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
 const BackTop = require('antd/lib/back-top');
 const Icon = require('antd/lib/icon');
+const Modal = require('antd/lib/modal');
 
 export type IRule = {
     roleType: string,               // role type value
@@ -21,11 +22,20 @@ export type IRule = {
     roleSPData: Array<any>,         // 具体准则数据
 }
 
+/**
+ * 具体准则详情
+ */
+export type ISPRuleDetail = {
+    title: string,                  // 具体准则标题
+    content: string,                // 具体准则内容
+}
+
 interface RulesProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
     onChange?: (value: FilterOptions, type: string) => void,
     role?: IRule,      // 当前会计数据
-    action: {[key: string]: Function};
+    action: {[key: string]: Function},
+    spRuleDetail?: ISPRuleDetail,
 }
 
 @autobind
@@ -42,6 +52,10 @@ export default class Rules extends MainSider<RulesProps> {
 
     className = 'accounting-rule';
 
+    state = {
+        showSPDetail: false,
+    };
+
     protected renderMain()  {
         const { filterOptions, role } = this.props;
         const { roleOptions, yearOptions } = filterOptions;
@@ -51,11 +65,12 @@ export default class Rules extends MainSider<RulesProps> {
                 <AccountingFilter 
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
-                    onChange = {this.onChange}
+                    onChange = { this.onChange }
                     role = { role.roleType }
                     year = { role.roleYear }
                 />
                 { this.renderText() }
+                { this.renderSPRuleDialog() }
                 <BackTop>
                     <div className={`${this.prefixCls}-back-top`} title="返回到顶部">
                         <i className="iconfont icon-zhiding"></i>
@@ -167,7 +182,12 @@ export default class Rules extends MainSider<RulesProps> {
                     key={ `${item.id}_${index}` } 
                     className="sp-rule-item"
                 >
-                    <a href="">
+                    <a 
+                        href="javascript: void(0)"
+                        onClick={ () => {
+                            this.showSPRule(item);
+                        } }
+                    >
                         {
                             item.title
                         }
@@ -186,6 +206,47 @@ export default class Rules extends MainSider<RulesProps> {
                 </ul>
             </div>
         )
+    }
+
+    private renderSPRuleDialog() {
+        const { spRuleDetail } = this.props;
+        const { title, content } = spRuleDetail;
+
+        const ruleHtmlText = this.mdConverter.makeHtml(content) || '';
+
+        return (
+            <Modal
+                title={ title }
+                style={{ top: 20 }}
+                visible={this.state.showSPDetail}
+                onCancel={() => this.setSPRuleDialogVisible(false)}
+                footer={ null }
+            >
+                <div>
+                    <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
+                </div>
+            </Modal>
+        );
+    }
+
+    private setSPRuleDialogVisible(visible) {
+        this.setState({
+            showSPDetail: visible
+        });
+    }
+
+    /**
+     * 显示具体准则内容
+     * @param ruleObj 具体准则对象
+     */
+    private showSPRule(ruleObj) {
+        const { action } = this.props;
+
+        // 查询具体准则详情
+        action.getSPRuleDetail(ruleObj.id);
+
+        // 打开对话框
+        this.setSPRuleDialogVisible(true);
     }
 
     private onTextBlur(evt) {

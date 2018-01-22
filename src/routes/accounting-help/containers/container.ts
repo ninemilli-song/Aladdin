@@ -9,7 +9,8 @@ import {
     ACCOUNTINT_CHANNELS,  
     ACCOUNTINT_SELECT_MENU,
     ACCOUNTINT_ROLE_CHANGED,
-    ACCOUNTING_ROLE_TYPES
+    ACCOUNTING_ROLE_TYPES,
+    ACCOUNTING_ROLE_SP_DETAIL
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -121,6 +122,31 @@ const getRole = (type, year) => {
     }
 }
 
+/**
+ * 查询具体准则详情
+ * @param spID 
+ */
+const getSPRuleDetail = (spID) => {
+    return (dispatch, getState) => {
+        return request.get(`api/getSPRuleDetail`, { spID }).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+                const { title, specifics } = data;
+
+                dispatch({
+                    type: ACCOUNTING_ROLE_SP_DETAIL,
+                    data: {
+                        title,
+                        content: specifics
+                    }
+                });
+            }
+        }).catch(() => {
+
+        });
+    }
+}
+
 const mapActionCreators = (dispatch) => {
     return {
         action: {
@@ -135,6 +161,9 @@ const mapActionCreators = (dispatch) => {
             },
             getRole: (type, year) => {
                 dispatch(getRole(type, year));
+            },
+            getSPRuleDetail: (ruleId) => {
+                dispatch(getSPRuleDetail(ruleId));
             }
         },
     }

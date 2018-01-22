@@ -2,7 +2,7 @@
  * 准则页面
  */
 import * as React from 'react';
-import Rules, { IRule } from './Rules';
+import Rules, { IRule, ISPRuleDetail} from './Rules';
 import { AccountingFilterOptions } from '../../../components/filter/index';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import { autobind } from 'core-decorators';
@@ -11,6 +11,7 @@ interface RulesPageProps {
     roleTypes: Array<any>, // 会计制度的过滤数据
     action: {[key: string]: Function},
     role: IRule,                           // role data
+    spRuleDetail: ISPRuleDetail,
 }
 
 @autobind
@@ -23,7 +24,7 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
     }
 
     render() {
-        const { roleTypes, action, role } = this.props;
+        const { roleTypes, action, role, spRuleDetail } = this.props;
 
         const filterData = this.packFilterData();
 
@@ -34,6 +35,7 @@ export default class RulesPage extends React.Component<RulesPageProps, any> {
                     onChange = { this.onRulesChanged }
                     role = { role }
                     action = { action }
+                    spRuleDetail = { spRuleDetail }
                 />
             </div>
         )

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SecondaryNav } from '../../../components/page-components';
-import Rules from './Rules';
+import Rules, { ISPRuleDetail } from './Rules';
 import { autobind } from 'core-decorators';
 import { AccountingFilterOptions } from '../../../components/filter/index';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
@@ -17,7 +17,8 @@ interface StoreType {
     selectedYear: string,                   // 选中的“执行年份” 
     selectedRoleContent: string,            // 选中准则的文本
     role: any,                              // 准则数据
-    roleTypes: any                          // 制度数据
+    roleTypes: any,                         // 制度数据
+    spRuleDetail: ISPRuleDetail             // 具体准则详情
 }
 
 export interface HomeProps  {
@@ -67,7 +68,7 @@ class Home extends React.Component<HomeProps, any> {
 
     getContent() {
         const { store, action } = this.props;
-        const { selectedRole, selectedYear, selectedMenu, selectedRoleContent, role, roleTypes } = store;
+        const { selectedRole, selectedYear, selectedMenu, selectedRoleContent, role, roleTypes, spRuleDetail } = store;
 
         let component = null;
         switch (selectedMenu) {
@@ -77,6 +78,7 @@ class Home extends React.Component<HomeProps, any> {
                         roleTypes = { roleTypes }
                         role = { role }
                         action = { action }
+                        spRuleDetail = { spRuleDetail }
                     />
                 );
                 break;
