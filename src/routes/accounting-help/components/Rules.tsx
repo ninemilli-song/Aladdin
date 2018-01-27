@@ -19,7 +19,7 @@ export type IRule = {
     roleType: string,               // role type value
     roleYear: string,               // role year value
     roleGPData: string,             // 基本准则数据
-    roleSPData: Array<any>,         // 具体准则数据
+    roleSPData: any,         // 具体准则数据
 }
 
 /**
@@ -93,6 +93,7 @@ export default class Rules extends MainSider<RulesProps> {
     renderSiderNav() {
         const { role } = this.props;
         const spData = role.roleSPData;
+        const chapters = spData.chapters || [];
 
         // SiderNav 导航数据
         const navAnchorData = [
@@ -108,7 +109,7 @@ export default class Rules extends MainSider<RulesProps> {
             childs: []
         }
 
-        spData.forEach((item, index) => {
+        chapters.forEach((item, index) => {
             spAnchordata.childs.push({
                 href: `sp_rule_${item.id}_${index}`,
                 title: item.title,
@@ -174,8 +175,9 @@ export default class Rules extends MainSider<RulesProps> {
         const { role } = this.props;
         const titleList = [];
         const spData = role.roleSPData;
+        const chapters = spData.chapters || [];
 
-        spData.forEach((item, index) => {
+        chapters.forEach((item, index) => {
             titleList.push((
                 <li 
                     id={ `sp_rule_${item.id}_${index}` }
