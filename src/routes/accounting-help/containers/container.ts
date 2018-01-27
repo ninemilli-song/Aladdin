@@ -104,7 +104,9 @@ const getRole = (type, year) => {
         return request.get(`api/getRule?type=${type}&year=${year}`).then((result) => {
             const roleType = type;
             const roleYear = year;
-            const roleGPData = result.success ? result.success.data.gpRule.generalPrinciple : '';
+            const roleGPData = result.success ? 
+                (result.success.data ? result.success.data.gpRule.generalPrinciple : '') 
+                : '';
             const roleSPData = result.success ? result.success.data.spRule : {};
 
             const role = Object.assign({}, {
