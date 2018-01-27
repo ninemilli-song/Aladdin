@@ -41,8 +41,8 @@ router.get('/getRule', async (ctx) => {
     const { type, year } = ctx.request.query;
 
     const result = await getRuleByCodeYear({
-        type,
-        year,
+        accStandardCode: type,
+        exeYear: year,
     });
 
     ctx.body = result;
