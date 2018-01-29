@@ -1,0 +1,24 @@
+@import '../../../styles/variable.scss';
+
+.footer {
+    &-wrapper {
+        color: $thirdFontColor;
+        padding-top: 6px;
+        margin: 40px 0 20px 0;
+        overflow: hidden;
+        zoom: 1;
+        border-top: 1px dashed $mainBorderColor;
+    }
+
+    &-icp {
+        float: left;
+    }
+
+    &-links {
+        float: right;
+    }
+
+    a {
+        
+    }
+}

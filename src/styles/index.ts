@@ -11,9 +11,6 @@ require('./common.scss');
 
 /* ******import modules style****** */
 
-/* we need import layout here,it override some antd styles */
-require('./layout.scss');
-
 /* @import "./warehouse.less"; */
 require('./warehouse.scss');
 require('./category.scss');

@@ -44,7 +44,15 @@
         }
     }
 
+    .gp-rule {
+        margin-bottom: 20px;
+    }
+
     .sp-rule {
+        &-title {
+            margin-top: 10px;
+        }
+
         &-item {
             padding: 4px;
         }
