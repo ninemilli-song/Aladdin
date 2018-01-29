@@ -92,31 +92,34 @@ export default class Rules extends MainSider<RulesProps> {
 
     renderSiderNav() {
         const { role } = this.props;
+        const gpData = role.roleGPData;
         const spData = role.roleSPData;
         const chapters = spData.chapters || [];
 
         // SiderNav 导航数据
-        const navAnchorData = [
+        const navAnchorData = gpData ? [
             {
                 href: 'gpRuleAnchor',
                 title: '基本准则'
             }
-        ];
+        ] : [];
 
-        const spAnchordata = {
-            href: 'spRuleAnchor',
-            title: '具体准则',
-            childs: []
+        if (chapters.length > 0) {
+            const spAnchordata = {
+                href: 'spRuleAnchor',
+                title: '具体准则',
+                childs: []
+            }
+    
+            chapters.forEach((item, index) => {
+                spAnchordata.childs.push({
+                    href: `sp_rule_${item.id}_${index}`,
+                    title: item.title,
+                });
+            })
+    
+            navAnchorData.push(spAnchordata);
         }
-
-        chapters.forEach((item, index) => {
-            spAnchordata.childs.push({
-                href: `sp_rule_${item.id}_${index}`,
-                title: item.title,
-            });
-        })
-
-        navAnchorData.push(spAnchordata);
 
         return (
             <div className="sider-nav-anchor">
@@ -158,14 +161,20 @@ export default class Rules extends MainSider<RulesProps> {
     private renderGPRuleText() {
         const { role } = this.props;
 
-        const ruleHtmlText = this.mdConverter.makeHtml(role.roleGPData);
+        let gpRuleNode = null;
 
-        return (
-            <div className="gp-rule">
-                <h1 id="gpRuleAnchor" className="gp-rule-header">基本准则</h1>
-                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
-            </div>
-        )
+        if (role.roleGPData) {
+            const ruleHtmlText = this.mdConverter.makeHtml(role.roleGPData);
+
+            gpRuleNode = (
+                <div className="gp-rule">
+                    <h1 id="gpRuleAnchor" className="gp-rule-header">基本准则</h1>
+                    <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
+                </div>
+            );
+        }
+
+        return gpRuleNode;
     }
 
     /**
@@ -177,37 +186,43 @@ export default class Rules extends MainSider<RulesProps> {
         const spData = role.roleSPData;
         const chapters = spData.chapters || [];
 
-        chapters.forEach((item, index) => {
-            titleList.push((
-                <li 
-                    id={ `sp_rule_${item.id}_${index}` }
-                    key={ `${item.id}_${index}` } 
-                    className="sp-rule-item"
-                >
-                    <a 
-                        href="javascript: void(0)"
-                        onClick={ () => {
-                            this.showSPRule(item);
-                        } }
-                    >
-                        {
-                            item.title
-                        }
-                    </a>
-                </li>
-            ));
-        })
+        let spRuleNode = null;
 
-        return (
-            <div className="sp-rule">
-                <h1 id="spRuleAnchor" className="sp-rule-header">具体准则</h1>
-                <ul className="sp-rule-title">
-                    {
-                        titleList
-                    }
-                </ul>
-            </div>
-        )
+        if (chapters.length > 0) {
+            chapters.forEach((item, index) => {
+                titleList.push((
+                    <li 
+                        id={ `sp_rule_${item.id}_${index}` }
+                        key={ `${item.id}_${index}` } 
+                        className="sp-rule-item"
+                    >
+                        <a 
+                            href="javascript: void(0)"
+                            onClick={ () => {
+                                this.showSPRule(item);
+                            } }
+                        >
+                            {
+                                item.title
+                            }
+                        </a>
+                    </li>
+                ));
+            });
+
+            spRuleNode = (
+                <div className="sp-rule">
+                    <h1 id="spRuleAnchor" className="sp-rule-header">具体准则</h1>
+                    <ul className="sp-rule-title">
+                        {
+                            titleList
+                        }
+                    </ul>
+                </div>
+            );
+        }
+
+        return spRuleNode;
     }
 
     private renderSPRuleDialog() {
