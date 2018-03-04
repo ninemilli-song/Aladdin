@@ -8,6 +8,7 @@ import { autobind } from 'core-decorators';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import SiderNav from '../../../components/SiderNav/SiderNav';
 import request from '../../../utils/fetch';
+import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 const showdown = require('showdown');
 const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
@@ -32,7 +33,6 @@ export type ISPRuleDetail = {
 
 interface RulesProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
-    onChange?: (value: FilterOptions, type: string) => void,
     role?: IRule,      // 当前会计数据
     action: {[key: string]: Function},
     spRuleDetail?: ISPRuleDetail,
@@ -130,11 +130,13 @@ export default class Rules extends MainSider<RulesProps> {
         )
     }
 
-    private onChange(value, type) {
-        const {onChange} = this.props;
+    private onChange(val, type) {
+        const { action, role } = this.props;
 
-        if (onChange) {
-            onChange(value, type);
+        if (type === AccountingFilterTypeEnum.ROLE) {
+            action.getRole(val.value, role.roleYear);
+        } else if (AccountingFilterTypeEnum.YEAR) {
+            action.getRole(role.roleType, val.value);
         }
     }
 

@@ -4,10 +4,11 @@ import Rules, { ISPRuleDetail } from './Rules';
 import { autobind } from 'core-decorators';
 import { AccountingFilterOptions } from '../../../components/filter/index';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
-import RulesPage from './RulesPage';
 const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
 import '../assets/style.scss';
+import Subjects from './Subjects';
+import Reports from './Reports';
 
 interface StoreType {
     filterData: AccountingFilterOptions,    // 会计制度的过滤数据
@@ -71,17 +72,36 @@ class Home extends React.Component<HomeProps, any> {
         const { selectedRole, selectedYear, selectedMenu, selectedRoleContent, role, roleTypes, spRuleDetail } = store;
 
         let component = null;
+        const filterOptions = this.packFilterData();
+
         switch (selectedMenu) {
-            case 'rules':
+            case 'rules':                                           // 准则
                 component = (
-                    <RulesPage 
-                        roleTypes = { roleTypes }
+                    <Rules 
+                        filterOptions = { filterOptions }
                         role = { role }
                         action = { action }
                         spRuleDetail = { spRuleDetail }
                     />
                 );
                 break;
+            case 'subjects':                                        // 科目
+                component = (
+                    <Subjects 
+                        filterOptions = { filterOptions }
+                        role = { role }
+                        action = { action }
+                    />
+                );
+                break;
+            case 'reports':
+                component = (
+                    <Reports 
+                        filterOptions = { filterOptions }
+                        role = { role }
+                        action = { action }
+                    />
+                )
         }
 
         return (
@@ -106,6 +126,45 @@ class Home extends React.Component<HomeProps, any> {
         const { action } = this.props;
 
         action.selectMenu(item.key);
+    }
+
+    /**
+     * 拼装过滤条件参数
+     */
+    packFilterData(): AccountingFilterOptions {
+        const { store, action } = this.props;
+        const { role, roleTypes } = store;
+
+        const roleOptions = {
+            label: '准则/制度',
+            options: []
+        };
+
+        const yearOptions = {
+            label: '执行年份',
+            options: []
+        }
+
+        roleTypes.forEach((item) => {
+            roleOptions.options.push({
+                label: item.name,
+                value: item.code
+            });
+
+            if (role.roleType === item.code) {
+                item.exeYears.forEach((year) => {
+                    yearOptions.options.push({
+                        label: year,
+                        value: year
+                    });
+                });
+            }
+        })
+
+        return {
+            roleOptions,
+            yearOptions
+        }
     }
 }
 
