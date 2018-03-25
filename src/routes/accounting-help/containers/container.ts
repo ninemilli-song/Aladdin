@@ -10,7 +10,8 @@ import {
     ACCOUNTINT_SELECT_MENU,
     ACCOUNTINT_ROLE_CHANGED,
     ACCOUNTING_ROLE_TYPES,
-    ACCOUNTING_ROLE_SP_DETAIL
+    ACCOUNTING_ROLE_SP_DETAIL,
+    ACCOUNTING_SUBJECT_CATEGORY
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -67,6 +68,25 @@ const getFilterData = () => {
                 if (data && data.length > 0) {
                     dispatch(getRole(data[0].code, data[0].exeYears[0]));
                 }
+            }
+        });
+    }
+}
+
+/**
+ * 科目 - 获取会计科目分类
+ */
+const getSubjectCategory = (roleType, roleYear) => {
+    return (dispatch, getState) => {
+        return request.get(`api/getSubjectCategory?type=${roleType}&year=${roleYear}`).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+
+                // 将科目分类添加到store中
+                dispatch({
+                    type: ACCOUNTING_SUBJECT_CATEGORY,
+                    data: data,
+                });
             }
         });
     }
@@ -166,6 +186,9 @@ const mapActionCreators = (dispatch) => {
             },
             getSPRuleDetail: (ruleId) => {
                 dispatch(getSPRuleDetail(ruleId));
+            },
+            getSubjectCategory: (roleType, roleYear) => {
+                dispatch(getSubjectCategory(roleType, roleYear));
             }
         },
     }

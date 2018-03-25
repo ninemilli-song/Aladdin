@@ -20,7 +20,7 @@ export type IRule = {
     roleType: string,               // role type value
     roleYear: string,               // role year value
     roleGPData: string,             // 基本准则数据
-    roleSPData: any,         // 具体准则数据
+    roleSPData: any,                // 具体准则数据
 }
 
 /**

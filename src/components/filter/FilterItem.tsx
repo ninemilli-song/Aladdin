@@ -60,12 +60,12 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
         const { options, selectedValue } = this.props;
         const optsWidgets = [];
 
-        options.forEach((item) => {
+        options.forEach((item, index) => {
             const checked = item.value === selectedValue ? true : false;
 
             optsWidgets.push(
                 <CheckableTag 
-                    key={ item.value }
+                    key={ `${item.value}-${index}` }
                     checked={ checked }
                     onChange={ value => {
                         this.onChange(item, value)

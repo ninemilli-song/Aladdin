@@ -20,6 +20,7 @@ interface StoreType {
     role: any,                              // 准则数据
     roleTypes: any,                         // 制度数据
     spRuleDetail: ISPRuleDetail             // 具体准则详情
+    subjectCategory: Array<any>             // 科目 - 科目分类
 }
 
 export interface HomeProps  {
@@ -69,7 +70,16 @@ class Home extends React.Component<HomeProps, any> {
 
     getContent() {
         const { store, action } = this.props;
-        const { selectedRole, selectedYear, selectedMenu, selectedRoleContent, role, roleTypes, spRuleDetail } = store;
+        const { 
+            selectedRole, 
+            selectedYear, 
+            selectedMenu, 
+            selectedRoleContent, 
+            role, 
+            roleTypes, 
+            spRuleDetail, 
+            subjectCategory 
+        } = store;
 
         let component = null;
         const filterOptions = this.packFilterData();
@@ -91,6 +101,7 @@ class Home extends React.Component<HomeProps, any> {
                         filterOptions = { filterOptions }
                         role = { role }
                         action = { action }
+                        subjectCategory = { subjectCategory }
                     />
                 );
                 break;

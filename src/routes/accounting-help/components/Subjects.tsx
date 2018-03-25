@@ -2,25 +2,43 @@
  * 财会 - 科目
  */
 import * as React from 'react';
-import MainSider from '../../../components/page-frame/MainSider';
+import MainSider, { MainSiderProps } from '../../../components/page-frame/MainSider';
 import { AccountingFilterOptions, AccountingFilter } from '../../../components/filter/index';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
+import SiderNav from '../../../components/SiderNav/SiderNav';
 const BackTop = require('antd/lib/back-top');
 
-interface SubjectsProps {
-    filterOptions?: AccountingFilterOptions,
-    role?: IRule,      // 当前会计数据
-    action: {[key: string]: Function},
+type SubjectCategoryType = {
+    id: number,                                                         // id
+    accountingStandard: number,
+    name: string,                                                       // 名称
+    code: string,                                                       // 编码
+    status: boolean,                                                    // 状态
 }
 
-export default class Subjects extends MainSider<any> {
+interface SubjectsProps extends MainSiderProps {
+    filterOptions?: AccountingFilterOptions,
+    role?: IRule,                                                       // 当前会计数据
+    action: {[key: string]: Function},
+    subjectCategory?: Array<SubjectCategoryType>,                       // 科目分类
+}
+
+export default class Subjects extends MainSider<SubjectsProps> {
     
     prefixCls = 'subjects';
 
     constructor(props) {
         super(props);
+
+        const { action, role } = props;
+        const { roleType, roleYear } = role;
+
+        // 获取科目分类
+        if (roleType && roleYear) {
+            action.getSubjectCategory(roleType, roleYear);
+        }
     }
 
     protected renderMain()  {
@@ -46,6 +64,16 @@ export default class Subjects extends MainSider<any> {
         )
     }
 
+    protected renderSider() {
+        return (
+            <div className="sider-content">
+                {
+                    this.renderSiderNav()
+                }
+            </div>
+        )
+    }
+
     private renderText() {
         return (
             <div>
@@ -54,7 +82,27 @@ export default class Subjects extends MainSider<any> {
         )
     }
 
-    private onChange(val, type) {
+    renderSiderNav() {
+        const { subjectCategory } = this.props;
+
+        // SiderNav 导航数据
+        const navAnchorData = subjectCategory.map(item => {
+            return {
+                href: item.code,
+                title: item.name
+            }
+        });
+
+        return (
+            <div className="sider-nav-anchor">
+                <SiderNav 
+                    data = { navAnchorData }
+                />
+            </div>
+        )
+    }
+
+    private onChange = (val, type) => {
         const { action, role } = this.props;
 
         if (type === AccountingFilterTypeEnum.ROLE) {
