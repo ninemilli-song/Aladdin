@@ -8,6 +8,8 @@ import { FilterOptions } from '../../../components/filter/FilterItem';
 import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import SiderNav from '../../../components/SiderNav/SiderNav';
+import SubjectCategory, { SubjectCategoryProps } from './SubjectCategory';
+import index from '../../Warehouse';
 const BackTop = require('antd/lib/back-top');
 
 type SubjectCategoryType = {
@@ -23,6 +25,7 @@ interface SubjectsProps extends MainSiderProps {
     role?: IRule,                                                       // 当前会计数据
     action: {[key: string]: Function},
     subjectCategory?: Array<SubjectCategoryType>,                       // 科目分类
+    subjectsData?: Array<SubjectCategoryProps>,                         // 科目数据
 }
 
 export default class Subjects extends MainSider<SubjectsProps> {
@@ -35,9 +38,12 @@ export default class Subjects extends MainSider<SubjectsProps> {
         const { action, role } = props;
         const { roleType, roleYear } = role;
 
-        // 获取科目分类
         if (roleType && roleYear) {
+            // 获取科目分类
             action.getSubjectCategory(roleType, roleYear);
+
+            // 获取会计科目数据
+            action.getSubjectsData(roleType, roleYear);
         }
     }
 
@@ -54,7 +60,7 @@ export default class Subjects extends MainSider<SubjectsProps> {
                     role = { role.roleType }
                     year = { role.roleYear }
                 />
-                { this.renderText() }
+                { this.renderContent() }
                 <BackTop>
                     <div className={`${this.prefixCls}-back-top`} title="返回到顶部">
                         <i className="iconfont icon-zhiding"></i>
@@ -74,10 +80,23 @@ export default class Subjects extends MainSider<SubjectsProps> {
         )
     }
 
-    private renderText() {
+    private renderContent() {
+        const { subjectsData } = this.props;
+
+        const subjectCategoryNodes = subjectsData.map((item, index) => {
+            return (
+                <SubjectCategory 
+                    key = { `${this.prefixCls}-category-${index}` }
+                    { ...item }
+                />
+            )
+        });
+
         return (
             <div>
-                Hello subjects!
+                {
+                    subjectCategoryNodes
+                }
             </div>
         )
     }

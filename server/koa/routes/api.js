@@ -6,7 +6,7 @@
  */
 const router = require('koa-router')();
 const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
-const { getSubjectCategoryByCodeYear } = require('../model/subject');
+const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -78,6 +78,20 @@ router.get('/getSubjectCategory', async (ctx) => {
     });
 
     ctx.body = result;
-})
+});
+
+// 获取会计科目数据
+router.get('/getSubjectsData', async (ctx) => {
+    const { type, year } = ctx.request.query;
+
+    const result = await getSubjectsDataByCodeYear({
+        accStandardCode: type,
+        exeYear: year,
+    });
+
+    ctx.body = result;
+});
+
+
 
 module.exports = router;

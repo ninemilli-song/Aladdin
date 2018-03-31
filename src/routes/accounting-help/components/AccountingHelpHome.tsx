@@ -21,6 +21,7 @@ interface StoreType {
     roleTypes: any,                         // 制度数据
     spRuleDetail: ISPRuleDetail             // 具体准则详情
     subjectCategory: Array<any>             // 科目 - 科目分类
+    subjectsData: Array<any>                // 科目 - 科目数据
 }
 
 export interface HomeProps  {
@@ -78,7 +79,8 @@ class Home extends React.Component<HomeProps, any> {
             role, 
             roleTypes, 
             spRuleDetail, 
-            subjectCategory 
+            subjectCategory,
+            subjectsData
         } = store;
 
         let component = null;
@@ -102,6 +104,7 @@ class Home extends React.Component<HomeProps, any> {
                         role = { role }
                         action = { action }
                         subjectCategory = { subjectCategory }
+                        subjectsData = { subjectsData }
                     />
                 );
                 break;
