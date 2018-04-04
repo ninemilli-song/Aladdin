@@ -2,25 +2,35 @@
  * 财会 - 报表
  */
 import * as React from 'react';
-import MainSider from '../../../components/page-frame/MainSider';
+import MainSider, { MainSiderProps } from '../../../components/page-frame/MainSider';
 import { AccountingFilterOptions, AccountingFilter } from '../../../components/filter/index';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
+import ReportItem, { ReportItemProps } from './ReportItem';
 const BackTop = require('antd/lib/back-top');
 
-interface ReportsProps {
+interface ReportsProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
-    role?: IRule,      // 当前会计数据
+    data: Array<ReportItemProps>,
     action: {[key: string]: Function},
+    role?: IRule,
 }
 
-export default class Reports extends MainSider<any> {
+export default class Reports extends MainSider<ReportsProps> {
     
     prefixCls = 'reports';
 
     constructor(props) {
         super(props);
+
+        const { action, role } = props;
+        const { roleType, roleYear } = role;
+
+        if (roleType && roleYear) {
+            // 获取账务报表数据
+            action.getReportData(roleType, roleYear);
+        }
     }
 
     protected renderMain()  {
@@ -47,9 +57,24 @@ export default class Reports extends MainSider<any> {
     }
 
     private renderText() {
+        const { data } = this.props;
+
+        const elements = data.map((item, index) => {
+            return (
+                <ReportItem 
+                    key = { `${this.prefixCls}-${index}-${item.id}` }
+                    id = { item.id }
+                    name = { item.name }
+                    content = { item.content }
+                />
+            )
+        });
+
         return (
-            <div>
-                Hello reports!
+            <div className={ `${this.prefixCls}-wrapper` }>
+                {
+                    elements
+                }
             </div>
         )
     }

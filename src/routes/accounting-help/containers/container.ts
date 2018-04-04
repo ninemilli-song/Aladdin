@@ -12,7 +12,8 @@ import {
     ACCOUNTING_ROLE_TYPES,
     ACCOUNTING_ROLE_SP_DETAIL,
     ACCOUNTING_SUBJECT_CATEGORY,
-    ACCOUNTING_SUBJECT_DATA
+    ACCOUNTING_SUBJECT_DATA,
+    ACCOUNTING_REPORT_DATA
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -107,6 +108,27 @@ const getSubjectsData = (roleType, roleYear) => {
                 // 将科目数据添加到store中
                 dispatch({
                     type: ACCOUNTING_SUBJECT_DATA,
+                    data: data
+                });
+            }
+        });
+    }
+}
+
+/**
+ * 根据准则和年份获取账务报表数据
+ * @param roleType 
+ * @param roleYear 
+ */
+const getReportData = (roleType, roleYear) => {
+    return (dispatch, getState) => {
+        return request.get(`api/getReportData?type=${roleType}&year=${roleYear}`).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+
+                // 将科目数据添加到store中
+                dispatch({
+                    type: ACCOUNTING_REPORT_DATA,
                     data: data
                 });
             }
@@ -214,6 +236,9 @@ const mapActionCreators = (dispatch) => {
             },
             getSubjectsData: (roleType, roleYear) => {
                 dispatch(getSubjectsData(roleType, roleYear));
+            },
+            getReportData: (roleType, roleYear) => {
+                dispatch(getReportData(roleType, roleYear));
             }
         },
     }

@@ -19,6 +19,7 @@ export const ACCOUNTING_ROLE_TYPES = 'ACCOUNTING_ROLE_TYPES';
 export const ACCOUNTING_ROLE_SP_DETAIL = 'ACCOUNTING_ROLE_SP_DETAIL';
 export const ACCOUNTING_SUBJECT_CATEGORY = 'ACCOUNTING_SUBJECT_CATEGORY';
 export const ACCOUNTING_SUBJECT_DATA = 'ACCOUNTING_SUBJECT_DATA';
+export const ACCOUNTING_REPORT_DATA = 'ACCOUNTING_REPORT_DATA';
 
 // -------------------------------------
 // Reducer
@@ -75,6 +76,12 @@ const getSubjectsData = (state, action) => {
     });
 }
 
+const getReportData = (state, action) => {
+    return Object.assign({}, state, {
+        reportData: action.data,
+    });
+}
+
 const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_FILTER_DATA]: filterData,
     [ACCOUNTING_ROLE_TYPES]: roleTypes,
@@ -84,6 +91,7 @@ const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_SP_DETAIL]: getSPRuleDetail,
     [ACCOUNTING_SUBJECT_CATEGORY]: getSubjectCategory,
     [ACCOUNTING_SUBJECT_DATA]: getSubjectsData,
+    [ACCOUNTING_REPORT_DATA]: getReportData,
 }
 
 // 初始化模块数据
@@ -100,7 +108,8 @@ const initialState = {
     },
     spRuleDetail: {},               // 具体准则内容
     subjectCategory: [],            // 科目 - 会计科目分类
-    subjectsData: [],               // 科目 - 会计科目数据 
+    subjectsData: [],               // 科目 - 会计科目数据
+    reportData: [],                 // 报表数据
 };
 
 // --------------------------------------
