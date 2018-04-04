@@ -28,7 +28,7 @@ export default class SubjectItem extends React.Component<SubjectItemProps, any> 
 
         const useageNode = usages.map((item, index) => {
             return (
-                <p>
+                <p key = { `${this.prefixCls}-${item.id}-index` }>
                     {
                         item.content
                     }
@@ -43,11 +43,9 @@ export default class SubjectItem extends React.Component<SubjectItemProps, any> 
                         header={ `${name}` }
                         key={ `${this.prefixCls}-${id}` }
                     >
-                        <p>
-                            {
-                                useageNode
-                            }
-                        </p>
+                        {
+                            useageNode
+                        }
                     </Panel>
                 </Collapse>
             </div>

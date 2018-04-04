@@ -8,8 +8,8 @@ import SubjectItem, { SubjectItemProps } from './SubjectItem';
 export interface SubjectCategoryProps {
     id: number,
     accountingStandard: number,
-    name: string,
-    code: string,
+    accElementName: string,
+    accElementCode: string,
     subjects: Array<SubjectItemProps>,
 }
 
@@ -18,7 +18,7 @@ export default class SubjectCategory extends React.Component<SubjectCategoryProp
     prefixCls = 'subjectCategory';
 
     render() {
-        const { name, code, subjects } = this.props;
+        const { accElementName, accElementCode, subjects } = this.props;
         const subjectsNode = subjects.map((item, index) => {
             return (
                 <SubjectItem
@@ -33,8 +33,8 @@ export default class SubjectCategory extends React.Component<SubjectCategoryProp
         return (
             <div className={ `${ this.prefixCls }-wrapper` }>
                 <div className={ `${ this.prefixCls }-title` }>
-                    <h1 id={ code }>
-                        { name }
+                    <h1 id={ accElementCode }>
+                        { accElementName }
                     </h1>
                 </div>
                 <div className={ `${ this.prefixCls }-body` }>
