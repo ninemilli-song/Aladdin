@@ -19,10 +19,11 @@ interface StoreType {
     selectedRoleContent: string,            // 选中准则的文本
     role: any,                              // 准则数据
     roleTypes: any,                         // 制度数据
-    spRuleDetail: ISPRuleDetail             // 具体准则详情
-    subjectCategory: Array<any>             // 科目 - 科目分类
-    subjectsData: Array<any>                // 科目 - 科目数据
-    reportData: Array<any>                  // 科目 - 报表数据
+    spRuleDetail: ISPRuleDetail,            // 具体准则详情
+    subjectCategory: Array<any>,            // 科目 - 科目分类
+    subjectsData: Array<any>,               // 科目 - 科目数据
+    reportData: Array<any>,                 // 科目 - 报表数据
+    roleTypeSelected: any,                  // 已选中的规则/制度
 }
 
 export interface HomeProps  {
@@ -82,7 +83,8 @@ class Home extends React.Component<HomeProps, any> {
             spRuleDetail, 
             subjectCategory,
             subjectsData,
-            reportData
+            reportData,
+            roleTypeSelected
         } = store;
 
         let component = null;
@@ -94,6 +96,7 @@ class Home extends React.Component<HomeProps, any> {
                     <Rules 
                         filterOptions = { filterOptions }
                         role = { role }
+                        roleTypeSelected = { roleTypeSelected }
                         action = { action }
                         spRuleDetail = { spRuleDetail }
                     />
@@ -103,7 +106,7 @@ class Home extends React.Component<HomeProps, any> {
                 component = (
                     <Subjects 
                         filterOptions = { filterOptions }
-                        role = { role }
+                        roleTypeSelected = { roleTypeSelected }
                         action = { action }
                         subjectCategory = { subjectCategory }
                         subjectsData = { subjectsData }
@@ -115,7 +118,7 @@ class Home extends React.Component<HomeProps, any> {
                     <Reports 
                         filterOptions = { filterOptions }
                         action = { action }
-                        role = { role }
+                        roleTypeSelected = { roleTypeSelected }
                         data = { reportData }
                     />
                 )
@@ -139,7 +142,6 @@ class Home extends React.Component<HomeProps, any> {
     }
 
     onMenuSelected(item) {
-        console.log('onMenuSelected >>>>>>>>>> ', item);
         const { action } = this.props;
 
         action.selectMenu(item.key);
@@ -150,7 +152,7 @@ class Home extends React.Component<HomeProps, any> {
      */
     packFilterData(): AccountingFilterOptions {
         const { store, action } = this.props;
-        const { role, roleTypes } = store;
+        const { roleTypeSelected, roleTypes } = store;
 
         const roleOptions = {
             label: '准则/制度',
@@ -168,7 +170,7 @@ class Home extends React.Component<HomeProps, any> {
                 value: item.code
             });
 
-            if (role.roleType === item.code) {
+            if (roleTypeSelected.roleType === item.code) {
                 item.exeYears.forEach((year) => {
                     yearOptions.options.push({
                         label: year,

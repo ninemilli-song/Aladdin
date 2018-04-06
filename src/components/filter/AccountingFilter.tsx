@@ -21,7 +21,7 @@ export const AccountingFilterTypeEnum = {
 
 interface AccountingFilterProps {
     prefixCls?: string,
-    onChange?: (item: FilterOptions, type: string) => void,
+    onChange?: (params: { role: string, year: string }) => void,
     roleOptions: FilterItemProps;
     yearOptions: FilterItemProps;
     role?: string,  // 选中的会计制度
@@ -83,18 +83,25 @@ export default class AccountingFilter extends React.Component<AccountingFilterPr
     }
 
     onRoleChange (item) {
-        const { onChange } = this.props;
+        const { role, year } = this.props;
 
-        if (onChange) {
-            onChange(item, AccountingFilterTypeEnum.ROLE);
-        }
+        this.onChange(item.value, year);
     }
 
     onYearChange (item) {
+        const { role, year } = this.props;
+
+        this.onChange(role, item.value);
+    }
+
+    onChange (role, year) {
         const { onChange } = this.props;
 
         if (onChange) {
-            onChange(item, AccountingFilterTypeEnum.YEAR);
+            onChange({
+                role,
+                year
+            })
         }
     }
 }

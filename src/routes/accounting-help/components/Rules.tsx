@@ -9,6 +9,7 @@ import { FilterOptions } from '../../../components/filter/FilterItem';
 import SiderNav from '../../../components/SiderNav/SiderNav';
 import request from '../../../utils/fetch';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
+import { roleTypeSelected } from './model';
 const showdown = require('showdown');
 const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
@@ -36,6 +37,7 @@ interface RulesProps extends MainSiderProps {
     role?: IRule,      // 当前会计数据
     action: {[key: string]: Function},
     spRuleDetail?: ISPRuleDetail,
+    roleTypeSelected?: roleTypeSelected,
 }
 
 @autobind
@@ -57,7 +59,7 @@ export default class Rules extends MainSider<RulesProps> {
     };
 
     protected renderMain()  {
-        const { filterOptions, role } = this.props;
+        const { filterOptions, role, roleTypeSelected } = this.props;
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
@@ -66,8 +68,8 @@ export default class Rules extends MainSider<RulesProps> {
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
                     onChange = { this.onChange }
-                    role = { role.roleType }
-                    year = { role.roleYear }
+                    role = { roleTypeSelected.roleType }
+                    year = { roleTypeSelected.roleYear }
                 />
                 { this.renderText() }
                 { this.renderSPRuleDialog() }
@@ -130,14 +132,19 @@ export default class Rules extends MainSider<RulesProps> {
         )
     }
 
-    private onChange(val, type) {
-        const { action, role } = this.props;
+    private onChange(val) {
+        const { action } = this.props;
 
-        if (type === AccountingFilterTypeEnum.ROLE) {
-            action.getRole(val.value, role.roleYear);
-        } else if (AccountingFilterTypeEnum.YEAR) {
-            action.getRole(role.roleType, val.value);
-        }
+        // if (type === AccountingFilterTypeEnum.ROLE) {
+        //     action.getRole(val.value, role.roleYear);
+        // } else if (AccountingFilterTypeEnum.YEAR) {
+        //     action.getRole(role.roleType, val.value);
+        // }
+        // 选择会计准则/制度 和 年份
+        action.selectRoleType(val.role, val.year);
+
+        // 根据会计准则/制度 和 年份 查询会计准则内容
+        action.getRole(val.role, val.year);
     }
 
     private renderText() {

@@ -20,6 +20,7 @@ export const ACCOUNTING_ROLE_SP_DETAIL = 'ACCOUNTING_ROLE_SP_DETAIL';
 export const ACCOUNTING_SUBJECT_CATEGORY = 'ACCOUNTING_SUBJECT_CATEGORY';
 export const ACCOUNTING_SUBJECT_DATA = 'ACCOUNTING_SUBJECT_DATA';
 export const ACCOUNTING_REPORT_DATA = 'ACCOUNTING_REPORT_DATA';
+export const ACCOUNTING_ROLETYPE_SELECT = 'ACCOUNTING_ROLETYPE_SELECT';
 
 // -------------------------------------
 // Reducer
@@ -82,6 +83,12 @@ const getReportData = (state, action) => {
     });
 }
 
+const selectRoleType = (state, action) => {
+    return Object.assign({}, state, {
+        roleTypeSelected: action.data,
+    });
+}
+
 const ACTION_HANDLERS = {
     [ACCOUNTING_ROLE_FILTER_DATA]: filterData,
     [ACCOUNTING_ROLE_TYPES]: roleTypes,
@@ -92,6 +99,7 @@ const ACTION_HANDLERS = {
     [ACCOUNTING_SUBJECT_CATEGORY]: getSubjectCategory,
     [ACCOUNTING_SUBJECT_DATA]: getSubjectsData,
     [ACCOUNTING_REPORT_DATA]: getReportData,
+    [ACCOUNTING_ROLETYPE_SELECT]: selectRoleType,
 }
 
 // 初始化模块数据
@@ -101,8 +109,6 @@ const initialState = {
     selectedMenu: 'rules',          // The selected menu key
     roleTypes: [],                  // 会计制度类型
     role: {
-        roleType: '1',              // roleType value
-        roleYear: '2006',           // roleYear value
         roleGPData: '',             // roleText content
         roleSPData: [],             // roleText content
     },
@@ -110,6 +116,10 @@ const initialState = {
     subjectCategory: [],            // 科目 - 会计科目分类
     subjectsData: [],               // 科目 - 会计科目数据
     reportData: [],                 // 报表数据
+    roleTypeSelected: {             // 选中的准则/制度 和 年份
+        roleType: '1',              // roleType value
+        roleYear: '2006',           // roleYear value
+    }
 };
 
 // --------------------------------------

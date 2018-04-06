@@ -8,13 +8,14 @@ import { FilterOptions } from '../../../components/filter/FilterItem';
 import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import ReportItem, { ReportItemProps } from './ReportItem';
+import { roleTypeSelected } from './model';
 const BackTop = require('antd/lib/back-top');
 
 interface ReportsProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
     data: Array<ReportItemProps>,
     action: {[key: string]: Function},
-    role?: IRule,
+    roleTypeSelected: roleTypeSelected,
 }
 
 export default class Reports extends MainSider<ReportsProps> {
@@ -24,8 +25,8 @@ export default class Reports extends MainSider<ReportsProps> {
     constructor(props) {
         super(props);
 
-        const { action, role } = props;
-        const { roleType, roleYear } = role;
+        const { action, roleTypeSelected } = props;
+        const { roleType, roleYear } = roleTypeSelected;
 
         if (roleType && roleYear) {
             // 获取账务报表数据
@@ -34,7 +35,7 @@ export default class Reports extends MainSider<ReportsProps> {
     }
 
     protected renderMain()  {
-        const { filterOptions, role } = this.props;
+        const { filterOptions, roleTypeSelected} = this.props;
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
@@ -43,8 +44,8 @@ export default class Reports extends MainSider<ReportsProps> {
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
                     onChange = { this.onChange }
-                    role = { role.roleType }
-                    year = { role.roleYear }
+                    role = { roleTypeSelected.roleType }
+                    year = { roleTypeSelected.roleYear }
                 />
                 { this.renderText() }
                 <BackTop>
@@ -79,13 +80,13 @@ export default class Reports extends MainSider<ReportsProps> {
         )
     }
 
-    private onChange(val, type) {
-        const { action, role } = this.props;
+    onChange = (val) => {
+        const { action } = this.props;
 
-        if (type === AccountingFilterTypeEnum.ROLE) {
-            action.getRole(val.value, role.roleYear);
-        } else if (AccountingFilterTypeEnum.YEAR) {
-            action.getRole(role.roleType, val.value);
-        }
+        // 选择会计准则/制度 和 年份
+        action.selectRoleType(val.role, val.year);
+
+        // 查询报表数据
+        action.getReportData(val.role, val.year)
     }
 }

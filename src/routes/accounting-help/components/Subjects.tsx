@@ -10,6 +10,7 @@ import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingF
 import SiderNav from '../../../components/SiderNav/SiderNav';
 import SubjectCategory, { SubjectCategoryProps } from './SubjectCategory';
 import index from '../../Warehouse';
+import { roleTypeSelected } from './model';
 const BackTop = require('antd/lib/back-top');
 
 type SubjectCategoryType = {
@@ -22,10 +23,10 @@ type SubjectCategoryType = {
 
 interface SubjectsProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
-    role?: IRule,                                                       // 当前会计数据
     action: {[key: string]: Function},
     subjectCategory?: Array<SubjectCategoryType>,                       // 科目分类
     subjectsData?: Array<SubjectCategoryProps>,                         // 科目数据
+    roleTypeSelected: roleTypeSelected,                                 // 选中的会计准则/制度 和 年份
 }
 
 export default class Subjects extends MainSider<SubjectsProps> {
@@ -35,8 +36,8 @@ export default class Subjects extends MainSider<SubjectsProps> {
     constructor(props) {
         super(props);
 
-        const { action, role } = props;
-        const { roleType, roleYear } = role;
+        const { action, roleTypeSelected } = props;
+        const { roleType, roleYear } = roleTypeSelected;
 
         if (roleType && roleYear) {
             // 获取科目分类
@@ -48,7 +49,7 @@ export default class Subjects extends MainSider<SubjectsProps> {
     }
 
     protected renderMain()  {
-        const { filterOptions, role } = this.props;
+        const { filterOptions, roleTypeSelected } = this.props;
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
@@ -57,8 +58,8 @@ export default class Subjects extends MainSider<SubjectsProps> {
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
                     onChange = { this.onChange }
-                    role = { role.roleType }
-                    year = { role.roleYear }
+                    role = { roleTypeSelected.roleType }
+                    year = { roleTypeSelected.roleYear }
                 />
                 { this.renderContent() }
                 <BackTop>
@@ -121,13 +122,16 @@ export default class Subjects extends MainSider<SubjectsProps> {
         )
     }
 
-    private onChange = (val, type) => {
-        const { action, role } = this.props;
+    private onChange = (value) => {
+        const { action } = this.props;
 
-        if (type === AccountingFilterTypeEnum.ROLE) {
-            action.getRole(val.value, role.roleYear);
-        } else if (AccountingFilterTypeEnum.YEAR) {
-            action.getRole(role.roleType, val.value);
-        }
+        // 选择会计准则/制度 和 年份
+        action.selectRoleType(value.role, value.year);
+
+        // 获取科目分类
+        action.getSubjectCategory(value.role, value.year);
+
+        // 获取会计科目数据
+        action.getSubjectsData(value.role, value.year);
     }
 }

@@ -13,7 +13,8 @@ import {
     ACCOUNTING_ROLE_SP_DETAIL,
     ACCOUNTING_SUBJECT_CATEGORY,
     ACCOUNTING_SUBJECT_DATA,
-    ACCOUNTING_REPORT_DATA
+    ACCOUNTING_REPORT_DATA,
+    ACCOUNTING_ROLETYPE_SELECT
 } from '../modules/modules';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
@@ -60,10 +61,19 @@ const getFilterData = () => {
             if (result.success) {
                 const data = result.success.data;
 
-                // 添加规则类型数据
+                // 添加规则类型（准则/制度 和 执行年份）数据
                 dispatch({
                     type: ACCOUNTING_ROLE_TYPES,
                     data: data,
+                });
+
+                // 默认选中会计准则/制度 和 执行年份
+                dispatch({
+                    type: ACCOUNTING_ROLETYPE_SELECT,
+                    data: {
+                        roleType: data[0].code,
+                        roleYear: data[0].exeYears[0],
+                    },
                 });
 
                 // 获取准则内容
@@ -166,16 +176,12 @@ const selectMenu = (selectedKey) => {
 const getRole = (type, year) => {
     return (dispatch, getState) => {
         return request.get(`api/getRule?type=${type}&year=${year}`).then((result) => {
-            const roleType = type;
-            const roleYear = year;
             const roleGPData = result.success ? 
                 (result.success.data.gpRule ? result.success.data.gpRule.generalPrinciple : '') 
                 : '';
             const roleSPData = result.success ? result.success.data.spRule : {};
 
             const role = Object.assign({}, {
-                roleType,
-                roleYear,
                 roleGPData,
                 roleSPData
             });
@@ -184,6 +190,23 @@ const getRole = (type, year) => {
                 type: ACCOUNTINT_ROLE_CHANGED,
                 data: role
             });
+        });
+    }
+}
+
+/**
+ * 切换准则/制度 和 执行年份
+ * @param type 
+ * @param year 
+ */
+const selectRoleType = (type, year) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: ACCOUNTING_ROLETYPE_SELECT,
+            data: {
+                roleType: type,
+                roleYear: year,
+            }
         });
     }
 }
@@ -239,6 +262,9 @@ const mapActionCreators = (dispatch) => {
             },
             getReportData: (roleType, roleYear) => {
                 dispatch(getReportData(roleType, roleYear));
+            },
+            selectRoleType: (roleType, roleYear) => {
+                dispatch(selectRoleType(roleType, roleYear));
             }
         },
     }
