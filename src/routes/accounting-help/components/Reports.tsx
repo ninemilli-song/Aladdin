@@ -39,7 +39,7 @@ export default class Reports extends MainSider<ReportsProps> {
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
-            <div className={`${this.props}-body`}>
+            <div className={`${this.prefixCls}-body`}>
                 <AccountingFilter 
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
@@ -49,7 +49,7 @@ export default class Reports extends MainSider<ReportsProps> {
                 />
                 { this.renderText() }
                 <BackTop>
-                    <div className={`${this.prefixCls}-back-top`} title="返回到顶部">
+                    <div className={`acc-back-top`} title="返回到顶部">
                         <i className="iconfont icon-zhiding"></i>
                     </div>
                 </BackTop>

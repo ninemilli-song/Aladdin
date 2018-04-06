@@ -1,3 +1,6 @@
+@import './mixin.scss';
+@import './variable.scss';
+
 .inline-block {
   display: inline-block;
   margin-right: 10px;
@@ -28,4 +31,44 @@
 
 .clearfix {
   display: block;
+}
+
+.acc-table {
+  table {
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333;
+    width: 100%;
+    border-width: 1px;
+    border-color: #666;
+    border-collapse: collapse;
+
+    th {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #666;
+      background-color: #dedede;
+    }
+
+    td {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #666;
+      background-color: #fff;
+    }
+  }
+}
+
+.acc-back-top {
+  .iconfont {
+    @include font-size-48();
+
+    color: $color4;
+
+    &:hover {
+      color: $color4hover;
+    }
+  }
 }
