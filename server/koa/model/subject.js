@@ -29,8 +29,8 @@ const getSubjectCategoryByCodeYear = (params) => {
  * @param { accStandardCode: string, exeYear: number } params 
  */
 const getSubjectsDataByCodeYear = (params) => {
-    return fetch.get('coa/queryByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> /coa/queryByCodeYear\n', res);
+    return fetch.get('accElement/queryCoaUsagesByCodeYear', params).then((res) => {
+        console.log('👉🏻 ---> /accElement/queryCoaUsagesByCodeYear\n', res);
         const { data, meta } = res;
 
         let rules = null;
@@ -42,7 +42,7 @@ const getSubjectsDataByCodeYear = (params) => {
 
         return rules;
     }).catch((error) => {
-        console.error('👉🏻 ---> /coa/queryByCodeYear error:\n', error);
+        console.error('👉🏻 ---> /accElement/queryCoaUsagesByCodeYear error:\n', error);
         return ResponsePacker.error(error);
     });
 }
