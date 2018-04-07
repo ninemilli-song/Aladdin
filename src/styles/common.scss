@@ -40,23 +40,23 @@
     color: #333;
     width: 100%;
     border-width: 1px;
-    border-color: #666;
+    border-color: $assisBorderColor;
     border-collapse: collapse;
 
     th {
       border-width: 1px;
       padding: 8px;
       border-style: solid;
-      border-color: #666;
-      background-color: #dedede;
+      border-color: $assisBorderColor;
+      background-color: $pageBG;
     }
 
     td {
       border-width: 1px;
       padding: 8px;
       border-style: solid;
-      border-color: #666;
-      background-color: #fff;
+      border-color: $assisBorderColor;
+      background-color: $bodyBG;
     }
   }
 }
@@ -65,10 +65,10 @@
   .iconfont {
     @include font-size-48();
 
-    color: $color4;
+    color: $color5;
 
     &:hover {
-      color: $color4hover;
+      color: $color5hover;
     }
   }
 }
