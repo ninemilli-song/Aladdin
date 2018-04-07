@@ -5,11 +5,12 @@
 import * as React from 'react';
 
 import GlobalInfo from '../global-info';
+import './assets/primarynav.scss';
 
 export default class PrimaryNav extends React.Component<any, any> {
     render() {
         return (
-            <div className="layout-nav-primary-wrapper">
+            <div className="nav-primary-wrapper">
             <div className="info">
                 <GlobalInfo />
             </div>

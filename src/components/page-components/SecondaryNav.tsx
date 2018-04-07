@@ -9,6 +9,7 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Input = require('antd/lib/input');
 const Search = Input.Search;
+import './assets/secondarynav.scss';
 
 type MenuConfig = {
     label: string,
@@ -33,8 +34,8 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
 
     render() {
         return (
-            <div className="layout-nav-secondary-wrapper">
-                <div className="layout-nav-secondary">
+            <div className="nav-secondary-wrapper">
+                <div className="nav-secondary">
                     {this.renderTitle()}
                     {this.renderMenu()}
                     {this.renderSearchBox()}
