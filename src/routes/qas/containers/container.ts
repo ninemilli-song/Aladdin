@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ViewComponent from '../components';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
-import { QAS_Q_LIST, QAS_USER_DATA } from '../modules/modules';
+import { QAS_Q_LIST, QAS_Q_DIALOG_TOGGLE } from '../modules/modules';
 
 // ---------------------------
 // Actions
@@ -25,17 +25,17 @@ const getQuestionList = () => {
     }
 }
 
-const getUserQuestionData = () => {
+/**
+ * 切换提问框的可见性
+ */
+const togglePushQuestionDialogVisible = () => {
     return (dispatch, getState) => {
-        return request.get('api/qas/getUserQuestionData').then((result) => {
-            if (result.success) {
-                const data = result.success.data;
+        // const state = getState().QAS;
+        // const pushQuestionDialogVisible = state.getIn(['uistate', 'pushQuestionDialogVisible']);
 
-                dispatch({
-                    type: QAS_USER_DATA,
-                    data: data
-                })
-            }
+        dispatch({
+            type: QAS_Q_DIALOG_TOGGLE,
+            // data: !pushQuestionDialogVisible,
         })
     }
 }
@@ -47,8 +47,8 @@ const mapActionCreators = (dispatch) => {
             getQuestionList: () => {
                 dispatch(getQuestionList());
             },
-            getUserQuestionData: () => {
-                dispatch(getUserQuestionData());
+            togglePushQuestionDialogVisible: () => {
+                dispatch(togglePushQuestionDialogVisible());
             }
         },
     }

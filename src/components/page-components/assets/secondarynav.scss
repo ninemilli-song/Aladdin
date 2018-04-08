@@ -1,7 +1,3 @@
-.nav-secondary-wrapper {
-    width: 100%;
-}
-
 .nav-secondary {
     position: relative;
     width: #{pageBodyWidth}px;
@@ -10,6 +6,10 @@
     margin: 0 auto;
     // height: 30px;
     // border-bottom: 1px solid #e9e9e9;
+
+    &-wrapper {
+      width: 100%;
+    }
 
     .title {
       // display: inline-block;

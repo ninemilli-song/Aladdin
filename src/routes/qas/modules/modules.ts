@@ -3,12 +3,14 @@
  */
 
 import { createReducer } from '../../../utils/reducer-helper';
+// import { Map } from 'immutable';
+const { fromJS } = require('immutable');
 
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const QAS_Q_DIALOG_TOGGLE = 'QAS_Q_DIALOG_TOGGLE';
 export const QAS_Q_LIST = 'QAS_Q_LIST';
-export const QAS_USER_DATA = 'QAS_USER_DATA';
 
 // -------------------------------------
 // Reducer
@@ -17,29 +19,33 @@ export const QAS_USER_DATA = 'QAS_USER_DATA';
 // ------------------------------------
 // Case reducer
 // ------------------------------------
-const questionList = (state, action) => {
-    return Object.assign({}, state, {
-        questions: action.data,
-    });
-}
+const setPushQuestionDialogVisible = (state, action) => {
+    // const uistate = Object.assign({}, state.uistate, {
+    //     pushQuestionDialogVisible: action.data,
+    // });
 
-const userData = (state, action) => {
-    return Object.assign({}, state, {
-        user: action.data,
-    })
+    // // state.uistate = uistate;
+
+    // return Object.assign({}, state, {
+    //     uistate
+    // });
+
+    return state.updateIn(['uistate', 'pushQuestionDialogVisible'], visible => !visible);
 }
 
 
 const ACTION_HANDLERS = {
-    [QAS_Q_LIST]: questionList,
-    [QAS_USER_DATA]: userData
+    [QAS_Q_DIALOG_TOGGLE]: setPushQuestionDialogVisible,
 }
 
 // 初始化模块数据
-const initialState = {
-    questions: [],
-    userData: {}
-};
+const initialState = fromJS({
+    uistate: {
+        pushQuestionDialogVisible: false,
+        pushQuestionDialogLoading: false,
+    },
+    data: {}
+});
 
 // --------------------------------------
 // Slice reducer
