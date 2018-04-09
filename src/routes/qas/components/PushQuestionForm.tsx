@@ -29,45 +29,31 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
     prefixCls = 'qas-dialog-form';
 
     braftEditorProps = {
-        height: 200,
+        height: 100,
         contentFormat: 'html',
         // initialContent: '<p>Hello World!</p>',
         onChange: this.handleBraftEditorChange,
-        onRawChange: this.handleBraftEditorRawChange
+        onRawChange: this.handleBraftEditorRawChange,
+        controls: [
+            'undo', 'redo', 'split', 'bold', 'emoji', 'text-align', 'split', 'list_ul',
+            'list_ol', 'blockquote', 'code', 'split', 'link', 'split', 'hr', 'split', 'clear'
+        ]
     }
 
     render() {
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
                 <Form>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Validating"
-                        hasFeedback
-                        validateStatus="validating"
-                        help="The information is being validated..."
-                    >
-                        <Input placeholder="I'm the content is being validated" id="validating" />
+                    <FormItem>
+                        <Input placeholder="标题" id="title" />
                     </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Success"
-                        hasFeedback
-                        validateStatus="success"
-                    >
-                        <Input placeholder="I'm the content" id="success" />
+                    <FormItem>
+                        <Input placeholder="类型" id="category" />
                     </FormItem>
-
-                    <FormItem
-                        {...formItemLayout}
-                        label="问题描述"
-                    >
+                    <FormItem>
                         <BraftEditor {...this.braftEditorProps} />
                     </FormItem>
-
                     <FormItem
-                        {...formItemLayout}
-                        label="Fail"
                         hasFeedback
                         validateStatus="error"
                         help="Should be combination of numbers & alphabets"
