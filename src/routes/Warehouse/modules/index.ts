@@ -1,7 +1,6 @@
 /**
  * Define reducer and action of Warehouse
  */
-import * as Immutable from 'immutable';
 const Mock = require('mockjs');
 import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
 import { SHOWLOADING } from '../../../common/appActions';
@@ -122,7 +121,7 @@ export const getList = (options: GridQueryOptions = {}) => {
             });
             dispatch({
                 type: WAREHOUSE_LIST,
-                data: Immutable.fromJS(data),
+                // data: Immutable.fromJS(data),
                 keyword: options.keyword,
                 selectedCategory: options.category,
             });

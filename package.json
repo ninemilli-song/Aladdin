@@ -46,6 +46,7 @@
   "dependencies": {
     "antd": "^2.10.4",
     "bcrypt": "^1.0.2",
+    "braft-editor": "^1.8.4",
     "caniuse-db": "^1.0.30000745",
     "classnames": "^2.2.5",
     "co": "^4.6.0",

@@ -3,10 +3,9 @@
  */
 import * as React from 'react';
 const Modal = require('antd/lib/modal/Modal');
-// import Modal from 'antd/lib/modal/Modal';
 const Button = require('antd/lib/button/button');
-// import Button from 'antd/lib/button/button';
 import { autobind } from 'core-decorators';
+import PushQuestionForm from './PushQuestionForm';
 
 interface PushQuestionDialogProps {
     visible: boolean,                   // 是否可见
@@ -43,17 +42,14 @@ export default class PushQuestionDialog extends React.Component<PushQuestionDial
                 title="提问"
                 onOk={ this.handleOk }
                 onCancel={ this.handleCancel }
+                width = { 600 }
                 footer={[
                     <Button key="submit" type="primary" size="large" loading={ loading } onClick={ this.handleOk }>
                         发布问题
                     </Button>
                 ]}
                 >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <PushQuestionForm />
             </Modal>
         )
     }
