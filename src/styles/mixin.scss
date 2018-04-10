@@ -9,6 +9,10 @@
   border: 1px solid #{$color};
 }
 
+@mixin border-radius($radius: 4) {
+  border-radius: #{$radius}px;
+}
+
 @mixin dash-border($color: $assisBorderColor) {
   border: 1px dashed #{$color};
 }

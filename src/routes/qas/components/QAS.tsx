@@ -4,6 +4,7 @@ import SecondarySearchNav from '../../../components/page-components/SecondarySea
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import PushQuestionDialog from './PushQuestionDialog';
+import { UserInfo } from '../../../common/globalInterface';
 
 /**
  * UI 状态定义
@@ -13,11 +14,26 @@ type QASUIState = {
     pushQuestionDialogLoading: boolean,     // 提问弹框是否为loading状态
 }
 
+type QData = {
+    id: number;                             // 问题id
+    title: string;                          // 标题
+    question: string;                       // 内容
+    isAnonymous: boolean;                   // 是否匿名
+    user: UserInfo;                         // 用户信息
+    answersCount: number;                   // 回答次数
+    collectedCount: number;                 // 收藏次数
+}
+
+type QList = {
+    list: Array<QData>;                     // 列表数据
+    total: number;                          // 结果总数
+}
+
 /**
  * 数据状态定义
  */
 type QASData = {
-
+    QList: Array<QList>,                    // 问题列表
 }
 
 /**

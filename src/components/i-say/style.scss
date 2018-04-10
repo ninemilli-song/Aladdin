@@ -33,6 +33,8 @@ $prefixCls: i-say;
     &-text {
         @include normal-border();
         font-size: 0;
+        // @include border-radius();
+        overflow: hidden;
     }
 
     textarea {

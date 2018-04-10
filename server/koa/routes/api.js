@@ -8,6 +8,7 @@ const router = require('koa-router')();
 const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
 const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 const { getReportDataByCodeYear } = require('../model/report');
+const { getQuestions } = require('../model/question');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -61,12 +62,11 @@ router.get('/getSPRuleDetail', async (ctx) => {
     ctx.body = result;
 });
 
+// 获取问题列表
 router.get('/qas/getQuestions', async (ctx) => {
-    console.log('/qas/getQuestions ----> ', ctx);
+    const result = await getQuestions(ctx.request.query);
 
-    ctx.body = {
-        a: 'a'
-    };
+    ctx.body = result;
 });
 
 // 获取会计科目分类

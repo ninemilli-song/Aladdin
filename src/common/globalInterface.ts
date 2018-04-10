@@ -22,3 +22,9 @@ export interface GridQueryOptions {
     filters?: filterOptions;   // the filter params
     sorter?: sorterOptions;    // the sorter params
 }
+
+export interface UserInfo {
+    id: number;                         // 用户id
+    name: string;                       // 用户名
+    profile: string;                    // 用户画像
+}

@@ -24,7 +24,8 @@ export default class ISay extends React.Component<ISayProps, any> {
 
     static defaultProps = {
         placeholder: '有问题在这儿说说…',
-        title: '提问'
+        title: '提问',
+        className: '',
     }
 
     constructor(props, context) {
