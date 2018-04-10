@@ -9,6 +9,8 @@ const Form = require('antd/lib/form/Form');
 const Input = require('antd/lib/input/Input');
 import 'braft-editor/dist/braft.css';
 import { autobind } from 'core-decorators';
+const Checkbox = require('antd/lib/checkbox/Checkbox');
+const Button = require('antd/lib/button/button');
 
 const formItemLayout = {
     labelCol: {
@@ -31,7 +33,7 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
     braftEditorProps = {
         height: 100,
         contentFormat: 'html',
-        // initialContent: '<p>Hello World!</p>',
+        placeholder: '问题描述',
         onChange: this.handleBraftEditorChange,
         onRawChange: this.handleBraftEditorRawChange,
         controls: [
@@ -40,25 +42,68 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
         ]
     }
 
+    constructor(props, context) {
+        super(props, context);
+    }
+
     render() {
+        const { form } = this.props;
+        const { getFieldDecorator } = form;
+
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
-                <Form>
-                    <FormItem>
-                        <Input placeholder="标题" id="title" />
-                    </FormItem>
-                    <FormItem>
-                        <Input placeholder="类型" id="category" />
-                    </FormItem>
-                    <FormItem>
-                        <BraftEditor {...this.braftEditorProps} />
-                    </FormItem>
+                <Form onSubmit = { this.onSubmit }>
                     <FormItem
-                        hasFeedback
-                        validateStatus="error"
-                        help="Should be combination of numbers & alphabets"
                     >
-                        <Input placeholder="unavailable choice" id="error" />
+                        {
+                            getFieldDecorator('title', {})(
+                                <Input placeholder="标题" id="title" />
+                            )
+                        }
+                    </FormItem>
+                    <FormItem>
+                        {
+                            getFieldDecorator('category', {})(
+                                <Input placeholder="类型" id="category" />
+                            )
+                        }
+                    </FormItem>
+                    <FormItem>
+                        {
+                            getFieldDecorator('description', {
+                                rules: [
+                                    {
+                                        validator: (rule, value, callback) => {
+                                            if (!value || value === '<p></p>') {
+                                                callback('说说您的问题吧！');
+                                            }
+
+                                            callback();
+                                        }
+                                    }
+                                ]
+                            })(
+                                <BraftEditor {...this.braftEditorProps} />
+                            )
+                        }
+                    </FormItem>
+                    <FormItem>
+                        {
+                            getFieldDecorator('anonymous', {
+                                initialValue: false,
+                            })(
+                                <Checkbox
+                                    onChange={ this.handleAnonymousChecked }
+                                >
+                                    匿名提问
+                                </Checkbox>
+                            )
+                        }
+                    </FormItem>
+                    <FormItem>
+                        <div style={ {textAlign: 'center'} }>
+                            <Button type="primary" htmlType="submit">发布问题</Button>
+                        </div>
                     </FormItem>
                 </Form>
             </div>
@@ -71,6 +116,25 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
 
     handleBraftEditorRawChange() {
 
+    }
+
+    handleAnonymousChecked(e) {
+        const { form } = this.props;
+
+        form.setFieldsValue({
+            anonymous: e.target.checked,
+        });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        const { form } = this.props;
+
+        form.validateFields((err, values) => {
+            if (!err) {
+                console.log('form get value ------> ', values);
+            }
+        });
     }
 }
 

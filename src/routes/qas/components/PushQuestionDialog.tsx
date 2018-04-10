@@ -43,12 +43,9 @@ export default class PushQuestionDialog extends React.Component<PushQuestionDial
                 onOk={ this.handleOk }
                 onCancel={ this.handleCancel }
                 width = { 600 }
-                footer={[
-                    <Button key="submit" type="primary" size="large" loading={ loading } onClick={ this.handleOk }>
-                        发布问题
-                    </Button>
-                ]}
-                >
+                maskClosable = { false }
+                footer={ null }
+            >
                 <PushQuestionForm />
             </Modal>
         )
