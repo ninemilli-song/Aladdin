@@ -83,7 +83,9 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
                                     }
                                 ]
                             })(
-                                <BraftEditor {...this.braftEditorProps} />
+                                <div className={ `${this.prefixCls}-braft-wrapper` }>
+                                    <BraftEditor {...this.braftEditorProps} />
+                                </div>
                             )
                         }
                     </FormItem>
