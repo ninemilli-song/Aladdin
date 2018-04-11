@@ -21,6 +21,12 @@
   padding: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
 
+@mixin cut-line($color: $assisBorderColor, $topSpace: 10, $bottomSpace: 10) {
+  border-top: 1px solid #{$color};
+  margin-top: #{$topSpace}px;
+  margin-bottom: #{$bottomSpace}px;
+}
+
 // ----------------------------------------------------------
 // ------------------------- Font ---------------------------
 // ----------------------------------------------------------

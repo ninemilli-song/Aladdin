@@ -33,9 +33,14 @@ const setPushQuestionDialogVisible = (state, action) => {
     return state.updateIn(['uistate', 'pushQuestionDialogVisible'], visible => !visible);
 }
 
+const setQuestionList = (state, action) => {
+    return state.updateIn(['data', 'QList'], data => action.data);
+}
+
 
 const ACTION_HANDLERS = {
     [QAS_Q_DIALOG_TOGGLE]: setPushQuestionDialogVisible,
+    [QAS_Q_LIST]: setQuestionList
 }
 
 // 初始化模块数据

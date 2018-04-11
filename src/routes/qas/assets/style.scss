@@ -15,7 +15,7 @@ $moduleName: qas;
     }
 
     .q-item {
-        @include normal-border();
+        // @include normal-border();
         padding: 10px;
 
         &-user {

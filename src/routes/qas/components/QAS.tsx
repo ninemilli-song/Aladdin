@@ -4,7 +4,6 @@ import SecondarySearchNav from '../../../components/page-components/SecondarySea
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import PushQuestionDialog from './PushQuestionDialog';
-import { UserInfo } from '../../../common/globalInterface';
 
 /**
  * UI 状态定义
@@ -14,35 +13,20 @@ type QASUIState = {
     pushQuestionDialogLoading: boolean,     // 提问弹框是否为loading状态
 }
 
-type QData = {
-    id: number;                             // 问题id
-    title: string;                          // 标题
-    question: string;                       // 内容
-    isAnonymous: boolean;                   // 是否匿名
-    user: UserInfo;                         // 用户信息
-    answersCount: number;                   // 回答次数
-    collectedCount: number;                 // 收藏次数
-}
+// /**
+//  * 数据状态定义
+//  */
+// type QASData = {
+//     QList: QList,                           // 问题列表
+// }
 
-type QList = {
-    list: Array<QData>;                     // 列表数据
-    total: number;                          // 结果总数
-}
-
-/**
- * 数据状态定义
- */
-type QASData = {
-    QList: Array<QList>,                    // 问题列表
-}
-
-/**
- * 状态定义
- */
-type QASStore = {
-    uistate: QASUIState,                    // ui 状态
-    data: QASData,                          // 数据
-}
+// /**
+//  * 状态定义
+//  */
+// type QASStore = {
+//     uistate: QASUIState,                    // ui 状态
+//     data: QASData,                          // 数据
+// }
 
 /**
  * 行为定义
@@ -62,24 +46,24 @@ export default class QAS extends React.Component<QASProps, any> {
 
     prefixCls = 'qas';
 
-    store: QASStore;
+    // store: QASStore;
 
     componentWillMount() {
         const { action, store } = this.props;
         console.log('QAS ------> action', action);
         action.getQuestionList();
 
-        this.store = store.toJS();
+        // this.store = store.toJS();
     }
 
     componentWillUpdate(nextProps: QASProps, nextState) {
-        const { store } = nextProps;
-        this.store = store.toJS();
+        // const { store } = nextProps;
+        // this.store = store.toJS();
     }
 
     render() {
         const { action, store } = this.props;
-        const { uistate, data } = this.store;
+        // const { uistate, data } = this.store;
         console.log('QAS ------> store', store);
 
         return (
@@ -90,10 +74,12 @@ export default class QAS extends React.Component<QASProps, any> {
                         buttonTitle = "我要提问"
                         onButtonClick = { this.toggleQuestionDialog }
                     />
-                    <Body />
+                    <Body
+                        questions = { store.getIn(['data', 'QList']) }
+                    />
                     <PushQuestionDialog 
-                        visible = { uistate.pushQuestionDialogVisible }
-                        loading = { uistate.pushQuestionDialogLoading }
+                        visible = { store.getIn(['uistate', 'pushQuestionDialogVisible']) }
+                        loading = { store.getIn(['uistate', 'pushQuestionDialogLoading']) }
                         onSubmit = { this.onSubmitQuestion }
                         onCancel = { this.toggleQuestionDialog }
                     />
