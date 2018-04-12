@@ -1,12 +1,9 @@
 @import '../../../styles/variable.scss';
 
 $module: layout;
-// 页面内容宽度
-$pageBodyWidth: 1040;
 
 .#{$module} {
   &-body {
-    width: #{$pageBodyWidth}px;
     margin: 0 auto;
   }
 }

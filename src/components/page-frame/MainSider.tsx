@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { Row, Col } from 'antd';
+import './assets/mainSider.scss';
 
 export interface MainSiderProps {
     prefixCls?: string,
@@ -23,12 +24,36 @@ export default class MainSider<T extends MainSiderProps> extends React.Component
             <div className={ `${prefixCls}-main-sider ${this.className}` }>
                 <Row gutter={8}>
                     <Col span={16}>
-                        {this.renderMain()}
+                        {this.renderMainWrapper()}
                     </Col>
                     <Col span={8}>
-                        {this.renderSider()}
+                        {this.renderSiderWrapper()}
                     </Col>
                 </Row>
+            </div>
+        )
+    }
+
+    renderMainWrapper() {
+        const { prefixCls } = this.props;
+
+        return (
+            <div className={ `${prefixCls}-main-wrapper` }>
+                {
+                    this.renderMain()
+                }
+            </div>
+        )
+    }
+
+    renderSiderWrapper() {
+        const { prefixCls } = this.props;
+
+        return (
+            <div className={ `${prefixCls}-sider-wrapper` }>
+                {
+                    this.renderSider()
+                }
             </div>
         )
     }

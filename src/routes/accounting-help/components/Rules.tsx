@@ -63,19 +63,13 @@ export default class Rules extends MainSider<RulesProps> {
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
-            <div className={`${this.props}-body`}>
-                <AccountingFilter 
-                    roleOptions = { roleOptions }
-                    yearOptions = { yearOptions }
-                    onChange = { this.onChange }
-                    role = { roleTypeSelected.roleType }
-                    year = { roleTypeSelected.roleYear }
-                />
+            <div className={`${this.prefixCls}-body`}>
+                { this.renderFilter() }
                 { this.renderText() }
                 { this.renderSPRuleDialog() }
                 <BackTop>
                     <div className={`acc-back-top`} title="返回到顶部">
-                        <i className="iconfont icon-zhiding"></i>
+                        <i className="iconfont icon-zhiding1"></i>
                     </div>
                 </BackTop>
             </div>
@@ -145,6 +139,26 @@ export default class Rules extends MainSider<RulesProps> {
 
         // 根据会计准则/制度 和 年份 查询会计准则内容
         action.getRole(val.role, val.year);
+    }
+
+    /**
+     * 过滤条件
+     */
+    private renderFilter() {
+        const { filterOptions, roleTypeSelected } = this.props;
+        const { roleOptions, yearOptions } = filterOptions;
+
+        return (
+            <div className={ `${this.prefixCls}-filter-wrapper` }>
+                <AccountingFilter 
+                    roleOptions = { roleOptions }
+                    yearOptions = { yearOptions }
+                    onChange = { this.onChange }
+                    role = { roleTypeSelected.roleType }
+                    year = { roleTypeSelected.roleYear }
+                />
+            </div>
+        )
     }
 
     private renderText() {

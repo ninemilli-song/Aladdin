@@ -18,7 +18,6 @@ export type FilterOptions = {
 }
 
 export interface FilterItemProps {
-    prefixCls?: string,
     label?: string,
     options?: Array<FilterOptions>,
     onChange?: (item: FilterOptions) => void,
@@ -29,7 +28,6 @@ export interface FilterItemProps {
 export default class FilterItem extends React.Component<FilterItemProps, any> {
 
     static defaultProps = {
-        prefixCls: 'default',
         label: 'no-label',
         options: [
             {
@@ -40,7 +38,7 @@ export default class FilterItem extends React.Component<FilterItemProps, any> {
     }
 
     render() {
-        const {prefixCls, label} = this.props;
+        const {label} = this.props;
 
         return (
             <div className={`filter-item`}>

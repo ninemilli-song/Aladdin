@@ -1,0 +1,12 @@
+@import '../../../styles/variable.scss';
+
+.default-main-sider {
+    width: #{$pageBodyWidth}px;
+    margin: 0 auto;
+}
+
+.default {
+    &-main-wrapper, &-sider-wrapper {
+        // padding: 0 #{$inner-block-padding}px;
+    }
+}

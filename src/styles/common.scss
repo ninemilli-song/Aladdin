@@ -65,10 +65,10 @@
   .iconfont {
     @include font-size-48();
 
-    color: $color5;
+    color: $color4;
 
     &:hover {
-      color: $color5hover;
+      color: $color4hover;
     }
   }
 }

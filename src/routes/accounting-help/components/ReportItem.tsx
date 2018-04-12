@@ -24,11 +24,13 @@ export default class ReportItem extends React.Component<ReportItemProps, any> {
 
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
-                <h1>
-                    {
-                        name
-                    }
-                </h1>
+                <div className={ `${this.prefixCls}-title` }>
+                    <h1>
+                        {
+                            name
+                        }
+                    </h1>
+                </div>
                 <div 
                     className={ `${this.prefixCls}-text acc-table` } 
                     dangerouslySetInnerHTML={{__html: ruleHtmlText}} 

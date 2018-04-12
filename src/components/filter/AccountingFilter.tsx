@@ -20,7 +20,6 @@ export const AccountingFilterTypeEnum = {
 }
 
 interface AccountingFilterProps {
-    prefixCls?: string,
     onChange?: (params: { role: string, year: string }) => void,
     roleOptions: FilterItemProps;
     yearOptions: FilterItemProps;
@@ -31,15 +30,11 @@ interface AccountingFilterProps {
 @autobind
 export default class AccountingFilter extends React.Component<AccountingFilterProps, any> {
 
-    static defaultProps = {
-        prefixCls: 'default'
-    }
+    prefixCls = 'account-rule';
 
     render() {
-        const {prefixCls} = this.props;
-
         return (
-            <div className={`${prefixCls}-accounting-filter`}>
+            <div className={`${this.prefixCls}-filter`}>
                 {
                     this.renderRoles()
                 }

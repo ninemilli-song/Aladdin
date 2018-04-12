@@ -1,19 +1,18 @@
 @import '../../styles/variable.scss';
 @import '../../styles/mixin.scss';
 
-$prefixCls: default;
+$prefixCls: account-rule;
 
 .#{$prefixCls} {
-    &-accounting {
-        &-filter {
-            @include dash-border();
-            @include content-padding();
-            margin-bottom: 20px;
+    &-filter {
+        @include dash-border();
+        @include content-padding();
+        background-color: $blockNormalBG;
+        margin: 30px 0;
 
-            .filter {
-                &-item {
-                    padding: 4px;
-                }
+        .filter {
+            &-item {
+                padding: 4px;
             }
         }
     }

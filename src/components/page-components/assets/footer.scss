@@ -3,11 +3,13 @@
 .footer {
     &-wrapper {
         color: $thirdFontColor;
-        padding-top: 6px;
-        margin: 40px 0 20px 0;
+        padding: #{$inner-block-padding}px;
+        width: #{$pageBodyWidth}px;
+        margin: #{$block-space}px auto;
         overflow: hidden;
         zoom: 1;
         border-top: 1px dashed $mainBorderColor;
+        font-size: #{$font-xs}px;
     }
 
     &-icp {

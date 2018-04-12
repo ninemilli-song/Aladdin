@@ -50,7 +50,7 @@ export default class Reports extends MainSider<ReportsProps> {
                 { this.renderText() }
                 <BackTop>
                     <div className={`acc-back-top`} title="返回到顶部">
-                        <i className="iconfont icon-zhiding"></i>
+                        <i className="iconfont icon-zhiding1"></i>
                     </div>
                 </BackTop>
             </div>

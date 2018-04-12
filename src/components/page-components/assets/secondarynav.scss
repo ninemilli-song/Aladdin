@@ -1,14 +1,19 @@
+@import '../../../styles/variable.scss';
+
 .nav-secondary {
     position: relative;
-    width: #{pageBodyWidth}px;
+    width: #{$pageBodyWidth}px;
     height: 50px;
     line-height: 50px;
+    padding: 0 30px;
     margin: 0 auto;
     // height: 30px;
     // border-bottom: 1px solid #e9e9e9;
 
     &-wrapper {
       width: 100%;
+      // padding: 0 30px;
+      background-color: $blockNormalBG;
     }
 
     .title {
@@ -28,7 +33,6 @@
     .search-box {
       position: absolute;
       right: 0;
-      top: 10px;
     }
 
     &-search {

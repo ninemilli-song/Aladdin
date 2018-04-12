@@ -1,23 +1,24 @@
 $rex: 1px;
 
 // 新规范的色值
-$color0: rgba(0, 0, 0, 0); //透明
-$color1: #00ade9; //主色
-$color2: #00b246; //辅助色
-$color3: #ff5656; //点缀色
-$color4: #00b7ac; //点缀色
-$color5: #f9c069; //点缀色
-$color6: #a485f0; //点缀色
-$color7: #1e3c50; //强调文字
-$color8: #506478; //主要文字
-$color9: #0a1923; //辅助性文字
-$color10: #b9bec8; //置灰色
-$color11: #becdd7; //输入框颜色
-$color12: #ebf3f8; //表头， 间隔性
-$color13: #f2f6fa; //背景色
+$color0: rgba(0, 0, 0, 0);          // 透明
+$color1: #00ade9;                   // 主色
+$color2: #00b246;                   // 辅助色
+$color3: #ff5656;                   // 点缀色
+$color4: #00b7ac;                   // 点缀色
+$color5: #f9c069;                   // 点缀色
+$color6: #a485f0;                   // 点缀色
+$color7: #1e3c50;                   // 强调文字
+$color8: #506478;                   // 主要文字
+$color9: #0a1923;                   // 辅助性文字
+$color10: #b9bec8;                  // 置灰色
+$color11: #becdd7;                  // 输入框颜色
+$color12: #ebf3f8;                  // 表头， 间隔性
+$color13: #f2f6fa;                  // 背景色
 $color14: #fff;
 $color15: #657786;
 $color16: #000;
+$color17: #14171a;
 
 // hover计算后的颜色值 on 20170407.
 $color1hover: #009fd6;
@@ -55,10 +56,11 @@ $color14active: #d1d1d1;
 $bodyBG: $color14;                          // body背景灰色
 $pageBG: $color13;                          // 页面背景颜色
 $primaryNavBG: $color1;                     // 一级导航背景
+$blockNormalBG: $color14;                   // 普通块级背景色
 $white: $color14;                           // 白色
 
 // 字体颜色
-$mainFontColor: $color16;                   // 正文字体主色
+$mainFontColor: $color17;                   // 正文字体主色
 $assisFontColor: $color9;                   // 辅助正文字体色
 $thirdFontColor: $color15;                  // 第三级字体颜色
 $thirdFontColorHover: $color1;              // 第三级字体颜色 hover
@@ -76,3 +78,18 @@ $ZIndexTips: 6100;                          // tips
 
 /* 菜单 */
 $ZIndexMenu: 8000;
+
+/* 页面体宽度 */
+$pageBodyWidth: 1040;
+
+/* 字体大小 */
+$font-xs: 12;
+$font-sm: 14;
+$font-md: 16;
+$font-lg: 18;
+$font-xl: 20;
+$font-xxl: 24;
+
+/* 边距 */
+$inner-block-padding: 30;                   // 块内容的边距 
+$block-space: 30;                           // 块与块之间的间距 
