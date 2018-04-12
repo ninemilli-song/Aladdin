@@ -1,0 +1,14 @@
+@import '../../styles/variable.scss';
+@import '../../styles/mixin.scss';
+
+.action-button {
+    color: $thirdFontColor;
+
+    &-label {
+        margin-left: 6px;
+    }
+
+    &:hover {
+        color: $thirdFontColorHover;
+    }
+}

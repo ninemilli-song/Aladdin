@@ -1,7 +1,7 @@
 @import '../../../styles/variable.scss';
 
 .nav-primary-wrapper {
-    background: $navBG;
+    background: $primaryNavBG;
     height: 30px;
     // border-bottom: 1px solid $mainBorderColor;
 
@@ -12,9 +12,10 @@
 
       &-item {
         padding: 0 6px;
+        color: $revertFontColor;
 
         a {
-            color: $mainFontColor;
+            color: $revertFontColor;
         }
       }
     }

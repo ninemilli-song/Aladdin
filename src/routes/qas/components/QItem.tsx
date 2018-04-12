@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
+import { formateNumberCount } from '../../../utils/utils';
+import { ActionButton } from '../../../components/button';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
@@ -44,6 +46,9 @@ export default class QItem extends React.Component<QItemProps> {
                     <span className="name">
                         { data.user.name }
                     </span>
+                    <span className="updateDate">
+                        • { data.updateDate }
+                    </span>
                 </div>
                 <div className={ `${this.prefixCls}-title` }>
                     <span>
@@ -53,26 +58,31 @@ export default class QItem extends React.Component<QItemProps> {
                 <div className={ `${this.prefixCls}-text` }>
                     { data.question }
                 </div>
-                <div className={ `${this.prefixCls}-time` }>
-                    提问于：{ data.updateDate }
-                </div>
                 <div className={ `${this.prefixCls}-operaters` }>
                     <ul>
                         <li onClick={ this.showAnswer }>
-                            <i className="iconfont icon-message_fill"></i>
-                            <span>回答({ data.answersCount })</span>
-                        </li>
-                        <li onClick={ this.showInvite }>
-                            <i className="iconfont icon-message_fill"></i>
-                            <span>邀请</span>
-                        </li>
-                        <li onClick={ this.showShare }>
-                            <i className="iconfont icon-message_fill"></i>
-                            <span>分享</span>
+                            <ActionButton
+                                iconName = "icon-xiaoxi"
+                                label = { `回答(${ formateNumberCount(data.answersCount) })` }
+                            />
                         </li>
                         <li onClick={ this.doConcern }>
-                            <i className="iconfont icon-message_fill"></i>
-                            <span>关注({ data.collectedCount })</span>
+                            <ActionButton
+                                iconName = "icon-shoucang"
+                                label = { `关注(${ formateNumberCount(data.collectedCount) })` }
+                            />
+                        </li>
+                        <li onClick={ this.showInvite }>
+                            <ActionButton
+                                iconName = "icon-chengyuan-tianjia"
+                                label = { `邀请` }
+                            />
+                        </li>
+                        <li onClick={ this.showShare }>
+                            <ActionButton
+                                iconName = "icon-zhuanfa"
+                                label = { `分享` }
+                            />
                         </li>
                     </ul>
                 </div>

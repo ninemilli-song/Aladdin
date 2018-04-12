@@ -37,8 +37,8 @@ dist
 
 # Typescript-related generated files
 typings
-src/**/*.js
-src/**/*.js.map
+# src/**/*.js
+# src/**/*.js.map
 
 # E2E test output
 e2e/robot/test_results

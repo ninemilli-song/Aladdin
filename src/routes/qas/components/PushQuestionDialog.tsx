@@ -43,7 +43,7 @@ export default class PushQuestionDialog extends React.Component<PushQuestionDial
                 onOk={ this.handleOk }
                 onCancel={ this.handleCancel }
                 width = { 600 }
-                maskClosable = { false }
+                // maskClosable = { false }
                 footer={ null }
             >
                 <PushQuestionForm />

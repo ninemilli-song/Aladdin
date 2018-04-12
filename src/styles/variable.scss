@@ -11,11 +11,13 @@ $color6: #a485f0; //点缀色
 $color7: #1e3c50; //强调文字
 $color8: #506478; //主要文字
 $color9: #0a1923; //辅助性文字
-$color10: #b9bec8; //提示性文字 置灰色
+$color10: #b9bec8; //置灰色
 $color11: #becdd7; //输入框颜色
 $color12: #ebf3f8; //表头， 间隔性
 $color13: #f2f6fa; //背景色
 $color14: #fff;
+$color15: #657786;
+$color16: #000;
 
 // hover计算后的颜色值 on 20170407.
 $color1hover: #009fd6;
@@ -49,20 +51,28 @@ $color12active: #c0c7cb;
 $color13active: #c6c9cd;
 $color14active: #d1d1d1;
 
-// 页面与组件变量
-$bodyBG: $color14;  //body背景灰色
-$pageBG: $color13;  //页面背景颜色
-$white: $color14;   // 白色
-$mainFontColor: $color8;  //正文字体主色
-$assisFontColor: $color9; //辅助正文字体色
-$thirdFontColor: $color10;  //辅助正文字体色
-$placeHolder: $color10; //PlaceHolder灰色
-$mainBorderColor: $color11; //主边框颜色
-$assisBorderColor: $color12;  //辅助边框颜色
-$buttonDisabledColor: $color10; //button disabled color
-$ZIndexLoading: 6000; //loading
-$ZIndexTips: 6100;  //tips
-$navBG: $color4;                            // 填充背景
+// 页面与组件背景颜色
+$bodyBG: $color14;                          // body背景灰色
+$pageBG: $color13;                          // 页面背景颜色
+$primaryNavBG: $color1;                     // 一级导航背景
+$white: $color14;                           // 白色
+
+// 字体颜色
+$mainFontColor: $color16;                   // 正文字体主色
+$assisFontColor: $color9;                   // 辅助正文字体色
+$thirdFontColor: $color15;                  // 第三级字体颜色
+$thirdFontColorHover: $color1;              // 第三级字体颜色 hover
+$revertFontColor: $color14;                 // 字体颜色 反色
+
+$placeHolder: $color10;                     // PlaceHolder灰色
+
+// 边框颜色
+$mainBorderColor: $color11;                 // 主边框颜色
+$assisBorderColor: $color12;                // 辅助边框颜色
+
+$buttonDisabledColor: $color10;             // button disabled color
+$ZIndexLoading: 6000;                       // loading
+$ZIndexTips: 6100;                          // tips
 
 /* 菜单 */
 $ZIndexMenu: 8000;

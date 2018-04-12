@@ -9,8 +9,6 @@ $moduleName: qas;
             &-area {
                 margin-bottom: 10px;
             }
-
-            
         }
     }
 
@@ -30,10 +28,15 @@ $moduleName: qas;
                 line-height: 0;
             }
 
-            .name {
+            .name, .updateDate {
                 display: inline-block;
                 height: 32px;
                 line-height: 32px;
+                margin-right: 6px;
+            }
+
+            .updateDate {
+                color: $thirdFontColor;
             }
         }
 
@@ -47,17 +50,13 @@ $moduleName: qas;
             margin-bottom: 10px;
         }
 
-        &-time {
-            color: $thirdFontColor;
-        }
-
         &-operaters {
-            color: $thirdFontColor;
 
             li {
                 display: inline-block;
-                margin-right: 8px;
+                margin-right: 18px;
                 cursor: pointer;
+                // min-width: 80px;
             }
         }
     }
