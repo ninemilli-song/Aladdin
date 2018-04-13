@@ -17,6 +17,7 @@ export type QItemData = {
 
 interface QItemProps {
     data?: QItemData;
+    onShowDetail?: (id: number) => void;              // 详情展示
 }
 
 export default class QItem extends React.Component<QItemProps> {
@@ -41,7 +42,11 @@ export default class QItem extends React.Component<QItemProps> {
             <div className={ this.prefixCls }>
                 <div className={ `${this.prefixCls}-user` }>
                     <div className="profile">
-                        <Avatar />
+                        <Avatar 
+                            size = "large"
+                            icon = "user"
+                            src = { data.user.profile || null }
+                        />
                     </div>
                     <span className="name">
                         { data.user.name }
@@ -108,5 +113,13 @@ export default class QItem extends React.Component<QItemProps> {
     // Do concern dialog
     private doConcern() {
 
+    }
+
+    private showDetail() {
+        const { data, onShowDetail } = this.props;
+
+        if (onShowDetail) {
+            onShowDetail(data.id);
+        }
     }
 }
