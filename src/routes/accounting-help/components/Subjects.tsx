@@ -11,7 +11,7 @@ import SiderNav from '../../../components/SiderNav/SiderNav';
 import SubjectCategory, { SubjectCategoryProps } from './SubjectCategory';
 import index from '../../Warehouse';
 import { roleTypeSelected } from './model';
-const BackTop = require('antd/lib/back-top');
+import BackTop from '../../../components/backtop';
 
 type SubjectCategoryType = {
     id: number,                                                         // id
@@ -62,11 +62,7 @@ export default class Subjects extends MainSider<SubjectsProps> {
                     year = { roleTypeSelected.roleYear }
                 />
                 { this.renderContent() }
-                <BackTop>
-                    <div className={`acc-back-top`} title="返回到顶部">
-                        <i className="iconfont icon-zhiding1"></i>
-                    </div>
-                </BackTop>
+                <BackTop />
             </div>
         )
     }

@@ -9,7 +9,7 @@ import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import ReportItem, { ReportItemProps } from './ReportItem';
 import { roleTypeSelected } from './model';
-const BackTop = require('antd/lib/back-top');
+import BackTop from '../../../components/backtop';
 
 interface ReportsProps extends MainSiderProps {
     filterOptions?: AccountingFilterOptions,
@@ -48,11 +48,7 @@ export default class Reports extends MainSider<ReportsProps> {
                     year = { roleTypeSelected.roleYear }
                 />
                 { this.renderText() }
-                <BackTop>
-                    <div className={`acc-back-top`} title="返回到顶部">
-                        <i className="iconfont icon-zhiding1"></i>
-                    </div>
-                </BackTop>
+                <BackTop />
             </div>
         )
     }

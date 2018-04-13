@@ -4,6 +4,7 @@ import SecondarySearchNav from '../../../components/page-components/SecondarySea
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import PushQuestionDialog from './PushQuestionDialog';
+import BackTop from '../../../components/backtop';
 
 /**
  * UI 状态定义
@@ -83,6 +84,7 @@ export default class QAS extends React.Component<QASProps, any> {
                         onSubmit = { this.onSubmitQuestion }
                         onCancel = { this.toggleQuestionDialog }
                     />
+                    <BackTop />
                 </div>
             </div>
         )

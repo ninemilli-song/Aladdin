@@ -7,13 +7,13 @@ import { AccountingFilter, AccountingFilterOptions } from '../../../components/f
 import { autobind } from 'core-decorators';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import SiderNav from '../../../components/SiderNav/SiderNav';
+import BackTop from '../../../components/backtop';
 import request from '../../../utils/fetch';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import { roleTypeSelected } from './model';
 const showdown = require('showdown');
 const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
-const BackTop = require('antd/lib/back-top');
 const Icon = require('antd/lib/icon');
 const Modal = require('antd/lib/modal');
 
@@ -67,11 +67,7 @@ export default class Rules extends MainSider<RulesProps> {
                 { this.renderFilter() }
                 { this.renderText() }
                 { this.renderSPRuleDialog() }
-                <BackTop>
-                    <div className={`acc-back-top`} title="返回到顶部">
-                        <i className="iconfont icon-zhiding1"></i>
-                    </div>
-                </BackTop>
+                <BackTop />
             </div>
         )
     }

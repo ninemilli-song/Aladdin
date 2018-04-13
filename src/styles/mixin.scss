@@ -65,6 +65,14 @@
   @include font-size(24);
 }
 
+@mixin font-size-30 {
+  @include font-size(30);
+}
+
+@mixin font-size-40 {
+  @include font-size(40);
+}
+
 @mixin font-size-48 {
   @include font-size(48);
 }

@@ -60,15 +60,3 @@
     }
   }
 }
-
-.acc-back-top {
-  .iconfont {
-    @include font-size-48();
-
-    color: $color4;
-
-    &:hover {
-      color: $color4hover;
-    }
-  }
-}

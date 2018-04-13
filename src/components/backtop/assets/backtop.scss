@@ -1,0 +1,33 @@
+@import '../../../styles/variable.scss';
+@import '../../../styles/mixin.scss';
+
+.acc-back-top {
+    .ant-back-top {
+      bottom: 100px;
+    }
+  
+    &-inner {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      border-radius: 4px;
+      background-color: rgba($primaryNavBG, 0.8);
+      color: $revertFontColor;
+      text-align: center;
+      font-size: 20px;
+  
+      &:hover {
+        background-color: $primaryNavBG;
+      }
+    }
+  
+    .iconfont {
+      @include font-size-30();
+  
+      // color: $revertFontColor;
+  
+      // &:hover {
+      //   color: $color1hover;
+      // }
+    }
+  }
