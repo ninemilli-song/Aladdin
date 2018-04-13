@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './style.scss';
 import { autobind } from 'core-decorators';
+const TextArea =  require('antd/lib/input/TextArea');
 const Button = require('antd/lib/button/button');
 
 const _ = {
@@ -57,7 +58,7 @@ export default class ISay extends React.Component<ISayProps, any> {
                     {
                         this.renderError()
                     }
-                    <textarea 
+                    {/* <textarea 
                         name="i-say" 
                         id={ _.uniqueId(this.prefixCls) } 
                         rows={1}
@@ -65,6 +66,12 @@ export default class ISay extends React.Component<ISayProps, any> {
                         style= { textStyle }
                         onFocus={ this.textAreaOnFocus }
                         ref={ this.getTextareaRef }
+                    /> */}
+                    <TextArea
+                        placeholder = { placeholder }
+                        rows = { mode === 'expand' ? 4 : 1 }
+                        onFocus = { this.textAreaOnFocus }
+                        ref = { this.getTextareaRef }
                     />
                 </div>
                 {

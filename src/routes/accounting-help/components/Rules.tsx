@@ -118,11 +118,9 @@ export default class Rules extends MainSider<RulesProps> {
         }
 
         return (
-            <div className="sider-nav-anchor">
-                <SiderNav 
-                    data = { navAnchorData }
-                />
-            </div>
+            <SiderNav 
+                data = { navAnchorData }
+            />
         )
     }
 

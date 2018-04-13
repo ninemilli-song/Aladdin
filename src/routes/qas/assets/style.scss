@@ -7,7 +7,14 @@ $moduleName: qas;
     &-body {
         &-question {
             &-area {
+                padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
+                background-color: $secondaryNavBG;
                 margin-bottom: 10px;
+            }
+
+            &-list {
+                padding: 0 #{$inner-block-padding}px;
+                background-color: $blockNormalBG;
             }
         }
     }
@@ -15,6 +22,7 @@ $moduleName: qas;
     .q-item {
         // @include normal-border();
         padding: 10px;
+        
 
         &-user {
             height: 32px;

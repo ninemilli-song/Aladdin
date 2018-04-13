@@ -2,7 +2,7 @@
 
 .default-main-sider {
     width: #{$pageBodyWidth}px;
-    margin: 0 auto;
+    margin: #{$block-space}px auto 0;
 }
 
 .default {

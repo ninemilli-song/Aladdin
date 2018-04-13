@@ -19,6 +19,8 @@ $color14: #fff;
 $color15: #657786;
 $color16: #000;
 $color17: #14171a;
+$color18: #e8f5fd;
+$color19: #c6e7fb;
 
 // hover计算后的颜色值 on 20170407.
 $color1hover: #009fd6;
@@ -56,10 +58,12 @@ $color14active: #d1d1d1;
 $bodyBG: $color14;                          // body背景灰色
 $pageBG: $color13;                          // 页面背景颜色
 $primaryNavBG: $color1;                     // 一级导航背景
+$secondaryNavBG: $color18;                   // 一级导航背景
 $blockNormalBG: $color14;                   // 普通块级背景色
 $white: $color14;                           // 白色
 
 // 字体颜色
+$primaryFontColor: $color1;                 // 首级字体颜色
 $mainFontColor: $color17;                   // 正文字体主色
 $assisFontColor: $color9;                   // 辅助正文字体色
 $thirdFontColor: $color15;                  // 第三级字体颜色
@@ -69,7 +73,7 @@ $revertFontColor: $color14;                 // 字体颜色 反色
 $placeHolder: $color10;                     // PlaceHolder灰色
 
 // 边框颜色
-$mainBorderColor: $color11;                 // 主边框颜色
+$mainBorderColor: $color19;                 // 主边框颜色
 $assisBorderColor: $color12;                // 辅助边框颜色
 
 $buttonDisabledColor: $color10;             // button disabled color
@@ -91,5 +95,5 @@ $font-xl: 20;
 $font-xxl: 24;
 
 /* 边距 */
-$inner-block-padding: 30;                   // 块内容的边距 
-$block-space: 30;                           // 块与块之间的间距 
+$inner-block-padding: 20;                   // 块内容的边距 
+$block-space: 20;                           // 块与块之间的间距 

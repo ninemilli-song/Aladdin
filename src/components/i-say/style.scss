@@ -8,21 +8,9 @@ $prefixCls: i-say;
         position: relative;
         height: 30px;
         line-height: 30px;
+        color: $primaryFontColor;
 
         &-item {
-            &::after {
-                display: none\9;
-                content: "";
-                position: absolute;
-                bottom: -4px;
-                left: 20px;
-                height: 7px;
-                width: 7px;
-                border: 1px solid #{$mainBorderColor};
-                border-width: 1px 1px 0 0;
-                background: $white;
-                transform: rotate(-45deg);
-            }
         }
 
         li {
@@ -31,25 +19,46 @@ $prefixCls: i-say;
     }
 
     &-text {
-        @include normal-border();
         font-size: 0;
         // @include border-radius();
         overflow: hidden;
+
+        // &::after {
+        //     display: none\9;
+        //     content: "";
+        //     position: absolute;
+        //     // bottom: -4px;
+        //     top: -10px;
+        //     left: 0px;
+        //     height: 7px;
+        //     width: 7px;
+        //     border: 1px solid #{$mainBorderColor};
+        //     border-width: 1px 1px 0 0;
+        //     background: $white;
+        //     transform: rotate(-45deg);
+        // }
     }
 
     textarea {
+        position: relative;
         border: none;
         padding: 7px 25px 7px 7px;
         font-size: 14px;
+        @include normal-border();
         // float: left;
+
+        &:focus {
+            box-shadow: none;
+        }
     }
     
     &-footer {
-        padding: 8px;
-        border-left: 1px solid #{$mainBorderColor};
-        border-right: 1px solid #{$mainBorderColor};
-        border-bottom: 1px solid #{$mainBorderColor};
-        background-color: $color13;
+        margin-top: 8px;
+        padding: 0 8px;
+        // border-left: 1px solid #{$mainBorderColor};
+        // border-right: 1px solid #{$mainBorderColor};
+        // border-bottom: 1px solid #{$mainBorderColor};
+        // background-color: $color13;
 
         .submit-btn {
             float: right;

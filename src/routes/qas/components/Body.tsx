@@ -68,9 +68,10 @@ export default class Body extends MainSider<BodyProps> {
         const questionNodes = questions ? 
             questions.list.map((item, index) => {
                 return (
-                    <div>
+                    <div
+                        key = { `${this.prefixCls}-qitem-index-${item.id}` }
+                    >
                         <QItem 
-                            key = { `${this.prefixCls}-qitem-index-${item.id}` }
                             data = { item }
                         />
                         <CutLine />
