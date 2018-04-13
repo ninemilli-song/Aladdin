@@ -68,6 +68,8 @@ $mainFontColor: $color17;                   // 正文字体主色
 $assisFontColor: $color9;                   // 辅助正文字体色
 $thirdFontColor: $color15;                  // 第三级字体颜色
 $thirdFontColorHover: $color1;              // 第三级字体颜色 hover
+$fouthFontColor: $color10;                  // 第四级字体颜色 hover
+$fouthFontColorHover: $color1;              // 第四级字体颜色 hover
 $revertFontColor: $color14;                 // 字体颜色 反色
 
 $placeHolder: $color10;                     // PlaceHolder灰色
@@ -75,6 +77,7 @@ $placeHolder: $color10;                     // PlaceHolder灰色
 // 边框颜色
 $mainBorderColor: $color19;                 // 主边框颜色
 $assisBorderColor: $color12;                // 辅助边框颜色
+$grayBorderColor: $color10;                 // 辅助边框颜色
 
 $buttonDisabledColor: $color10;             // button disabled color
 $ZIndexLoading: 6000;                       // loading

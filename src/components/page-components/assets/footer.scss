@@ -8,7 +8,7 @@
         margin: #{$block-space}px auto;
         overflow: hidden;
         zoom: 1;
-        border-top: 1px dashed $mainBorderColor;
+        border-top: 1px dashed $grayBorderColor;
         font-size: #{$font-xs}px;
     }
 
@@ -18,6 +18,15 @@
 
     &-links {
         float: right;
+
+        a {
+            color: $thirdFontColor;
+
+            &:hover {
+                color: $thirdFontColorHover;
+                text-decoration: underline;
+            }
+        }
     }
 
     a {
