@@ -1,7 +1,6 @@
 /**
  * Case Reducer
  */
-export const QAS_Q_LIST = 'QAS_Q_LIST';
 
 /**
  * 

@@ -1,6 +1,10 @@
 import request from '../../../utils/fetch';
-import { QAS_Q_DIALOG_TOGGLE } from '../modules/push_q_dialog_reducer';
-import { QAS_Q_LIST } from '../modules/qlist_reducer';
+
+// ------------------------------------
+// Constants
+// ------------------------------------
+export const QAS_Q_DIALOG_TOGGLE = 'QAS_Q_DIALOG_TOGGLE';
+export const QAS_Q_LIST = 'QAS_Q_LIST';
 
 // ---------------------------
 // Actions

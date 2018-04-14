@@ -3,8 +3,9 @@
  */
 
 import { createReducer } from '../../../utils/reducer-helper';
-import { setQuestionList, QAS_Q_LIST } from './qlist_reducer';
-import { QAS_Q_DIALOG_TOGGLE, setPushQuestionDialogVisible } from './push_q_dialog_reducer';
+import { setQuestionList } from './qlist_reducer';
+import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
+import { QAS_Q_DIALOG_TOGGLE, QAS_Q_LIST } from '../actions/index';
 // import { Map } from 'immutable';
 const { fromJS } = require('immutable');
 
