@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import ViewComponent from '../components';
 import { FilterOptions } from '../../../components/filter/FilterItem';
 import request from '../../../utils/fetch';
-import { QAS_Q_LIST, QAS_Q_DIALOG_TOGGLE } from '../modules/modules';
+import { QAS_Q_LIST } from '../modules/qlist_reducer';
+import { QAS_Q_DIALOG_TOGGLE } from '../modules/push_q_dialog_reducer';
 
 // ---------------------------
 // Actions

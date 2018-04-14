@@ -3,40 +3,16 @@
  */
 
 import { createReducer } from '../../../utils/reducer-helper';
+import { setQuestionList, QAS_Q_LIST } from './qlist_reducer';
+import { QAS_Q_DIALOG_TOGGLE, setPushQuestionDialogVisible } from './push_q_dialog_reducer';
 // import { Map } from 'immutable';
 const { fromJS } = require('immutable');
 
-// ------------------------------------
-// Constants
-// ------------------------------------
-export const QAS_Q_DIALOG_TOGGLE = 'QAS_Q_DIALOG_TOGGLE';
-export const QAS_Q_LIST = 'QAS_Q_LIST';
+
 
 // -------------------------------------
 // Reducer
 // -------------------------------------
-
-// ------------------------------------
-// Case reducer
-// ------------------------------------
-const setPushQuestionDialogVisible = (state, action) => {
-    // const uistate = Object.assign({}, state.uistate, {
-    //     pushQuestionDialogVisible: action.data,
-    // });
-
-    // // state.uistate = uistate;
-
-    // return Object.assign({}, state, {
-    //     uistate
-    // });
-
-    return state.updateIn(['uistate', 'pushQuestionDialogVisible'], visible => !visible);
-}
-
-const setQuestionList = (state, action) => {
-    return state.updateIn(['data', 'QList'], data => action.data);
-}
-
 
 const ACTION_HANDLERS = {
     [QAS_Q_DIALOG_TOGGLE]: setPushQuestionDialogVisible,
