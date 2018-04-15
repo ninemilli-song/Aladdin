@@ -5,29 +5,7 @@ import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import PushQuestionDialog from './PushQuestionDialog';
 import BackTop from '../../../components/backtop';
-
-/**
- * UI 状态定义
- */
-type QASUIState = {
-    pushQuestionDialogVisible: boolean,     // 提问弹框是否可见
-    pushQuestionDialogLoading: boolean,     // 提问弹框是否为loading状态
-}
-
-// /**
-//  * 数据状态定义
-//  */
-// type QASData = {
-//     QList: QList,                           // 问题列表
-// }
-
-// /**
-//  * 状态定义
-//  */
-// type QASStore = {
-//     uistate: QASUIState,                    // ui 状态
-//     data: QASData,                          // 数据
-// }
+import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
 
 /**
  * 行为定义
@@ -75,15 +53,8 @@ export default class QAS extends React.Component<QASProps, any> {
                         buttonTitle = "我要提问"
                         onButtonClick = { this.toggleQuestionDialog }
                     />
-                    <Body
-                        questions = { store.getIn(['data', 'QList']) }
-                    />
-                    <PushQuestionDialog 
-                        visible = { store.getIn(['uistate', 'pushQuestionDialogVisible']) }
-                        loading = { store.getIn(['uistate', 'pushQuestionDialogLoading']) }
-                        onSubmit = { this.onSubmitQuestion }
-                        onCancel = { this.toggleQuestionDialog }
-                    />
+                    <Body />
+                    <PushQuestionDialogContainer />
                     <BackTop />
                 </div>
             </div>
