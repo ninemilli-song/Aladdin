@@ -2,7 +2,7 @@
  * The Container fo QDetailDialog Component
  */
 import { connect } from 'react-redux';
-import { toggleDetailDialogVisible } from '../actions/index';
+import { toggleDetailDialogVisible, getQDetailData } from '../actions/index';
 import QDetailDialog from '../components/QDetailDialog';
 
 const mapActionCreators = (dispatch) => {
@@ -10,6 +10,9 @@ const mapActionCreators = (dispatch) => {
         action: {
             hide: () => {
                 dispatch(toggleDetailDialogVisible());
+            },
+            getData: (id) => {
+                dispatch(getQDetailData(id));
             }
         },
     }
@@ -18,6 +21,7 @@ const mapActionCreators = (dispatch) => {
 const mapStateToProps = (state) => ({
     visible: state.QAS.getIn(['uistate', 'qDetailDialogOpts', 'visible']),
     id: state.QAS.getIn(['selectedQId']),
+    data: state.QAS.getIn(['qDetailData'])
 })
 
 export default connect(mapStateToProps, mapActionCreators)(QDetailDialog);

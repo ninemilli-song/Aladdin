@@ -11,3 +11,8 @@ export const onSelectedQ = (state, action) => {
 export const toggleDetailDialogVisible = (state, action) => {
     return state.updateIn(['uistate', 'qDetailDialogOpts', 'visible'], visible => !visible);
 }
+
+// 切换对话框的可见性
+export const fetchDetailData = (state, action) => {
+    return state.updateIn(['qDetailData'], data => action.data);
+}

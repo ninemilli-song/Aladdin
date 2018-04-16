@@ -8,6 +8,7 @@ export const QAS_Q_LIST = 'QAS_Q_LIST';
 export const QAS_Q_LIST_PAGE_CHANGED = 'QAS_Q_LIST_PAGE_CHANGED';                           // 分页页码切换
 export const QAS_Q_DETAIL_SELECTED = 'QAS_Q_DETAIL_SELECTED';                               // 选中某条提问
 export const QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE = 'QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE';     // 切换详情框可见性
+export const QAS_Q_DETAIL_DATA_FETCH = 'QAS_Q_DETAIL_DATA_FETCH';                           // 获取详情数据
 
 // ---------------------------
 // Actions
@@ -77,10 +78,30 @@ const onSelectedQ = (id) => {
     }
 }
 
+/**
+ * 获取详情数据
+ * @param id 
+ */
+const getQDetailData = (id) => {
+    return (dispatch, getState) => {
+        return request.get('api/qas/getQuestionDetail', { id }).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+
+                dispatch({
+                    type: QAS_Q_DETAIL_DATA_FETCH,
+                    data: data
+                });
+            }
+        });
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
     onPageChanged,
     onSelectedQ,
-    toggleDetailDialogVisible
+    toggleDetailDialogVisible,
+    getQDetailData
 }

@@ -8,9 +8,10 @@ const Modal = require('antd/lib/modal/Modal');
 interface QDetailDialogProps {
     id: number;                         // 当前内容详情的 id
     action: any;
-    visible: boolean;                    // 是否可见
-    onSubmit: () => void;                // 提交
-    onCancel: () => void;                // 取消
+    visible: boolean;                   // 是否可见
+    onSubmit: () => void;               // 提交
+    onCancel: () => void;               // 取消
+    data: any;                          // 详情数据
 }
 
 @autobind
@@ -20,6 +21,15 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     
     constructor(props, context) {
         super(props, context);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { action, id } = this.props;
+        const newId = nextProps.id;
+
+        if (newId && id !== newId) {
+            action.getData(newId);
+        }
     }
 
     render() {

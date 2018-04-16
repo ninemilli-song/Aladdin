@@ -8,7 +8,7 @@ const router = require('koa-router')();
 const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
 const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 const { getReportDataByCodeYear } = require('../model/report');
-const { getQuestions } = require('../model/question');
+const { getQuestions, getQuestionDetail } = require('../model/question');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -65,6 +65,13 @@ router.get('/getSPRuleDetail', async (ctx) => {
 // 获取问题列表
 router.get('/qas/getQuestions', async (ctx) => {
     const result = await getQuestions(ctx.request.query);
+
+    ctx.body = result;
+});
+
+// 获取问题详情
+router.get('/qas/getQuestionDetail', async (ctx) => {
+    const result = await getQuestionDetail(ctx.request.query);
 
     ctx.body = result;
 });
