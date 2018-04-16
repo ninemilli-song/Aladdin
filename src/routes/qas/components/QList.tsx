@@ -12,9 +12,15 @@ type QListData = {
     total: number;                              // 结果总数
 }
 
+type PageOptionsType = {
+    currentPage: number;                        // 当前页码
+    pageSize: number;                           // 页面大小
+}
+
 interface QListProps {
     data: QListData;                            // 数据
     action: any;
+    pageOptions: PageOptionsType;               // 分页参数
 }
 
 @autobind
@@ -68,14 +74,15 @@ export default class QList extends React.Component<QListProps, any> {
      * 渲染分页组件
      */
     renderPagination() {
-        const { data } = this.props;
+        const { data, pageOptions } = this.props;
         return (
             <div className={ `${this.prefixCls}-pagination` }>
                 <Pagination 
                     total={ data ? data.total : null } 
                     onChange={ this.handlePageChange }
                     size="small"
-                    pageSize={ 10 }
+                    current = { pageOptions.currentPage }
+                    pageSize={ pageOptions.pageSize }
                 />
             </div>
         )       
@@ -89,8 +96,8 @@ export default class QList extends React.Component<QListProps, any> {
     handlePageChange(page, pageSize) {
         const { action } = this.props;
 
-        if (action.onPageChanged) {
-            action.onPageChanged(page, pageSize);
+        if (action.getQuestionList) {
+            action.getQuestionList(page, pageSize);
         }
     }
 }
