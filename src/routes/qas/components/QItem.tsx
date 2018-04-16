@@ -2,6 +2,7 @@ import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
 import { ActionButton } from '../../../components/button';
+import { autobind } from 'core-decorators';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
@@ -20,6 +21,7 @@ interface QItemProps {
     onShowDetail?: (id: number) => void;              // 详情展示
 }
 
+@autobind
 export default class QItem extends React.Component<QItemProps> {
 
     prefixCls = 'q-item';
@@ -39,7 +41,7 @@ export default class QItem extends React.Component<QItemProps> {
         const { data } = this.props;
 
         return (
-            <div className={ this.prefixCls }>
+            <div className={ this.prefixCls } onClick={ this.showDetail }>
                 <div className={ `${this.prefixCls}-user` }>
                     <div className="profile">
                         <Avatar 

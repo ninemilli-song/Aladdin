@@ -6,6 +6,7 @@ import QItem, { QItemData } from './QItem';
 import CutLine from '../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
+import QDetailDialogContainer from '../containers/QDetailDialogContainer'
 
 type QListData = {
     list: Array<QItemData>;                     // 列表数据
@@ -37,6 +38,9 @@ export default class QList extends React.Component<QListProps, any> {
             {
                 this.renderPagination()
             }
+            {
+                this.renderDetailDialog()
+            }
             </div>
         )
     }
@@ -55,6 +59,7 @@ export default class QList extends React.Component<QListProps, any> {
                     >
                         <QItem 
                             data = { item }
+                            onShowDetail = { this.handleOnShowDetail }
                         />
                         <CutLine />
                     </div>
@@ -89,6 +94,15 @@ export default class QList extends React.Component<QListProps, any> {
     }
 
     /**
+     * 渲染详情框
+     */
+    renderDetailDialog() {
+        return (
+            <QDetailDialogContainer />
+        )
+    }
+
+    /**
      * 处理分页切换
      * @param page 
      * @param pageSize 
@@ -99,5 +113,15 @@ export default class QList extends React.Component<QListProps, any> {
         if (action.getQuestionList) {
             action.getQuestionList(page, pageSize);
         }
+    }
+
+    /**
+     * 显示提问详情
+     * @param id 提问条目的id
+     */
+    private handleOnShowDetail(id) {
+        const { action } = this.props;
+
+        action.showQDetail(id);
     }
 }

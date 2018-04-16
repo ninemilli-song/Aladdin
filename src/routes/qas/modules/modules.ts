@@ -5,11 +5,15 @@
 import { createReducer } from '../../../utils/reducer-helper';
 import { setQuestionList, onPageChanged } from './qlist_reducer';
 import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
-import { QAS_Q_DIALOG_TOGGLE, QAS_Q_LIST, QAS_Q_LIST_PAGE_CHANGED } from '../actions/index';
-// import { Map } from 'immutable';
+import { 
+    QAS_Q_DIALOG_TOGGLE, 
+    QAS_Q_LIST, 
+    QAS_Q_LIST_PAGE_CHANGED, 
+    QAS_Q_DETAIL_SELECTED, 
+    QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE 
+} from '../actions/index';
+import { onSelectedQ, toggleDetailDialogVisible } from './q_detail_reducer';
 const { fromJS } = require('immutable');
-
-
 
 // -------------------------------------
 // Reducer
@@ -18,7 +22,9 @@ const { fromJS } = require('immutable');
 const ACTION_HANDLERS = {
     [QAS_Q_DIALOG_TOGGLE]: setPushQuestionDialogVisible,
     [QAS_Q_LIST]: setQuestionList,
-    [QAS_Q_LIST_PAGE_CHANGED]: onPageChanged
+    [QAS_Q_LIST_PAGE_CHANGED]: onPageChanged,
+    [QAS_Q_DETAIL_SELECTED]: onSelectedQ,
+    [QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE]: toggleDetailDialogVisible
 }
 
 // 初始化模块数据
@@ -28,8 +34,13 @@ const initialState = fromJS({
         pushQuestionDialogLoading: false,
         currentPage: 1,
         pageSize: 10,
+        qDetailDialogOpts: {                        // 提问详情对话框的ui状态
+            visible: false
+        }
     },
-    data: {}
+    data: {},
+    selectedQId: null,                              // 选中的提问 id
+    qDetailData: {},                                // 选中的问题详情数据
 });
 
 // --------------------------------------

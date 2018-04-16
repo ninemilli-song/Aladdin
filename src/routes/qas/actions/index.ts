@@ -5,7 +5,9 @@ import request from '../../../utils/fetch';
 // ------------------------------------
 export const QAS_Q_DIALOG_TOGGLE = 'QAS_Q_DIALOG_TOGGLE';
 export const QAS_Q_LIST = 'QAS_Q_LIST';
-export const QAS_Q_LIST_PAGE_CHANGED = 'QAS_Q_LIST_PAGE_CHANGED';               // 分页页码切换
+export const QAS_Q_LIST_PAGE_CHANGED = 'QAS_Q_LIST_PAGE_CHANGED';                           // 分页页码切换
+export const QAS_Q_DETAIL_SELECTED = 'QAS_Q_DETAIL_SELECTED';                               // 选中某条提问
+export const QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE = 'QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE';     // 切换详情框可见性
 
 // ---------------------------
 // Actions
@@ -55,8 +57,30 @@ const onPageChanged = (pageNum = 1, pageSize = 10) => {
     }
 }
 
+/**
+ * 切换详情对话框的可见性
+ */
+const toggleDetailDialogVisible = () => {
+    return {
+        type: QAS_Q_DETAIL_DIALOG_VISIBLE_TOGGLE,
+    }
+}
+
+/**
+ * 选中某条提问
+ * @param id 
+ */
+const onSelectedQ = (id) => {
+    return {
+        type: QAS_Q_DETAIL_SELECTED,
+        data: id
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
-    onPageChanged
+    onPageChanged,
+    onSelectedQ,
+    toggleDetailDialogVisible
 }
