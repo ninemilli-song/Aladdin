@@ -17,7 +17,7 @@ export default class Body extends MainSider<BodyProps> {
 
         return (
             <div className={ this.prefixCls }>
-                <div className={ `${this.prefixCls}-question-area` }>
+                <div className={ `${this.prefixCls}-say` }>
                     <ISay />
                 </div>
                 <QListContainer />

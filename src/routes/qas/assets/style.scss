@@ -5,31 +5,31 @@ $moduleName: qas;
 
 .#{$moduleName} {
     &-body {
-        &-question {
-            &-area {
-                padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
-                background-color: $secondaryNavBG;
-                margin-bottom: 10px;
+        &-say {
+            padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
+            background-color: $secondaryNavBG;
+            margin-bottom: 10px;
+        }
+    }
+
+    .q-list {
+        &-list {
+            padding: 0 #{$inner-block-padding}px;
+            background-color: $blockNormalBG;
+        }
+
+        &-pagination {
+            text-align: center;
+
+            .ant-pagination-prev .ant-pagination-item-link, 
+            .ant-pagination-next .ant-pagination-item-link, 
+            .ant-pagination-item {
+                background: transparent;
             }
 
-            &-list {
-                padding: 0 #{$inner-block-padding}px;
-                background-color: $blockNormalBG;
-            }
-
-            &-pagination {
-                text-align: center;
-
-                .ant-pagination-prev .ant-pagination-item-link, 
-                .ant-pagination-next .ant-pagination-item-link, 
-                .ant-pagination-item {
-                    background: transparent;
-                }
-
-                .ant-pagination-item-active {
-                    a {
-                        color: $primaryFontColor;
-                    }
+            .ant-pagination-item-active {
+                a {
+                    color: $primaryFontColor;
                 }
             }
         }

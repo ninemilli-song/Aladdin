@@ -20,7 +20,7 @@ interface QListProps {
 @autobind
 export default class QList extends React.Component<QListProps, any> {
 
-    prefixCls = 'qas-body';
+    prefixCls = 'q-list';
 
     render() {
         return (
@@ -56,7 +56,7 @@ export default class QList extends React.Component<QListProps, any> {
         }) : null;
 
         return (
-            <div className={ `${this.prefixCls}-question-list` }>
+            <div className={ `${this.prefixCls}-list` }>
                 {
                     listEles
                 }
@@ -70,7 +70,7 @@ export default class QList extends React.Component<QListProps, any> {
     renderPagination() {
         const { data } = this.props;
         return (
-            <div className={ `${this.prefixCls}-question-pagination` }>
+            <div className={ `${this.prefixCls}-pagination` }>
                 <Pagination 
                     total={ data ? data.total : null } 
                     onChange={ this.handlePageChange }
