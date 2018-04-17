@@ -3,14 +3,16 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
+import { ActionButton } from '../../../components/button/index';
+import { formateNumberCount } from '../../../utils/utils';
+import { QASOperators } from '../../../components/qas-operators/QASOperators';
+const Avatar = require('antd/lib/avatar');
 const Modal = require('antd/lib/modal/Modal');
 
 interface QDetailDialogProps {
     id: number;                         // 当前内容详情的 id
     action: any;
     visible: boolean;                   // 是否可见
-    onSubmit: () => void;               // 提交
-    onCancel: () => void;               // 取消
     data: any;                          // 详情数据
 }
 
@@ -33,10 +35,34 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     render() {
-        const { visible, id } = this.props;
+        const { visible, id, data } = this.props;
+
+        const operatorOpts = [
+            {
+                iconName: 'icon-xiaoxi',
+                label: `回答(${ formateNumberCount(data.getIn(['answerCount']) || 0) })`,
+                callback: this.showAnswer
+            },
+            {
+                iconName: 'icon-shoucang',
+                label: `关注(${ formateNumberCount(data.getIn(['collectedCount']) || 0) })`,
+                callback: this.doConcern
+            },
+            {
+                iconName: 'icon-chengyuan-tianjia',
+                label: `邀请`,
+                callback: this.showInvite
+            },
+            {
+                iconName: 'icon-zhuanfa',
+                label: `分享`,
+                callback: this.showShare
+            },
+        ];
 
         return (
             <Modal
+                wrapClassName = "qas"
                 visible={ visible }
                 closable = { false }
                 onOk={ this.handleOk }
@@ -44,27 +70,57 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                 width = { 600 }
                 footer={ null }
             >
-                QDetailDialog ========> { id }
+                <div className={ `${this.prefixCls}-wrapper` }>
+                    <div className={ `${this.prefixCls}-userInfo` }>
+                        <div className="profile">
+                            <Avatar 
+                                size = "large"
+                                icon = "user"
+                                src = { data.getIn(['user', 'profile']) }
+                            />
+                        </div>
+                        <span className="name">
+                            { data.getIn(['user', 'name']) }
+                        </span>
+                    </div>
+                    <div className={ `${this.prefixCls}-content` }>
+                        {
+                            data.getIn(['content'])
+                        }
+                    </div>
+                    <div className={ `${this.prefixCls}-updateDate` }>
+                        {
+                            data.getIn(['updateDate'])
+                        }
+                    </div>
+                    <div className={ `${this.prefixCls}-operators` }>
+                        <QASOperators 
+                            operators = { operatorOpts }
+                        />
+                    </div>
+                    <div className={ `${this.prefixCls}-doReply` }></div>
+                    <div className={ `${this.prefixCls}-replyList` }></div>
+                </div>
             </Modal>
         )
     }
 
     handleOk() {
-        const { onSubmit } = this.props;
+        // const { onSubmit } = this.props;
 
-        if (onSubmit) {
-            onSubmit();
-        }
+        // if (onSubmit) {
+        //     onSubmit();
+        // }
     }
 
     handleCancel() {
-        const { onCancel } = this.props;
+        // const { onCancel } = this.props;
 
         this.hide();
 
-        if (onCancel) {
-            onCancel();
-        }
+        // if (onCancel) {
+        //     onCancel();
+        // }
     }
 
     private hide() {
@@ -73,5 +129,21 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
         if (action.hide) {
             action.hide();
         }
+    }
+
+    private showAnswer() {
+        
+    }
+
+    private doConcern() {
+
+    }
+
+    private showInvite() {
+
+    }
+
+    private showShare() {
+
     }
 }

@@ -73,16 +73,6 @@ $moduleName: qas;
         &-text {
             margin-bottom: 10px;
         }
-
-        &-operaters {
-
-            li {
-                display: inline-block;
-                margin-right: 18px;
-                cursor: pointer;
-                // min-width: 80px;
-            }
-        }
     }
 
     &-dialog-form {
@@ -94,6 +84,57 @@ $moduleName: qas;
             overflow: hidden;
             border: solid 1px $mainBorderColor;
             border-radius: 4px;
+        }
+    }
+
+    .q-detail {
+        &-wrapper {
+
+        }
+
+        &-userInfo {
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 10px;
+
+            .profile {
+                // display: inline-block;
+                margin-right: 10px;
+                float: left;
+                line-height: 0;
+            }
+
+            .name {
+                display: inline-block;
+                height: 32px;
+                line-height: 32px;
+                margin-right: 6px;
+            }
+        }
+
+        &-content {
+            margin-bottom: 10px;
+        }
+
+        &-updateDate {
+            margin-bottom: 10px;
+            color: $thirdFontColor;
+        }
+
+        &-feedbackCount {
+
+        }
+
+        &-operator {
+
+        }
+
+        &-doReply {
+
+        }
+
+        &-replyList {
+
         }
     }
 }

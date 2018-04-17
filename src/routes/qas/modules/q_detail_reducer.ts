@@ -1,6 +1,7 @@
 /**
  * Case Reducer
  */
+const { fromJS } = require('immutable');
 
 // 选中一个提问
 export const onSelectedQ = (state, action) => {
@@ -14,5 +15,5 @@ export const toggleDetailDialogVisible = (state, action) => {
 
 // 切换对话框的可见性
 export const fetchDetailData = (state, action) => {
-    return state.updateIn(['qDetailData'], data => action.data);
+    return state.updateIn(['qDetailData'], data => fromJS(action.data));
 }

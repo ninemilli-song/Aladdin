@@ -3,6 +3,7 @@ import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
 import { ActionButton } from '../../../components/button';
 import { autobind } from 'core-decorators';
+import { QASOperators } from '../../../components/qas-operators/QASOperators';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
@@ -40,6 +41,29 @@ export default class QItem extends React.Component<QItemProps> {
     render() {
         const { data } = this.props;
 
+        const operatorOpts = [
+            {
+                iconName: 'icon-xiaoxi',
+                label: `回答(${ formateNumberCount(data.answersCount || 0) })`,
+                callback: this.showAnswer
+            },
+            {
+                iconName: 'icon-shoucang',
+                label: `关注(${ formateNumberCount(data.collectedCount || 0) })`,
+                callback: this.doConcern
+            },
+            {
+                iconName: 'icon-chengyuan-tianjia',
+                label: `邀请`,
+                callback: this.showInvite
+            },
+            {
+                iconName: 'icon-zhuanfa',
+                label: `分享`,
+                callback: this.showShare
+            },
+        ];
+
         return (
             <div className={ this.prefixCls } onClick={ this.showDetail }>
                 <div className={ `${this.prefixCls}-user` }>
@@ -66,32 +90,9 @@ export default class QItem extends React.Component<QItemProps> {
                     { data.question }
                 </div>
                 <div className={ `${this.prefixCls}-operaters` }>
-                    <ul>
-                        <li onClick={ this.showAnswer }>
-                            <ActionButton
-                                iconName = "icon-xiaoxi"
-                                label = { `回答(${ formateNumberCount(data.answersCount) })` }
-                            />
-                        </li>
-                        <li onClick={ this.doConcern }>
-                            <ActionButton
-                                iconName = "icon-shoucang"
-                                label = { `关注(${ formateNumberCount(data.collectedCount) })` }
-                            />
-                        </li>
-                        <li onClick={ this.showInvite }>
-                            <ActionButton
-                                iconName = "icon-chengyuan-tianjia"
-                                label = { `邀请` }
-                            />
-                        </li>
-                        <li onClick={ this.showShare }>
-                            <ActionButton
-                                iconName = "icon-zhuanfa"
-                                label = { `分享` }
-                            />
-                        </li>
-                    </ul>
+                    <QASOperators 
+                        operators = { operatorOpts }
+                    />
                 </div>
             </div>
         )
