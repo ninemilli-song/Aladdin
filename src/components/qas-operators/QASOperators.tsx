@@ -9,7 +9,7 @@ import './assets/index.scss';
 interface Operator {
     iconName: string;                   // 图标名
     label: string;                      // 显示文字
-    callback: () => void;               // 回调方法
+    callback?: () => void;               // 回调方法
 }
 
 interface QASOperatorsProps {

@@ -139,4 +139,23 @@ $moduleName: qas;
 
         }
     }
+
+    .answer-item {
+        &-wrapper {
+            position: relative;
+            padding: 0 #{$inner-block-padding}px;
+        }
+
+        &-profile {
+            // display: inline-block;
+            position: absolute;
+            width: 40px;
+            // float: left;
+        }
+
+        &-content {
+            display: inline-block;
+            margin-left: 60px; 
+        }
+    }
 }

@@ -7,6 +7,7 @@ import { ActionButton } from '../../../components/button/index';
 import { formateNumberCount } from '../../../utils/utils';
 import { QASOperators } from '../../../components/qas-operators/QASOperators';
 import ISay from '../../../components/i-say/ISay';
+import AnswerListContainer from '../containers/AnswerListContainer';
 const Avatar = require('antd/lib/avatar');
 const Modal = require('antd/lib/modal/Modal');
 
@@ -105,7 +106,9 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                             title = "回答"
                         />
                     </div>
-                    <div className={ `${this.prefixCls}-replyList` }></div>
+                    <div className={ `${this.prefixCls}-replyList` }>
+                        <AnswerListContainer />
+                    </div>
                 </div>
             </Modal>
         )

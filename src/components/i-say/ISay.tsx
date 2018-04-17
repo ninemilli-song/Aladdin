@@ -71,6 +71,7 @@ export default class ISay extends React.Component<ISayProps, any> {
                         placeholder = { placeholder }
                         rows = { mode === 'expand' ? 4 : 1 }
                         onFocus = { this.textAreaOnFocus }
+                        onBlur = { this.textAreaOnBlur }
                         ref = { this.getTextareaRef }
                     />
                 </div>
@@ -114,6 +115,13 @@ export default class ISay extends React.Component<ISayProps, any> {
         // Expand the textarea
         this.setState({
             mode: 'expand'
+        });
+    }
+
+    private textAreaOnBlur() {
+        // fold the textarea
+        this.setState({
+            mode: 'fold'
         });
     }
 
