@@ -6,7 +6,7 @@ $moduleName: qas;
 .#{$moduleName} {
     &-body {
         &-say {
-            padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
+            // padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
             background-color: $secondaryNavBG;
             margin-bottom: 10px;
         }
@@ -89,13 +89,12 @@ $moduleName: qas;
 
     .q-detail {
         &-wrapper {
-
+            padding: #{$inner-block-padding}px 0;
         }
 
         &-userInfo {
             height: 40px;
             line-height: 40px;
-            margin-bottom: 10px;
 
             .profile {
                 // display: inline-block;
@@ -112,12 +111,15 @@ $moduleName: qas;
             }
         }
 
-        &-content {
-            margin-bottom: 10px;
+        &-userInfo, &-content, &-updateDate, &-operators, &-doReply, &-replyList {
+            margin-bottom: #{$block-space-mini}px;
+        }
+
+        &-userInfo, &-content, &-updateDate, &-operators{
+            padding: 0 #{$inner-block-padding}px;
         }
 
         &-updateDate {
-            margin-bottom: 10px;
             color: $thirdFontColor;
         }
 
@@ -125,7 +127,7 @@ $moduleName: qas;
 
         }
 
-        &-operator {
+        &-operators {
 
         }
 

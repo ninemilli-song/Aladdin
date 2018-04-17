@@ -4,6 +4,9 @@
 $prefixCls: i-say;
 
 .#{$prefixCls} {
+    padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
+    background-color: $secondaryNavBG;
+
     &-title {
         position: relative;
         height: 30px;
