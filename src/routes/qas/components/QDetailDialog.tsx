@@ -92,7 +92,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                     </div>
                     <div className={ `${this.prefixCls}-updateDate` }>
                         {
-                            data.getIn(['updateDate'])
+                            data.getIn(['updateTime'])
                         }
                     </div>
                     <div className={ `${this.prefixCls}-operators` }>

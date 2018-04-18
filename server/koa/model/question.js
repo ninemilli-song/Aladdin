@@ -9,7 +9,7 @@ const fetch = require('../lib/fetch');
  * @param {pageNum: number, pageSize: number} params 
  */
 const getQuestions = (params) => {
-    return fetch.get('question/list', params).then((res) => {
+    return fetch.get('question/recent', params).then((res) => {
         console.log('👉🏻 ---> /question/list\n', res);
         const { data, meta } = res;
 

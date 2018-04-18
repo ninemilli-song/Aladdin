@@ -14,7 +14,7 @@ export type QItemData = {
     user: UserInfo;                         // 用户信息
     answersCount: number;                   // 回答次数
     collectedCount: number;                 // 收藏次数
-    updateDate: string;                     // 更新日期
+    updateTime: string;                     // 更新日期
 }
 
 interface QItemProps {
@@ -78,7 +78,7 @@ export default class QItem extends React.Component<QItemProps> {
                         { data.user.name }
                     </span>
                     <span className="updateDate">
-                        • { data.updateDate }
+                        • { data.updateTime }
                     </span>
                 </div>
                 <div className={ `${this.prefixCls}-title` }>

@@ -144,6 +144,7 @@ $moduleName: qas;
         &-wrapper {
             position: relative;
             padding: 0 #{$inner-block-padding}px;
+            margin-top: #{$block-space}px;
         }
 
         &-profile {
