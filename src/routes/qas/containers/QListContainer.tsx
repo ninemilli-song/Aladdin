@@ -4,6 +4,7 @@
 import { connect } from 'react-redux';
 import QList from '../components/Qlist';
 import { getQuestionList, onPageChanged, toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
+import { toJS } from '../../../utils/hocs';
 
 const mapActionCreators = (dispatch) => {
     return {
@@ -29,4 +30,4 @@ const mapStateToProps = (state) => ({
     }
 })
 
-export default connect(mapStateToProps, mapActionCreators)(QList);
+export default connect(mapStateToProps, mapActionCreators)(toJS(QList));

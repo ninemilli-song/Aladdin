@@ -19,7 +19,7 @@ export type QItemData = {
 
 interface QItemProps {
     data?: QItemData;
-    onShowDetail?: (id: number) => void;              // 详情展示
+    action: any;
 }
 
 @autobind
@@ -71,11 +71,11 @@ export default class QItem extends React.Component<QItemProps> {
                         <Avatar 
                             size = "large"
                             icon = "user"
-                            src = { data.user.profile || null }
+                            src = { data.user ? data.user.profile : null }
                         />
                     </div>
                     <span className="name">
-                        { data.user.name }
+                        { data.user ? data.user.name : '' }
                     </span>
                     <span className="updateDate">
                         • { data.updateTime }
@@ -119,10 +119,8 @@ export default class QItem extends React.Component<QItemProps> {
     }
 
     private showDetail() {
-        const { data, onShowDetail } = this.props;
+        const { data, action } = this.props;
 
-        if (onShowDetail) {
-            onShowDetail(data.id);
-        }
+        action.showQDetail(data.id);
     }
 }

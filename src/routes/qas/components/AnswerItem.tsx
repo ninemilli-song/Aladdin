@@ -26,23 +26,23 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
 
         const operatorOpts = [
             {
-                iconName: 'icon-xiaoxi',
+                iconName: 'icon-dianzan',
                 label: `赞成(${ formateNumberCount(approveCount || 0) })`,
                 // callback: this.showAnswer
             },
             {
-                iconName: 'icon-shoucang',
+                iconName: 'icon-tucao',
                 label: `反对(${ formateNumberCount(disapproveCount || 0) })`,
                 // callback: this.doConcern
             },
             {
-                iconName: 'icon-chengyuan-tianjia',
-                label: `邀请`,
+                iconName: 'icon-faqiliaotian',
+                label: `追问`,
                 // callback: this.showInvite
             },
             {
-                iconName: 'icon-zhuanfa',
-                label: `分享`,
+                iconName: 'icon-xihuan',
+                label: `收藏`,
                 // callback: this.showShare
             },
         ];

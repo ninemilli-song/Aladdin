@@ -10,7 +10,7 @@ const fetch = require('../lib/fetch');
  */
 const getQuestions = (params) => {
     return fetch.get('question/recent', params).then((res) => {
-        console.log('👉🏻 ---> /question/list\n', res);
+        console.log('👉🏻 ---> /question/recent\n', res);
         const { data, meta } = res;
 
         let rules = null;
@@ -22,7 +22,7 @@ const getQuestions = (params) => {
 
         return rules;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/list error:\n', error);
+        console.error('👉🏻 ---> /question/recent error:\n', error);
         return ResponsePacker.error(error);
     });
 }

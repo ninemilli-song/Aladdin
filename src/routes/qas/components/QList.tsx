@@ -6,7 +6,8 @@ import QItem, { QItemData } from './QItem';
 import CutLine from '../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
-import QDetailDialogContainer from '../containers/QDetailDialogContainer'
+import QDetailDialogContainer from '../containers/QDetailDialogContainer';
+import QItemContainer from '../containers/QItemContainer';
 
 type QListData = {
     list: Array<QItemData>;                     // 列表数据
@@ -20,6 +21,7 @@ type PageOptionsType = {
 
 interface QListProps {
     data: QListData;                            // 数据
+    // data: any;                            // 数据
     action: any;
     pageOptions: PageOptionsType;               // 分页参数
 }
@@ -57,9 +59,8 @@ export default class QList extends React.Component<QListProps, any> {
                     <div
                         key = { `${this.prefixCls}-qitem-index-${item.id}` }
                     >
-                        <QItem 
-                            data = { item }
-                            onShowDetail = { this.handleOnShowDetail }
+                        <QItemContainer 
+                            id = { item.id }
                         />
                         <CutLine />
                     </div>

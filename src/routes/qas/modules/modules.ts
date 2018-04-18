@@ -43,6 +43,10 @@ const initialState = fromJS({
     data: {},
     selectedQId: null,                              // 选中的提问 id
     qDetailData: {},                                // 选中的问题详情数据
+    questionCollections: [],                        // 关注的问题 id
+    answerApproved: [],                             // 赞成的回答 id
+    answerDisApproved: [],                          // 反对的回答 id
+    answerCollections: [],                          // 收藏的回答 id
 });
 
 // --------------------------------------

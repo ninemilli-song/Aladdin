@@ -6,7 +6,7 @@
 // import 'whatwg-fetch';
 const fetch = require('node-fetch');
 
-const BASE_URL = 'http://rap2api.taobao.org/app/mock/485/GET/';
+const BASE_URL = 'http://rap2api.taobao.org/app/mock/485/';
 
 /**
  * Get request
