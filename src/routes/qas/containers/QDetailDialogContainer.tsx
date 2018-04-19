@@ -4,6 +4,7 @@
 import { connect } from 'react-redux';
 import { toggleDetailDialogVisible, getQDetailData } from '../actions/index';
 import QDetailDialog from '../components/QDetailDialog';
+import { toJS } from '../../../utils/hocs';
 
 const mapActionCreators = (dispatch) => {
     return {
@@ -24,4 +25,4 @@ const mapStateToProps = (state) => ({
     data: state.QAS.getIn(['qDetailData'])
 })
 
-export default connect(mapStateToProps, mapActionCreators)(QDetailDialog);
+export default connect(mapStateToProps, mapActionCreators)(toJS(QDetailDialog));

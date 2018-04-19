@@ -5,8 +5,7 @@ import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from './AnswerItem';
 
 interface AnswerListProps {
-    // data: Array<AnswerItemProps>;
-    data: any;
+    data: Array<AnswerItemProps>;
 }
 
 export default class AnswerList extends React.Component<AnswerListProps, any> {
@@ -23,12 +22,12 @@ export default class AnswerList extends React.Component<AnswerListProps, any> {
                         return (
                             <AnswerItem 
                                 key = { `${this.prefixCls}-${item.id}-${index}` }
-                                id = { item.getIn(['id']) }
-                                user = { item.getIn(['user']) }
-                                content = { item.getIn(['content']) }
-                                isAnonymous = { item.getIn(['isAnonymous']) }
-                                approveCount = { item.getIn(['approveCount']) }
-                                disapproveCount = { item.getIn(['disapproveCount']) }
+                                id = { item.id }
+                                user = { item.user}
+                                content = { item.content}
+                                isAnonymous = { item.isAnonymous}
+                                approveCount = { item.approveCount }
+                                disapproveCount = { item.disapproveCount}
                             />
                         )
                     }) : null

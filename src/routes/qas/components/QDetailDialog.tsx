@@ -42,12 +42,12 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
         const operatorOpts = [
             {
                 iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(data.getIn(['answerCount']) || 0) })`,
+                label: `回答(${ formateNumberCount(data.answerCount || 0) })`,
                 callback: this.showAnswer
             },
             {
                 iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(data.getIn(['collectedCount']) || 0) })`,
+                label: `关注(${ formateNumberCount(data.collectedCount || 0) })`,
                 callback: this.doConcern
             },
             {
@@ -78,21 +78,21 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                             <Avatar 
                                 size = "large"
                                 icon = "user"
-                                src = { data.getIn(['user', 'profile']) }
+                                src = { data.user ? data.user.profile : null }
                             />
                         </div>
                         <span className="name">
-                            { data.getIn(['user', 'name']) }
+                            { data.user ? data.user.name : null }
                         </span>
                     </div>
                     <div className={ `${this.prefixCls}-content` }>
                         {
-                            data.getIn(['content'])
+                            data.content
                         }
                     </div>
                     <div className={ `${this.prefixCls}-updateDate` }>
                         {
-                            data.getIn(['updateTime'])
+                            data.updateTime
                         }
                     </div>
                     <div className={ `${this.prefixCls}-operators` }>

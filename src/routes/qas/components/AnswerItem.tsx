@@ -10,7 +10,7 @@ const { Map } = require('immutable');
 
 export interface AnswerItemProps {
     id: number;                         // id
-    user: any                           // 用户信息
+    user: UserInfo                           // 用户信息
     content: string;                    // 内容详情
     isAnonymous: boolean;               // 是否匿名
     approveCount: number;               // 赞同数
@@ -54,14 +54,14 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
                         <Avatar 
                             size = "large"
                             icon = "user"
-                            src = { user.getIn(['profile']) }
+                            src = { user.profile }
                         />
                     </div>
                 </div>
                 <div className={ `${this.prefixCls}-content` }>
                     <div className={ `${this.prefixCls}-content-top` }>
                         <span className="name">
-                            { user.getIn(['name']) }
+                            { user.name }
                         </span>
                     </div>
                     <div className={ `${this.prefixCls}-content-body` }>
