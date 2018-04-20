@@ -19,7 +19,7 @@ const jwtKoa = require('koa-jwt');
 // const util = require('util');
 const secret = require('../secret-key').secret;
 
-const mysqlConnection = require('./lib/db');
+// const mysqlConnection = require('./lib/db');
 
 // middlewares
 // app.use(convert(koabody));
@@ -34,7 +34,7 @@ app.use(views(`${__dirname}/views`, {
 }));
 
 // Add mysqlConnection object into the context
-app.context.db = mysqlConnection;
+// app.context.db = mysqlConnection;
 
 // logger
 app.use((ctx, next) => {
