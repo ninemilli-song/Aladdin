@@ -45,6 +45,7 @@ const ACTION_HANDLERS = {
 const initState = {
     id: '007',
     name: '詹姆斯-邦德',
+    isAuthenticated: false,            // 用户是否认证
 }
 
 export default function userInfoReducer(state = initState, action) {

@@ -6,6 +6,7 @@ import CounterRoute from './Counter';
 import Warehouse from './Warehouse';
 import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
+import Signin from './signin';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -18,7 +19,8 @@ export const createRoutes = (store) => ({
     CounterRoute(store),
     Warehouse(store),
     AccountingHelpHome(store),
-    QAS(store)
+    QAS(store),
+    Signin(store)
   ]
 })
 

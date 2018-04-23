@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 // Add redux-ui to manage the app ui state
-import { reducer as uiReducer } from 'redux-ui';
+// import { reducer as uiReducer } from 'redux-ui';
 import { loadingReducer } from '../components/loading';
 import { userInfoReducer, globalInfo } from '../components/global-info';
 
@@ -10,7 +10,7 @@ export const makeRootReducer = (asyncReducers) => {
   const reducers = Object.assign(
     {
       routing: routerReducer,
-      ui: uiReducer,
+      // ui: uiReducer,
       loading: loadingReducer,
       userInfo: userInfoReducer,
       globalInfo: globalInfo
