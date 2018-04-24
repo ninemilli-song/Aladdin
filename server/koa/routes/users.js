@@ -32,7 +32,7 @@ router.get('/login', (ctx) => {
                     // domain: 'localhost:3000',  // 写cookie所在的域名
                     // path: '/index',       // 写cookie所在的路径
                     maxAge: 10 * 60 * 1000, // cookie有效时长
-                    expires: new Date('2017-12-15'), // cookie失效时间
+                    // expires: new Date('2017-12-15'), // cookie失效时间
                     httpOnly: true, // 是否只用于http请求中获取
                     overwrite: false // 是否允许重写
                 });
@@ -40,7 +40,7 @@ router.get('/login', (ctx) => {
                 ctx.body = {
                     message: 'login success',
                     code: 1,
-                    userInfo
+                    data: userInfo.meta
                 };
             })
             .catch((error) => {

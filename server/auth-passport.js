@@ -36,6 +36,7 @@ module.exports = {
                             expires: '2020-01-01',
                             first: authorized[0].First,
                             last: authorized[0].Last,
+                            name: authorized[0].Username
                         },
                     });
                 } else {

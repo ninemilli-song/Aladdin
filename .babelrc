@@ -3,5 +3,11 @@
     "es2015",
     "es2017"
   ],
-  "plugins":[["antd", { "style": "css" }]]
+  "plugins":[
+      ["antd", { "style": "css" }],
+      ["transform-runtime", {
+        "polyfill": false,
+        "regenerator": true 
+      }]
+    ]
 }

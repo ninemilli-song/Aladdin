@@ -5,6 +5,7 @@ import * as Immutable from 'immutable';
 const Mock = require('mockjs');
 
 export const GET_USER_INFO = 'GET_USER_INFO';
+export const USER_SIGNIN = 'USER_SIGNIN';
 
 export interface IAction {
     getUserInfo: () => void;
@@ -36,7 +37,16 @@ export const getUserInfo = () => {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-    [GET_USER_INFO]: (state, action) => action.data
+    [GET_USER_INFO]: (state, action) => {
+        return Object.assign({}, state, action.data);
+    },
+    [USER_SIGNIN]: (state, action) => {
+        return Object.assign({}, state, {
+            id: action.data ? action.data.id : null,
+            name: action.data ? action.data.name : '',
+            isAuthenticated: !!action.data
+        });
+    }
 }
 
 // ------------------------------------
