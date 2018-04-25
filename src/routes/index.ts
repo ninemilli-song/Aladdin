@@ -21,7 +21,11 @@ export const createRoutes = (store) => ({
     AccountingHelpHome(store),
     QAS(store),
     Signin(store)
-  ]
+  ],
+  onEnter: (state, replace) => {
+    console.log('onEnter hook ==========> ', state);
+    console.log('onEnter hook ==========> store ======> ', store.getState());
+  }
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

@@ -8,21 +8,11 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Signin from '../../routes/signin/containers/Signin';
 
-interface LayoutProps {
-    isAuthenticated: boolean;               // 用户是否已认证
-}
 
 // @ui({
 //     key: 'AppLayout',
 //     persist: true,
 // })
-@connect(
-    store => {
-        return {
-            isAuthenticated: store.userInfo.isAuthenticated
-        }
-    }
-)
 class Layout extends React.Component<any, any> {
 
     prefixCls = 'layout';
@@ -32,9 +22,7 @@ class Layout extends React.Component<any, any> {
     }
 
     render() {
-        const { isAuthenticated } = this.props;
-
-        return isAuthenticated ? (
+        return (
             <div className={ this.prefixCls }>
                 <div className={ `${this.prefixCls}-wrapper` }>
                     <PrimaryNav />
@@ -47,9 +35,7 @@ class Layout extends React.Component<any, any> {
                 </div>
                 <Loading />
             </div>
-        ) : (
-            <Signin />
-        );
+        )
     }
 }
 
