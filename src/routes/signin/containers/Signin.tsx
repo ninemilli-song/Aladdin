@@ -12,6 +12,7 @@ const Input = require('antd/lib/input/Input');
 const Checkbox = require('antd/lib/checkbox/Checkbox');
 const message = require('antd/lib/message');
 import * as storage from '../../../utils/storage';
+import '../assets/style.scss';
 
 interface SigninProps {
     userName?: string;
@@ -85,14 +86,14 @@ export default class Signin extends React.Component<SigninProps, any> {
                         >
                             <FormItem>
                                 {
-                                getFieldDecorator('username', {
-                                    initialValue: username,
-                                    rules: [{ required: true, message: '请输入您的账号!'}]
-                                })(
-                                    <Input
-                                    placeholder="账号"
-                                    />
-                                )
+                                    getFieldDecorator('username', {
+                                        initialValue: username,
+                                        rules: [{ required: true, message: '请输入您的账号!'}]
+                                    })(
+                                        <Input
+                                            placeholder="账号"
+                                        />
+                                    )
                                 }
                             </FormItem>
                             <FormItem>
@@ -165,5 +166,5 @@ export default class Signin extends React.Component<SigninProps, any> {
             }
           }
         })
-      }
+    }
 }

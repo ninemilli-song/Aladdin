@@ -60,3 +60,21 @@
     }
   }
 }
+
+.vertical-align {
+  font-size: 0;
+
+  &::before {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: "";
+  }
+
+  &-middle {
+    display: inline-block;
+    font-size: 1rem;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+}
