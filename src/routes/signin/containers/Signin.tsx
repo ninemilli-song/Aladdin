@@ -50,9 +50,9 @@ export default class Signin extends React.Component<SigninProps, any> {
     constructor(props, context) {
         super(props, context);
 
-        // 获取用户信息
-        const { getUserInfo } = props;
-        getUserInfo();
+        // // 获取用户信息
+        // const { getUserInfo } = props;
+        // getUserInfo();
     }
 
     componentWillMount() {

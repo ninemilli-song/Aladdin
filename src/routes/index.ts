@@ -7,6 +7,7 @@ import Warehouse from './Warehouse';
 import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
 import Signin from './signin';
+import { getUserInfo } from '../actions/user';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -24,9 +25,14 @@ export const createRoutes = (store) => ({
   ],
   onEnter: (state, replace) => {
     console.log('onEnter hook ==========> ', state);
-    console.log('onEnter hook ==========> store ======> ', store.getState());
+    console.log('onEnter hook ==========> state ======> ', store.getState());
+    console.log('onEnter hook ==========> store ======> ', store);
+
     const { userInfo } = store.getState();
     const { isAuthenticated } = userInfo;
+    const { dispatch } = store;
+    
+    dispatch(getUserInfo());
 
     if (!isAuthenticated) {
       replace(`/signin?from=${state.location.pathname}`);

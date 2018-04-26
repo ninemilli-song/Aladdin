@@ -23,7 +23,7 @@ const ACTION_HANDLERS = {
 }
 
 // ------------------------------------
-// Define Reducer
+// init state
 // ------------------------------------
 const initState = {
     id: null,

@@ -18,6 +18,7 @@ const users = require('./routes/users');
 const jwtKoa = require('koa-jwt');
 // const util = require('util');
 const secret = require('../secret-key').secret;
+const jwtConstant = require('./constant/jwt');
 
 // const mysqlConnection = require('./lib/db');
 
@@ -63,10 +64,25 @@ app.use((ctx, next) => {
  * jwt 认证
  */
 app.use(jwtKoa({ 
-    secret, 
-    cookie: 'authorization'
+    secret,
+    cookie: jwtConstant.TOKEN_COOKIE_NAME,
+    issuer: jwtConstant.ISSUER,
+    isRevoked: (ctx, decodedToken, token) => {
+        return new Promise((resolve, reject) => {
+            const userId = ctx.cookies.get('aladdin-adminId');
+
+            if (
+                decodedToken.sub === userId
+            ) {
+                resolve(false);
+            }
+            else {
+                resolve(true);
+            }
+        })
+    }
 }).unless({
-    path: [/^\/users\/login/] // 数组中的路径不需要通过jwt验证
+    path: [/^\/users\/login/]                                                       // 数组中的路径不需要通过jwt验证
 }));
 
 // define router address

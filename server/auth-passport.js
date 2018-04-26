@@ -32,8 +32,6 @@ module.exports = {
                         },
                         meta: {
                             id: authorized[0].id,
-                            token: 'abcd1234',
-                            expires: '2020-01-01',
                             first: authorized[0].First,
                             last: authorized[0].Last,
                             name: authorized[0].Username

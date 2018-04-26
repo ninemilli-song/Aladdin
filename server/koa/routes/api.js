@@ -9,6 +9,7 @@ const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetai
 const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 const { getReportDataByCodeYear } = require('../model/report');
 const { getQuestions, getQuestionDetail } = require('../model/question');
+const { findUserById } = require('../model/user');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -110,6 +111,23 @@ router.get('/getReportData', async (ctx) => {
     });
 
     ctx.body = result;
+});
+
+// 获取 用户信息
+router.get('/user/getUserInfo', async (ctx) => {
+    if (ctx.state.user) {                                       // koa-jwt 验证通过后会自动添加ctx.state.user对象
+        // ctx.body = ctx.state.user;
+        userId = ctx.state.user.sub;
+
+        const result = await findUserById(userId);
+
+        ctx.body = result;
+    } else {
+        ctx.body = {
+            message: 'user error',
+            code: -1
+        };
+    }
 });
 
 
