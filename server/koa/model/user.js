@@ -157,7 +157,10 @@ const findUserById = (userId) => {
                 return user.id === userId;
             }
         );
-        return ResponsePacker.success(userInfo);
+        return ResponsePacker.success(Object.assign({}, {
+            id: userInfo[0].id,
+            name: userInfo[0].name
+        }));
     }).catch((error) => {
         winston.info('error', error);
         return ResponsePacker.error(error);

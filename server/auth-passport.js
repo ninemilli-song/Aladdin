@@ -23,7 +23,7 @@ module.exports = {
             if (username && password) {
                 const authorized = users.filter(
                     (user) => {
-                        return (user.Username === username) && (user.Password === password);
+                        return (user.name === username) && (user.password === password);
                     });
                 if (authorized.length > 0) {
                     resolve({
@@ -32,9 +32,7 @@ module.exports = {
                         },
                         meta: {
                             id: authorized[0].id,
-                            first: authorized[0].First,
-                            last: authorized[0].Last,
-                            name: authorized[0].Username
+                            name: authorized[0].name
                         },
                     });
                 } else {

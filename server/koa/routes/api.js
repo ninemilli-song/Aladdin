@@ -117,7 +117,7 @@ router.get('/getReportData', async (ctx) => {
 router.get('/user/getUserInfo', async (ctx) => {
     if (ctx.state.user) {                                       // koa-jwt 验证通过后会自动添加ctx.state.user对象
         // ctx.body = ctx.state.user;
-        userId = ctx.state.user.sub;
+        const userId = ctx.state.user.sub;
 
         const result = await findUserById(userId);
 

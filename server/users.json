@@ -1,28 +1,28 @@
 [{
   "id": "1",
-  "Username": "admin",
-  "Password": "superuser",
+  "name": "admin",
+  "password": "superuser",
   "First": "Super",
   "Last": "Dave"
 },
 {
   "id": "2",
-  "Username": "guest",
-  "Password": "letmein",
+  "name": "guest",
+  "password": "letmein",
   "First": "Guest",
   "Last": "Visitor"
 },
 {
   "id": "3",
-  "Username": "user",
-  "Password": "pass",
+  "name": "user",
+  "password": "pass",
   "First": "John",
   "Last": "Doe"
 },
 {
   "id": "4",
-  "Username": "alice",
-  "Password": "x",
+  "name": "alice",
+  "password": "x",
   "First": "Alice",
   "Last": "Carroll"
 }]

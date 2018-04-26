@@ -19,6 +19,7 @@ const jwtKoa = require('koa-jwt');
 // const util = require('util');
 const secret = require('../secret-key').secret;
 const jwtConstant = require('./constant/jwt');
+const ResponsePacker = require('./lib/responsePacker');
 
 // const mysqlConnection = require('./lib/db');
 
@@ -53,7 +54,8 @@ app.use((ctx, next) => {
     return next().catch((err) => {
         if (err.status === 401) {
             ctx.status = 401;
-            ctx.body = `Protected resource, ${err}\n`;
+            // ctx.body = `Protected resource, ${err}\n`;
+            ctx.body = ResponsePacker.error(`Protected resource, ${err}\n`);
         } else {
             throw err;
         }
@@ -67,6 +69,7 @@ app.use(jwtKoa({
     secret,
     cookie: jwtConstant.TOKEN_COOKIE_NAME,
     issuer: jwtConstant.ISSUER,
+    // issuer: 'jwtConstant.ISSUER',
     isRevoked: (ctx, decodedToken, token) => {
         return new Promise((resolve, reject) => {
             const userId = ctx.cookies.get('aladdin-adminId');

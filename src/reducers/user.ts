@@ -2,7 +2,12 @@ import { GET_USER_INFO, USER_SIGNIN } from '../actions/user';
 
 // 获取用户信息
 const getUserInfo = (state, action) => {
-    return Object.assign({}, state, action.data);
+    const { userName, ...other } = action.data;
+
+    return Object.assign({}, state, {
+        isAuthenticated: !!action.data,
+        ...other
+    });
 };
 
 // 用户登陆

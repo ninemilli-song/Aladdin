@@ -23,20 +23,23 @@ export const createRoutes = (store) => ({
     QAS(store),
     // Signin(store)
   ],
-  onEnter: (state, replace) => {
-    console.log('onEnter hook ==========> ', state);
-    console.log('onEnter hook ==========> state ======> ', store.getState());
-    console.log('onEnter hook ==========> store ======> ', store);
-
-    const { userInfo } = store.getState();
-    const { isAuthenticated } = userInfo;
+  onEnter: (state, replace, cb) => {
     const { dispatch } = store;
     
-    dispatch(getUserInfo());
+    dispatch(getUserInfo()).then(() => {
+      const { userInfo } = store.getState();
+      const { isAuthenticated } = userInfo;
 
-    if (!isAuthenticated) {
-      replace(`/signin?from=${state.location.pathname}`);
-    }
+      if (!isAuthenticated) {
+        replace(`/signin?from=${state.location.pathname}`);
+
+        // 解决路由不跳转问题
+        // https://github.com/ReactTraining/react-router/issues/3671
+        cb();   
+      }
+
+      cb();
+    });
   }
 })
 
