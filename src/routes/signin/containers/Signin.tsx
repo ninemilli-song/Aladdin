@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { signin } from '../actions';
 const Form = require('antd/lib/form/Form');
 const FormItem =  require('antd/lib/form/FormItem');
@@ -13,12 +14,14 @@ const Checkbox = require('antd/lib/checkbox/Checkbox');
 const message = require('antd/lib/message');
 import * as storage from '../../../utils/storage';
 import '../assets/style.scss';
+import { getUserInfo } from '../../../actions/user';
 
 interface SigninProps {
     userName?: string;
     isAuthenticated?: boolean;
     signin?: Function;
     form?: any;
+    context?: any;
 }
 
 @connect(
@@ -32,6 +35,9 @@ interface SigninProps {
         {
             signin: (name, password) => {
                 dispatch(signin(name, password));
+            },
+            getUserInfo: () => {
+                dispatch(getUserInfo());
             }
         }
     )
@@ -40,6 +46,14 @@ interface SigninProps {
 export default class Signin extends React.Component<SigninProps, any> {
 
     prefixCls = 'sigin';
+
+    constructor(props, context) {
+        super(props, context);
+
+        // 获取用户信息
+        const { getUserInfo } = props;
+        getUserInfo();
+    }
 
     componentWillMount() {
         // if (this.props.location.state) {
@@ -52,11 +66,25 @@ export default class Signin extends React.Component<SigninProps, any> {
         this.setState({
             username,
             password
-        })
+        });
+
+        if (this.props.isAuthenticated) {
+            browserHistory.goBack();
+        }
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.isAuthenticated) {
+            const { location } = nextProps;
+            const { query } = location;
+            browserHistory.replace(query.from);
+        }
     }
 
     render() {
-        const { userName, isAuthenticated, form } = this.props;
+        const { userName, form, context } = this.props;
+
+        console.log('signin context ======> ', this.props);
       
         const {
             getFieldDecorator
@@ -67,9 +95,7 @@ export default class Signin extends React.Component<SigninProps, any> {
             password
         } = this.state;
 
-        return (isAuthenticated) ? (
-            <div>aaaa</div>
-        ) : (
+        return (
             <div className={ `${this.prefixCls}-wrapper` }>
                 <div className="page page-login vertical-align">
                     <div className="page-content vertical-align-middle">

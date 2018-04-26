@@ -3,7 +3,8 @@ import { routerReducer } from 'react-router-redux'
 // Add redux-ui to manage the app ui state
 // import { reducer as uiReducer } from 'redux-ui';
 import { loadingReducer } from '../components/loading';
-import { userInfoReducer, globalInfo } from '../components/global-info';
+import { globalInfo } from '../components/global-info';
+import userInfoReducer from '../reducers/user';
 
 export const makeRootReducer = (asyncReducers) => {
   // use assign instead of ...asyncReducers

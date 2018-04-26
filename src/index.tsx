@@ -5,12 +5,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, Route } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import 'whatwg-fetch';
 import request from './utils/fetch';
 
 import configureStore from './store/configure-store';
+
+import signinRoute from './routes/signin';
 
 // Global styles
 // import 'antd/dist/antd.css';
@@ -31,6 +33,7 @@ request.get('http://localhost:3001/users/login', {
     <Provider store={ store }>
       <Router history={ history }>
         { routes }
+        { signinRoute(store) }
       </Router>
     </Provider>,
     document.getElementById('root')

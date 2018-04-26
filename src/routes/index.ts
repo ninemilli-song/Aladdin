@@ -20,11 +20,17 @@ export const createRoutes = (store) => ({
     Warehouse(store),
     AccountingHelpHome(store),
     QAS(store),
-    Signin(store)
+    // Signin(store)
   ],
   onEnter: (state, replace) => {
     console.log('onEnter hook ==========> ', state);
     console.log('onEnter hook ==========> store ======> ', store.getState());
+    const { userInfo } = store.getState();
+    const { isAuthenticated } = userInfo;
+
+    if (!isAuthenticated) {
+      replace(`/signin?from=${state.location.pathname}`);
+    }
   }
 })
 

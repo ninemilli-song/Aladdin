@@ -25,7 +25,7 @@ export default class Component extends React.Component<ComponentProps, any> {
     private init = () => {
         const {action} = this.props;
 
-        action.getUserInfo();
+        // action.getUserInfo();
     }
 
     render () {

@@ -4,13 +4,13 @@
 import { connect } from 'react-redux';
 
 import Component from './Component';
-import { getUserInfo } from './module';
+// import { getUserInfo } from './module';
 
 const mapActionCreators = (dispatch) => {
     return {
         action: {
             getUserInfo: () => {
-                dispatch(getUserInfo());
+                // dispatch(getUserInfo());
             },
         },
     }
