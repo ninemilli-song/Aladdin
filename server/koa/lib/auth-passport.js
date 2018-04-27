@@ -6,7 +6,7 @@ const readFile = denodeify(fs.readFile);
 module.exports = {
 
     readUsers: () => {
-        return readFile('./server/users.json')
+        return readFile('./server/koa/constant/users.json')
             .then(userFileData => {
                 return JSON.parse(userFileData);
             })

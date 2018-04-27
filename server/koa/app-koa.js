@@ -13,11 +13,11 @@ const index = require('./routes/index');
 // const users = require('./routes/users');
 // const register = require('./routes/register');
 const api = require('./routes/api');
-const users = require('./routes/users');
+const auth = require('./routes/auth');
 
 const jwtKoa = require('koa-jwt');
 // const util = require('util');
-const secret = require('../secret-key').secret;
+const secret = require('./constant/secret-key').secret;
 const jwtConstant = require('./constant/jwt');
 const ResponsePacker = require('./lib/responsePacker');
 
@@ -85,14 +85,11 @@ app.use(jwtKoa({
         })
     }
 }).unless({
-    path: [/^\/users\/login/]                                                       // 数组中的路径不需要通过jwt验证
+    path: [/^\/auth\/login/]                                                       // 数组中的路径不需要通过jwt验证
 }));
 
-// define router address
-// router.use('/users', users.routes(), users.allowedMethods());
-// router.use('/register', register.routes(), register.allowedMethods());
-
-router.use('/users', users.routes(), users.allowedMethods());
+// 用户认证相关路由
+router.use('/auth', auth.routes(), auth.allowedMethods());
 
 router.use('/api', api.routes(), api.allowedMethods());
 router.use('*', index.routes(), index.allowedMethods());

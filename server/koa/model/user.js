@@ -145,7 +145,7 @@
 
 const ResponsePacker = require('../lib/responsePacker');
 const fetch = require('../lib/fetch');
-const authPassport = require('../../auth-passport');
+const authPassport = require('../lib/auth-passport');
 
 /**
  * 通过 id 获取用户信息

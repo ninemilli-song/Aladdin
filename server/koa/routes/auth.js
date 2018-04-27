@@ -1,8 +1,8 @@
 const router = require('koa-router')();
-const authPassport = require('../../auth-passport');
+const authPassport = require('../lib/auth-passport');
 const jwt = require('jsonwebtoken');
 const winston = require('winston');
-const secret = require('../../secret-key').secret;
+const secret = require('../constant/secret-key').secret;
 const jwtConstant = require('../constant/jwt');
 
 // get users
@@ -12,6 +12,7 @@ authPassport.readUsers()
         users = _users;
     })
     .catch((error) => {
+        console.log('I want see dir ======> ', __dirname);
         winston.info('error', error);
     });
 

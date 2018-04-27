@@ -15,7 +15,7 @@ export const USER_SIGNIN = 'USER_SIGNIN';
  */
 const signin = (name, password) => {
     return (dispatch, getState) => {
-        return request.get('users/login', { name,  password }).then((result) => {
+        return request.get('auth/login', { name,  password }).then((result) => {
             const data = result.data;
 
             dispatch({

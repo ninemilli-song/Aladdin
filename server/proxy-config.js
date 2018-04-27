@@ -18,7 +18,7 @@ module.exports = {
         target: 'http://jsonplaceholder.typicode.com',
         changeOrigin: true,
     },
-    '/(api|users)/*': {
+    '/(api|auth)/*': {
         target: 'http://localhost:3000',
         changeOrigin: true,
     }
