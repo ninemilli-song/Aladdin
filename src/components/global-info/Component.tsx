@@ -3,10 +3,9 @@
  */
 import * as React from 'react';
 import { Menu, Icon, Dropdown } from 'antd';
-import { IAction } from './module';
 
 interface ComponentProps {
-    action: IAction;
+    action: any;
     data: any;
 }
 

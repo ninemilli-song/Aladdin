@@ -149,12 +149,12 @@ const getReportData = (roleType, roleYear) => {
 const getChannels = () => {
     return (dispatch, getState) => {
         const state = getState();
-        const {globalInfo} = state;
-        const {accountingChannels} = globalInfo;
+        const { menus } = state;
+        const { accounting } = menus;
 
         dispatch({
             type: ACCOUNTINT_CHANNELS,
-            data: accountingChannels
+            data: accounting
         })
     }
 }

@@ -1,6 +1,6 @@
 export default function globalInfoReducer() {
     return {
-        accountingChannels: [
+        accounting: [
             {
                 label: '准则',
                 key: 'rules',

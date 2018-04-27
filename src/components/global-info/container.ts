@@ -9,9 +9,6 @@ import Component from './Component';
 const mapActionCreators = (dispatch) => {
     return {
         action: {
-            getUserInfo: () => {
-                // dispatch(getUserInfo());
-            },
         },
     }
 }
