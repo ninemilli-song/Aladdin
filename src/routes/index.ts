@@ -35,7 +35,7 @@ export const createRoutes = (store) => ({
 
         // 解决路由不跳转问题
         // https://github.com/ReactTraining/react-router/issues/3671
-        cb();   
+        cb();
       }
 
       cb();

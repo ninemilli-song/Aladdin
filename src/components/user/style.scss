@@ -1,0 +1,12 @@
+@import '../../styles/variable.scss';
+
+.nav-user {
+    &-item {
+        padding: 0 6px;
+        color: $revertFontColor;
+
+        a {
+            color: $revertFontColor;
+        }
+    }
+}

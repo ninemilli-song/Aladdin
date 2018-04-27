@@ -1,4 +1,4 @@
-import { GET_USER_INFO, USER_SIGNIN } from '../actions/user';
+import { GET_USER_INFO, USER_SIGNIN, USER_LOGOUT } from '../actions/user';
 
 // 获取用户信息
 const getUserInfo = (state, action) => {
@@ -19,12 +19,22 @@ const userSignin = (state, action) => {
     });
 };
 
+// 用户登出
+const userLogout = (state, action) => {
+    return Object.assign({}, state, {
+        id: null,
+        name: null,
+        isAuthenticated: false
+    });
+};
+
 // ------------------------------------
 // reducer
 // ------------------------------------
 const ACTION_HANDLERS = {
     [GET_USER_INFO]: getUserInfo,
     [USER_SIGNIN]: userSignin,
+    [USER_LOGOUT]: userLogout,
 }
 
 // ------------------------------------

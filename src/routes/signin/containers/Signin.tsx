@@ -77,7 +77,12 @@ export default class Signin extends React.Component<SigninProps, any> {
         if (nextProps.isAuthenticated) {
             const { location } = nextProps;
             const { query } = location;
-            browserHistory.replace(query.from);
+
+            if (query.from) {
+                browserHistory.replace(query.from);
+            } else {
+                browserHistory.goBack();
+            }
         }
     }
 

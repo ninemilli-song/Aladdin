@@ -4,20 +4,21 @@
 
 import * as React from 'react';
 
-import GlobalInfo from '../global-info';
+import User from '../user';
 import './assets/primarynav.scss';
 
 export default class PrimaryNav extends React.Component<any, any> {
     render() {
         return (
             <div className="nav-primary-wrapper">
-            <div className="info">
-                <GlobalInfo />
-            </div>
+            <ul className="info">
+                <User />
+            </ul>
             <ul className="menu">
                 <li className="menu-item">
                     <a 
-                        href="/">
+                        href="/"
+                    >
                         首页
                     </a>
                 </li>

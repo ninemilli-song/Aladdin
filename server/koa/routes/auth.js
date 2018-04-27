@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const winston = require('winston');
 const secret = require('../constant/secret-key').secret;
 const jwtConstant = require('../constant/jwt');
+const ResponsePacker = require('../lib/responsePacker');
 
 // get users
 let users;
@@ -28,7 +29,7 @@ router.get('/login', (ctx) => {
                 };
                 // token签名，有效时间1h
                 const token = jwt.sign(payload, secret, { 
-                    expiresIn: '1h',                                            // 有效时间
+                    expiresIn: '1d',                                            // 有效时间
                     subject: userInfo.meta.id,                                  // 该JWT所面向的用户
                     issuer: jwtConstant.ISSUER,                                      // 该JWT的签发者
                 });
@@ -68,6 +69,27 @@ router.get('/login', (ctx) => {
             code: -1
         };
     }
+});
+
+router.get('/logout', (ctx) => {
+    // set cookie 回写到客户端
+    ctx.cookies.set(jwtConstant.TOKEN_COOKIE_NAME, null, {
+        // domain: 'localhost:3000',                                // 写cookie所在的域名
+        // path: '/index',                                          // 写cookie所在的路径
+        maxAge: 10 * 60 * 1000,                                     // cookie有效时长
+        // expires: new Date('2017-12-15'),                         // cookie失效时间
+        httpOnly: true,                                             // 是否只用于http请求中获取
+        overwrite: false                                            // 是否允许重写
+    });
+
+    // set cookie 回写到客户端
+    ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, null, {
+        maxAge: 10 * 60 * 1000,                                     // cookie有效时长
+        httpOnly: true,                                             // 是否只用于http请求中获取
+        overwrite: false,                                           // 是否允许重写
+    });
+
+    ctx.body = ResponsePacker.success();
 });
 
 module.exports = router;
