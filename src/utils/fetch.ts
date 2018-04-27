@@ -2,6 +2,7 @@
  * The functions to send request to server
  */
 import 'whatwg-fetch';
+import { browserHistory } from 'react-router';
 
 export const BASE_URL = '/api';
 
@@ -33,7 +34,15 @@ function get(path, params?) {
     },
     credentials: 'same-origin'
   }).then((response) => {
+    const { status } = response;
+    if ( status === 200 ) {
       return response.json();
+    } else {
+      throw response;
+    }
+  }).catch((error) => {
+      console.log('fetch error ========> ', error);
+      browserHistory.push('/signin');
   });
 }
 
