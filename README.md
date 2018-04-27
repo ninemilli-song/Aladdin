@@ -9,6 +9,13 @@ Aladding toolkit make the build frontend project easy!
 $ npm run dev
 ```
 
+or
+
+```bash
+$ npm run dev:server
+$ npm run dev:client
+```
+
 ### Production
 
 ```bash
@@ -62,6 +69,12 @@ webpack -p //
 |-- src     `the code for front end`
 
 |-- server      `the code for node`
+
+## Documnets and Knowledges
+
+* [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)
+
+* [JWT认证](https://github.com/ninemilli-song/Aladdin/wiki/JWT%E8%AE%A4%E8%AF%81)
 
 ## License
 
