@@ -37,6 +37,40 @@ $ npm run test
 $ npm run test:watch
 ```
 
+## Project Structure
+
+|-- src     `the code for front end`
+    
+    |-- actions             `全局action`
+
+|-- server      `the code for node`
+    
+    |-- node-client.js      `前端启动文件 The file to start front end`
+
+    |-- node-server-koa.js  `node服务启动文件 The file to start node server`
+
+    |-- webpack-dev-proxy.js    `请求的代理文件 The file to proxy request`
+
+    |-- proxy-config.js     `具体的代理配置 The file of proxy config`
+
+    |-- koa                 `node服务文件目录`
+
+        |-- constant        `定义常量 Define the constant`
+
+        |-- lib             `工具方法`
+
+        |-- model           `业务模型`
+
+        |-- routes          `路由入口`
+
+        |-- app-koa.js      `node服务入口文件，配置各种路由、中间件`
+
+## Documnets and Knowledges
+
+* [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)
+
+* [JWT认证](https://github.com/ninemilli-song/Aladdin/wiki/JWT%E8%AE%A4%E8%AF%81)
+
 #### Connecting to remote APIs
 
 Both the devmode and production servers provide a way to proxy requests to
@@ -63,18 +97,6 @@ Edit [this file](server/proxy-config.js) to mount such APIs at a given path.
 ```js
 webpack -p //
 ```
-
-## Project Structure
-
-|-- src     `the code for front end`
-
-|-- server      `the code for node`
-
-## Documnets and Knowledges
-
-* [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)
-
-* [JWT认证](https://github.com/ninemilli-song/Aladdin/wiki/JWT%E8%AE%A4%E8%AF%81)
 
 ## License
 
