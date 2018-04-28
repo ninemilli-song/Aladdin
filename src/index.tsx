@@ -29,15 +29,15 @@ const routes = defaultRoutes(store);
 //   password: 'x'
 // }).then((loginRes) => {
 //   console.log('Login success! The user info is 👉🏻 ------> ', loginRes);
-  ReactDOM.render(
+ReactDOM.render(
     <Provider store={ store }>
-      <Router history={ history }>
+        <Router history={ history }>
         { routes }
         { signinRoute(store) }
-      </Router>
+        </Router>
     </Provider>,
     document.getElementById('root')
-  );
+);
 // }).catch((error) => {
 //   ReactDOM.render(
 //     <div>

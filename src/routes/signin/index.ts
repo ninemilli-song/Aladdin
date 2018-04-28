@@ -26,4 +26,4 @@ export default (store) => ({
             /* Webpack named bundle   */
         })
     }
-  })
+})

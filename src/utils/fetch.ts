@@ -12,41 +12,41 @@ export const BASE_URL = '/api';
  * @param params request params
  */
 function get(path, params?) {
-  let url = path;
+    let url = path;
 
-  // Concat url and params
-  const paramsStrs = [];
-  if (params) {
-    Object.keys(params).forEach(item => {
-      paramsStrs.push(`${item}=${params[item]}`);
-    });
-  }
-
-  if (paramsStrs.length > 0) {
-    url = `${path}?${paramsStrs.join('&')}`;
-  }
-
-  // Send request
-  return fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    credentials: 'same-origin'
-  }).then((response) => {
-    const { status } = response;
-    if ( status === 200 ) {
-      return response.json();
-    } else if ( status === 401 ) {                    // 用户认证失败
-      browserHistory.push('/signin');
-      return response.json();
-    } else {
-      throw response;
+    // Concat url and params
+    const paramsStrs = [];
+    if (params) {
+        Object.keys(params).forEach(item => {
+        paramsStrs.push(`${item}=${params[item]}`);
+        });
     }
-  }).catch((error) => {
-      console.log('fetch error ========> ', error);
-      return error.json();
-  });
+
+    if (paramsStrs.length > 0) {
+        url = `${path}?${paramsStrs.join('&')}`;
+    }
+
+    // Send request
+    return fetch(url, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    }).then((response) => {
+        const { status } = response;
+        if ( status === 200 ) {
+            return response.json();
+        } else if ( status === 401 ) {                    // 用户认证失败
+            browserHistory.push('/signin');
+            return response.json();
+        } else {
+            throw response;
+        }
+    }).catch((error) => {
+        console.log('fetch error ========> ', error);
+        return error.json();
+    });
 }
 
 /**
@@ -55,32 +55,32 @@ function get(path, params?) {
  * @param data 
  */
 function post(path, data) {
-  return fetch(BASE_URL + path, {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    credentials: 'same-origin',
-    body: JSON.stringify(data)
-  })
-  .then((response) => {
-    const { status } = response;
-    if ( status === 200 ) {
-      return response.json();
-    } else if ( status === 401 ) {                    // 用户认证失败
-      browserHistory.push('/signin');
-      return response.json();
-    } else {
-      throw response;
-    }
-  }).catch((error) => {
-    console.log('fetch error ========> ', error);
-    return error.json();
-  });
+    return fetch(BASE_URL + path, {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(data)
+    })
+    .then((response) => {
+        const { status } = response;
+        if ( status === 200 ) {
+            return response.json();
+        } else if ( status === 401 ) {                    // 用户认证失败
+            browserHistory.push('/signin');
+            return response.json();
+        } else {
+            throw response;
+        }
+    }).catch((error) => {
+        console.log('fetch error ========> ', error);
+        return error.json();
+    });
 }
 
 export default {
-  get,
-  post
+    get,
+    post
 }
