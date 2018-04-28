@@ -37,12 +37,15 @@ function get(path, params?) {
     const { status } = response;
     if ( status === 200 ) {
       return response.json();
+    } else if ( status === 401 ) {                    // 用户认证失败
+      browserHistory.push('/signin');
+      return response.json();
     } else {
       throw response;
     }
   }).catch((error) => {
       console.log('fetch error ========> ', error);
-      browserHistory.push('/signin');
+      return error.json();
   });
 }
 
@@ -61,7 +64,20 @@ function post(path, data) {
     credentials: 'same-origin',
     body: JSON.stringify(data)
   })
-  .then(response => response.json());
+  .then((response) => {
+    const { status } = response;
+    if ( status === 200 ) {
+      return response.json();
+    } else if ( status === 401 ) {                    // 用户认证失败
+      browserHistory.push('/signin');
+      return response.json();
+    } else {
+      throw response;
+    }
+  }).catch((error) => {
+    console.log('fetch error ========> ', error);
+    return error.json();
+  });
 }
 
 export default {

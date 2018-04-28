@@ -30,15 +30,12 @@ export const createRoutes = (store) => ({
       const { userInfo } = store.getState();
       const { isAuthenticated } = userInfo;
 
-      if (!isAuthenticated) {
-        replace(`/signin?from=${state.location.pathname}`);
-
+      // 如果用户认证通过，跳转到相应页面
+      if (isAuthenticated) {
         // 解决路由不跳转问题
         // https://github.com/ReactTraining/react-router/issues/3671
         cb();
       }
-
-      cb();
     });
   }
 })
