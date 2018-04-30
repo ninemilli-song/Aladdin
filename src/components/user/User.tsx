@@ -53,7 +53,7 @@ export default class Component extends React.Component<ComponentProps, any> {
             <li className={ `${this.prefixCls}-item` }>
                 <Dropdown overlay={ menu } trigger={ ['click'] }>
                     <a className="ant-dropdown-link" href="#">
-                        { data.name }
+                        { data.alias }
                         <Icon type="down" />
                     </a>
                 </Dropdown>

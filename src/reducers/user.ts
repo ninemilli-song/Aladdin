@@ -13,19 +13,16 @@ const getUserInfo = (state, action) => {
 // 用户登陆
 const userSignin = (state, action) => {
     return Object.assign({}, state, {
-        id: action.data ? action.data.id : null,
-        name: action.data ? action.data.name : '',
+        ...action.data,
         isAuthenticated: !!action.data
     });
 };
 
 // 用户登出
 const userLogout = (state, action) => {
-    return Object.assign({}, state, {
-        id: null,
-        name: null,
+    return {
         isAuthenticated: false
-    });
+    };
 };
 
 // ------------------------------------
@@ -41,8 +38,6 @@ const ACTION_HANDLERS = {
 // init state
 // ------------------------------------
 const initState = {
-    id: null,
-    name: null,
     isAuthenticated: false,            // 用户是否认证
 }
 
