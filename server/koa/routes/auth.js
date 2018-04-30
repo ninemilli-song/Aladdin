@@ -13,7 +13,6 @@ authPassport.readUsers()
         users = _users;
     })
     .catch((error) => {
-        console.log('I want see dir ======> ', __dirname);
         winston.info('error', error);
     });
 
@@ -25,13 +24,14 @@ router.get('/login', (ctx) => {
         authPassport.authenticateUser(user.name, user.password, users)
             .then((userInfo) => {
                 const payload = {
-                    userId: userInfo.meta.id
+                    userId: userInfo.data.id
                 };
-                // token签名，有效时间1h
+
+                // token签名
                 const token = jwt.sign(payload, secret, { 
-                    expiresIn: '1d',                                            // 有效时间
-                    subject: userInfo.meta.id,                                  // 该JWT所面向的用户
-                    issuer: jwtConstant.ISSUER,                                      // 该JWT的签发者
+                    expiresIn: jwtConstant.EXPIRT_TIME,                             // 有效时间
+                    subject: userInfo.data.id,                                      // 该JWT所面向的用户
+                    issuer: jwtConstant.ISSUER,                                     // 该JWT的签发者
                 });
 
                 // set cookie 回写到客户端
@@ -45,7 +45,7 @@ router.get('/login', (ctx) => {
                 });
 
                 // set cookie 回写到客户端
-                ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, userInfo.meta.id, {
+                ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, userInfo.data.id, {
                     maxAge: 10 * 60 * 1000,                                     // cookie有效时长
                     httpOnly: true,                                             // 是否只用于http请求中获取
                     overwrite: false,                                           // 是否允许重写
@@ -54,7 +54,7 @@ router.get('/login', (ctx) => {
                 ctx.body = {
                     message: 'login success',
                     code: 1,
-                    data: userInfo.meta
+                    data: userInfo.data
                 };
             })
             .catch((error) => {

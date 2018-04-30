@@ -27,13 +27,8 @@ module.exports = {
                     });
                 if (authorized.length > 0) {
                     resolve({
-                        data: {
-                            msg: 'LOGIN SUCCESSFUL',
-                        },
-                        meta: {
-                            id: authorized[0].id,
-                            name: authorized[0].name
-                        },
+                        data: authorized[0],
+                        message: 'LOGIN SUCCESSFUL',
                     });
                 } else {
                     reject({ message: 'LOGIN FAILED' });
