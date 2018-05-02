@@ -6,10 +6,13 @@ import { Row, Col } from 'antd';
 import './assets/mainSider.scss';
 
 export interface MainSiderProps {
-    prefixCls?: string,
+    prefixCls?: string;
+    main?: JSX.Element;                                 // 主区域
+    sider?: JSX.Element;                               // 侧边区域
 }
 
-export default class MainSider<T extends MainSiderProps> extends React.Component<T, any> {
+// export default class MainSider<T extends MainSiderProps> extends React.Component<T, any> {
+export default class MainSider extends React.Component<MainSiderProps, any> {
     // 子类可以定义自己的样式
     protected className: string;
 
@@ -35,32 +38,26 @@ export default class MainSider<T extends MainSiderProps> extends React.Component
     }
 
     renderMainWrapper() {
-        const { prefixCls } = this.props;
+        const { prefixCls, main } = this.props;
 
         return (
             <div className={ `${prefixCls}-main-wrapper` }>
                 {
-                    this.renderMain()
+                    main
                 }
             </div>
         )
     }
 
     renderSiderWrapper() {
-        const { prefixCls } = this.props;
+        const { prefixCls, sider } = this.props;
 
         return (
             <div className={ `${prefixCls}-sider-wrapper` }>
                 {
-                    this.renderSider()
+                    sider
                 }
             </div>
         )
-    }
-
-    protected renderMain(): JSX.Element | any {
-    }
-
-    protected renderSider(): JSX.Element | any {
     }
 }

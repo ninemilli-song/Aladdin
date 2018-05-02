@@ -41,7 +41,7 @@ interface RulesProps extends MainSiderProps {
 }
 
 @autobind
-export default class Rules extends MainSider<RulesProps> {
+export default class Rules extends React.Component<RulesProps> {
 
     // The showdown Obj to converter md string to htm string.
     mdConverter = new showdown.Converter();
@@ -57,6 +57,15 @@ export default class Rules extends MainSider<RulesProps> {
     state = {
         showSPDetail: false,
     };
+
+    render() {
+        return (
+            <MainSider
+                main = { this.renderMain() }
+                sider = { this.renderSider() }
+            />
+        )
+    }
 
     protected renderMain()  {
         const { filterOptions, role, roleTypeSelected } = this.props;

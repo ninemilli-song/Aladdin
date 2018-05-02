@@ -18,7 +18,7 @@ interface ReportsProps extends MainSiderProps {
     roleTypeSelected: roleTypeSelected,
 }
 
-export default class Reports extends MainSider<ReportsProps> {
+export default class Reports extends React.Component<ReportsProps> {
     
     prefixCls = 'reports';
 
@@ -32,6 +32,14 @@ export default class Reports extends MainSider<ReportsProps> {
             // 获取账务报表数据
             action.getReportData(roleType, roleYear);
         }
+    }
+
+    render() {
+        return (
+            <MainSider
+                main = { this.renderMain() }
+            />
+        )
     }
 
     protected renderMain()  {

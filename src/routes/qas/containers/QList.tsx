@@ -2,12 +2,15 @@
  * 提问列表
  */
 import * as React from 'react'
-import QItem, { QItemData } from './QItem';
 import CutLine from '../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
 import QDetailDialogContainer from '../containers/QDetailDialogContainer';
-import QItemContainer from '../containers/QItemContainer';
+import QItemContainer, { QItemData } from '../containers/QItem';
+import { connect } from 'react-redux';
+// import QList from '../components/Qlist';
+import { getQuestionList, onPageChanged, toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
+// import { toJS } from '../../../utils/hocs';
 
 type QListData = {
     list: Array<QItemData>;                     // 列表数据
@@ -20,14 +23,40 @@ type PageOptionsType = {
 }
 
 interface QListProps {
-    data: QListData;                            // 数据
-    // data: any;                            // 数据
-    action: any;
-    pageOptions: PageOptionsType;               // 分页参数
+    data?: QListData;                            // 数据
+    // data: any;                               // 数据
+    action?: any;
+    pageOptions?: PageOptionsType;               // 分页参数
 }
 
+@connect(
+    store => {
+        return {
+            data: store.QAS.getIn(['data', 'QList']),
+            pageOptions: {
+                currentPage: store.QAS.getIn(['uistate', 'currentPage']),
+                pageSize: store.QAS.getIn(['uistate', 'pageSize']),
+            }
+        }
+    },
+    dispatch => {
+        return {
+            action: {
+                getQuestionList: async (pageNum, pageSize) => {
+                    dispatch(getQuestionList(pageNum, pageSize));
+    
+                    dispatch(onPageChanged(pageNum, pageSize));
+                },
+                showQDetail: (id) => {                                                      // 显示提问详情
+                    dispatch(toggleDetailDialogVisible());                                  // 显示提问详情
+                    dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
+                }
+            },
+        }
+    }
+)
 @autobind
-export default class QList extends React.Component<QListProps, any> {
+export default class QList extends React.Component<any, any> {
 
     prefixCls = 'q-list';
 
@@ -54,13 +83,15 @@ export default class QList extends React.Component<QListProps, any> {
         const { data } = this.props;
 
         const listEles = data ? 
-            data.list.map((item, index) => {
+            data.getIn(['list']).map((item, index) => {
+                const id = item.getIn(['id']);
+
                 return (
                     <div
-                        key = { `${this.prefixCls}-qitem-index-${item.id}` }
+                        key = { `${this.prefixCls}-qitem-index-${ id }` }
                     >
                         <QItemContainer 
-                            id = { item.id }
+                            id = { id }
                         />
                         <CutLine />
                     </div>
@@ -84,7 +115,7 @@ export default class QList extends React.Component<QListProps, any> {
         return (
             <div className={ `${this.prefixCls}-pagination` }>
                 <Pagination 
-                    total={ data ? data.total : null } 
+                    total={ data ? data.getIn(['total']) : null } 
                     onChange={ this.handlePageChange }
                     size="small"
                     current = { pageOptions.currentPage }

@@ -28,7 +28,7 @@ interface SubjectsProps extends MainSiderProps {
     roleTypeSelected: roleTypeSelected,                                 // 选中的会计准则/制度 和 年份
 }
 
-export default class Subjects extends MainSider<SubjectsProps> {
+export default class Subjects extends React.Component<SubjectsProps> {
     
     prefixCls = 'subjects';
 
@@ -45,6 +45,15 @@ export default class Subjects extends MainSider<SubjectsProps> {
             // 获取会计科目数据
             action.getSubjectsData(roleType, roleYear);
         }
+    }
+
+    render() {
+        return (
+            <MainSider
+                main = { this.renderMain() }
+                sider = { this.renderSider() }
+            />
+        )
     }
 
     protected renderMain()  {

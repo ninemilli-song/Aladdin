@@ -1,3 +1,8 @@
+/**
+ * The Container fo QItem Component
+ */
+import { connect } from 'react-redux';
+import { toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
@@ -17,26 +22,35 @@ export type QItemData = {
     updateTime: string;                     // 更新日期
 }
 
-interface QItemProps {
-    data?: QItemData;
-    action: any;
-}
+@connect(
+    (store, ownProps) => {
+        console.log('show qitem connect store', ownProps);
+        const qList = store.QAS.getIn(['data', 'QList', 'list']);
+        const { id } = ownProps;
+        
+        const data = qList.find((item) => {
+            return item.get('id') === id;
+        })
 
+        return {
+            data
+        }
+    },
+    dispatch => {
+        return {
+            action: {
+                showQDetail: (id) => {                                                      // 显示提问详情
+                    dispatch(toggleDetailDialogVisible());                                  // 显示提问详情
+                    dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
+                }
+            },
+        }
+    }
+)
 @autobind
-export default class QItem extends React.Component<QItemProps> {
+export default class QItem extends React.Component<any, any> {
 
     prefixCls = 'q-item';
-
-    static defaultProps = {
-        data: {
-            name: 'UserName',
-            text: 'Text',
-            title: 'Title',
-            time: '2018-1-2',
-            answerCount: 10,
-            concernCount: 10,
-        }
-    };
 
     render() {
         const { data } = this.props;
@@ -44,12 +58,12 @@ export default class QItem extends React.Component<QItemProps> {
         const operatorOpts = [
             {
                 iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(data.answersCount || 0) })`,
+                label: `回答(${ formateNumberCount(data ? (data.getIn(['answersCount'])) : 0) })`,
                 callback: this.showAnswer
             },
             {
                 iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(data.collectedCount || 0) })`,
+                label: `关注(${ formateNumberCount(data ? (data.getIn(['collectedCount'])) : 0) })`,
                 callback: this.doConcern
             },
             {
@@ -71,23 +85,23 @@ export default class QItem extends React.Component<QItemProps> {
                         <Avatar 
                             size = "large"
                             icon = "user"
-                            src = { data.user ? data.user.profile : null }
+                            src = { data ? data.getIn(['user', 'profile']) : null }
                         />
                     </div>
                     <span className="name">
-                        { data.user ? data.user.name : '' }
+                        { data ? data.getIn(['user', 'name']) : null }
                     </span>
                     <span className="updateDate">
-                        • { data.updateTime }
+                        • { data ? data.getIn(['updateTime']) : null }
                     </span>
                 </div>
                 <div className={ `${this.prefixCls}-title` }>
                     <span>
-                        { data.title }
+                        { data ? data.getIn(['title']) : null }
                     </span>
                 </div>
                 <div className={ `${this.prefixCls}-text` }>
-                    { data.question }
+                    { data ? data.getIn(['question']) : null }
                 </div>
                 <div className={ `${this.prefixCls}-operaters` }>
                     <QASOperators 
@@ -121,6 +135,7 @@ export default class QItem extends React.Component<QItemProps> {
     private showDetail() {
         const { data, action } = this.props;
 
-        action.showQDetail(data.id);
+        action.showQDetail(data.getIn(['id']));
     }
 }
+

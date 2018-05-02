@@ -1,49 +1,45 @@
 import * as React from 'react';
-import Body from './Body';
+import { connect } from 'react-redux';
 import SecondarySearchNav from '../../../components/page-components/SecondarySearchNav';
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
-import PushQuestionDialog from './PushQuestionDialog';
 import BackTop from '../../../components/backtop';
 import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
+import ISay from '../../../components/i-say/ISay';
+import QList from './QList';
+import { getQuestionList, togglePushQuestionDialogVisible } from '../actions/index';
+import MainSider from '../../../components/page-frame/MainSider';
 
-/**
- * 行为定义
- */
-type QASAction = {
-    getQuestionList?: Function,             // 获取提问列表
-    togglePushQuestionDialogVisible?: Function,        // 切换提问弹框显示 隐藏
-}
-
-interface QASProps {
-    action?: QASAction,
-    store?: any,
-}
-
+@connect(
+    store => ({}),
+    dispatch => {
+        return {
+            action: {
+                getQuestionList: () => {
+                    dispatch(getQuestionList());
+                },
+                togglePushQuestionDialogVisible: () => {
+                    dispatch(togglePushQuestionDialogVisible());
+                }
+            },
+        }
+    }
+)
 @autobind
-export default class QAS extends React.Component<QASProps, any> {
+export default class QAS extends React.Component<any, any> {
 
     prefixCls = 'qas';
 
     // store: QASStore;
 
     componentWillMount() {
-        const { action, store } = this.props;
+        const { action } = this.props;
         console.log('QAS ------> action', action);
         action.getQuestionList();
-
-        // this.store = store.toJS();
-    }
-
-    componentWillUpdate(nextProps: QASProps, nextState) {
-        // const { store } = nextProps;
-        // this.store = store.toJS();
     }
 
     render() {
-        const { action, store } = this.props;
-        // const { uistate, data } = this.store;
-        console.log('QAS ------> store', store);
+        const { action } = this.props;
 
         return (
             <div className={ this.prefixCls }>
@@ -53,11 +49,24 @@ export default class QAS extends React.Component<QASProps, any> {
                         buttonTitle = "我要提问"
                         onButtonClick = { this.toggleQuestionDialog }
                     />
-                    <Body />
+                    <MainSider
+                        main = { this.renderMainContent() }
+                    />
                     <PushQuestionDialogContainer />
                     <BackTop />
                 </div>
             </div>
+        )
+    }
+
+    renderMainContent() {
+        return (
+            <div className={ `${this.prefixCls}-body` }>
+                <div className={ `${this.prefixCls}-say` }>
+                    <ISay />
+                </div>
+                <QList />
+            </div> 
         )
     }
 
