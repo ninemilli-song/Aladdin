@@ -11,13 +11,9 @@ const mapActionCreators = (dispatch) => {
     return {
         action: {
             getQuestionList: async (pageNum, pageSize) => {
-                dispatch(showLoading());
-
-                await dispatch(getQuestionList(pageNum, pageSize));
+                dispatch(getQuestionList(pageNum, pageSize));
 
                 dispatch(onPageChanged(pageNum, pageSize));
-
-                dispatch(hideLoading());
             },
             showQDetail: (id) => {                                                      // 显示提问详情
                 dispatch(toggleDetailDialogVisible());                                  // 显示提问详情

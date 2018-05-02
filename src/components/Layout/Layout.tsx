@@ -33,7 +33,7 @@ class Layout extends React.Component<any, any> {
                         <Footer />
                     </div>
                 </div>
-                <Loading />
+                {/* <Loading /> */}
             </div>
         )
     }
