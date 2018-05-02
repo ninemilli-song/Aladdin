@@ -1,23 +1,44 @@
 /**
- * 我要提问 的弹框
+ * The Container fo PushQuestionDialog Component
  */
 import * as React from 'react';
 const Modal = require('antd/lib/modal/Modal');
-const Button = require('antd/lib/button/button');
 import { autobind } from 'core-decorators';
-import PushQuestionForm from './PushQuestionForm';
+import PushQuestionForm from '../components/PushQuestionForm';
+import { connect } from 'react-redux';
+import { togglePushQuestionDialogVisible } from '../actions/index';
 
-interface PushQuestionDialogProps {
-    visible: boolean,                   // 是否可见
-    loading: boolean,                   // 是否为loading态
+/**
+ * 我要提问 的弹框
+ */
+interface AskQuestionDialogProps {
+    visible?: boolean,                   // 是否可见
+    loading?: boolean,                   // 是否为loading态
     onSubmit?: () => void,              // 提交
     onCancel?: () => void,              // 关闭弹框
 }
 
+@connect(
+    store => {
+        return {
+            visible: store.QAS.getIn(['uistate', 'pushQuestionDialogVisible']),
+            loading: store.QAS.getIn(['uistate', 'pushQuestionDialogLoading']),
+        }
+    },
+    dispatch => {
+        return {
+            action: {
+                togglePushQuestionDialogVisible: () => {
+                    dispatch(togglePushQuestionDialogVisible());
+                }
+            }
+        }
+    }
+)
 @autobind
-export default class PushQuestionDialog extends React.Component<PushQuestionDialogProps, any> {
+export default class AskQuestionDialog extends React.Component<any, any> {
 
-    constructor(props: PushQuestionDialogProps, context) {
+    constructor(props: AskQuestionDialogProps, context) {
         super(props, context);
 
         this.state = {
@@ -26,7 +47,7 @@ export default class PushQuestionDialog extends React.Component<PushQuestionDial
         }
     }
 
-    componentWillReceiveProps(nextProps: PushQuestionDialogProps) {
+    componentWillReceiveProps(nextProps: AskQuestionDialogProps) {
         this.setState({
             visible: nextProps.visible || false,
             loading: nextProps.loading || false,
@@ -72,3 +93,4 @@ export default class PushQuestionDialog extends React.Component<PushQuestionDial
         });
     }
 }
+

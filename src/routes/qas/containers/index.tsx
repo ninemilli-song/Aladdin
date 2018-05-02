@@ -4,7 +4,8 @@ import SecondarySearchNav from '../../../components/page-components/SecondarySea
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import BackTop from '../../../components/backtop';
-import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
+// import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
+import AskQuestionDialog from '../containers/AskQuestionDialog';
 import ISay from '../../../components/i-say/ISay';
 import QList from './QList';
 import { getQuestionList, togglePushQuestionDialogVisible } from '../actions/index';
@@ -52,7 +53,9 @@ export default class QAS extends React.Component<any, any> {
                     <MainSider
                         main = { this.renderMainContent() }
                     />
-                    <PushQuestionDialogContainer />
+                    <AskQuestionDialog 
+                        onCancel = { this.toggleQuestionDialog }
+                    />
                     <BackTop />
                 </div>
             </div>

@@ -5,7 +5,8 @@ import * as React from 'react'
 import CutLine from '../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
-import QDetailDialogContainer from '../containers/QDetailDialogContainer';
+// import QDetailDialogContainer from '../containers/QDetailDialogContainer';
+import QDetailDialogContainer from '../containers/QDetailDialog';
 import QItemContainer, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
@@ -24,7 +25,6 @@ type PageOptionsType = {
 
 interface QListProps {
     data?: QListData;                            // 数据
-    // data: any;                               // 数据
     action?: any;
     pageOptions?: PageOptionsType;               // 分页参数
 }

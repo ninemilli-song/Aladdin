@@ -1,5 +1,5 @@
 /**
- * 详情对话框组件
+ * The Container fo QDetailDialog Component
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
@@ -7,17 +7,45 @@ import { ActionButton } from '../../../components/button/index';
 import { formateNumberCount } from '../../../utils/utils';
 import { QASOperators } from '../../../components/qas-operators/QASOperators';
 import ISay from '../../../components/i-say/ISay';
-import AnswerListContainer from '../containers/AnswerListContainer';
+// import AnswerListContainer from '../containers/AnswerListContainer';
+import AnswerListContainer from '../containers/AnswerList';
 const Avatar = require('antd/lib/avatar');
 const Modal = require('antd/lib/modal/Modal');
+import { connect } from 'react-redux';
+import { toggleDetailDialogVisible, getQDetailData } from '../actions/index';
+import { toJS } from '../../../utils/hocs';
 
+/**
+ * 详情对话框组件
+ */
 interface QDetailDialogProps {
-    id: number;                         // 当前内容详情的 id
-    action: any;
-    visible: boolean;                   // 是否可见
-    data: any;                          // 详情数据
+    id?: number;                         // 当前内容详情的 id
+    action?: any;
+    visible?: boolean;                   // 是否可见
+    data?: any;                          // 详情数据
 }
 
+@connect(
+    store => {
+        return {
+            visible: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'visible']),
+            id: store.QAS.getIn(['selectedQId']),
+            data: store.QAS.getIn(['qDetailData'])
+        }
+    },
+    dispatch => {
+        return {
+            action: {
+                hide: () => {
+                    dispatch(toggleDetailDialogVisible());
+                },
+                getData: (id) => {
+                    dispatch(getQDetailData(id));
+                }
+            },
+        }
+    }
+)
 @autobind
 export default class QDetailDialog extends React.Component<QDetailDialogProps, any> {
 
@@ -42,12 +70,12 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
         const operatorOpts = [
             {
                 iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(data.answerCount || 0) })`,
+                label: `回答(${ formateNumberCount(data ? data.getIn(['answerCount']) : 0) })`,
                 callback: this.showAnswer
             },
             {
                 iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(data.collectedCount || 0) })`,
+                label: `关注(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
                 callback: this.doConcern
             },
             {
@@ -78,21 +106,21 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                             <Avatar 
                                 size = "large"
                                 icon = "user"
-                                src = { data.user ? data.user.profile : null }
+                                src = { data ? data.getIn(['user', 'profile']) : null }
                             />
                         </div>
                         <span className="name">
-                            { data.user ? data.user.name : null }
+                            { data ? data.getIn(['user', 'name']) : null }
                         </span>
                     </div>
                     <div className={ `${this.prefixCls}-content` }>
                         {
-                            data.content
+                            data ? data.getIn(['content']) : null
                         }
                     </div>
                     <div className={ `${this.prefixCls}-updateDate` }>
                         {
-                            data.updateTime
+                            data ? data.getIn(['updateTime']) : null
                         }
                     </div>
                     <div className={ `${this.prefixCls}-operators` }>
@@ -156,3 +184,4 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
 
     }
 }
+
