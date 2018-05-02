@@ -1,9 +1,3 @@
-import Loading from './container';
-import reducer, { SHOWLOADING } from './module';
-const loadingReducer = reducer;
+import Loading from './Loading';
 
-export {
-    loadingReducer,
-    SHOWLOADING,
-};
 export default Loading;

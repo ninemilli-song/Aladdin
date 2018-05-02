@@ -1,19 +1,17 @@
-// ------------------------------------
-// Constants
-// ------------------------------------
-export const SHOWLOADING = 'SHOWLOADING';
+import { SHOWLOADING } from '../actions/loaing';
 
 // ------------------------------------
-// Action Handlers
+// Reducer Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-    [SHOWLOADING]: (state, action) => action.showLoading
+    [SHOWLOADING]: (state, action) => action.data
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = false;
+
 export default function reducer (state = initialState, action) {
     const handler = ACTION_HANDLERS[action.type];
 

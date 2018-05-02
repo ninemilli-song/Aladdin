@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { loadingReducer } from '../components/loading';
+// import { loadingReducer } from '../components/loading';
 import userInfoReducer from '../reducers/user';
 import menus from '../reducers/menus';
+import loading from '../reducers/loading';
 
 export const makeRootReducer = (asyncReducers) => {
   // use assign instead of ...asyncReducers
   const reducers = Object.assign(
     {
       routing: routerReducer,
-      // ui: uiReducer,
-      loading: loadingReducer,
+      loading: loading,
       userInfo: userInfoReducer,
       menus: menus
     },

@@ -4,7 +4,6 @@
 import * as Immutable from 'immutable';
 const Mock = require('mockjs');
 import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
-import { SHOWLOADING } from '../../../common/appActions';
 
 import { createReducer } from '../../../utils/reducer-helper';
 

@@ -3,7 +3,6 @@ import Layout from '../components/Layout';
 
 import HomeRoute from './Home';
 import CounterRoute from './Counter';
-import Warehouse from './Warehouse';
 import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
 import Signin from './signin';
@@ -13,31 +12,30 @@ import { getUserInfo } from '../actions/user';
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
-  path: '/',
-  component: Layout,
-  indexRoute: HomeRoute(store),
-  childRoutes: [
-    CounterRoute(store),
-    Warehouse(store),
-    AccountingHelpHome(store),
-    QAS(store),
-    // Signin(store)
-  ],
-  onEnter: (state, replace, cb) => {
-    const { dispatch } = store;
+    path: '/',
+    component: Layout,
+    indexRoute: HomeRoute(store),
+    childRoutes: [
+        CounterRoute(store),
+        AccountingHelpHome(store),
+        QAS(store),
+        // Signin(store)
+    ],
+    onEnter: (state, replace, cb) => {
+        const { dispatch } = store;
     
-    dispatch(getUserInfo()).then(() => {
-      const { userInfo } = store.getState();
-      const { isAuthenticated } = userInfo;
+        dispatch(getUserInfo()).then(() => {
+            const { userInfo } = store.getState();
+            const { isAuthenticated } = userInfo;
 
-      // 如果用户认证通过，跳转到相应页面
-      if (isAuthenticated) {
-        // 解决路由不跳转问题
-        // https://github.com/ReactTraining/react-router/issues/3671
-        cb();
-      }
-    });
-  }
+            // 如果用户认证通过，跳转到相应页面
+            if (isAuthenticated) {
+                // 解决路由不跳转问题
+                // https://github.com/ReactTraining/react-router/issues/3671
+                cb();
+            }
+        });
+    }
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

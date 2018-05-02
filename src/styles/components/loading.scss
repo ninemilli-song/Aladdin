@@ -2,7 +2,7 @@ $module: app-loading;
 $spinSize: 20;
 
 .#{$module} {
-  position: relative;
+  // position: absolute;
   z-index: 10;
   &-mask {
     position: absolute;

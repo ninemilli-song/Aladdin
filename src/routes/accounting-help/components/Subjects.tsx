@@ -9,7 +9,6 @@ import { IRule } from './Rules';
 import { AccountingFilterTypeEnum } from '../../../components/filter/AccountingFilter';
 import SiderNav from '../../../components/SiderNav/SiderNav';
 import SubjectCategory, { SubjectCategoryProps } from './SubjectCategory';
-import index from '../../Warehouse';
 import { roleTypeSelected } from './model';
 import BackTop from '../../../components/backtop';
 

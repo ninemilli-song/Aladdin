@@ -5,14 +5,19 @@ import { connect } from 'react-redux';
 import QList from '../components/Qlist';
 import { getQuestionList, onPageChanged, toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
+import { showLoading, hideLoading } from '../../../actions/loaing';
 
 const mapActionCreators = (dispatch) => {
     return {
         action: {
-            getQuestionList: (pageNum, pageSize) => {
-                dispatch(getQuestionList(pageNum, pageSize));
+            getQuestionList: async (pageNum, pageSize) => {
+                dispatch(showLoading());
+
+                await dispatch(getQuestionList(pageNum, pageSize));
 
                 dispatch(onPageChanged(pageNum, pageSize));
+
+                dispatch(hideLoading());
             },
             showQDetail: (id) => {                                                      // 显示提问详情
                 dispatch(toggleDetailDialogVisible());                                  // 显示提问详情
