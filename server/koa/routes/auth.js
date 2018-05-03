@@ -51,6 +51,13 @@ router.get('/login', (ctx) => {
                     overwrite: false,                                           // 是否允许重写
                 });
 
+                // set cookie 回写到客户端 用户认证成功
+                ctx.cookies.set(jwtConstant.IS_AUTHENTICATED, true, {
+                    maxAge: 10 * 60 * 1000,                                     // cookie有效时长
+                    httpOnly: false,                                             // 是否只用于http请求中获取
+                    overwrite: false,                                           // 是否允许重写
+                });
+
                 ctx.body = {
                     message: 'login success',
                     code: 1,

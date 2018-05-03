@@ -2,7 +2,7 @@
  * The Container fo QItem Component
  */
 import { connect } from 'react-redux';
-import { toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
+import { setDetailDialogVisible, onSelectedQ } from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
@@ -40,7 +40,7 @@ export type QItemData = {
         return {
             action: {
                 showQDetail: (id) => {                                                      // 显示提问详情
-                    dispatch(toggleDetailDialogVisible());                                  // 显示提问详情
+                    dispatch(setDetailDialogVisible(true));                                  // 显示提问详情
                     dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
                 }
             },

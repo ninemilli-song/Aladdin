@@ -15,6 +15,7 @@ const message = require('antd/lib/message');
 import * as storage from '../../../utils/storage';
 import '../assets/style.scss';
 import { getUserInfo } from '../../../actions/user';
+import { getCookie } from '../../../utils/cookie';
 
 interface SigninProps {
     userName?: string;
@@ -68,13 +69,17 @@ export default class Signin extends React.Component<SigninProps, any> {
             password
         });
 
-        if (this.props.isAuthenticated) {
+        const isAuthenticated = getCookie('aladdin-is-authenticated');
+        // if (this.props.isAuthenticated) {
+        if (isAuthenticated) {
             browserHistory.goBack();
         }
     }
 
     componentWillUpdate(nextProps) {
-        if (nextProps.isAuthenticated) {
+        const isAuthenticated = getCookie('aladdin-is-authenticated');
+        // if (nextProps.isAuthenticated) {
+        if (isAuthenticated) {
             const { location } = nextProps;
             const { query } = location;
 

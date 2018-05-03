@@ -7,12 +7,11 @@ import { ActionButton } from '../../../components/button/index';
 import { formateNumberCount } from '../../../utils/utils';
 import { QASOperators } from '../../../components/qas-operators/QASOperators';
 import ISay from '../../../components/i-say/ISay';
-// import AnswerListContainer from '../containers/AnswerListContainer';
-import AnswerListContainer from '../containers/AnswerList';
+import AnswerList from '../containers/AnswerList';
 const Avatar = require('antd/lib/avatar');
 const Modal = require('antd/lib/modal/Modal');
 import { connect } from 'react-redux';
-import { toggleDetailDialogVisible, getQDetailData } from '../actions/index';
+import { setDetailDialogVisible, getQDetailData, clearQDetailData, onSelectedQ } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 
 /**
@@ -37,7 +36,9 @@ interface QDetailDialogProps {
         return {
             action: {
                 hide: () => {
-                    dispatch(toggleDetailDialogVisible());
+                    dispatch(setDetailDialogVisible(false));
+                    dispatch(clearQDetailData());
+                    dispatch(onSelectedQ(-1));
                 },
                 getData: (id) => {
                     dispatch(getQDetailData(id));
@@ -98,7 +99,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                 onOk={ this.handleOk }
                 onCancel={ this.handleCancel }
                 width = { 600 }
-                footer={ null }
+                footer = { null }
             >
                 <div className={ `${this.prefixCls}-wrapper` }>
                     <div className={ `${this.prefixCls}-userInfo` }>
@@ -135,7 +136,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                         />
                     </div>
                     <div className={ `${this.prefixCls}-replyList` }>
-                        <AnswerListContainer />
+                        <AnswerList />
                     </div>
                 </div>
             </Modal>

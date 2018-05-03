@@ -7,6 +7,7 @@ import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
 import Signin from './signin';
 import { getUserInfo } from '../actions/user';
+import { getCookie } from '../utils/cookie';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -25,8 +26,10 @@ export const createRoutes = (store) => ({
         const { dispatch } = store;
     
         dispatch(getUserInfo()).then(() => {
-            const { userInfo } = store.getState();
-            const { isAuthenticated } = userInfo;
+            // const { userInfo } = store.getState();
+            // const { isAuthenticated } = userInfo;
+
+            const isAuthenticated = getCookie('aladdin-is-authenticated');
 
             // 如果用户认证通过，跳转到相应页面
             if (isAuthenticated) {

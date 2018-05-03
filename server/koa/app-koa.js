@@ -54,6 +54,14 @@ app.use((ctx, next) => {
     return next().catch((err) => {
         if (err.status === 401) {
             ctx.status = 401;
+
+            // set cookie 回写到客户端 用户认证失败
+            ctx.cookies.set(jwtConstant.IS_AUTHENTICATED, false, {
+                maxAge: 10 * 60 * 1000,                                     // cookie有效时长
+                httpOnly: false,                                             // 是否只用于http请求中获取
+                overwrite: false,                                           // 是否允许重写
+            });
+
             // ctx.body = `Protected resource, ${err}\n`;
             ctx.body = ResponsePacker.error(`Protected resource, ${err}\n`);
         } else {

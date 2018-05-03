@@ -37,7 +37,7 @@ function get(path, params?) {
         const { status } = response;
         if ( status === 200 ) {
             return response.json();
-        } else if ( status === 401 ) {                    // 用户认证失败
+        } else if ( status === 401 ) {                                          // 用户认证失败
             browserHistory.push('/signin');
             return response.json();
         } else {

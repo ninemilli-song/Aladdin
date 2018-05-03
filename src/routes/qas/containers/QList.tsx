@@ -6,11 +6,11 @@ import CutLine from '../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
 // import QDetailDialogContainer from '../containers/QDetailDialogContainer';
-import QDetailDialogContainer from '../containers/QDetailDialog';
-import QItemContainer, { QItemData } from '../containers/QItem';
+import QDetailDialog from '../containers/QDetailDialog';
+import QItem, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
-import { getQuestionList, onPageChanged, toggleDetailDialogVisible, onSelectedQ } from '../actions/index';
+import { getQuestionList, onPageChanged, onSelectedQ } from '../actions/index';
 // import { toJS } from '../../../utils/hocs';
 
 type QListData = {
@@ -46,10 +46,6 @@ interface QListProps {
                     dispatch(getQuestionList(pageNum, pageSize));
     
                     dispatch(onPageChanged(pageNum, pageSize));
-                },
-                showQDetail: (id) => {                                                      // 显示提问详情
-                    dispatch(toggleDetailDialogVisible());                                  // 显示提问详情
-                    dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
                 }
             },
         }
@@ -90,7 +86,7 @@ export default class QList extends React.Component<any, any> {
                     <div
                         key = { `${this.prefixCls}-qitem-index-${ id }` }
                     >
-                        <QItemContainer 
+                        <QItem 
                             id = { id }
                         />
                         <CutLine />
@@ -130,7 +126,7 @@ export default class QList extends React.Component<any, any> {
      */
     renderDetailDialog() {
         return (
-            <QDetailDialogContainer />
+            <QDetailDialog />
         )
     }
 
@@ -145,15 +141,5 @@ export default class QList extends React.Component<any, any> {
         if (action.getQuestionList) {
             action.getQuestionList(page, pageSize);
         }
-    }
-
-    /**
-     * 显示提问详情
-     * @param id 提问条目的id
-     */
-    private handleOnShowDetail(id) {
-        const { action } = this.props;
-
-        action.showQDetail(id);
     }
 }
