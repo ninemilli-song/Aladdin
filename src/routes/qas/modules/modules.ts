@@ -12,9 +12,17 @@ import {
     QAS_Q_DETAIL_SELECTED, 
     QAS_Q_DETAIL_DIALOG_VISIBLE, 
     QAS_Q_DETAIL_DATA_FETCH,
-    QAS_Q_DETAIL_DATA_CLEAR
+    QAS_Q_DETAIL_DATA_CLEAR,
+    QAS_Q_DETAIL_LOADING_SHOW,
+    QAS_Q_DETAIL_LOADING_HIDE,
 } from '../actions/index';
-import { onSelectedQ, toggleDetailDialogVisible, fetchDetailData, clearDetailData } from './q_detail_reducer';
+import { 
+    onSelectedQ, 
+    toggleDetailDialogVisible, 
+    fetchDetailData, 
+    clearDetailData, 
+    detailDialogLoading 
+} from './q_detail_reducer';
 const { fromJS } = require('immutable');
 
 // -------------------------------------
@@ -28,7 +36,9 @@ const ACTION_HANDLERS = {
     [QAS_Q_DETAIL_SELECTED]: onSelectedQ,
     [QAS_Q_DETAIL_DIALOG_VISIBLE]: toggleDetailDialogVisible,
     [QAS_Q_DETAIL_DATA_FETCH]: fetchDetailData,
-    [QAS_Q_DETAIL_DATA_CLEAR]: clearDetailData
+    [QAS_Q_DETAIL_DATA_CLEAR]: clearDetailData,
+    [QAS_Q_DETAIL_LOADING_SHOW]: detailDialogLoading,
+    [QAS_Q_DETAIL_LOADING_HIDE]: detailDialogLoading,
 }
 
 // 初始化模块数据

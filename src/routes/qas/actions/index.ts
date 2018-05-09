@@ -10,6 +10,8 @@ export const QAS_Q_DETAIL_SELECTED = 'QAS_Q_DETAIL_SELECTED';                   
 export const QAS_Q_DETAIL_DIALOG_VISIBLE = 'QAS_Q_DETAIL_DIALOG_VISIBLE';                   // 切换详情框可见性
 export const QAS_Q_DETAIL_DATA_FETCH = 'QAS_Q_DETAIL_DATA_FETCH';                           // 获取详情数据
 export const QAS_Q_DETAIL_DATA_CLEAR = 'QAS_Q_DETAIL_DATA_CLEAR';                           // 清空详情数据
+export const QAS_Q_DETAIL_LOADING_SHOW = 'QAS_Q_DETAIL_LOADING_SHOW';                       // 清空详情数据
+export const QAS_Q_DETAIL_LOADING_HIDE = 'QAS_Q_DETAIL_LOADING_HIDE';                       // 清空详情数据
 
 // ---------------------------
 // Actions
@@ -108,6 +110,23 @@ const getQDetailData = (id) => {
     }
 }
 
+/**
+ * 详情框中显示loading
+ */
+const showDetailDialogLoading = () => {
+    return {
+        type: QAS_Q_DETAIL_LOADING_SHOW,
+        data: true
+    }
+}
+
+const hideHetailDialogLoading = () => {
+    return {
+        type: QAS_Q_DETAIL_LOADING_HIDE,
+        data: false
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -115,5 +134,7 @@ export {
     onSelectedQ,
     setDetailDialogVisible,
     getQDetailData,
-    clearQDetailData
+    clearQDetailData,
+    showDetailDialogLoading,
+    hideHetailDialogLoading
 }
