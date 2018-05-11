@@ -3,16 +3,12 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-import { ActionButton } from '../../../components/button/index';
-import { formateNumberCount } from '../../../utils/utils';
-import { QASOperators } from '../../../components/qas-operators/QASOperators';
-import ISay from '../../../components/i-say/ISay';
-import AnswerList from '../containers/AnswerList';
-const Avatar = require('antd/lib/avatar');
 const Modal = require('antd/lib/modal/Modal');
+const Spin = require('antd/lib/spin');
 import { connect } from 'react-redux';
 import { setDetailDialogVisible, getQDetailData, clearQDetailData, onSelectedQ } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
+import QDetail from '../components/QDetail';
 
 /**
  * 详情对话框组件
@@ -21,6 +17,7 @@ interface QDetailDialogProps {
     id?: number;                         // 当前内容详情的 id
     action?: any;
     visible?: boolean;                   // 是否可见
+    loading?: boolean;                   // 是否正在加载
     data?: any;                          // 详情数据
 }
 
@@ -28,6 +25,7 @@ interface QDetailDialogProps {
     store => {
         return {
             visible: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'visible']),
+            loading: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'loading']),
             id: store.QAS.getIn(['selectedQId']),
             data: store.QAS.getIn(['qDetailData'])
         }
@@ -50,7 +48,7 @@ interface QDetailDialogProps {
 @autobind
 export default class QDetailDialog extends React.Component<QDetailDialogProps, any> {
 
-    prefixCls = 'q-detail';
+    prefixCls = 'q-detail-dialog';
     
     constructor(props, context) {
         super(props, context);
@@ -66,30 +64,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     render() {
-        const { visible, id, data } = this.props;
-
-        const operatorOpts = [
-            {
-                iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(data ? data.getIn(['answerCount']) : 0) })`,
-                callback: this.showAnswer
-            },
-            {
-                iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
-                callback: this.doConcern
-            },
-            {
-                iconName: 'icon-chengyuan-tianjia',
-                label: `邀请`,
-                callback: this.showInvite
-            },
-            {
-                iconName: 'icon-zhuanfa',
-                label: `分享`,
-                callback: this.showShare
-            },
-        ];
+        const { visible, id, data, loading } = this.props;
 
         return (
             <Modal
@@ -102,42 +77,26 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                 footer = { null }
             >
                 <div className={ `${this.prefixCls}-wrapper` }>
-                    <div className={ `${this.prefixCls}-userInfo` }>
-                        <div className="profile">
-                            <Avatar 
-                                size = "large"
-                                icon = "user"
-                                src = { data ? data.getIn(['user', 'profile']) : null }
+                    {
+                        loading ? (
+                            <div className={ `${this.prefixCls}-spin-wrapper` }>
+                                <Spin />
+                            </div>
+                        ) : (
+                            <QDetail 
+                                answerCount = { data.getIn(['answerCount']) }
+                                collectedCount = { data.getIn(['collectedCount']) }
+                                userName = { data.getIn(['user', 'name']) }
+                                userProfile = { data.getIn(['user', 'profile']) }
+                                content = { data.getIn(['content']) }
+                                updateTime = { data.getIn(['updateTime']) }
+                                answerHandler = { this.showAnswer }
+                                concernHandler = { this.doConcern }
+                                inviteHandler = { this.showInvite }
+                                shareHandler = { this.showShare }
                             />
-                        </div>
-                        <span className="name">
-                            { data ? data.getIn(['user', 'name']) : null }
-                        </span>
-                    </div>
-                    <div className={ `${this.prefixCls}-content` }>
-                        {
-                            data ? data.getIn(['content']) : null
-                        }
-                    </div>
-                    <div className={ `${this.prefixCls}-updateDate` }>
-                        {
-                            data ? data.getIn(['updateTime']) : null
-                        }
-                    </div>
-                    <div className={ `${this.prefixCls}-operators` }>
-                        <QASOperators 
-                            operators = { operatorOpts }
-                        />
-                    </div>
-                    <div className={ `${this.prefixCls}-doReply` }>
-                        <ISay
-                            placeholder = "谈谈您的看法吧！"
-                            title = "回答"
-                        />
-                    </div>
-                    <div className={ `${this.prefixCls}-replyList` }>
-                        <AnswerList />
-                    </div>
+                        )
+                    }
                 </div>
             </Modal>
         )

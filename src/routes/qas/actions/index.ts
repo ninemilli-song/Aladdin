@@ -97,6 +97,11 @@ const onSelectedQ = (id) => {
  */
 const getQDetailData = (id) => {
     return (dispatch, getState) => {
+        dispatch({
+            type: QAS_Q_DETAIL_LOADING_SHOW,
+            data: true
+        });
+
         return request.get('api/qas/getQuestionDetail', { id }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
@@ -106,6 +111,11 @@ const getQDetailData = (id) => {
                     data: data
                 });
             }
+
+            dispatch({
+                type: QAS_Q_DETAIL_LOADING_HIDE,
+                data: false
+            })
         });
     }
 }
