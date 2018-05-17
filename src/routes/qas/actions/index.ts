@@ -12,6 +12,7 @@ export const QAS_Q_DETAIL_DATA_FETCH = 'QAS_Q_DETAIL_DATA_FETCH';               
 export const QAS_Q_DETAIL_DATA_CLEAR = 'QAS_Q_DETAIL_DATA_CLEAR';                           // 清空详情数据
 export const QAS_Q_DETAIL_LOADING_SHOW = 'QAS_Q_DETAIL_LOADING_SHOW';                       // 清空详情数据
 export const QAS_Q_DETAIL_LOADING_HIDE = 'QAS_Q_DETAIL_LOADING_HIDE';                       // 清空详情数据
+export const QAS_Q_SUBMIT_QUESTION = 'QAS_Q_SUBMIT_QUESTION';                               // 提交问题
 
 // ---------------------------
 // Actions
@@ -137,6 +138,16 @@ const hideHetailDialogLoading = () => {
     }
 }
 
+/**
+ * 提交问题
+ */
+const submitQuestion = (data) => {
+    return {
+        type: QAS_Q_SUBMIT_QUESTION,
+        data: data
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -146,5 +157,6 @@ export {
     getQDetailData,
     clearQDetailData,
     showDetailDialogLoading,
-    hideHetailDialogLoading
+    hideHetailDialogLoading,
+    submitQuestion
 }

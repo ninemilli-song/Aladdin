@@ -6,7 +6,7 @@ const Modal = require('antd/lib/modal/Modal');
 import { autobind } from 'core-decorators';
 import PushQuestionForm from '../components/PushQuestionForm';
 import { connect } from 'react-redux';
-import { togglePushQuestionDialogVisible } from '../actions/index';
+import { togglePushQuestionDialogVisible, submitQuestion } from '../actions/index';
 
 /**
  * 我要提问 的弹框
@@ -29,6 +29,10 @@ interface AskQuestionDialogProps {
         return {
             togglePushQuestionDialogVisible: () => {
                 dispatch(togglePushQuestionDialogVisible());
+            },
+
+            submitQuestion: (data) => {
+                dispatch(submitQuestion(data));
             }
         }
     }
@@ -65,7 +69,9 @@ export default class AskQuestionDialog extends React.Component<any, any> {
                 // maskClosable = { false }
                 footer={ null }
             >
-                <PushQuestionForm />
+                <PushQuestionForm 
+                    onSubmit = { this.handlerSubmit }
+                />
             </Modal>
         )
     }
@@ -86,6 +92,13 @@ export default class AskQuestionDialog extends React.Component<any, any> {
         }
 
         togglePushQuestionDialogVisible();
+    }
+
+    /**
+     * 处理请求提交
+     */
+    private handlerSubmit(data: IQuestion) {
+
     }
 }
 
