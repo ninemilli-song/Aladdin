@@ -21,7 +21,7 @@ const formItemLayout = {
 };
 
 interface PushQuestionFormProps extends FormComponentProps {
-
+    onSubmit?: Function;            // 表单提交
 }
 
 @autobind

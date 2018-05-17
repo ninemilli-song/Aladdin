@@ -27,10 +27,8 @@ interface AskQuestionDialogProps {
     },
     dispatch => {
         return {
-            action: {
-                togglePushQuestionDialogVisible: () => {
-                    dispatch(togglePushQuestionDialogVisible());
-                }
+            togglePushQuestionDialogVisible: () => {
+                dispatch(togglePushQuestionDialogVisible());
             }
         }
     }
@@ -81,16 +79,13 @@ export default class AskQuestionDialog extends React.Component<any, any> {
     }
 
     handleCancel() {
-        const { onCancel } = this.props;
+        const { onCancel, togglePushQuestionDialogVisible } = this.props;
 
         if (onCancel) {
             onCancel();
         }
 
-        this.setState({
-            visible: false,
-            loading: false,
-        });
+        togglePushQuestionDialogVisible();
     }
 }
 

@@ -48,14 +48,12 @@ export default class QAS extends React.Component<any, any> {
                     <SecondarySearchNav 
                         title = "问答"
                         buttonTitle = "我要提问"
-                        onButtonClick = { this.toggleQuestionDialog }
+                        onButtonClick = { this.showQuestionDialog }
                     />
                     <MainSider
                         main = { this.renderMainContent() }
                     />
-                    <AskQuestionDialog 
-                        onCancel = { this.toggleQuestionDialog }
-                    />
+                    <AskQuestionDialog />
                     <BackTop />
                 </div>
             </div>
@@ -76,7 +74,7 @@ export default class QAS extends React.Component<any, any> {
     /**
      * 我要提问弹框
      */
-    toggleQuestionDialog() {
+    showQuestionDialog() {
         const { action } = this.props;
 
         action.togglePushQuestionDialogVisible();
