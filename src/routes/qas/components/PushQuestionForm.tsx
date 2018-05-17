@@ -3,12 +3,11 @@
  */
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import BraftEditor from 'braft-editor';
 const FormItem =  require('antd/lib/form/FormItem');
 const Form = require('antd/lib/form/Form');
 const Input = require('antd/lib/input/Input');
-import 'braft-editor/dist/braft.css';
 import { autobind } from 'core-decorators';
+import TextEditor from '../../../components/text-editor/TextEditor';
 const Checkbox = require('antd/lib/checkbox/Checkbox');
 const Button = require('antd/lib/button/button');
 
@@ -29,18 +28,6 @@ interface PushQuestionFormProps extends FormComponentProps {
 class QuestionForm extends React.Component<PushQuestionFormProps, any> {
 
     prefixCls = 'qas-dialog-form';
-
-    braftEditorProps = {
-        height: 100,
-        contentFormat: 'html',
-        placeholder: '问题描述',
-        onChange: this.handleBraftEditorChange,
-        onRawChange: this.handleBraftEditorRawChange,
-        controls: [
-            'undo', 'redo', 'split', 'bold', 'emoji', 'text-align', 'split', 'list_ul',
-            'list_ol', 'blockquote', 'code', 'split', 'link', 'split', 'hr', 'split', 'clear'
-        ]
-    }
 
     constructor(props, context) {
         super(props, context);
@@ -83,9 +70,7 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
                                     }
                                 ]
                             })(
-                                <div className={ `${this.prefixCls}-braft-wrapper` }>
-                                    <BraftEditor {...this.braftEditorProps} />
-                                </div>
+                                <TextEditor />
                             )
                         }
                     </FormItem>

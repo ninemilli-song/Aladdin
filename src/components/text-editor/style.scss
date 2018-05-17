@@ -1,0 +1,13 @@
+@import '../../styles/variable.scss';
+
+.aladdin-text-editor{
+    &-wrapper {
+        // position: relative;
+        height: auto;
+        // margin-top: 50px;
+        padding: 5px;
+        overflow: hidden;
+        border: solid 1px $mainBorderColor;
+        border-radius: 4px;
+    }
+}
