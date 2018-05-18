@@ -8,7 +8,7 @@ import BackTop from '../../../components/backtop';
 import AskQuestionDialog from '../containers/AskQuestionDialog';
 import ISay from '../../../components/i-say/ISay';
 import QList from './QList';
-import { getQuestionList, togglePushQuestionDialogVisible } from '../actions/index';
+import { getQuestionList, togglePushQuestionDialogVisible, submitQuestion } from '../actions/index';
 import MainSider from '../../../components/page-frame/MainSider';
 
 @connect(
@@ -21,6 +21,9 @@ import MainSider from '../../../components/page-frame/MainSider';
                 },
                 togglePushQuestionDialogVisible: () => {
                     dispatch(togglePushQuestionDialogVisible());
+                },
+                submitQuestion: (data) => {
+                    dispatch(submitQuestion(data));
                 }
             },
         }
@@ -64,7 +67,9 @@ export default class QAS extends React.Component<any, any> {
         return (
             <div className={ `${this.prefixCls}-body` }>
                 <div className={ `${this.prefixCls}-say` }>
-                    <ISay />
+                    <ISay
+                        onSubmit = { this.onSubmitQuestion }
+                    />
                 </div>
                 <QList />
             </div> 
@@ -83,7 +88,13 @@ export default class QAS extends React.Component<any, any> {
     /**
      * 提交提问
      */
-    onSubmitQuestion() {
+    onSubmitQuestion(data) {
+        const { action } = this.props;
 
+        const param = {
+            question: data
+        }
+
+        action.submitQuestion(param);
     }
 }

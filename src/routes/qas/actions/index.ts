@@ -147,7 +147,12 @@ const submitQuestion = (question) => {
         const userId = state.userInfo.id;
         
         // 补充提交问题的用户的id
-        const param = Object.assign({}, question, {
+        const param = Object.assign({
+            title: '',
+            question: '',
+            isAnonymous: false,
+            tag: ''
+        }, question, {
             user: {
                 id: userId
             }
@@ -156,9 +161,6 @@ const submitQuestion = (question) => {
         // 发送请求
         return request.post('/qas/addQuestion', param).then((result) => {
             if (result.meta.success) {
-                // 关闭弹框
-                dispatch(togglePushQuestionDialogVisible());
-
                 // 刷新问题列表
                 dispatch(getQuestionList());
             }

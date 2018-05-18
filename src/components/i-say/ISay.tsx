@@ -13,10 +13,12 @@ interface ISayProps {
     onSubmit?: (data) => void;
     placeholder?: string;
     title?: string;
+    expand?: boolean;                           // 是否展开
+    value?: string;                             // 内容
 }
 
 @autobind
-export default class ISay extends React.Component<ISayProps, any> {
+export default class ISay extends React.PureComponent<ISayProps, any> {
 
     prefixCls = 'i-say';
 
@@ -27,21 +29,38 @@ export default class ISay extends React.Component<ISayProps, any> {
         placeholder: '有问题在这儿说说…',
         title: '提问',
         className: '',
+        expand: false,
     }
 
-    constructor(props, context) {
+    constructor(props: ISayProps, context) {
         super(props, context);
 
         this.state = {
-            mode: 'fold',  // fold or expand
+            expand: !!props.expand,                       // 是否展开
+            value: props.value ? props.value : null       // 内容
         }
+    }
+
+    componentWillReceiveProps(nextProps: ISayProps) {
+        this.init(nextProps);
+    }
+
+    /**
+     * 初始化
+     * @param props 
+     */
+    private init(props: ISayProps) {
+        const { expand, value } = props;
+
+        this.setState({
+            expand: !!expand,
+            value: value ? value : null
+        })
     }
 
     render() {
         const { className, placeholder, title } = this.props;
-        const { mode } = this.state;
-
-        const textStyle = mode === 'expand' ? { height: 70 } : null
+        const { expand, value } = this.state;
 
         return (
             <div className={ `${this.prefixCls} ${className}`  }>
@@ -58,25 +77,18 @@ export default class ISay extends React.Component<ISayProps, any> {
                     {
                         this.renderError()
                     }
-                    {/* <textarea 
-                        name="i-say" 
-                        id={ _.uniqueId(this.prefixCls) } 
-                        rows={1}
-                        placeholder={ placeholder }
-                        style= { textStyle }
-                        onFocus={ this.textAreaOnFocus }
-                        ref={ this.getTextareaRef }
-                    /> */}
                     <TextArea
                         placeholder = { placeholder }
-                        rows = { mode === 'expand' ? 4 : 1 }
+                        rows = { expand ? 4 : 1 }
                         onFocus = { this.textAreaOnFocus }
                         onBlur = { this.textAreaOnBlur }
                         ref = { this.getTextareaRef }
+                        value = { value }
+                        onChange = { this.handleChange }
                     />
                 </div>
                 {
-                    mode === 'expand' ? this.renderFooter() : null
+                    expand ? this.renderFooter() : null
                 }
             </div>
         )
@@ -114,15 +126,15 @@ export default class ISay extends React.Component<ISayProps, any> {
     private textAreaOnFocus() {
         // Expand the textarea
         this.setState({
-            mode: 'expand'
+            expand: true
         });
     }
 
     private textAreaOnBlur() {
-        // fold the textarea
-        this.setState({
-            mode: 'fold'
-        });
+        // // fold the textarea
+        // this.setState({
+        //     mode: 'fold'
+        // });
     }
 
     private getTextareaRef(textarea) {
@@ -131,10 +143,20 @@ export default class ISay extends React.Component<ISayProps, any> {
 
     private onSubmit(evt) {
         const { onSubmit } = this.props;
-        const data = this.textarea.value;
+        const data = this.textarea.textAreaRef.value;
 
-        if (onSubmit) {
+        if (onSubmit && data) {
             onSubmit(data);
+        }
+    }
+
+    private handleChange (e) {
+        const value = e.target.value;
+
+        if (value) {
+            this.setState({
+                value
+            })
         }
     }
 }
