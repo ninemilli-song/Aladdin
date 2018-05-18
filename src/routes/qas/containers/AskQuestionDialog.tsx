@@ -8,16 +8,6 @@ import PushQuestionForm from '../components/PushQuestionForm';
 import { connect } from 'react-redux';
 import { togglePushQuestionDialogVisible, submitQuestion } from '../actions/index';
 
-/**
- * 我要提问 的弹框
- */
-interface AskQuestionDialogProps {
-    visible?: boolean,                   // 是否可见
-    loading?: boolean,                   // 是否为loading态
-    onSubmit?: () => void,              // 提交
-    onCancel?: () => void,              // 关闭弹框
-}
-
 @connect(
     store => {
         return {
@@ -40,7 +30,7 @@ interface AskQuestionDialogProps {
 @autobind
 export default class AskQuestionDialog extends React.Component<any, any> {
 
-    constructor(props: AskQuestionDialogProps, context) {
+    constructor(props, context) {
         super(props, context);
 
         this.state = {
@@ -49,7 +39,7 @@ export default class AskQuestionDialog extends React.Component<any, any> {
         }
     }
 
-    componentWillReceiveProps(nextProps: AskQuestionDialogProps) {
+    componentWillReceiveProps(nextProps) {
         this.setState({
             visible: nextProps.visible || false,
             loading: nextProps.loading || false,
@@ -98,7 +88,9 @@ export default class AskQuestionDialog extends React.Component<any, any> {
      * 处理请求提交
      */
     private handlerSubmit(data: IQuestion) {
+        const { submitQuestion } = this.props;
 
+        submitQuestion(data);
     }
 }
 

@@ -141,10 +141,28 @@ const hideHetailDialogLoading = () => {
 /**
  * 提交问题
  */
-const submitQuestion = (data) => {
-    return {
-        type: QAS_Q_SUBMIT_QUESTION,
-        data: data
+const submitQuestion = (question) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+        
+        // 补充提交问题的用户的id
+        const param = Object.assign({}, question, {
+            user: {
+                id: userId
+            }
+        });
+
+        // 发送请求
+        return request.post('/qas/addQuestion', param).then((result) => {
+            if (result.meta.success) {
+                // 关闭弹框
+                dispatch(togglePushQuestionDialogVisible());
+
+                // 刷新问题列表
+                dispatch(getQuestionList());
+            }
+        });
     }
 }
 

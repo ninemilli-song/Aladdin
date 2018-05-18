@@ -8,5 +8,5 @@ interface IQuestion {
     description: string;        // 提问详情
     isAnonymous: boolean;       // 是否匿名
     category: number;           // 问题分类
-    tags: Array<string>;        // 问题标签
+    tag: Array<string>;        // 问题标签
 }

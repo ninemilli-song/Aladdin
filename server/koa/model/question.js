@@ -50,7 +50,22 @@ const getQuestionDetail = (params) => {
     });
 }
 
+/**
+ * 提交问题
+ * @param {*} params 
+ */
+const addQuestion = (params) => {
+    return fetch.post('question/add', params).then((res) => {
+        console.log('👉🏻 ---> /question/add\n', res);
+        return res;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /question/add error:\n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
 module.exports = {
     getQuestions,
-    getQuestionDetail
+    getQuestionDetail,
+    addQuestion
 };

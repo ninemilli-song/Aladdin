@@ -50,14 +50,14 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
                     </FormItem>
                     <FormItem>
                         {
-                            getFieldDecorator('category', {})(
-                                <Input placeholder="类型" id="category" />
+                            getFieldDecorator('tag', {})(
+                                <Input placeholder="标签" id="tag" />
                             )
                         }
                     </FormItem>
                     <FormItem>
                         {
-                            getFieldDecorator('description', {
+                            getFieldDecorator('question', {
                                 rules: [
                                     {
                                         validator: (rule, value, callback) => {
@@ -76,7 +76,7 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
                     </FormItem>
                     <FormItem>
                         {
-                            getFieldDecorator('anonymous', {
+                            getFieldDecorator('isAnonymous', {
                                 initialValue: false,
                             })(
                                 <Checkbox
@@ -115,11 +115,12 @@ class QuestionForm extends React.Component<PushQuestionFormProps, any> {
 
     onSubmit(e) {
         e.preventDefault();
-        const { form } = this.props;
+        const { form, onSubmit } = this.props;
 
         form.validateFields((err, values) => {
             if (!err) {
                 console.log('form get value ------> ', values);
+                onSubmit(values);
             }
         });
     }
