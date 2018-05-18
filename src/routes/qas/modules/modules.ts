@@ -15,6 +15,7 @@ import {
     QAS_Q_DETAIL_DATA_CLEAR,
     QAS_Q_DETAIL_LOADING_SHOW,
     QAS_Q_DETAIL_LOADING_HIDE,
+    QAS_Q_QUICK_EXPAND,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -23,6 +24,7 @@ import {
     clearDetailData, 
     detailDialogLoading 
 } from './q_detail_reducer';
+import { setQuickQuestionExpand } from './ui';
 const { fromJS } = require('immutable');
 
 // -------------------------------------
@@ -39,6 +41,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_DETAIL_DATA_CLEAR]: clearDetailData,
     [QAS_Q_DETAIL_LOADING_SHOW]: detailDialogLoading,
     [QAS_Q_DETAIL_LOADING_HIDE]: detailDialogLoading,
+    [QAS_Q_QUICK_EXPAND]: setQuickQuestionExpand,
 }
 
 // 初始化模块数据
@@ -50,7 +53,8 @@ const initialState = fromJS({
         pageSize: 10,
         qDetailDialogOpts: {                        // 提问详情对话框的ui状态
             visible: false
-        }
+        },
+        quickQuestionExpand: false                   // 快速提问是否展开
     },
     data: {},
     selectedQId: null,                              // 选中的提问 id

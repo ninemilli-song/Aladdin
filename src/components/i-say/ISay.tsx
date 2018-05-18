@@ -11,6 +11,7 @@ const _ = {
 interface ISayProps {
     className?: string;
     onSubmit?: (data) => void;
+    onFocus?: () => void;                       // 聚集时
     placeholder?: string;
     title?: string;
     expand?: boolean;                           // 是否展开
@@ -36,7 +37,6 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
         super(props, context);
 
         this.state = {
-            expand: !!props.expand,                       // 是否展开
             value: props.value ? props.value : null       // 内容
         }
     }
@@ -50,17 +50,16 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
      * @param props 
      */
     private init(props: ISayProps) {
-        const { expand, value } = props;
+        const { value } = props;
 
         this.setState({
-            expand: !!expand,
             value: value ? value : null
         })
     }
 
     render() {
-        const { className, placeholder, title } = this.props;
-        const { expand, value } = this.state;
+        const { className, placeholder, title, expand } = this.props;
+        const { value } = this.state;
 
         return (
             <div className={ `${this.prefixCls} ${className}`  }>
@@ -124,17 +123,15 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
     }
 
     private textAreaOnFocus() {
-        // Expand the textarea
-        this.setState({
-            expand: true
-        });
+        const { onFocus } = this.props;
+        
+        if (onFocus) {
+            onFocus();
+        }
     }
 
     private textAreaOnBlur() {
-        // // fold the textarea
-        // this.setState({
-        //     mode: 'fold'
-        // });
+
     }
 
     private getTextareaRef(textarea) {

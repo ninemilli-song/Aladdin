@@ -8,11 +8,19 @@ import BackTop from '../../../components/backtop';
 import AskQuestionDialog from '../containers/AskQuestionDialog';
 import ISay from '../../../components/i-say/ISay';
 import QList from './QList';
-import { getQuestionList, togglePushQuestionDialogVisible, submitQuestion } from '../actions/index';
+import { 
+    getQuestionList, 
+    togglePushQuestionDialogVisible, 
+    submitQuestion, 
+    foldQuickQuestion, 
+    expandQuickQuestion 
+} from '../actions/index';
 import MainSider from '../../../components/page-frame/MainSider';
 
 @connect(
-    store => ({}),
+    store => ({
+        quickQuestionExpand: store.QAS.getIn(['uistate', 'quickQuestionExpand'])
+    }),
     dispatch => {
         return {
             action: {
@@ -23,7 +31,13 @@ import MainSider from '../../../components/page-frame/MainSider';
                     dispatch(togglePushQuestionDialogVisible());
                 },
                 submitQuestion: (data) => {
-                    dispatch(submitQuestion(data));
+                    return dispatch(submitQuestion(data));
+                },
+                foldQuickQuestion: () => {
+                    dispatch(foldQuickQuestion());
+                },
+                expandQuickQuestion: () => {
+                    dispatch(expandQuickQuestion());
                 }
             },
         }
@@ -64,11 +78,15 @@ export default class QAS extends React.Component<any, any> {
     }
 
     renderMainContent() {
+        const { quickQuestionExpand } = this.props;
+
         return (
             <div className={ `${this.prefixCls}-body` }>
                 <div className={ `${this.prefixCls}-say` }>
                     <ISay
                         onSubmit = { this.onSubmitQuestion }
+                        expand = { !!quickQuestionExpand }
+                        onFocus = { this.handleQuickQuestionFocus }
                     />
                 </div>
                 <QList />
@@ -93,8 +111,23 @@ export default class QAS extends React.Component<any, any> {
 
         const param = {
             question: data
-        }
+        } 
 
-        action.submitQuestion(param);
+        action.submitQuestion(param).then(() => {
+            console.log('submitQuestion completed !!! ');
+
+            // 收起快速提问
+            action.foldQuickQuestion();
+        });
+    }
+
+    /**
+     * 当快速提问聚集时 展开快速提问
+     */
+    handleQuickQuestionFocus() {
+        const { action } = this.props;
+
+        // 展开快速提问
+        action.expandQuickQuestion();
     }
 }

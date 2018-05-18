@@ -13,6 +13,7 @@ export const QAS_Q_DETAIL_DATA_CLEAR = 'QAS_Q_DETAIL_DATA_CLEAR';               
 export const QAS_Q_DETAIL_LOADING_SHOW = 'QAS_Q_DETAIL_LOADING_SHOW';                       // 清空详情数据
 export const QAS_Q_DETAIL_LOADING_HIDE = 'QAS_Q_DETAIL_LOADING_HIDE';                       // 清空详情数据
 export const QAS_Q_SUBMIT_QUESTION = 'QAS_Q_SUBMIT_QUESTION';                               // 提交问题
+export const QAS_Q_QUICK_EXPAND = 'QAS_Q_QUICK_EXPAND';                                     // 快速提问展开
 
 // ---------------------------
 // Actions
@@ -168,6 +169,26 @@ const submitQuestion = (question) => {
     }
 }
 
+/**
+ * 展开快速提问
+ */
+const expandQuickQuestion = () => {
+    return {
+        type: QAS_Q_QUICK_EXPAND,
+        data: true
+    }
+}
+
+/**
+ * 收起快速提问
+ */
+const foldQuickQuestion = () => {
+    return {
+        type: QAS_Q_QUICK_EXPAND,
+        data: false
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -178,5 +199,7 @@ export {
     clearQDetailData,
     showDetailDialogLoading,
     hideHetailDialogLoading,
-    submitQuestion
+    submitQuestion,
+    expandQuickQuestion,
+    foldQuickQuestion
 }
