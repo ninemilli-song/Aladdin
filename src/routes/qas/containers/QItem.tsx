@@ -89,10 +89,10 @@ export default class QItem extends React.Component<any, any> {
                         />
                     </div>
                     <span className="name">
-                        { data ? data.getIn(['user', 'name']) : null }
+                        { data ? data.getIn(['user', 'nickName']) : null }
                     </span>
                     <span className="updateDate">
-                        • { data ? data.getIn(['updateTime']) : null }
+                        • { data ? data.getIn(['modifyTime']) : null }
                     </span>
                 </div>
                 <div className={ `${this.prefixCls}-title` }>
@@ -101,7 +101,13 @@ export default class QItem extends React.Component<any, any> {
                     </span>
                 </div>
                 <div className={ `${this.prefixCls}-text` }>
-                    { data ? data.getIn(['question']) : null }
+                    { data ? (
+                            <div 
+                                className={ `${this.prefixCls}-text` } 
+                                dangerouslySetInnerHTML={ {__html: data.getIn(['question'])} }
+                            />
+                        ) : null 
+                    }
                 </div>
                 <div className={ `${this.prefixCls}-operaters` }>
                     <QASOperators 
