@@ -85,6 +85,7 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
                         value = { value }
                         onChange = { this.handleChange }
                         onPressEnter = { this.handlePressEnter }
+                        onKeyUp = { this.handleKeyUp }
                     />
                 </div>
                 {
@@ -166,5 +167,12 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
      */
     private handlePressEnter(e) {
         
+    }
+
+    /**
+     * 
+     */
+    private handleKeyUp(e) {
+        console.log('<<<<<<<< handleKeyUp >>>>>>>>', e);
     }
 }
