@@ -57,6 +57,7 @@ export default class QAS extends React.Component<any, any> {
     }
 
     render() {
+        console.log('QAS ------> render');
         const { action } = this.props;
 
         return (

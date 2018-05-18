@@ -84,6 +84,7 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
                         ref = { this.getTextareaRef }
                         value = { value }
                         onChange = { this.handleChange }
+                        onPressEnter = { this.handlePressEnter }
                     />
                 </div>
                 {
@@ -138,6 +139,10 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
         this.textarea = textarea;
     }
 
+    /**
+     * 提交
+     * @param evt 
+     */
     private onSubmit(evt) {
         const { onSubmit } = this.props;
         const data = this.textarea.textAreaRef.value;
@@ -150,10 +155,16 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
     private handleChange (e) {
         const value = e.target.value;
 
-        if (value) {
-            this.setState({
-                value
-            })
-        }
+        this.setState({
+            value
+        })
+    }
+
+    /**
+     * 回车事件处理
+     * @param e 
+     */
+    private handlePressEnter(e) {
+        
     }
 }

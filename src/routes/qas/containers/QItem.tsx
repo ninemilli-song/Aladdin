@@ -53,6 +53,7 @@ export default class QItem extends React.Component<any, any> {
     prefixCls = 'q-item';
 
     render() {
+        console.log('<<<<<< QItem render >>>>>>');
         const { data } = this.props;
 
         const operatorOpts = [
