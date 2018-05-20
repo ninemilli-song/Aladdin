@@ -16,7 +16,7 @@ interface QASOperatorsProps {
     operators: Array<Operator>;
 }
 
-export class QASOperators extends React.Component<QASOperatorsProps, any> {
+export default class QASOperators extends React.Component<QASOperatorsProps, any> {
 
     prefixCls = 'qas-operators';
 

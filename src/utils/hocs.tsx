@@ -8,7 +8,7 @@ const { Iterable } = require('immutable');
  * Convert immutable object from smart component to dumb component
  * @param WrappedComponent 
  */
-const toJS = (WrappedComponent: any) => wrappedComponentProps => {
+export const toJS = (WrappedComponent: any) => wrappedComponentProps => {
     const KEY = 0;
     const VALUE = 1;
 
@@ -21,8 +21,4 @@ const toJS = (WrappedComponent: any) => wrappedComponentProps => {
     }, []);
 
     return <WrappedComponent { ...propsJS } />
-}
-
-export {
-    toJS
 }
