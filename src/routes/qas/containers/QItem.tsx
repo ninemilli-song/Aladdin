@@ -8,7 +8,7 @@ import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
 import { ActionButton } from '../../../components/button';
 import { autobind } from 'core-decorators';
-import { QASOperators } from '../../../components/qas-operators/QASOperators';
+import QASOperators from '../../../components/qas-operators/QASOperators';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
