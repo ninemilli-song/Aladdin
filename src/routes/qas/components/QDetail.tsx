@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { QASOperators } from '../../../components/qas-operators/QASOperators';
+import QASOperators from '../../../components/qas-operators/QASOperators';
 import ISay from '../../../components/i-say/ISay';
 import AnswerList from '../containers/AnswerList';
 import { formateNumberCount } from '../../../utils/utils';
