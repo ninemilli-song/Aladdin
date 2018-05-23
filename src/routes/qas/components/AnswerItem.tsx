@@ -3,7 +3,7 @@
  */
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
-import { QASOperators } from '../../../components/qas-operators/QASOperators';
+import QASOperators from '../../../components/qas-operators/QASOperators';
 import { formateNumberCount } from '../../../utils/utils';
 const Avatar = require('antd/lib/avatar');
 const { Map } = require('immutable');
