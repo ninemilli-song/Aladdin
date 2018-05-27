@@ -152,7 +152,7 @@ const submitQuestion = (question) => {
             title: '',
             question: '',
             isAnonymous: false,
-            tag: ''
+            tag: []
         }, question, {
             user: {
                 id: userId

@@ -9,16 +9,17 @@ const { Iterable } = require('immutable');
  * @param WrappedComponent 
  */
 export const toJS = (WrappedComponent: any) => wrappedComponentProps => {
-    const KEY = 0;
-    const VALUE = 1;
+    // const KEY = 0;
+    // const VALUE = 1;
 
-    const propsJS = Object.entries(wrappedComponentProps).reduce((newProps, wrappedComponentProp) => {
-        newProps[wrappedComponentProp[KEY]] = Iterable.isIterable(
-            wrappedComponentProp[VALUE]
-        ) ? wrappedComponentProp[VALUE].toJS() : wrappedComponentProp[VALUE];
+    // const propsJS = Object.entries(wrappedComponentProps).reduce((newProps, wrappedComponentProp) => {
+    //     newProps[wrappedComponentProp[KEY]] = Iterable.isIterable(
+    //         wrappedComponentProp[VALUE]
+    //     ) ? wrappedComponentProp[VALUE].toJS() : wrappedComponentProp[VALUE];
 
-        return newProps;
-    }, []);
+    //     return newProps;
+    // }, []);
 
-    return <WrappedComponent { ...propsJS } />
+    // return <WrappedComponent { ...propsJS } />
+    return <WrappedComponent />
 }
