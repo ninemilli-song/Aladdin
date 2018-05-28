@@ -7,9 +7,10 @@ import { formateNumberCount } from '../../utils/utils';
 import './assets/index.scss';
 
 interface Operator {
-    iconName: string;                   // 图标名
-    label: string;                      // 显示文字
-    callback?: () => void;               // 回调方法
+    className?: string;                  // 样式名称
+    iconName: string;                    // 图标名
+    label?: string;                      // 显示文字
+    onClick?: (e) => void;                // 回调方法
 }
 
 interface QASOperatorsProps {
@@ -30,9 +31,10 @@ export default class QASOperators extends React.Component<QASOperatorsProps, any
                         return (
                             <li 
                                 key = { `${this.prefixCls}-${item.iconName}-${index}` }
-                                onClick={ () => { item.callback() } }
+                                onClick={ (e) => { item.onClick(e) } }
                             >
                                 <ActionButton
+                                    className = { item.className }
                                     iconName = { item.iconName }
                                     label = { item.label }
                                 />

@@ -56,26 +56,30 @@ export default class QItem extends React.Component<any, any> {
         console.log('<<<<<< QItem render >>>>>>');
         const { data } = this.props;
 
+        const hasCollected = data ? (data.getIn(['hasCollected'])) : true;
+        // const hasCollected = true;
+
         const operatorOpts = [
             {
                 iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(data ? (data.getIn(['answersCount'])) : 0) })`,
-                callback: this.showAnswer
+                label: `回答(${ formateNumberCount(data ? (data.getIn(['answerCount'])) : 0) })`,
+                onClick: this.showAnswer
             },
             {
-                iconName: 'icon-shoucang',
+                iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
+                className: hasCollected ? 'selected' : 'unselected',
                 label: `关注(${ formateNumberCount(data ? (data.getIn(['collectedCount'])) : 0) })`,
-                callback: this.doConcern
+                onClick: this.doConcern
             },
             {
                 iconName: 'icon-chengyuan-tianjia',
                 label: `邀请`,
-                callback: this.showInvite
+                onClick: this.showInvite
             },
             {
                 iconName: 'icon-zhuanfa',
                 label: `分享`,
-                callback: this.showShare
+                onClick: this.showShare
             },
         ];
 
@@ -120,23 +124,23 @@ export default class QItem extends React.Component<any, any> {
     }
 
     // Show answer dialog
-    private showAnswer() {
-
+    private showAnswer(e) {
+        e.stopPropagation();
     }
 
     // Show invite dialog
-    private showInvite() {
-
+    private showInvite(e) {
+        e.stopPropagation();
     }
 
     // Show share dialog
-    private showShare() {
-
+    private showShare(e) {
+        e.stopPropagation();
     }
 
     // Do concern dialog
-    private doConcern() {
-
+    private doConcern(e) {
+        e.stopPropagation();
     }
 
     private showDetail() {
