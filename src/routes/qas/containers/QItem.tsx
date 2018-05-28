@@ -68,7 +68,9 @@ export default class QItem extends React.Component<any, any> {
             {
                 iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
                 className: hasCollected ? 'selected' : 'unselected',
-                label: `关注(${ formateNumberCount(data ? (data.getIn(['collectedCount'])) : 0) })`,
+                label: `${ hasCollected ? 
+                    '取消关注' : '关注'
+                }(${ formateNumberCount(data ? (data.getIn(['collectedCount'])) : 0) })`,
                 onClick: this.doConcern
             },
             {
