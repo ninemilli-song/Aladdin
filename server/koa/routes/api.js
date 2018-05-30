@@ -8,7 +8,7 @@ const router = require('koa-router')();
 const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
 const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 const { getReportDataByCodeYear } = require('../model/report');
-const { getQuestions, getQuestionDetail, addQuestion } = require('../model/question');
+const { getQuestions, getQuestionDetail, addQuestion, concernQuestion, unconcernQuestion } = require('../model/question');
 const { findUserById } = require('../model/user');
 
 router.get('/register', (ctx) => {
@@ -80,6 +80,20 @@ router.get('/qas/getQuestionDetail', async (ctx) => {
 // 提交问题
 router.post('/qas/addQuestion', async (ctx) => {
     const result = await addQuestion(ctx.request.body);
+
+    ctx.body = result;
+});
+
+// 关注问题
+router.post('/qas/concernQuestion', async (ctx) => {
+    const result = await concernQuestion(ctx.request.body);
+    
+    ctx.body = result;
+});
+
+// 取消关注问题
+router.post('/qas/unconcernQuestion', async (ctx) => {
+    const result = await unconcernQuestion(ctx.request.body);
 
     ctx.body = result;
 });

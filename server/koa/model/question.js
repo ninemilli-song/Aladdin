@@ -64,8 +64,56 @@ const addQuestion = (params) => {
     });
 }
 
+/**
+ * 关注问题
+ * @param {*} params 
+ */
+const concernQuestion = (params) => {
+    return fetch.post('/questionCollected/add', params).then((res) => {
+        console.log('👉🏻 ---> /questionCollected/add\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            result = ResponsePacker.error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /questionCollected/add error:\n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
+/**
+ * 取消关注问题
+ * @param {*} params 
+ */
+const unconcernQuestion = (params) => {
+    return fetch.post('/questionCollected/unconcern', params).then((res) => {
+        console.log('👉🏻 ---> /questionCollected/unconcern\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            result = ResponsePacker.error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /questionCollected/unconcern error:\n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
 module.exports = {
     getQuestions,
     getQuestionDetail,
-    addQuestion
+    addQuestion,
+    concernQuestion,
+    unconcernQuestion
 };

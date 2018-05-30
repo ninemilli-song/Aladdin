@@ -194,72 +194,72 @@ const foldQuickQuestion = () => {
  * 关注问题
  */
 const concernQuestion = (questionId) => {
-    // return (dispatch, getState) => {
-    //     const state = getState();
-    //     const userId = state.userInfo.id;
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
 
-    //     return request.post('/qas/concernQuestion', {
-    //         question: {
-    //             id: questionId
-    //         },
-    //         user: {
-    //             id: userId
-    //         }
-    //     }).then((result) => {
-    //         if (result.success) {
-    //             dispatch({
-    //                 type: QAS_Q_CONCERN,
-    //                 data: {
-    //                     id: questionId,
-    //                     hasCollected: true
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-
-    return {
-        type: QAS_Q_CONCERN,
-        data: {
-            id: questionId,
-            hasCollected: true
-        }
+        return request.post('/qas/concernQuestion', {
+            question: {
+                id: questionId
+            },
+            user: {
+                id: userId
+            }
+        }).then((result) => {
+            if (result.success) {
+                dispatch({
+                    type: QAS_Q_CONCERN,
+                    data: {
+                        id: questionId,
+                        hasCollected: true
+                    }
+                });
+            }
+        });
     }
+
+    // return {
+    //     type: QAS_Q_CONCERN,
+    //     data: {
+    //         id: questionId,
+    //         hasCollected: true
+    //     }
+    // }
 }
 
 /**
  * 取消关注
  */
 const unconcernQuestion = (questionId) => {
-    // return (dispatch, getState) => {
-    //     const state = getState();
-    //     const userId = state.userInfo.id;
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
 
-    //     return request.post('/qas/unconcernQuestion', {
-    //         question: {
-    //             id: questionId
-    //         },
-    //         user: {
-    //             id: userId
-    //         }
-    //     }).then((result) => {
-    //         dispatch({
-    //             type: QAS_Q_CONCERN,
-    //             data: {
-    //                 id: questionId,
-    //                 hasCollected: false
-    //             }
-    //         });
-    //     })
-    // }
-
-    return {
-        type: QAS_Q_CONCERN,
-        data: {
-            id: questionId,
-            hasCollected: false
-        }
+        return request.post('/qas/unconcernQuestion', {
+            question: {
+                id: questionId
+            },
+            user: {
+                id: userId
+            }
+        }).then((result) => {
+            dispatch({
+                type: QAS_Q_CONCERN,
+                data: {
+                    id: questionId,
+                    hasCollected: false
+                }
+            });
+        })
     }
+
+    // return {
+    //     type: QAS_Q_CONCERN,
+    //     data: {
+    //         id: questionId,
+    //         hasCollected: false
+    //     }
+    // }
 }
 
 export {
