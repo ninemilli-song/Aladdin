@@ -21,12 +21,12 @@ export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                   
 // ---------------------------
 /**
  * 获取提问列表 
- * @param pageNum 当前页码
- * @param pageSize 页面大小
+ * @param page 当前页码
+ * @param size 页面大小
  */
-const getQuestionList = (pageNum = 1, pageSize = 10) => {
+const getQuestionList = (page = 1, size = 10) => {
     return (dispatch, getState) => {
-        return request.get('api/qas/getQuestions', { pageNum,  pageSize }).then((result) => {
+        return request.get('api/qas/getQuestions', { page,  size }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
 
