@@ -2,7 +2,7 @@
  * The Container fo QItem Component
  */
 import { connect } from 'react-redux';
-import { setDetailDialogVisible, onSelectedQ } from '../actions/index';
+import { setDetailDialogVisible, onSelectedQ, concernQuestion, unconcernQuestion } from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
@@ -40,8 +40,14 @@ export type QItemData = {
         return {
             action: {
                 showQDetail: (id) => {                                                      // 显示提问详情
-                    dispatch(setDetailDialogVisible(true));                                  // 显示提问详情
+                    dispatch(setDetailDialogVisible(true));                                 // 显示提问详情
                     dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
+                },
+                doConcern: (id) => {
+                    dispatch(concernQuestion(id));
+                },
+                cancelConcern: (id) => {
+                    dispatch(unconcernQuestion(id));
                 }
             },
         }
@@ -71,7 +77,7 @@ export default class QItem extends React.Component<any, any> {
                 label: `${ hasCollected ? 
                     '取消关注' : '关注'
                 }(${ formateNumberCount(data ? (data.getIn(['collectedCount'])) : 0) })`,
-                onClick: this.doConcern
+                onClick: hasCollected ? this.cancelConcern : this.doConcern
             },
             {
                 iconName: 'icon-chengyuan-tianjia',
@@ -140,9 +146,25 @@ export default class QItem extends React.Component<any, any> {
         e.stopPropagation();
     }
 
-    // Do concern dialog
+    // Do concern
     private doConcern(e) {
         e.stopPropagation();
+        const { data, action } = this.props;
+        const id = data.getIn(['id']);
+
+        action.doConcern(id);
+    }
+
+    /**
+     * Cancel concern
+     * @param e 
+     */
+    private cancelConcern(e) {
+        e.stopPropagation();
+        const { data, action } = this.props;
+        const id = data.getIn(['id']);
+
+        action.cancelConcern(id);
     }
 
     private showDetail() {

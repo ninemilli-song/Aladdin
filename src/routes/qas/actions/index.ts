@@ -14,6 +14,7 @@ export const QAS_Q_DETAIL_LOADING_SHOW = 'QAS_Q_DETAIL_LOADING_SHOW';           
 export const QAS_Q_DETAIL_LOADING_HIDE = 'QAS_Q_DETAIL_LOADING_HIDE';                       // 清空详情数据
 export const QAS_Q_SUBMIT_QUESTION = 'QAS_Q_SUBMIT_QUESTION';                               // 提交问题
 export const QAS_Q_QUICK_EXPAND = 'QAS_Q_QUICK_EXPAND';                                     // 快速提问展开
+export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                               // 关注提问
 
 // ---------------------------
 // Actions
@@ -189,6 +190,78 @@ const foldQuickQuestion = () => {
     }
 }
 
+/**
+ * 关注问题
+ */
+const concernQuestion = (questionId) => {
+    // return (dispatch, getState) => {
+    //     const state = getState();
+    //     const userId = state.userInfo.id;
+
+    //     return request.post('/qas/concernQuestion', {
+    //         question: {
+    //             id: questionId
+    //         },
+    //         user: {
+    //             id: userId
+    //         }
+    //     }).then((result) => {
+    //         if (result.success) {
+    //             dispatch({
+    //                 type: QAS_Q_CONCERN,
+    //                 data: {
+    //                     id: questionId,
+    //                     hasCollected: true
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }
+
+    return {
+        type: QAS_Q_CONCERN,
+        data: {
+            id: questionId,
+            hasCollected: true
+        }
+    }
+}
+
+/**
+ * 取消关注
+ */
+const unconcernQuestion = (questionId) => {
+    // return (dispatch, getState) => {
+    //     const state = getState();
+    //     const userId = state.userInfo.id;
+
+    //     return request.post('/qas/unconcernQuestion', {
+    //         question: {
+    //             id: questionId
+    //         },
+    //         user: {
+    //             id: userId
+    //         }
+    //     }).then((result) => {
+    //         dispatch({
+    //             type: QAS_Q_CONCERN,
+    //             data: {
+    //                 id: questionId,
+    //                 hasCollected: false
+    //             }
+    //         });
+    //     })
+    // }
+
+    return {
+        type: QAS_Q_CONCERN,
+        data: {
+            id: questionId,
+            hasCollected: false
+        }
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -201,5 +274,7 @@ export {
     hideHetailDialogLoading,
     submitQuestion,
     expandQuickQuestion,
-    foldQuickQuestion
+    foldQuickQuestion,
+    concernQuestion,
+    unconcernQuestion
 }
