@@ -11,6 +11,7 @@ import QItem, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
 import { getQuestionList, onPageChanged, onSelectedQ } from '../actions/index';
+import ReplayDialog from '../components/ReplayDialog';
 // import { toJS } from '../../../utils/hocs';
 
 type QListData = {
@@ -67,6 +68,9 @@ export default class QList extends React.Component<any, any> {
             }
             {
                 this.renderDetailDialog()
+            }
+            {
+                this.renderAnswerDialog()
             }
             </div>
         )
@@ -127,6 +131,15 @@ export default class QList extends React.Component<any, any> {
     renderDetailDialog() {
         return (
             <QDetailDialog />
+        )
+    }
+
+    /**
+     * 回答框
+     */
+    renderAnswerDialog() {
+        return (
+            <ReplayDialog />
         )
     }
 
