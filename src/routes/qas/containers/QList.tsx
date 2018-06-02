@@ -10,8 +10,8 @@ import QDetailDialog from '../containers/QDetailDialog';
 import QItem, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
-import { getQuestionList, onPageChanged, onSelectedQ } from '../actions/index';
-import ReplayDialog from '../components/ReplayDialog';
+import { getQuestionList, onPageChanged, onSelectedQ, setReplyDialogVisible } from '../actions/index';
+import ReplyDialog from '../components/ReplyDialog';
 // import { toJS } from '../../../utils/hocs';
 
 type QListData = {
@@ -37,7 +37,8 @@ interface QListProps {
             pageOptions: {
                 currentPage: store.QAS.getIn(['uistate', 'currentPage']),
                 pageSize: store.QAS.getIn(['uistate', 'pageSize']),
-            }
+            },
+            uistate: store.QAS.get('uistate'),
         }
     },
     dispatch => {
@@ -47,7 +48,11 @@ interface QListProps {
                     dispatch(getQuestionList(pageNum, pageSize));
     
                     dispatch(onPageChanged(pageNum, pageSize));
-                }
+                },
+                hideReplyDialog: () => {                                                  // 隐藏回答对话框
+                    dispatch(onSelectedQ(null));                                          // 设置选中的提问 id
+                    dispatch(setReplyDialogVisible(false));                               // 隐藏对话框
+                },
             },
         }
     }
@@ -70,7 +75,7 @@ export default class QList extends React.Component<any, any> {
                 this.renderDetailDialog()
             }
             {
-                this.renderAnswerDialog()
+                this.renderReplyDialog()
             }
             </div>
         )
@@ -137,10 +142,22 @@ export default class QList extends React.Component<any, any> {
     /**
      * 回答框
      */
-    renderAnswerDialog() {
+    renderReplyDialog() {
+        const { uistate } = this.props;
+        const visible = uistate ? uistate.getIn(['qReplyDialogOpts', 'visible']) : false;
+
         return (
-            <ReplayDialog />
+            <ReplyDialog 
+                visible = { visible }
+                onClose = { this.handleCloseReplyDialog }
+            />
         )
+    }
+
+    private handleCloseReplyDialog(id) {
+        const { action } = this.props;
+
+        action.hideReplyDialog();
     }
 
     /**

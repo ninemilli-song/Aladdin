@@ -2,7 +2,13 @@
  * The Container fo QItem Component
  */
 import { connect } from 'react-redux';
-import { setDetailDialogVisible, onSelectedQ, concernQuestion, unconcernQuestion } from '../actions/index';
+import { 
+    setDetailDialogVisible, 
+    onSelectedQ, 
+    concernQuestion, 
+    unconcernQuestion, 
+    setReplyDialogVisible 
+} from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import { formateNumberCount } from '../../../utils/utils';
@@ -40,8 +46,12 @@ export type QItemData = {
         return {
             action: {
                 showQDetail: (id) => {                                                      // 显示提问详情
-                    dispatch(setDetailDialogVisible(true));                                 // 显示提问详情
                     dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
+                    dispatch(setDetailDialogVisible(true));                                 // 显示提问详情
+                },
+                showReplyDialog: (id) => {                                                  // 显示回答对话框
+                    dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
+                    dispatch(setReplyDialogVisible(true));                                  // 显示对话框
                 },
                 doConcern: (id) => {
                     dispatch(concernQuestion(id));
@@ -69,7 +79,7 @@ export default class QItem extends React.Component<any, any> {
             {
                 iconName: 'icon-xiaoxi',
                 label: `回答(${ formateNumberCount(data ? (data.getIn(['answerCount'])) : 0) })`,
-                onClick: this.showAnswer
+                onClick: this.doReply
             },
             {
                 iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
@@ -132,8 +142,12 @@ export default class QItem extends React.Component<any, any> {
     }
 
     // Show answer dialog
-    private showAnswer(e) {
+    private doReply(e) {
         e.stopPropagation();
+        const { data, action } = this.props;
+        const id = data.getIn(['id']);
+
+        action.showReplyDialog(id);
     }
 
     // Show invite dialog

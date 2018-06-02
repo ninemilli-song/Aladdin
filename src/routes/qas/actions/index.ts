@@ -15,6 +15,7 @@ export const QAS_Q_DETAIL_LOADING_HIDE = 'QAS_Q_DETAIL_LOADING_HIDE';           
 export const QAS_Q_SUBMIT_QUESTION = 'QAS_Q_SUBMIT_QUESTION';                               // 提交问题
 export const QAS_Q_QUICK_EXPAND = 'QAS_Q_QUICK_EXPAND';                                     // 快速提问展开
 export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                               // 关注提问
+export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';                     // 回复对话框可见性
 
 // ---------------------------
 // Actions
@@ -262,6 +263,16 @@ const unconcernQuestion = (questionId) => {
     // }
 }
 
+/**
+ * 设置回复对话框是否显示
+ */
+const setReplyDialogVisible = (visible) => {
+    return {
+        type: QAS_Q_REPLY_DIALOG_VISIBLE,
+        data: visible,
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -276,5 +287,6 @@ export {
     expandQuickQuestion,
     foldQuickQuestion,
     concernQuestion,
-    unconcernQuestion
+    unconcernQuestion,
+    setReplyDialogVisible
 }

@@ -44,3 +44,10 @@ export const setQuestionConcern = (state, action) => {
         });
     })
 }
+
+/**
+ * 设置回复对话框是否可见
+ */
+export const setReplyDialogVisible = (state, action) => {
+    return state.updateIn(['uistate', 'qReplyDialogOpts', 'visible'], (data) => action.data);
+}
