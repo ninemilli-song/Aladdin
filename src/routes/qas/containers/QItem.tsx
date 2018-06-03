@@ -15,6 +15,7 @@ import { formateNumberCount } from '../../../utils/utils';
 import { ActionButton } from '../../../components/button';
 import { autobind } from 'core-decorators';
 import QASOperators from '../../../components/qas-operators/QASOperators';
+import Question from '../components/Question';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
@@ -103,35 +104,9 @@ export default class QItem extends React.Component<any, any> {
 
         return (
             <div className={ this.prefixCls } onClick={ this.showDetail }>
-                <div className={ `${this.prefixCls}-user` }>
-                    <div className="profile">
-                        <Avatar 
-                            size = "large"
-                            icon = "user"
-                            src = { data ? data.getIn(['user', 'profile']) : null }
-                        />
-                    </div>
-                    <span className="name">
-                        { data ? data.getIn(['user', 'nickName']) : null }
-                    </span>
-                    <span className="updateDate">
-                        • { data ? data.getIn(['modifyTime']) : null }
-                    </span>
-                </div>
-                <div className={ `${this.prefixCls}-title` }>
-                    <span>
-                        { data ? data.getIn(['title']) : null }
-                    </span>
-                </div>
-                <div className={ `${this.prefixCls}-text` }>
-                    { data ? (
-                            <div 
-                                className={ `${this.prefixCls}-text` } 
-                                dangerouslySetInnerHTML={ {__html: data.getIn(['question'])} }
-                            />
-                        ) : null 
-                    }
-                </div>
+                <Question 
+                    data = { data }
+                />
                 <div className={ `${this.prefixCls}-operaters` }>
                     <QASOperators 
                         operators = { operatorOpts }

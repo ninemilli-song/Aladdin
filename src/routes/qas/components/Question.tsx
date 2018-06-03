@@ -21,7 +21,7 @@ export default class Question extends React.PureComponent<QuestionProps, any> {
         const question = data ? data.get('question') : '';
 
         return (
-            <div className={ `${this.prefixCls}-wrapper` }>
+            <div className={ `${this.prefixCls}` }>
                 <div className={ `${this.prefixCls}-user` }>
                     {
                         user ? (

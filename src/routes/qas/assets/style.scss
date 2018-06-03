@@ -39,6 +39,16 @@ $moduleName: qas;
         // @include normal-border();
         padding: 10px;
         cursor: pointer;
+    }
+
+    &-replay-dialog {
+        &-wrapper .qas-question {
+            padding: 10px 20px;
+        }
+    }
+
+    &-question {
+        
 
         &-user {
             height: 40px;

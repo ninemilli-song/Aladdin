@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { autobind } from 'core-decorators';
 import Question from './Question';
+import ISay from '../../../components/i-say/ISay';
 const Modal = require('antd/lib/modal/Modal');
 
 interface ReplyDialogProps {
@@ -16,7 +17,7 @@ interface ReplyDialogProps {
 @autobind
 export default class ReplyDialog extends React.Component<ReplyDialogProps, any> {
 
-    prefixCls = 'replay-dialog';
+    prefixCls = 'qas-replay-dialog';
 
     render() {
         const { visible, replyCallback, data } = this.props;
@@ -36,6 +37,12 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
                         <Question 
                             data = { data }
                         />
+                        <div className={ `${this.prefixCls}-doReply` }>
+                            <ISay
+                                placeholder = "谈谈您的看法吧！"
+                                title = "回答"
+                            />
+                        </div>
                     </div>
                 </Modal>
         )
