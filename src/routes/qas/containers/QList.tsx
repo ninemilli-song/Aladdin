@@ -39,6 +39,7 @@ interface QListProps {
                 pageSize: store.QAS.getIn(['uistate', 'pageSize']),
             },
             uistate: store.QAS.get('uistate'),
+            selectedQId: store.QAS.getIn(['selectedQId']),
         }
     },
     dispatch => {
@@ -143,11 +144,19 @@ export default class QList extends React.Component<any, any> {
      * 回答框
      */
     renderReplyDialog() {
-        const { uistate } = this.props;
+        const { uistate, data, selectedQId } = this.props;
         const visible = uistate ? uistate.getIn(['qReplyDialogOpts', 'visible']) : false;
+        const list = data ? data.getIn(['list']) : [];
+
+        const selectedQ = list.find((value, key) => {
+            if (value.get('id') === selectedQId) {
+                return true;
+            }
+        });
 
         return (
             <ReplyDialog 
+                data = { selectedQ }
                 visible = { visible }
                 onClose = { this.handleCloseReplyDialog }
             />

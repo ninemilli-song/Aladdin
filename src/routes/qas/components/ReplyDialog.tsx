@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
+import Question from './Question';
 const Modal = require('antd/lib/modal/Modal');
 
 interface ReplyDialogProps {
@@ -15,23 +16,26 @@ interface ReplyDialogProps {
 @autobind
 export default class ReplyDialog extends React.Component<ReplyDialogProps, any> {
 
-    prefixCls: 'replay-dialog'
+    prefixCls = 'replay-dialog';
 
     render() {
-        const { visible, replyCallback } = this.props;
+        const { visible, replyCallback, data } = this.props;
 
         return (
                 <Modal
                     wrapClassName = "qas"
-                    title = "回复"
                     visible={ visible }
                     onOk={ this.handleReplay }
                     onCancel={ this.handleCancel }
+                    title = { `回复` }
+                    closable = { false }
                     width = { 600 }
                     footer = { null }
                 >
                     <div className={ `${this.prefixCls}-wrapper` }>
-                        aaa
+                        <Question 
+                            data = { data }
+                        />
                     </div>
                 </Modal>
         )
