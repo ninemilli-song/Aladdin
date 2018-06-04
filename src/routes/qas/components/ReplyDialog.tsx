@@ -40,7 +40,9 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
                         <div className={ `${this.prefixCls}-doReply` }>
                             <ISay
                                 placeholder = "谈谈您的看法吧！"
-                                title = "回答"
+                                title = "回复"
+                                expand = { true }
+                                submitLabel = "回复"
                             />
                         </div>
                     </div>

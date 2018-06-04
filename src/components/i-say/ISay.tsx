@@ -16,6 +16,7 @@ interface ISayProps {
     title?: string;
     expand?: boolean;                           // 是否展开
     value?: string;                             // 内容
+    submitLabel?: string;                       // 提交按钮文本
 }
 
 @autobind
@@ -112,13 +113,15 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
     }
 
     private renderFooter() {
+        const { submitLabel } = this.props;
+
         return (
             <div className={`${this.prefixCls}-footer clearfix`}>
                 <Button 
                     className="submit-btn"
                     onClick={ this.onSubmit }
                 >
-                    发布
+                    { submitLabel || '发布' }
                 </Button>
             </div>
         )
