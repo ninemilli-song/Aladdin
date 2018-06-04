@@ -51,3 +51,24 @@ export const setQuestionConcern = (state, action) => {
 export const setReplyDialogVisible = (state, action) => {
     return state.updateIn(['uistate', 'qReplyDialogOpts', 'visible'], (data) => action.data);
 }
+
+/**
+ * 新增一个回复
+ * @param state 
+ * @param action 
+ */
+export const addReply = (state, action) => {
+    return state.updateIn(['data', 'QList', 'list'], list => {
+        const { data } = action;
+
+        return list.map(item => {
+            if (item.get('id') === data) {
+                return item.update('answerCount', (count) => {
+                    return count ? count + 1 : 1;
+                });
+            }
+
+            return item;
+        });
+    });
+}

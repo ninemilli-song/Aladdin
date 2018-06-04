@@ -10,7 +10,7 @@ import QDetailDialog from '../containers/QDetailDialog';
 import QItem, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
-import { getQuestionList, onPageChanged, onSelectedQ, setReplyDialogVisible } from '../actions/index';
+import { getQuestionList, onPageChanged, onSelectedQ, setReplyDialogVisible, addReply } from '../actions/index';
 import ReplyDialog from '../components/ReplyDialog';
 // import { toJS } from '../../../utils/hocs';
 
@@ -54,6 +54,9 @@ interface QListProps {
                     dispatch(onSelectedQ(null));                                          // 设置选中的提问 id
                     dispatch(setReplyDialogVisible(false));                               // 隐藏对话框
                 },
+                addReply: (questionId, answer) => {
+                    dispatch(addReply(questionId, answer));
+                }
             },
         }
     }
@@ -159,6 +162,7 @@ export default class QList extends React.Component<any, any> {
                 data = { selectedQ }
                 visible = { visible }
                 onClose = { this.handleCloseReplyDialog }
+                onReply = { this.handleReplySubmit }
             />
         )
     }
@@ -167,6 +171,17 @@ export default class QList extends React.Component<any, any> {
         const { action } = this.props;
 
         action.hideReplyDialog();
+    }
+
+    /**
+     * 回复问题
+     * @param questionId 问题 id
+     * @param answer 回复内容
+     */
+    private handleReplySubmit(questionId, answer) {
+        const { action } = this.props;
+
+        action.addReply(questionId, answer);
     }
 
     /**

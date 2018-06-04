@@ -70,8 +70,8 @@ export default class QItem extends React.Component<any, any> {
     prefixCls = 'q-item';
 
     render() {
-        console.log('<<<<<< QItem render >>>>>>');
         const { data } = this.props;
+        console.log('QItem render >>>>>> id is: ', data.get('id'));
 
         const hasCollected = data ? (data.getIn(['hasCollected'])) : true;
         // const hasCollected = true;

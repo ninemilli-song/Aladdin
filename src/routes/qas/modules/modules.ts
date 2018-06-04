@@ -3,7 +3,7 @@
  */
 
 import { createReducer } from '../../../utils/reducer-helper';
-import { setQuestionList, onPageChanged, setQuestionConcern, setReplyDialogVisible } from './qlist_reducer';
+import { setQuestionList, onPageChanged, setQuestionConcern, setReplyDialogVisible, addReply } from './qlist_reducer';
 import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
 import { 
     QAS_Q_DIALOG_TOGGLE, 
@@ -18,6 +18,7 @@ import {
     QAS_Q_QUICK_EXPAND,
     QAS_Q_CONCERN,
     QAS_Q_REPLY_DIALOG_VISIBLE,
+    QAS_Q_ANSWER_ADD,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -46,6 +47,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_QUICK_EXPAND]: setQuickQuestionExpand,
     [QAS_Q_CONCERN]: setQuestionConcern,
     [QAS_Q_REPLY_DIALOG_VISIBLE]: setReplyDialogVisible,
+    [QAS_Q_ANSWER_ADD]: addReply,
 }
 
 // 初始化模块数据

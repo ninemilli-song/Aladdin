@@ -16,6 +16,7 @@ export const QAS_Q_SUBMIT_QUESTION = 'QAS_Q_SUBMIT_QUESTION';                   
 export const QAS_Q_QUICK_EXPAND = 'QAS_Q_QUICK_EXPAND';                                     // 快速提问展开
 export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                               // 关注提问
 export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';                     // 回复对话框可见性
+export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
 
 // ---------------------------
 // Actions
@@ -273,6 +274,39 @@ const setReplyDialogVisible = (visible) => {
     }
 }
 
+/**
+ * 回复问题
+ * @param questionId 问题 id
+ * @param answer 回复问题内容
+ */
+const addReply = (questionId, answer) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
+        // return request.post('/qas/addAnswer', {
+        //     question: {
+        //         id: questionId
+        //     },
+        //     user: {
+        //         id: userId
+        //     },
+        //     answer,
+        //     isAnonymous: false,
+        // }).then((result) => {
+        //     dispatch({
+        //         type: QAS_Q_ANSWER_ADD,
+        //         data: questionId,
+        //     });
+        // })
+
+        dispatch({
+            type: QAS_Q_ANSWER_ADD,
+            data: questionId,
+        });
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -288,5 +322,6 @@ export {
     foldQuickQuestion,
     concernQuestion,
     unconcernQuestion,
-    setReplyDialogVisible
+    setReplyDialogVisible,
+    addReply
 }

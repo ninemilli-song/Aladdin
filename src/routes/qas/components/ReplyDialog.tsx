@@ -9,7 +9,7 @@ const Modal = require('antd/lib/modal/Modal');
 
 interface ReplyDialogProps {
     data?: any;                     // 问题数据
-    replyCallback?: Function;       // 回答回调
+    onReply?: Function;       // 回答回调
     visible?: boolean;              // 是否显示
     onClose?: Function;             // 关闭回调
 }
@@ -20,13 +20,12 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
     prefixCls = 'qas-replay-dialog';
 
     render() {
-        const { visible, replyCallback, data } = this.props;
+        const { visible, data } = this.props;
 
         return (
                 <Modal
                     wrapClassName = "qas"
                     visible={ visible }
-                    onOk={ this.handleReplay }
                     onCancel={ this.handleCancel }
                     title = { `回复` }
                     closable = { false }
@@ -43,6 +42,7 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
                                 title = "回复"
                                 expand = { true }
                                 submitLabel = "回复"
+                                onSubmit = { this.handleSubmit }
                             />
                         </div>
                     </div>
@@ -50,19 +50,23 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
         )
     }
 
-    private handleReplay() {
-        const { replyCallback } = this.props;
-
-        if (replyCallback) {
-            replyCallback();
-        }
-    }
-
     private handleCancel() {
         const { onClose } = this.props;
 
         if (onClose) {
             onClose();
+        }
+    }
+
+    /**
+     * 提交
+     */
+    private handleSubmit(value) {
+        const { onReply, data } = this.props;
+        const questionId = data.get('id');
+
+        if (onReply) {
+            onReply(questionId, value);
         }
     }
 }
