@@ -284,26 +284,28 @@ const addReply = (questionId, answer) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        // return request.post('/qas/addAnswer', {
-        //     question: {
-        //         id: questionId
-        //     },
-        //     user: {
-        //         id: userId
-        //     },
-        //     answer,
-        //     isAnonymous: false,
-        // }).then((result) => {
-        //     dispatch({
-        //         type: QAS_Q_ANSWER_ADD,
-        //         data: questionId,
-        //     });
-        // })
+        return request.post('/qas/replyQuestion', {
+            question: {
+                id: questionId
+            },
+            user: {
+                id: userId
+            },
+            answer,
+            isAnonymous: false,
+        }).then((result) => {
+            // 回答数 +1
+            dispatch({
+                type: QAS_Q_ANSWER_ADD,
+                data: questionId,
+            });
 
-        dispatch({
-            type: QAS_Q_ANSWER_ADD,
-            data: questionId,
-        });
+            // 关闭回复框
+            dispatch({
+                type: QAS_Q_REPLY_DIALOG_VISIBLE,
+                data: false,
+            }) 
+        })
     }
 }
 

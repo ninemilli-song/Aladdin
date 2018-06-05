@@ -55,10 +55,10 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     componentWillReceiveProps(nextProps) {
-        const { action, id } = this.props;
+        const { action, id, visible } = this.props;
         const newId = nextProps.id;
 
-        if (newId && id !== newId && newId !== -1) {
+        if (newId && id !== newId && newId !== -1 && visible) {
             action.getData(newId);
         }
     }

@@ -110,10 +110,34 @@ const unconcernQuestion = (params) => {
     });
 }
 
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const replyQuestion = (params) => {
+    return fetch.post('/answer/add', params).then((res) => {
+        console.log('👉🏻 ---> /answer/add\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /replyQuestion error:\n', error);
+        return ResponsePacker.error(error);
+    });
+}
+
 module.exports = {
     getQuestions,
     getQuestionDetail,
     addQuestion,
     concernQuestion,
-    unconcernQuestion
+    unconcernQuestion,
+    replyQuestion
 };
