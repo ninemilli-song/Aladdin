@@ -144,7 +144,7 @@
 // });
 
 const ResponsePacker = require('../lib/responsePacker');
-const fetch = require('../lib/fetch');
+// const fetch = require('../lib/fetch');
 const authPassport = require('../lib/auth-passport');
 
 /**
@@ -161,10 +161,10 @@ const findUserById = (userId) => {
             ...userInfo[0]
         }));
     }).catch((error) => {
-        winston.info('error', error);
+        // winston.info('error', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 module.exports = {
     findUserById,

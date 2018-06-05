@@ -4,10 +4,10 @@
  * Date: 16/12/2
  * Time: 下午2:24
  */
-const messageTpl = {
-    success: null,
-    error: null,
-};
+// const messageTpl = {
+//     success: null,
+//     error: null,
+// };
 
 const ResponsePacker = {
     // Pack success result.

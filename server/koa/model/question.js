@@ -25,7 +25,7 @@ const getQuestions = (params) => {
         console.error('👉🏻 ---> /question/recent error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 获取问题详情
@@ -48,7 +48,7 @@ const getQuestionDetail = (params) => {
         console.error('👉🏻 ---> /question/detail error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 提交问题
@@ -62,7 +62,7 @@ const addQuestion = (params) => {
         console.error('👉🏻 ---> /question/add error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 关注问题
@@ -85,7 +85,7 @@ const concernQuestion = (params) => {
         console.error('👉🏻 ---> /questionCollected/add error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 取消关注问题
@@ -108,7 +108,7 @@ const unconcernQuestion = (params) => {
         console.error('👉🏻 ---> /questionCollected/unconcern error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 回复问题
@@ -131,7 +131,7 @@ const replyQuestion = (params) => {
         console.error('👉🏻 ---> /replyQuestion error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 module.exports = {
     getQuestions,

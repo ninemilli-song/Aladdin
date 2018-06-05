@@ -82,7 +82,7 @@ const getGPByCodeYear = (params) => {
         console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 具体准则-通过准则代码和执行年份查询
@@ -105,14 +105,15 @@ const getSPByCodeYear = (params) => {
         console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 查询基本准则和具体准则
  * @param {accStandardCode: string, exeYear: string} params 
  */
 const getRuleByCodeYear = (params) => {
-    return Promise.all([getGPByCodeYear(params), getSPByCodeYear(params)]).then(([gpRes, spRes]) => {
+    return Promise.all([getGPByCodeYear(params), getSPByCodeYear(params)])
+    .then(([gpRes, spRes]) => {
         return ResponsePacker.success({
             gpRule: gpRes.success.data,
             spRule: spRes.success.data
@@ -120,7 +121,7 @@ const getRuleByCodeYear = (params) => {
     }).catch((error) => {
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 查询基本准则详情
@@ -143,7 +144,7 @@ const getSPRuleDetail = (params) => {
         console.error('👉🏻 ---> sp/detail error: \n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * Find role by typeId and yearId

@@ -6,7 +6,7 @@ const readFile = denodeify(fs.readFile);
 module.exports = {
 
     readUsers: () => {
-        return readFile('./server/koa/constant/users.json')                     // 目录路径相对于根目录 注：而不是当前文件
+        return readFile('./server/koa/constant/users.json')           // 目录路径相对于根目录 注：而不是当前文件
             .then(userFileData => {
                 return JSON.parse(userFileData);
             })

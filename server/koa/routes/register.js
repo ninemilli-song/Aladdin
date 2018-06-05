@@ -5,7 +5,7 @@ const router = require('koa-router')();
 const User = require('../model/user');
 const ResponsePacker = require('../lib/responsePacker');
 
-router.get('/', async (ctx, next) => {
+router.get('/', async (ctx) => {
     ctx.state = {
         title: 'register'
     };
@@ -14,7 +14,7 @@ router.get('/', async (ctx, next) => {
     await ctx.render('index', {});
 });
 
-router.post('/', async (ctx, next) => {
+router.post('/', async (ctx) => {
     const user = ctx.request.body.user;
 
     // check user name

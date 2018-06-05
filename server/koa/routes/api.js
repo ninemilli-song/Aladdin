@@ -5,10 +5,17 @@
  * Time: 下午3:00
  */
 const router = require('koa-router')();
-const { uploadRole, getGPByCodeYear, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
+const { uploadRole, getRules, getRuleByCodeYear, getSPRuleDetail } = require('../model/roles');
 const { getSubjectCategoryByCodeYear, getSubjectsDataByCodeYear } = require('../model/subject');
 const { getReportDataByCodeYear } = require('../model/report');
-const { getQuestions, getQuestionDetail, addQuestion, concernQuestion, unconcernQuestion, replyQuestion } = require('../model/question');
+const { 
+    getQuestions, 
+    getQuestionDetail, 
+    addQuestion, 
+    concernQuestion, 
+    unconcernQuestion, 
+    replyQuestion 
+} = require('../model/question');
 const { findUserById } = require('../model/user');
 
 router.get('/register', (ctx) => {
@@ -143,7 +150,7 @@ router.get('/getReportData', async (ctx) => {
 
 // 获取 用户信息
 router.get('/user/getUserInfo', async (ctx) => {
-    if (ctx.state.user) {                                       // koa-jwt 验证通过后会自动添加ctx.state.user对象
+    if (ctx.state.user) {                                  // koa-jwt 验证通过后会自动添加ctx.state.user对象
         // ctx.body = ctx.state.user;
         const userId = ctx.state.user.sub;
 
@@ -157,7 +164,5 @@ router.get('/user/getUserInfo', async (ctx) => {
         };
     }
 });
-
-
 
 module.exports = router;

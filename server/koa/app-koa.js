@@ -78,22 +78,21 @@ app.use(jwtKoa({
     cookie: jwtConstant.TOKEN_COOKIE_NAME,
     issuer: jwtConstant.ISSUER,
     // issuer: 'jwtConstant.ISSUER',
-    isRevoked: (ctx, decodedToken, token) => {
-        return new Promise((resolve, reject) => {
+    isRevoked: (ctx, decodedToken) => {
+        return new Promise((resolve) => {
             const userId = ctx.cookies.get('aladdin-adminId');
 
             if (
                 decodedToken.sub === userId
             ) {
                 resolve(false);
-            }
-            else {
+            } else {
                 resolve(true);
             }
-        })
+        });
     }
 }).unless({
-    path: [/^\/auth\/login/]                                                       // 数组中的路径不需要通过jwt验证
+    path: [/^\/auth\/login/]                              // 数组中的路径不需要通过jwt验证
 }));
 
 // 用户认证相关路由

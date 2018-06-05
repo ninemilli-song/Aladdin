@@ -65,6 +65,12 @@ $ npm run test:watch
 
         |-- app-koa.js      `node服务入口文件，配置各种路由、中间件`
 
+|-- tsconfig.json           `编译.ts .tsx文件，webpace ts-loader配置文件`
+
+|-- tslint.json             `ts代码规范检查，webpack tslint-loader配置文件`
+
+|-- .eslintrc               `本地代码检查配置文件`
+
 ## Documnets and Knowledges
 
 * [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)

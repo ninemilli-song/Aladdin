@@ -22,7 +22,7 @@ const getSubjectCategoryByCodeYear = (params) => {
         console.error('👉🏻 ---> /accElement/queryByCodeYear error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 /**
  * 根据准则和年份获取科目数据
@@ -45,7 +45,7 @@ const getSubjectsDataByCodeYear = (params) => {
         console.error('👉🏻 ---> /accElement/queryCoaUsagesByCodeYear error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 module.exports = {
     getSubjectCategoryByCodeYear,

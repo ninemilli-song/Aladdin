@@ -21,7 +21,7 @@ const getReportDataByCodeYear = (params) => {
         console.error('👉🏻 ---> /rp/queryByCodeYear error:\n', error);
         return ResponsePacker.error(error);
     });
-}
+};
 
 module.exports = {
     getReportDataByCodeYear
