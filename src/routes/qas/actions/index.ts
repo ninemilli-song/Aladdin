@@ -107,7 +107,7 @@ const getQDetailData = (id) => {
             data: true
         });
 
-        return request.get('api/qas/getQuestionDetail', { id }).then((result) => {
+        return request.get('api/qas/getQuestionDetail', { questionID: id }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
 

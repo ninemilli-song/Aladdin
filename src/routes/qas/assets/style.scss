@@ -47,6 +47,7 @@ $moduleName: qas;
         }
     }
 
+    // 问题组件
     &-question {
         &-user {
             height: 40px;
@@ -110,6 +111,10 @@ $moduleName: qas;
 
         &-wrapper {
             padding: #{$inner-block-padding}px 0;
+
+            .qas-question{
+                padding: 0 #{$inner-block-padding}px;
+            }
         }
 
         &-userInfo {

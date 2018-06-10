@@ -3,15 +3,11 @@ import QASOperators from '../../../components/qas-operators/QASOperators';
 import ISay from '../../../components/i-say/ISay';
 import AnswerList from '../containers/AnswerList';
 import { formateNumberCount } from '../../../utils/utils';
+import Question from './Question';
 const Avatar = require('antd/lib/avatar');
 
 interface QDetailProps {
-    answerCount?: number;                   // 回答次数
-    collectedCount?: number;                // 关注次数
-    userProfile?: string;                   // 用户头像
-    userName?: string;                      // 用户名
-    content?: string;                       // 问题内容
-    updateTime?: string;                    // 更新时间
+    data: any;                              // 数据
     answerHandler?: Function;               // 回答提问
     concernHandler?: Function;              // 回答提问
     inviteHandler?: Function;               // 邀请
@@ -39,17 +35,17 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
      * @param props 
      */
     initOperatorOpts(props: QDetailProps) {
-        const { answerCount, collectedCount, answerHandler, concernHandler, inviteHandler, shareHandler } = props;
+        const { data, answerHandler, concernHandler, inviteHandler, shareHandler } = props;
 
         this.operatorOpts = [
             {
                 iconName: 'icon-xiaoxi',
-                label: `回答(${ formateNumberCount(answerCount || 0) })`,
-                callback: answerCount
+                label: `回答(${ formateNumberCount(data ? data.getIn(['answerCount']) : 0) })`,
+                callback: answerHandler
             },
             {
                 iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(collectedCount || 0) })`,
+                label: `关注(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
                 callback: concernHandler
             },
             {
@@ -66,32 +62,13 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
     }
 
     render() {
-        const { userName, userProfile, content, updateTime } = this.props;
+        const { data } = this.props;
 
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
-                <div className={ `${this.prefixCls}-userInfo` }>
-                    <div className="profile">
-                        <Avatar 
-                            size = "large"
-                            icon = "user"
-                            src = { userProfile || null }
-                        />
-                    </div>
-                    <span className="name">
-                        { userName || null }
-                    </span>
-                </div>
-                <div className={ `${this.prefixCls}-content` }>
-                    {
-                        content || null
-                    }
-                </div>
-                <div className={ `${this.prefixCls}-updateDate` }>
-                    {
-                        updateTime || null
-                    }
-                </div>
+                <Question 
+                    data = { data }
+                />
                 <div className={ `${this.prefixCls}-operators` }>
                     <QASOperators 
                         operators = { this.operatorOpts }

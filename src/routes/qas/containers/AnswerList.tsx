@@ -36,12 +36,7 @@ export default class AnswerList extends React.Component<any, any> {
                         return (
                             <AnswerItem 
                                 key = { `${this.prefixCls}-${item.getIn(['id'])}-${index}` }
-                                id = { item.getIn(['id']) }
-                                user = { item.getIn(['user'])}
-                                content = { item.getIn(['content'])}
-                                isAnonymous = { item.getIn(['isAnonymous'])}
-                                approveCount = { item.getIn(['approveCount']) }
-                                disapproveCount = { item.getIn(['disapproveCount'])}
+                                data = { item }
                             />
                         )
                     }) : null

@@ -55,10 +55,10 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     componentWillReceiveProps(nextProps) {
-        const { action, id, visible } = this.props;
+        const { action, id } = this.props;
         const newId = nextProps.id;
 
-        if (newId && id !== newId && newId !== -1 && visible) {
+        if (newId && newId !== id && newId !== -1 && nextProps.visible) {
             action.getData(newId);
         }
     }
@@ -84,12 +84,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                             </div>
                         ) : (
                             <QDetail 
-                                answerCount = { data ? data.getIn(['answerCount']) : 0 }
-                                collectedCount = { data ? data.getIn(['collectedCount']) : 0 }
-                                userName = { data ? data.getIn(['user', 'name']) : '' }
-                                userProfile = { data ? data.getIn(['user', 'profile']) : '' }
-                                content = { data ? data.getIn(['content']) : '' }
-                                updateTime = { data ? data.getIn(['updateTime']) : '' }
+                                data = { data }
                                 answerHandler = { this.showAnswer }
                                 concernHandler = { this.doConcern }
                                 inviteHandler = { this.showInvite }

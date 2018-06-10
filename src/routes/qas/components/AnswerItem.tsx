@@ -9,12 +9,7 @@ const Avatar = require('antd/lib/avatar');
 const { Map } = require('immutable');
 
 export interface AnswerItemProps {
-    id: number;                         // id
-    user: UserInfo                           // 用户信息
-    content: string;                    // 内容详情
-    isAnonymous: boolean;               // 是否匿名
-    approveCount: number;               // 赞同数
-    disapproveCount: number;            // 不赞同数
+    data: any;                          // 数据
 }
 
 export default class AnswerItem extends React.Component<AnswerItemProps, any> {
@@ -22,17 +17,17 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
     prefixCls = 'answer-item';
 
     render() {
-        const { id, user, content, isAnonymous, approveCount, disapproveCount } = this.props;
+        const { data } = this.props;
 
         const operatorOpts = [
             {
                 iconName: 'icon-dianzan',
-                label: `赞成(${ formateNumberCount(approveCount || 0) })`,
+                label: `赞成(${ formateNumberCount(data ? data.get('approveCount') : 0) })`,
                 // callback: this.showAnswer
             },
             {
                 iconName: 'icon-tucao',
-                label: `反对(${ formateNumberCount(disapproveCount || 0) })`,
+                label: `反对(${ formateNumberCount(data ? data.get('disapproveCount') : 0) })`,
                 // callback: this.doConcern
             },
             {
@@ -54,19 +49,19 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
                         <Avatar 
                             size = "large"
                             icon = "user"
-                            src = { user.profile }
+                            src = { data ? data.getIn(['user', 'profile']) : null }
                         />
                     </div>
                 </div>
                 <div className={ `${this.prefixCls}-content` }>
                     <div className={ `${this.prefixCls}-content-top` }>
                         <span className="name">
-                            { user.name }
+                            { data ? data.getIn(['user', 'name']) : '' }
                         </span>
                     </div>
                     <div className={ `${this.prefixCls}-content-body` }>
                         {
-                            content
+                            data ? data.get('answer') : ''
                         }
                     </div>
                     <div className={ `${this.prefixCls}-content-footer` }>
