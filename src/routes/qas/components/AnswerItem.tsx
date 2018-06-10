@@ -56,7 +56,10 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
                 <div className={ `${this.prefixCls}-content` }>
                     <div className={ `${this.prefixCls}-content-top` }>
                         <span className="name">
-                            { data ? data.getIn(['user', 'name']) : '' }
+                            { data ? data.getIn(['user', 'nickName']) : '' }
+                        </span>
+                        <span className="updateDate">
+                            • { data ? data.get('createTime') : '' }
                         </span>
                     </div>
                     <div className={ `${this.prefixCls}-content-body` }>

@@ -182,6 +182,19 @@ $moduleName: qas;
         &-content {
             display: inline-block;
             margin-left: 60px; 
+
+            &-top {
+                .name, .updateDate {
+                    display: inline-block;
+                    height: 32px;
+                    line-height: 32px;
+                    margin-right: 6px;
+                }
+    
+                .updateDate {
+                    color: $thirdFontColor;
+                }
+            }
         }
     }
 
