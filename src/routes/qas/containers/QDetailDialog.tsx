@@ -6,7 +6,13 @@ import { autobind } from 'core-decorators';
 const Modal = require('antd/lib/modal/Modal');
 const Spin = require('antd/lib/spin');
 import { connect } from 'react-redux';
-import { setDetailDialogVisible, getQDetailData, clearQDetailData, onSelectedQ } from '../actions/index';
+import { 
+    setDetailDialogVisible, 
+    getQDetailData, 
+    clearQDetailData, 
+    onSelectedQ, 
+    replyQuestionExpand 
+} from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import QDetail from '../components/QDetail';
 
@@ -19,6 +25,7 @@ interface QDetailDialogProps {
     visible?: boolean;                   // 是否可见
     loading?: boolean;                   // 是否正在加载
     data?: any;                          // 详情数据
+    replyQuestionExpand?: boolean;       // 回答问题框是否展开
 }
 
 @connect(
@@ -26,6 +33,7 @@ interface QDetailDialogProps {
         return {
             visible: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'visible']),
             loading: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'loading']),
+            replyQuestionExpand: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'replyQuestionExpand']),
             id: store.QAS.getIn(['selectedQId']),
             data: store.QAS.getIn(['qDetailData'])
         }
@@ -40,7 +48,13 @@ interface QDetailDialogProps {
                 },
                 getData: (id) => {
                     dispatch(getQDetailData(id));
-                }
+                },
+                replyQuestionOnFocus: () => {
+                    dispatch(replyQuestionExpand(true));
+                },
+                replyQuestionOnBlur: () => {
+                    dispatch(replyQuestionExpand(false));
+                },
             },
         }
     }
@@ -64,7 +78,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     render() {
-        const { visible, id, data, loading } = this.props;
+        const { visible, id, data, loading, replyQuestionExpand } = this.props;
 
         return (
             <Modal
@@ -85,6 +99,9 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                         ) : (
                             <QDetail 
                                 data = { data }
+                                sayExpand = { replyQuestionExpand }
+                                sayOnFocus = { this.replyQuestionOnFocus }
+                                sayOnBlur = { this.replyQuestionOnBlur }
                                 answerHandler = { this.showAnswer }
                                 concernHandler = { this.doConcern }
                                 inviteHandler = { this.showInvite }
@@ -137,6 +154,21 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
 
     private showShare() {
 
+    }
+
+    /**
+     * 回答问题对话框获取焦点
+     */
+    private replyQuestionOnFocus () {
+        const { action } = this.props;
+
+        action.replyQuestionOnFocus();
+    }
+
+    private replyQuestionOnBlur () {
+        const { action } = this.props;
+
+        action.replyQuestionOnBlur();
     }
 }
 

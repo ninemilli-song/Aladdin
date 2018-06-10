@@ -8,6 +8,9 @@ const Avatar = require('antd/lib/avatar');
 
 interface QDetailProps {
     data: any;                              // 数据
+    sayExpand?: boolean;                    // 回答框是否展开
+    sayOnFocus?: () => void;                // 回答框获取焦点
+    sayOnBlur?: () => void;                 // 回答框获取焦点
     answerHandler?: Function;               // 回答提问
     concernHandler?: Function;              // 回答提问
     inviteHandler?: Function;               // 邀请
@@ -62,7 +65,7 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
     }
 
     render() {
-        const { data } = this.props;
+        const { data, sayExpand, sayOnFocus, sayOnBlur } = this.props;
 
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
@@ -78,6 +81,9 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
                     <ISay
                         placeholder = "谈谈您的看法吧！"
                         title = "回答"
+                        expand = { sayExpand }
+                        onFocus = { sayOnFocus }
+                        onBlur = { sayOnBlur }
                     />
                 </div>
                 <div className={ `${this.prefixCls}-replyList` }>

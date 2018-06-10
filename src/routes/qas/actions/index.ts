@@ -17,6 +17,7 @@ export const QAS_Q_QUICK_EXPAND = 'QAS_Q_QUICK_EXPAND';                         
 export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                               // 关注提问
 export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';                     // 回复对话框可见性
 export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
+export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
 
 // ---------------------------
 // Actions
@@ -309,6 +310,17 @@ const addReply = (questionId, answer) => {
     }
 }
 
+/**
+ * 回答问题框焦点处理
+ * @param expand 是否展开
+ */
+const replyQuestionExpand = (expand: boolean) => {
+    return {
+        type: QAS_Q_DETAIL_REPLY_EXPAND,
+        data: expand,
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -325,5 +337,6 @@ export {
     concernQuestion,
     unconcernQuestion,
     setReplyDialogVisible,
-    addReply
+    addReply,
+    replyQuestionExpand
 }

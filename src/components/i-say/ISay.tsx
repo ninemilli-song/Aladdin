@@ -12,6 +12,7 @@ interface ISayProps {
     className?: string;
     onSubmit?: (data) => void;
     onFocus?: () => void;                       // 聚集时
+    onBlur?: () => void;                        // 失焦后
     placeholder?: string;
     title?: string;
     expand?: boolean;                           // 是否展开
@@ -136,7 +137,11 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
     }
 
     private textAreaOnBlur() {
+        const { onBlur } = this.props;
 
+        if (onBlur) {
+            onBlur();
+        }
     }
 
     private getTextareaRef(textarea) {

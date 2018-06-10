@@ -27,3 +27,8 @@ export const fetchDetailData = (state, action) => {
 export const clearDetailData = (state, action) => {
     return state.updateIn(['qDetailData'], data => null);
 }
+
+// 设置问题回复框的展开状态
+export const setQuestionReplyExpand = (state, action) => {
+    return state.updateIn(['uistate', 'qDetailDialogOpts', 'replyQuestionExpand'], () => action.data);
+}
