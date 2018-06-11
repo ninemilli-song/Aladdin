@@ -12,7 +12,7 @@ interface ISayProps {
     className?: string;
     onSubmit?: (data) => void;
     onFocus?: () => void;                       // 聚集时
-    onBlur?: () => void;                        // 失焦后
+    // onBlur?: () => void;                        // 失焦后
     placeholder?: string;
     title?: string;
     expand?: boolean;                           // 是否展开
@@ -59,6 +59,15 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
         })
     }
 
+    componentDidUpdate() {
+        const { expand } = this.props;
+
+        // 展开后聚集于输入框
+        if (expand) {
+            this.textarea.focus();
+        }
+    }
+
     render() {
         const { className, placeholder, title, expand } = this.props;
         const { value } = this.state;
@@ -88,6 +97,7 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
                         onChange = { this.handleChange }
                         onPressEnter = { this.handlePressEnter }
                         onKeyUp = { this.handleKeyUp }
+                        onClick = { (evt) => evt.stopPropagation() }
                     />
                 </div>
                 {
@@ -128,7 +138,8 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
         )
     }
 
-    private textAreaOnFocus() {
+    private textAreaOnFocus(evt) {
+        evt.stopPropagation();
         const { onFocus } = this.props;
         
         if (onFocus) {
@@ -136,12 +147,12 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
         }
     }
 
-    private textAreaOnBlur() {
-        const { onBlur } = this.props;
+    private textAreaOnBlur(evt) {
+        // const { onBlur } = this.props;
 
-        if (onBlur) {
-            onBlur();
-        }
+        // if (onBlur) {
+        //     onBlur();
+        // }
     }
 
     private getTextareaRef(textarea) {
@@ -153,6 +164,8 @@ export default class ISay extends React.PureComponent<ISayProps, any> {
      * @param evt 
      */
     private onSubmit(evt) {
+        evt.stopPropagation();
+
         const { onSubmit } = this.props;
         const data = this.textarea.textAreaRef.value;
 

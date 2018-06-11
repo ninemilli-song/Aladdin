@@ -127,6 +127,24 @@ const getQDetailData = (id) => {
 }
 
 /**
+ * 刷新详情数据
+ */
+const refreshQDetailData = (id) => {
+    return (dispatch, getState) => {
+        return request.get('api/qas/getQuestionDetail', { questionID: id }).then((result) => {
+            if (result.success) {
+                const data = result.success.data;
+
+                dispatch({
+                    type: QAS_Q_DETAIL_DATA_FETCH,
+                    data: data
+                });
+            }
+        });
+    }
+}
+
+/**
  * 详情框中显示loading
  */
 const showDetailDialogLoading = () => {
@@ -338,5 +356,6 @@ export {
     unconcernQuestion,
     setReplyDialogVisible,
     addReply,
-    replyQuestionExpand
+    replyQuestionExpand,
+    refreshQDetailData
 }

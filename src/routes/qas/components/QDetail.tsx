@@ -11,6 +11,7 @@ interface QDetailProps {
     sayExpand?: boolean;                    // 回答框是否展开
     sayOnFocus?: () => void;                // 回答框获取焦点
     sayOnBlur?: () => void;                 // 回答框获取焦点
+    onReplyQuestion?: (val: string) => void;           // 回应问题
     answerHandler?: Function;               // 回答提问
     concernHandler?: Function;              // 回答提问
     inviteHandler?: Function;               // 邀请
@@ -44,31 +45,31 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
             {
                 iconName: 'icon-xiaoxi',
                 label: `回答(${ formateNumberCount(data ? data.getIn(['answerCount']) : 0) })`,
-                callback: answerHandler
+                onClick: answerHandler
             },
             {
                 iconName: 'icon-shoucang',
                 label: `关注(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
-                callback: concernHandler
+                onClick: concernHandler
             },
             {
                 iconName: 'icon-chengyuan-tianjia',
                 label: `邀请`,
-                callback: inviteHandler
+                onClick: inviteHandler
             },
             {
                 iconName: 'icon-zhuanfa',
                 label: `分享`,
-                callback: shareHandler
+                onClick: shareHandler
             },
         ];
     }
 
     render() {
-        const { data, sayExpand, sayOnFocus, sayOnBlur } = this.props;
+        const { data, sayExpand, sayOnFocus, sayOnBlur, onReplyQuestion } = this.props;
 
         return (
-            <div className={ `${this.prefixCls}-wrapper` }>
+            <div className={ `${this.prefixCls}-wrapper` } onClick = { sayOnBlur } >
                 <Question 
                     data = { data }
                 />
@@ -83,7 +84,8 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
                         title = "回答"
                         expand = { sayExpand }
                         onFocus = { sayOnFocus }
-                        onBlur = { sayOnBlur }
+                        // onBlur = { sayOnBlur }
+                        onSubmit = { onReplyQuestion }
                     />
                 </div>
                 <div className={ `${this.prefixCls}-replyList` }>

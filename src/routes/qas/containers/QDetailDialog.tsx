@@ -11,7 +11,9 @@ import {
     getQDetailData, 
     clearQDetailData, 
     onSelectedQ, 
-    replyQuestionExpand 
+    replyQuestionExpand, 
+    addReply,
+    refreshQDetailData
 } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import QDetail from '../components/QDetail';
@@ -42,7 +44,10 @@ interface QDetailDialogProps {
         return {
             action: {
                 hide: () => {
+                    // 重置ui状态
                     dispatch(setDetailDialogVisible(false));
+                    dispatch(replyQuestionExpand(false));
+                    // 重置数据状态
                     dispatch(clearQDetailData());
                     dispatch(onSelectedQ(-1));
                 },
@@ -55,6 +60,12 @@ interface QDetailDialogProps {
                 replyQuestionOnBlur: () => {
                     dispatch(replyQuestionExpand(false));
                 },
+                onReplyQuestion: async (questionId, answer) => {                          // 回应问题
+                    await dispatch(addReply(questionId, answer));
+
+                    // 更新数据
+                    dispatch(refreshQDetailData(questionId));
+                }
             },
         }
     }
@@ -106,6 +117,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                                 concernHandler = { this.doConcern }
                                 inviteHandler = { this.showInvite }
                                 shareHandler = { this.showShare }
+                                onReplyQuestion = { this.onReplyQuestion }
                             />
                         )
                     }
@@ -140,8 +152,11 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
         }
     }
 
-    private showAnswer() {
-        
+    private showAnswer(evt) {
+        evt.stopPropagation();
+
+        // 展开回应问题对话框
+        this.replyQuestionOnFocus();
     }
 
     private doConcern() {
@@ -168,6 +183,20 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     private replyQuestionOnBlur () {
         const { action } = this.props;
 
+        action.replyQuestionOnBlur();
+    }
+
+    /**
+     * 回应问题
+     */
+    private onReplyQuestion (value) {
+        const { data, action } = this.props;
+        const questionId = data.get('id');
+
+        // 回复问题
+        action.onReplyQuestion(questionId, value);
+
+        // 收起回应问题框
         action.replyQuestionOnBlur();
     }
 }
