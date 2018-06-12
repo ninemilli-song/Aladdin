@@ -37,8 +37,9 @@ function get(path, params?) {
         const { status } = response;
         if ( status === 200 ) {
             return response.json();
-        } else if ( status === 401 ) {                                          // 用户认证失败
-            browserHistory.push('/signin');
+        } else if ( status === 401 ) {                  // 用户认证失败
+            // browserHistory.push('/signin');
+            window.open('/signin', '_self');
             return response.json();
         } else {
             throw response;
@@ -69,7 +70,8 @@ function post(path, data) {
         if ( status === 200 ) {
             return response.json();
         } else if ( status === 401 ) {                    // 用户认证失败
-            browserHistory.push('/signin');
+            // browserHistory.push('/signin');
+            window.open('/signin', '_self');
             return response.json();
         } else {
             throw response;
