@@ -82,9 +82,7 @@ app.use(jwtKoa({
         return new Promise((resolve) => {
             const userId = ctx.cookies.get('aladdin-adminId');
 
-            if (
-                decodedToken.sub === userId
-            ) {
+            if (decodedToken.sub === userId) {
                 resolve(false);
             } else {
                 resolve(true);

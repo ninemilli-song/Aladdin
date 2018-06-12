@@ -24,12 +24,13 @@ router.get('/login', (ctx) => {
         authPassport.authenticateUser(user.name, user.password, users)
             .then((userInfo) => {
                 const payload = {
-                    userId: userInfo.data.id
+                    userId: userInfo.data.id,
+                    exp: Math.floor(Date.now() / 1000) + (60 * 60),
                 };
 
                 // token签名
                 const token = jwt.sign(payload, secret, { 
-                    expiresIn: jwtConstant.EXPIRT_TIME,                             // 有效时间
+                    // expiresIn: jwtConstant.EXPIRT_TIME,                             // 有效时间
                     subject: userInfo.data.id,                                      // 该JWT所面向的用户
                     issuer: jwtConstant.ISSUER,                                     // 该JWT的签发者
                 });

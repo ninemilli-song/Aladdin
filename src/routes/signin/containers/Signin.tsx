@@ -72,7 +72,8 @@ export default class Signin extends React.Component<SigninProps, any> {
         const isAuthenticated = getCookie('aladdin-is-authenticated');
         // if (this.props.isAuthenticated) {
         if (isAuthenticated) {
-            browserHistory.goBack();
+            // browserHistory.goBack();
+            browserHistory.push('/');
         }
     }
 
@@ -83,10 +84,12 @@ export default class Signin extends React.Component<SigninProps, any> {
             const { location } = nextProps;
             const { query } = location;
 
+            console.log('aaa goback');
             if (query.from) {
                 browserHistory.replace(query.from);
             } else {
-                browserHistory.goBack();
+                // browserHistory.goBack();
+                browserHistory.push('/');
             }
         }
     }
