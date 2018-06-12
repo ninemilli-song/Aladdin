@@ -137,7 +137,10 @@ const getQDetailData = (id) => {
  */
 const refreshQDetailData = (id) => {
     return (dispatch, getState) => {
-        return request.get('api/qas/getQuestionDetail', { questionID: id }).then((result) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
+        return request.get('api/qas/getQuestionDetail', { questionId: id, userId }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
 
