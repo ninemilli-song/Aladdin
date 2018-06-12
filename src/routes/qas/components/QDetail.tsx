@@ -4,20 +4,22 @@ import ISay from '../../../components/i-say/ISay';
 import AnswerList from '../containers/AnswerList';
 import { formateNumberCount } from '../../../utils/utils';
 import Question from './Question';
+import { autobind } from 'core-decorators';
 const Avatar = require('antd/lib/avatar');
 
 interface QDetailProps {
-    data: any;                              // 数据
-    sayExpand?: boolean;                    // 回答框是否展开
-    sayOnFocus?: () => void;                // 回答框获取焦点
-    sayOnBlur?: () => void;                 // 回答框获取焦点
-    onReplyQuestion?: (val: string) => void;           // 回应问题
-    answerHandler?: Function;               // 回答提问
-    concernHandler?: Function;              // 回答提问
-    inviteHandler?: Function;               // 邀请
-    shareHandler?: Function;                // 分享
+    data: any;                                                          // 数据
+    sayExpand?: boolean;                                                // 回答框是否展开
+    sayOnFocus?: () => void;                                            // 回答框获取焦点
+    sayOnBlur?: () => void;                                             // 回答框获取焦点
+    onReplyQuestion?: (val: string) => void;                            // 回应问题
+    answerHandler?: Function;                                           // 回答提问
+    concernHandler?: (concern: boolean) => void;                        // 关注提问
+    inviteHandler?: Function;                                           // 邀请
+    shareHandler?: Function;                                            // 分享
 }
 
+@autobind
 export default class QDetail extends React.PureComponent<QDetailProps, any> {
 
     prefixCls = 'q-detail';
@@ -39,7 +41,9 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
      * @param props 
      */
     initOperatorOpts(props: QDetailProps) {
-        const { data, answerHandler, concernHandler, inviteHandler, shareHandler } = props;
+        const { data, answerHandler, inviteHandler, shareHandler } = props;
+
+        const hasCollected = data ? (data.getIn(['hasCollected'])) : true;
 
         this.operatorOpts = [
             {
@@ -48,9 +52,12 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
                 onClick: answerHandler
             },
             {
-                iconName: 'icon-shoucang',
-                label: `关注(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
-                onClick: concernHandler
+                iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
+                className: hasCollected ? 'selected' : 'unselected',
+                label: `${ hasCollected ? 
+                    '取消关注' : '关注'
+                }(${ formateNumberCount(data ? data.getIn(['collectedCount']) : 0) })`,
+                onClick: hasCollected ? this.cancelConcern : this.doConcern
             },
             {
                 iconName: 'icon-chengyuan-tianjia',
@@ -93,5 +100,27 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
                 </div>
             </div>
         )
+    }
+
+    /**
+     * 关注
+     */
+    private doConcern() {
+        const { concernHandler } = this.props;
+
+        if (concernHandler) {
+            concernHandler(true);
+        }
+    }
+
+    /**
+     * 取消关注
+     */
+    private cancelConcern() {
+        const { concernHandler } = this.props;
+
+        if (concernHandler) {
+            concernHandler(false);
+        }
     }
 }

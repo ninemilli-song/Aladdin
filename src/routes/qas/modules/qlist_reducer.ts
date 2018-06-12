@@ -25,10 +25,11 @@ export const onPageChanged = (state, action) => {
  * @param action 
  */
 export const setQuestionConcern = (state, action) => {
-    return state.updateIn(['data', 'QList', 'list'], list => {
-        const { data } = action;
-        const { id, hasCollected } = data;
+    const { data } = action;
+    const { id, hasCollected } = data;
 
+    // 1. 更新问题列表中的 关注状态 和 关注数量
+    const newState = state.updateIn(['data', 'QList', 'list'], list => {
         return list.map(item => {
             if (id === item.get('id')) {
                 return item.set('hasCollected', hasCollected).update('collectedCount', (count) => {
@@ -42,7 +43,22 @@ export const setQuestionConcern = (state, action) => {
 
             return item;
         });
-    })
+    });
+
+    // 2. 更新问题详情数据中的 关注状态 和 关注数量
+    if (newState.get('qDetailData')) {
+        return newState.updateIn(['qDetailData', 'hasCollected'], () => hasCollected)
+            .updateIn(['qDetailData', 'collectedCount'], (count) => {
+                if (hasCollected) {
+                    return count + 1;
+                } else {
+                    return count - 1;
+                }
+            }
+        );
+    }
+
+    return newState;
 }
 
 /**

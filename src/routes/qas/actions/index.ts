@@ -29,7 +29,10 @@ export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';           
  */
 const getQuestionList = (page = 1, size = 10) => {
     return (dispatch, getState) => {
-        return request.get('api/qas/getQuestions', { page,  size }).then((result) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
+        return request.get('api/qas/getQuestions', { page,  size, userId }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
 
@@ -103,12 +106,15 @@ const onSelectedQ = (id) => {
  */
 const getQDetailData = (id) => {
     return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
         dispatch({
             type: QAS_Q_DETAIL_LOADING_SHOW,
             data: true
         });
 
-        return request.get('api/qas/getQuestionDetail', { questionID: id }).then((result) => {
+        return request.get('api/qas/getQuestionDetail', { questionId: id, userId }).then((result) => {
             if (result.success) {
                 const data = result.success.data;
 

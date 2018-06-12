@@ -13,7 +13,9 @@ import {
     onSelectedQ, 
     replyQuestionExpand, 
     addReply,
-    refreshQDetailData
+    refreshQDetailData,
+    concernQuestion,
+    unconcernQuestion
 } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import QDetail from '../components/QDetail';
@@ -65,6 +67,12 @@ interface QDetailDialogProps {
 
                     // 更新数据
                     dispatch(refreshQDetailData(questionId));
+                },
+                doConcern: (id) => {                                                    // 关注问题
+                    dispatch(concernQuestion(id));
+                },
+                cancelConcern: (id) => {                                                // 取消关注
+                    dispatch(unconcernQuestion(id));
                 }
             },
         }
@@ -114,7 +122,7 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
                                 sayOnFocus = { this.replyQuestionOnFocus }
                                 sayOnBlur = { this.replyQuestionOnBlur }
                                 answerHandler = { this.showAnswer }
-                                concernHandler = { this.doConcern }
+                                concernHandler = { this.concernHandler }
                                 inviteHandler = { this.showInvite }
                                 shareHandler = { this.showShare }
                                 onReplyQuestion = { this.onReplyQuestion }
@@ -153,14 +161,22 @@ export default class QDetailDialog extends React.Component<QDetailDialogProps, a
     }
 
     private showAnswer(evt) {
+        // 阻止事件冒泡传递 避免回应框收起
         evt.stopPropagation();
 
         // 展开回应问题对话框
         this.replyQuestionOnFocus();
     }
 
-    private doConcern() {
-
+    private concernHandler(concern) {
+        const { data, action } = this.props;
+        const id = data.get('id');
+        
+        if (concern) {                 // 关注问题
+            action.doConcern(id);
+        } else {                        // 取消关注
+            action.cancelConcern(id);
+        }
     }
 
     private showInvite() {
