@@ -18,6 +18,7 @@ export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                   
 export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';                     // 回复对话框可见性
 export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
+export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
 
 // ---------------------------
 // Actions
@@ -375,6 +376,42 @@ const approveAnswer = (id: number, approve: boolean) => {
     }
 }
 
+/**
+ * 收藏 回应
+ * @param id 
+ */
+const collectAnswer = (id: number, hasCollected: boolean) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
+        // return request.post('/qas/collectAnswer', {
+        //     answer: {
+        //         id
+        //     },
+        //     user: {
+        //         id: userId
+        //     },
+        // }).then((result) => {
+        //     dispatch({
+        //         type: QAS_Q_ANSWER_COLLECTED,
+        //         data: {
+        //             id: id,
+        //             hasCollected: false
+        //         },
+        //     });
+        // })
+
+        dispatch({
+            type: QAS_Q_ANSWER_COLLECTED,
+            data: {
+                id: id,
+                hasCollected
+            },
+        });
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -394,5 +431,6 @@ export {
     addReply,
     replyQuestionExpand,
     refreshQDetailData,
-    approveAnswer
+    approveAnswer,
+    collectAnswer
 }

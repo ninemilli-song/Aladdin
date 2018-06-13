@@ -5,20 +5,25 @@ import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
 import QASOperators from '../../../components/qas-operators/QASOperators';
 import { formateNumberCount } from '../../../utils/utils';
+import { autobind } from 'core-decorators';
 const Avatar = require('antd/lib/avatar');
 const { Map } = require('immutable');
 
 export interface AnswerItemProps {
     data: any;                                              // 数据
     doApprove: (id: number, approve: boolean) => void;                  // 赞成
+    onCollected: (id: number) => void;                                  // 收藏 回应
+    onUnCollected: (id: number) => void;                                // 取消收藏 回应
 }
 
+@autobind
 export default class AnswerItem extends React.Component<AnswerItemProps, any> {
 
     prefixCls = 'answer-item';
 
     render() {
         const { data, doApprove } = this.props;
+        const hasCollected = data.get('hasCollected');
 
         const operatorOpts = [
             {
@@ -37,9 +42,10 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
                 // callback: this.showInvite
             },
             {
-                iconName: 'icon-xihuan',
-                label: `收藏`,
-                // callback: this.showShare
+                iconName: hasCollected ? 'icon-xihuan-tianchong' : 'icon-xihuan',
+                label: hasCollected ? `取消收藏` : `收藏`,
+                className: hasCollected ? 'selected' : 'unselected',
+                onClick: hasCollected ? this.cancelCollectHandler : this.collectHandler
             },
         ];
 
@@ -101,6 +107,28 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
 
         if (doApprove) {
             doApprove(id, false);
+        }
+    }
+
+    /**
+     * 收藏 回应
+     * @param e 
+     */
+    private collectHandler(e) {
+        const { data, onCollected } = this.props;
+        const id = data.get('id');
+
+        if (onCollected) {
+            onCollected(id);
+        }
+    }
+
+    private cancelCollectHandler(e) {
+        const { data, onUnCollected } = this.props;
+        const id = data.get('id');
+
+        if (onUnCollected) {
+            onUnCollected(id);
         }
     }
 }

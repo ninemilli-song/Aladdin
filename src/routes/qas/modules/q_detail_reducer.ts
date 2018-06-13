@@ -32,3 +32,19 @@ export const clearDetailData = (state, action) => {
 export const setQuestionReplyExpand = (state, action) => {
     return state.updateIn(['uistate', 'qDetailDialogOpts', 'replyQuestionExpand'], () => action.data);
 }
+
+// 设置回复的收藏状态
+export const setAnswerCollected = (state, action) => {
+    const { data } = action;
+    const { id, hasCollected } = data;
+
+    return state.updateIn(['qDetailData', 'answers'], answers => {
+        return answers.map((answer) => {
+            if (answer.get('id') === id) {
+                return answer.set('hasCollected', hasCollected);
+            }
+
+            return answer;
+        });
+    })
+}

@@ -2,10 +2,11 @@
  * The Container fo AnswerList Component
  */
 import { connect } from 'react-redux';
-import { approveAnswer } from '../actions/index';
+import { approveAnswer, collectAnswer } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
+import { autobind } from 'core-decorators';
 
 /**
  * 回答列表组件
@@ -26,11 +27,15 @@ interface AnswerListProps {
             actions: {
                 approveAnswer: (id, approve) => {
                     dispatch(approveAnswer(id, approve));
+                },
+                collectAnswer: (id, hasCollected) => {
+                    dispatch(collectAnswer(id, hasCollected));
                 }
             }
         }
     }
 )
+@autobind
 export default class AnswerList extends React.Component<any, any> {
 
     prefixCls = 'answer-list';
@@ -47,6 +52,8 @@ export default class AnswerList extends React.Component<any, any> {
                                 key = { `${this.prefixCls}-${item.getIn(['id'])}-${index}` }
                                 data = { item }
                                 doApprove = { this.approveHandler }
+                                onCollected = { this.collectHandler }
+                                onUnCollected = { this.unCollectHandler }
                             />
                         )
                     }) : null
@@ -62,6 +69,26 @@ export default class AnswerList extends React.Component<any, any> {
         const { actions } = this.props;
 
         actions.approveAnswer(id, approve);
+    }
+
+    /**
+     * 收藏 回应
+     * @param id 
+     */
+    private collectHandler(id) {
+        const { actions } = this.props;
+
+        actions.collectAnswer(id, true);
+    }
+
+    /**
+     * 取消收藏 回应
+     * @param id 
+     */
+    private unCollectHandler(id) {
+        const { actions } = this.props;
+
+        actions.collectAnswer(id, false);
     }
 }
 
