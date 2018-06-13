@@ -348,6 +348,33 @@ const replyQuestionExpand = (expand: boolean) => {
     }
 }
 
+/**
+ * 赞成 或 反对问题
+ * @param id 
+ * @param approve 
+ */
+const approveAnswer = (id: number, approve: boolean) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+
+        // return request.post('/qas/replyQuestion', {
+        //     question: {
+        //         id
+        //     },
+        //     user: {
+        //         id: userId
+        //     },
+        // }).then((result) => {
+        //     // 回答数 +1
+        //     dispatch({
+        //         type: QAS_Q_ANSWER_ADD,
+        //         data: questionId,
+        //     });
+        // })
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -366,5 +393,6 @@ export {
     setReplyDialogVisible,
     addReply,
     replyQuestionExpand,
-    refreshQDetailData
+    refreshQDetailData,
+    approveAnswer
 }

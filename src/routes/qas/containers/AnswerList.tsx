@@ -2,7 +2,7 @@
  * The Container fo AnswerList Component
  */
 import { connect } from 'react-redux';
-import {  } from '../actions/index';
+import { approveAnswer } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
@@ -19,6 +19,15 @@ interface AnswerListProps {
     store => {
         return {
             data: store.QAS.getIn(['qDetailData', 'answers']),
+        }
+    },
+    dispatch => {
+        return {
+            actions: {
+                approveAnswer: (id, approve) => {
+                    dispatch(approveAnswer(id, approve));
+                }
+            }
         }
     }
 )
@@ -37,12 +46,22 @@ export default class AnswerList extends React.Component<any, any> {
                             <AnswerItem 
                                 key = { `${this.prefixCls}-${item.getIn(['id'])}-${index}` }
                                 data = { item }
+                                doApprove = { this.approveHandler }
                             />
                         )
                     }) : null
                 }
             </div>
         )
+    }
+
+    /**
+     * 赞成 与 反对
+     */
+    private approveHandler(id, approve) {
+        const { actions } = this.props;
+
+        actions.approveAnswer(id, approve);
     }
 }
 

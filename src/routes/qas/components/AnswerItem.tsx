@@ -9,7 +9,8 @@ const Avatar = require('antd/lib/avatar');
 const { Map } = require('immutable');
 
 export interface AnswerItemProps {
-    data: any;                          // 数据
+    data: any;                                              // 数据
+    doApprove: (id: number, approve: boolean) => void;                  // 赞成
 }
 
 export default class AnswerItem extends React.Component<AnswerItemProps, any> {
@@ -17,18 +18,18 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
     prefixCls = 'answer-item';
 
     render() {
-        const { data } = this.props;
+        const { data, doApprove } = this.props;
 
         const operatorOpts = [
             {
                 iconName: 'icon-dianzan',
                 label: `赞成(${ formateNumberCount(data ? data.get('approveCount') : 0) })`,
-                // callback: this.showAnswer
+                onClick: this.approveHandler
             },
             {
                 iconName: 'icon-tucao',
                 label: `反对(${ formateNumberCount(data ? data.get('disapproveCount') : 0) })`,
-                // callback: this.doConcern
+                onClick: this.disApproveHandler
             },
             {
                 iconName: 'icon-faqiliaotian',
@@ -75,5 +76,31 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
                 </div>
             </div>
         )
+    }
+
+    /**
+     * 赞成
+     * @param e 
+     */
+    private approveHandler(e) {
+        const { doApprove, data } = this.props;
+        const id = data.get('id');
+
+        if (doApprove) {
+            doApprove(id, true);
+        }
+    }
+
+    /**
+     * 不赞成
+     * @param e 
+     */
+    private disApproveHandler(e) {
+        const { doApprove, data } = this.props;
+        const id = data.get('id');
+
+        if (doApprove) {
+            doApprove(id, false);
+        }
     }
 }
