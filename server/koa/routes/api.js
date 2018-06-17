@@ -16,7 +16,9 @@ const {
     unconcernQuestion, 
     replyQuestion,
     collectAnswer,
-    uncollectAnswer
+    uncollectAnswer,
+    approveAnswer,
+    disapproveAnswer
 } = require('../model/question');
 const { findUserById } = require('../model/user');
 
@@ -128,6 +130,20 @@ router.post('/qas/uncollectAnswer', async (ctx) => {
     ctx.body = result;
 });
 
+// 赞回答
+router.post('/qas/approveAnswer', async (ctx) => {
+    const result = await approveAnswer(ctx.request.body);
+
+    ctx.body = result;
+});
+
+// 反对回答
+router.post('/qas/disapproveAnswer', async (ctx) => {
+    const result = await disapproveAnswer(ctx.request.body);
+
+    ctx.body = result;
+});
+
 // 获取会计科目分类
 router.get('/getSubjectCategory', async (ctx) => {
     const { type, year } = ctx.request.query;
@@ -168,6 +184,7 @@ router.get('/getReportData', async (ctx) => {
 router.get('/user/getUserInfo', async (ctx) => {
     if (ctx.state.user) {                                  // koa-jwt 验证通过后会自动添加ctx.state.user对象
         // ctx.body = ctx.state.user;
+        console.log('user/getUserInfo', ctx.state);
         const userId = ctx.state.user.sub;
 
         const result = await findUserById(userId);

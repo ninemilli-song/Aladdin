@@ -24,15 +24,19 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
     render() {
         const { data, doApprove } = this.props;
         const hasCollected = data.get('hasCollected');
+        const hasApproved = data.get('hasApproved');
+        const hasDisapproved = data.get('hasDisapproved');
 
         const operatorOpts = [
             {
-                iconName: 'icon-dianzan',
+                iconName: hasApproved ? 'icon-dianzan-tianchong' : 'icon-dianzan',
+                className: hasApproved ? 'selected' : 'unselected',
                 label: `赞成(${ formateNumberCount(data ? data.get('approveCount') : 0) })`,
                 onClick: this.approveHandler
             },
             {
-                iconName: 'icon-tucao',
+                iconName: hasDisapproved ? 'icon-tucao-tianchong' : 'icon-tucao',
+                className: hasDisapproved ? 'selected' : 'unselected',
                 label: `反对(${ formateNumberCount(data ? data.get('disapproveCount') : 0) })`,
                 onClick: this.disApproveHandler
             },

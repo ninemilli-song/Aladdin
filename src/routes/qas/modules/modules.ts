@@ -21,6 +21,7 @@ import {
     QAS_Q_ANSWER_ADD,
     QAS_Q_DETAIL_REPLY_EXPAND,
     QAS_Q_ANSWER_COLLECTED,
+    QAS_Q_ANSWER_APPROVE,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -29,7 +30,8 @@ import {
     clearDetailData, 
     detailDialogLoading, 
     setQuestionReplyExpand,
-    setAnswerCollected
+    setAnswerCollected,
+    setAnswerApprove
 } from './q_detail_reducer';
 import { setQuickQuestionExpand } from './ui';
 const { fromJS } = require('immutable');
@@ -54,6 +56,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_ANSWER_ADD]: addReply,
     [QAS_Q_DETAIL_REPLY_EXPAND]: setQuestionReplyExpand,
     [QAS_Q_ANSWER_COLLECTED]: setAnswerCollected,
+    [QAS_Q_ANSWER_APPROVE]: setAnswerApprove,
 }
 
 // 初始化模块数据

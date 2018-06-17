@@ -48,3 +48,37 @@ export const setAnswerCollected = (state, action) => {
         });
     })
 }
+
+// 设置回复的收藏状态
+export const setAnswerApprove = (state, action) => {
+    const { data } = action;
+    const { id, hasApproved } = data;
+
+    return state.updateIn(['qDetailData', 'answers'], answers => {
+        return answers.map((answer) => {
+            if (answer.get('id') === id) {
+                const alreadyApproved = answer.get('hasApproved');
+                const alreadyDisapproved = answer.get('hasDisapproved');
+
+                return answer.set('hasApproved', hasApproved)
+                    .set('hasDisapproved', !hasApproved)
+                    .update('approveCount', (count) => {
+                        if (hasApproved && !alreadyApproved) {
+                            return count + 1;
+                        } else {
+                            return count ? count - 1 : 0;
+                        }
+                    })
+                    .update('disapproveCount', (count) => {
+                        if (hasApproved) {
+                            return count ? count - 1 : 0;
+                        } else if (!alreadyDisapproved) {
+                            return count + 1;
+                        }
+                    });
+            }
+
+            return answer;
+        });
+    })
+}

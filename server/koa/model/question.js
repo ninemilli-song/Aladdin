@@ -179,6 +179,52 @@ const uncollectAnswer = (params) => {
     });
 };
 
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const approveAnswer = (params) => {
+    return fetch.post('answer/approve', params).then((res) => {
+        console.log('👉🏻 ---> /answer/approve\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /answer/approve error:\n', error);
+        return ResponsePacker.error(error);
+    });
+};
+
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const disapproveAnswer = (params) => {
+    return fetch.post('answer/disapprove', params).then((res) => {
+        console.log('👉🏻 ---> /answer/disapprove\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /answer/disapprove error:\n', error);
+        return ResponsePacker.error(error);
+    });
+};
+
 module.exports = {
     getQuestions,
     getQuestionDetail,
@@ -187,5 +233,7 @@ module.exports = {
     unconcernQuestion,
     replyQuestion,
     collectAnswer,
-    uncollectAnswer
+    uncollectAnswer,
+    approveAnswer,
+    disapproveAnswer
 };

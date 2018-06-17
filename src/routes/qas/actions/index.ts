@@ -19,6 +19,7 @@ export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';         
 export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
 export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
+export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                             // 回复赞成或反对
 
 // ---------------------------
 // Actions
@@ -354,25 +355,28 @@ const replyQuestionExpand = (expand: boolean) => {
  * @param id 
  * @param approve 
  */
-const approveAnswer = (id: number, approve: boolean) => {
+const approveAnswer = (id: number, hasApproved: boolean) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
+        const url = hasApproved ? '/qas/approveAnswer' : '/qas/disapproveAnswer';
 
-        // return request.post('/qas/replyQuestion', {
-        //     question: {
-        //         id
-        //     },
-        //     user: {
-        //         id: userId
-        //     },
-        // }).then((result) => {
-        //     // 回答数 +1
-        //     dispatch({
-        //         type: QAS_Q_ANSWER_ADD,
-        //         data: questionId,
-        //     });
-        // })
+        return request.post(url, {
+            answer: {
+                id
+            },
+            user: {
+                id: userId
+            },
+        }).then((result) => {
+            dispatch({
+                type: QAS_Q_ANSWER_APPROVE,
+                data: {
+                    id,
+                    hasApproved
+                }
+            })
+        })
     }
 }
 
