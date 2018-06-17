@@ -133,11 +133,59 @@ const replyQuestion = (params) => {
     });
 };
 
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const collectAnswer = (params) => {
+    return fetch.post('/answerCollected/add', params).then((res) => {
+        console.log('👉🏻 ---> /answerCollected/add\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /answerCollected/add error:\n', error);
+        return ResponsePacker.error(error);
+    });
+};
+
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const uncollectAnswer = (params) => {
+    return fetch.post('/answerCollected/unconcern', params).then((res) => {
+        console.log('👉🏻 ---> /answerCollected/unconcern\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /answerCollected/unconcern error:\n', error);
+        return ResponsePacker.error(error);
+    });
+};
+
 module.exports = {
     getQuestions,
     getQuestionDetail,
     addQuestion,
     concernQuestion,
     unconcernQuestion,
-    replyQuestion
+    replyQuestion,
+    collectAnswer,
+    uncollectAnswer
 };

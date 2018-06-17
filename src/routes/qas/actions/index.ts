@@ -385,30 +385,32 @@ const collectAnswer = (id: number, hasCollected: boolean) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        // return request.post('/qas/collectAnswer', {
-        //     answer: {
-        //         id
-        //     },
-        //     user: {
-        //         id: userId
-        //     },
-        // }).then((result) => {
-        //     dispatch({
-        //         type: QAS_Q_ANSWER_COLLECTED,
-        //         data: {
-        //             id: id,
-        //             hasCollected: false
-        //         },
-        //     });
-        // })
+        const url = hasCollected ? '/qas/collectAnswer' : '/qas/uncollectAnswer';
 
-        dispatch({
-            type: QAS_Q_ANSWER_COLLECTED,
-            data: {
-                id: id,
-                hasCollected
+        return request.post(url, {
+            answer: {
+                id
             },
-        });
+            user: {
+                id: userId
+            },
+        }).then((result) => {
+            dispatch({
+                type: QAS_Q_ANSWER_COLLECTED,
+                data: {
+                    id: id,
+                    hasCollected
+                },
+            });
+        })
+
+        // dispatch({
+        //     type: QAS_Q_ANSWER_COLLECTED,
+        //     data: {
+        //         id: id,
+        //         hasCollected
+        //     },
+        // });
     }
 }
 

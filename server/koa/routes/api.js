@@ -14,7 +14,9 @@ const {
     addQuestion, 
     concernQuestion, 
     unconcernQuestion, 
-    replyQuestion 
+    replyQuestion,
+    collectAnswer,
+    uncollectAnswer
 } = require('../model/question');
 const { findUserById } = require('../model/user');
 
@@ -108,6 +110,20 @@ router.post('/qas/unconcernQuestion', async (ctx) => {
 // 回复问题
 router.post('/qas/replyQuestion', async (ctx) => {
     const result = await replyQuestion(ctx.request.body);
+
+    ctx.body = result;
+});
+
+// 收藏回答
+router.post('/qas/collectAnswer', async (ctx) => {
+    const result = await collectAnswer(ctx.request.body);
+
+    ctx.body = result;
+});
+
+// 取消收藏回答
+router.post('/qas/uncollectAnswer', async (ctx) => {
+    const result = await uncollectAnswer(ctx.request.body);
 
     ctx.body = result;
 });
