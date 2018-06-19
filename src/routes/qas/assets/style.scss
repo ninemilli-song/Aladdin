@@ -201,4 +201,39 @@ $moduleName: qas;
     .ant-modal {
         min-height: 200px;
     }
+
+    &-my-panel {
+        &-aggregate {
+            background-color: $blockNormalBG;
+            
+            &-item {
+                a {
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+                    line-height: 40px;
+                    padding: 0 #{$block-space}px;
+                    color: $thirdFontColor;
+                }
+
+                &-icon {
+                    font-size: #{$font-lg}px;
+                }
+
+                &-text {
+                    flex: 1;
+                    text-align: left;
+                    margin: 0 #{$block-space-mini}px;
+                }
+
+                &-num {
+                    padding: 6px 10px;
+                    border-radius: 2px;
+                    background: #f6f6f6;
+                    color: #8590a6;
+                    line-height: #{$font-xs}px;
+                }
+            }
+        }
+    }
 }

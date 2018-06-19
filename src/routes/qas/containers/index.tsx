@@ -16,6 +16,7 @@ import {
     expandQuickQuestion 
 } from '../actions/index';
 import MainSider from '../../../components/page-frame/MainSider';
+import MyPanel from './MyPanel';
 
 @connect(
     store => ({
@@ -70,6 +71,7 @@ export default class QAS extends React.Component<any, any> {
                     />
                     <MainSider
                         main = { this.renderMainContent() }
+                        sider = { this.renderSiderContent() }
                     />
                     <AskQuestionDialog />
                     <BackTop />
@@ -92,6 +94,17 @@ export default class QAS extends React.Component<any, any> {
                 </div>
                 <QList />
             </div> 
+        )
+    }
+
+    /**
+     * 渲染边栏内容
+     */
+    renderSiderContent() {
+        return (
+            <div className={ `${this.prefixCls}-sider-body` }>
+                <MyPanel />
+            </div>
         )
     }
 

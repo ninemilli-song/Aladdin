@@ -14,13 +14,14 @@ const Checkbox = require('antd/lib/checkbox/Checkbox');
 const message = require('antd/lib/message');
 import * as storage from '../../../utils/storage';
 import '../assets/style.scss';
-import { getUserInfo } from '../../../actions/user';
+import { getUserInfo, logout } from '../../../actions/user';
 import { getCookie } from '../../../utils/cookie';
 
 interface SigninProps {
     userName?: string;
     isAuthenticated?: boolean;
     signin?: Function;
+    logout?: Function;
     form?: any;
     context?: any;
 }
@@ -39,6 +40,9 @@ interface SigninProps {
             },
             getUserInfo: () => {
                 dispatch(getUserInfo());
+            },
+            logout: () => {
+                dispatch(logout());
             }
         }
     )
@@ -72,8 +76,10 @@ export default class Signin extends React.Component<SigninProps, any> {
         const isAuthenticated = getCookie('aladdin-is-authenticated');
         // if (this.props.isAuthenticated) {
         if (isAuthenticated) {
-            // browserHistory.goBack();
-            browserHistory.push('/');
+            browserHistory.goBack();
+            // browserHistory.push('/');
+        } else {
+            this.props.logout();
         }
     }
 
@@ -88,8 +94,8 @@ export default class Signin extends React.Component<SigninProps, any> {
             if (query.from) {
                 browserHistory.replace(query.from);
             } else {
-                // browserHistory.goBack();
-                browserHistory.push('/');
+                browserHistory.goBack();
+                // browserHistory.push('/');
             }
         }
     }

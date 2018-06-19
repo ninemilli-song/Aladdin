@@ -78,6 +78,7 @@ const initialState = fromJS({
     answerApproved: [],                             // 赞成的回答 id
     answerDisApproved: [],                          // 反对的回答 id
     answerCollections: [],                          // 收藏的回答 id
+    myAggregate: {},                                // 我的相关合计数据
 });
 
 // --------------------------------------
