@@ -20,8 +20,11 @@ export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';         
 export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
 export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
-export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                             // 回复赞成或反对
+export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                                 // 回复赞成或反对
 export const QAS_Q_USER_AGGREGATE_DATA = 'QAS_Q_USER_AGGREGATE_DATA';                       // 用户统计数据
+export const QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION = 'QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION';     // 用户统计数据 我关注的问题
+export const QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER = 'QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER';         // 用户统计数据 我的收藏
+export const QAS_Q_USER_AGGREGATE_MY_QUESTION = 'QAS_Q_USER_AGGREGATE_MY_QUESTION';         // 用户统计数据 我提出的问题
 
 // ---------------------------
 // Actions
@@ -199,6 +202,13 @@ const submitQuestion = (question) => {
             if (result.meta.success) {
                 // 刷新问题列表
                 dispatch(getQuestionList());
+
+                dispatch({
+                    type: QAS_Q_USER_AGGREGATE_MY_QUESTION,
+                    data: {
+                        increase: true
+                    }
+                })
             }
         });
     }
@@ -248,6 +258,13 @@ const concernQuestion = (questionId) => {
                         hasCollected: true
                     }
                 });
+
+                dispatch({
+                    type: QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION,
+                    data: {
+                        increase: true
+                    }
+                });
             }
         });
     }
@@ -282,6 +299,13 @@ const unconcernQuestion = (questionId) => {
                 data: {
                     id: questionId,
                     hasCollected: false
+                }
+            });
+
+            dispatch({
+                type: QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION,
+                data: {
+                    increase: false
                 }
             });
         })
@@ -408,6 +432,13 @@ const collectAnswer = (id: number, hasCollected: boolean) => {
                     hasCollected
                 },
             });
+
+            dispatch({
+                type: QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER,
+                data: {
+                    increase: hasCollected
+                }
+            })
         })
 
         // dispatch({

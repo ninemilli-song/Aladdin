@@ -97,3 +97,54 @@ export const addReply = (state, action) => {
 export const setUserAggregateData = (state, action) => {
     return state.set('myAggregate', action.data);
 }
+
+/**
+ * 更新 我关注的问题
+ * @param state 
+ * @param action 
+ */
+export const setUserAggregateCollectionQuestion = (state, action) => {
+    return state.updateIn(['myAggregate', 'myCollectedQuestion'], (count) => {
+        const { increase } = action.data;
+
+        if (!count) {
+            return increase ? 1 : 0;
+        } else {
+            return increase ? count + 1 : count - 1;
+        }
+    });
+}
+
+/**
+ * 更新 我的收藏
+ * @param state 
+ * @param action 
+ */
+export const setUserAggregateCollectionAnswer = (state, action) => {
+    return state.updateIn(['myAggregate', 'myCollectedAnswer'], (count) => {
+        const { increase } = action.data;
+
+        if (!count) {
+            return increase ? 1 : 0;
+        } else {
+            return increase ? count + 1 : count - 1;
+        }
+    });
+}
+
+/**
+ * 更新 我提出的问题
+ * @param state 
+ * @param action 
+ */
+export const setUserAggregateMyQuestion = (state, action) => {
+    return state.updateIn(['myAggregate', 'myQuestion'], (count) => {
+        const { increase } = action.data;
+
+        if (!count) {
+            return increase ? 1 : 0;
+        } else {
+            return increase ? count + 1 : count - 1;
+        }
+    });
+}
