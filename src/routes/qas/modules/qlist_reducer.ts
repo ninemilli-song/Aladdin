@@ -88,3 +88,12 @@ export const addReply = (state, action) => {
         });
     });
 }
+
+/**
+ * 用户汇总数据
+ * @param state 
+ * @param action 
+ */
+export const setUserAggregateData = (state, action) => {
+    return state.set('myAggregate', action.data);
+}

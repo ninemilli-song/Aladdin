@@ -3,7 +3,14 @@
  */
 
 import { createReducer } from '../../../utils/reducer-helper';
-import { setQuestionList, onPageChanged, setQuestionConcern, setReplyDialogVisible, addReply } from './qlist_reducer';
+import { 
+    setQuestionList, 
+    onPageChanged, 
+    setQuestionConcern, 
+    setReplyDialogVisible, 
+    addReply, 
+    setUserAggregateData 
+} from './qlist_reducer';
 import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
 import { 
     QAS_Q_DIALOG_TOGGLE, 
@@ -22,6 +29,7 @@ import {
     QAS_Q_DETAIL_REPLY_EXPAND,
     QAS_Q_ANSWER_COLLECTED,
     QAS_Q_ANSWER_APPROVE,
+    QAS_Q_USER_AGGREGATE_DATA,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -57,6 +65,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_DETAIL_REPLY_EXPAND]: setQuestionReplyExpand,
     [QAS_Q_ANSWER_COLLECTED]: setAnswerCollected,
     [QAS_Q_ANSWER_APPROVE]: setAnswerApprove,
+    [QAS_Q_USER_AGGREGATE_DATA]: setUserAggregateData,
 }
 
 // 初始化模块数据

@@ -18,7 +18,8 @@ const {
     collectAnswer,
     uncollectAnswer,
     approveAnswer,
-    disapproveAnswer
+    disapproveAnswer,
+    userAggregateData
 } = require('../model/question');
 const { findUserById } = require('../model/user');
 
@@ -140,6 +141,13 @@ router.post('/qas/approveAnswer', async (ctx) => {
 // 反对回答
 router.post('/qas/disapproveAnswer', async (ctx) => {
     const result = await disapproveAnswer(ctx.request.body);
+
+    ctx.body = result;
+});
+
+// 获取用户相关的问题汇总数据
+router.get('/qas/userAggregateData', async (ctx) => {
+    const result = await userAggregateData(ctx.request.query);
 
     ctx.body = result;
 });

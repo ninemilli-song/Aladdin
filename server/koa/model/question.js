@@ -225,6 +225,29 @@ const disapproveAnswer = (params) => {
     });
 };
 
+/**
+ * 回复问题
+ * @param {*} params 
+ */
+const userAggregateData = (params) => {
+    return fetch.get('question/profile', params).then((res) => {
+        console.log('👉🏻 ---> /question/profile\n', res);
+        const { data, meta } = res;
+
+        let result = null;
+        if (meta.success) {
+            result = ResponsePacker.success(data);
+        } else {
+            throw new Error('remote server result error!');
+        }
+
+        return result;
+    }).catch((error) => {
+        console.error('👉🏻 ---> /question/profileerror:\n', error);
+        return ResponsePacker.error(error);
+    });
+};
+
 module.exports = {
     getQuestions,
     getQuestionDetail,
@@ -235,5 +258,6 @@ module.exports = {
     collectAnswer,
     uncollectAnswer,
     approveAnswer,
-    disapproveAnswer
+    disapproveAnswer,
+    userAggregateData
 };

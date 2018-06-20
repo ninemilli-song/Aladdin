@@ -1,4 +1,5 @@
 import request from '../../../utils/fetch';
+import { fromJS } from 'immutable';
 
 // ------------------------------------
 // Constants
@@ -20,6 +21,7 @@ export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                             
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
 export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
 export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                             // 回复赞成或反对
+export const QAS_Q_USER_AGGREGATE_DATA = 'QAS_Q_USER_AGGREGATE_DATA';                       // 用户统计数据
 
 // ---------------------------
 // Actions
@@ -418,6 +420,22 @@ const collectAnswer = (id: number, hasCollected: boolean) => {
     }
 }
 
+const getMyAggregateData = () => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id; 
+
+        return request.get('/api/qas/userAggregateData', {
+            userId
+        }).then((result) => {
+            dispatch({
+                type: QAS_Q_USER_AGGREGATE_DATA,
+                data: fromJS(result.success.data)
+            })
+        })
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -438,5 +456,6 @@ export {
     replyQuestionExpand,
     refreshQDetailData,
     approveAnswer,
-    collectAnswer
+    collectAnswer,
+    getMyAggregateData
 }

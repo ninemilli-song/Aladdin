@@ -204,6 +204,7 @@ $moduleName: qas;
 
     &-my-panel {
         &-aggregate {
+            padding: #{$block-space-mini}px 0;
             background-color: $blockNormalBG;
             
             &-item {
@@ -214,6 +215,10 @@ $moduleName: qas;
                     line-height: 40px;
                     padding: 0 #{$block-space}px;
                     color: $thirdFontColor;
+
+                    &:hover {
+                        background-color: $secondaryNavBG;
+                    }
                 }
 
                 &-icon {
