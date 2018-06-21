@@ -29,7 +29,9 @@ app.use(convert(bodyparser));
 app.use(convert(json));
 app.use(convert(logger));
 
-app.use(require('koa-static')(`${__dirname}/public`));
+// koa static server for product environment
+app.use(require('koa-static')('../dist'));
+
 //
 app.use(views(`${__dirname}/views`, {
     extension: 'jade'
