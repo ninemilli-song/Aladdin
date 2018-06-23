@@ -9,11 +9,9 @@ const json = require('koa-json')();
 const bodyparser = require('koa-bodyparser')();
 // const koabody = require('koa-body')();
 const logger = require('koa-logger')();
-const index = require('./routes/index');
+const routers = require('./routes/index');
 // const users = require('./routes/users');
 // const register = require('./routes/register');
-const api = require('./routes/api');
-const auth = require('./routes/auth');
 
 const jwtKoa = require('koa-jwt');
 // const util = require('util');
@@ -95,15 +93,8 @@ app.use(jwtKoa({
     path: [/^\/auth\/login/]                              // 数组中的路径不需要通过jwt验证
 }));
 
-// 用户认证相关路由
-router.use('/auth', auth.routes(), auth.allowedMethods());
-
-router.use('/api', api.routes(), api.allowedMethods());
-router.use('*', index.routes(), index.allowedMethods());
-
 // register router
-app.use(router.routes(), router.allowedMethods());
-// response
+app.use(routers.routes(), router.allowedMethods());
 
 app.on('error', (err, ctx) => {
     const context = ctx;

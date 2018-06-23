@@ -1,6 +1,14 @@
 const router = require('koa-router')();
+const api = require('./api');
+const auth = require('./auth');
 
-router.get('/', async (ctx) => {
+// 用户认证相关路由
+router.use('/auth', auth.routes(), auth.allowedMethods());
+
+// Rest api
+router.use('/api', api.routes(), api.allowedMethods());
+
+router.use('*', async (ctx) => {
     ctx.state = {
         title: 'koa2 title'
     };
