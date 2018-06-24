@@ -7,8 +7,16 @@ const config = require('../webpack.config');
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true,
-    historyApiFallback: true,
     proxy: proxy(),
+    historyApiFallback: { 
+        index: '/',                         // Overwrite index path
+        rewrites: [
+            {
+                from: /\/signin/,           // Match the signin path to the signin.html page
+                to: '/signin.html'
+            }
+        ]
+    },
 }).listen(3001, function cb(err) {
     if (err) {
         throw err;
