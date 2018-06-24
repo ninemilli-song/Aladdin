@@ -33,7 +33,7 @@ ReactDOM.render(
     <Provider store={ store }>
         <Router history={ history }>
         { routes }
-        { signinRoute(store) }
+        {/* { signinRoute(store) } */}
         </Router>
     </Provider>,
     document.getElementById('root')

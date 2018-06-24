@@ -198,7 +198,7 @@ const submitQuestion = (question) => {
         });
 
         // 发送请求
-        return request.post('/qas/addQuestion', param).then((result) => {
+        return request.post('api/qas/addQuestion', param).then((result) => {
             if (result.meta.success) {
                 // 刷新问题列表
                 dispatch(getQuestionList());
@@ -242,7 +242,7 @@ const concernQuestion = (questionId) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('/qas/concernQuestion', {
+        return request.post('api/qas/concernQuestion', {
             question: {
                 id: questionId
             },
@@ -286,7 +286,7 @@ const unconcernQuestion = (questionId) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('/qas/unconcernQuestion', {
+        return request.post('api/qas/unconcernQuestion', {
             question: {
                 id: questionId
             },
@@ -340,7 +340,7 @@ const addReply = (questionId, answer) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('/qas/replyQuestion', {
+        return request.post('api/qas/replyQuestion', {
             question: {
                 id: questionId
             },
@@ -385,7 +385,7 @@ const approveAnswer = (id: number, hasApproved: boolean) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
-        const url = hasApproved ? '/qas/approveAnswer' : '/qas/disapproveAnswer';
+        const url = hasApproved ? 'api/qas/approveAnswer' : 'api/qas/disapproveAnswer';
 
         return request.post(url, {
             answer: {
@@ -415,7 +415,7 @@ const collectAnswer = (id: number, hasCollected: boolean) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        const url = hasCollected ? '/qas/collectAnswer' : '/qas/uncollectAnswer';
+        const url = hasCollected ? 'api/qas/collectAnswer' : 'api/qas/uncollectAnswer';
 
         return request.post(url, {
             answer: {
@@ -456,7 +456,7 @@ const getMyAggregateData = () => {
         const state = getState();
         const userId = state.userInfo.id; 
 
-        return request.get('/api/qas/userAggregateData', {
+        return request.get('api/qas/userAggregateData', {
             userId
         }).then((result) => {
             dispatch({

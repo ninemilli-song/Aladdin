@@ -4,7 +4,7 @@
 import 'whatwg-fetch';
 import { browserHistory } from 'react-router';
 
-export const BASE_URL = '/api';
+export const BASE_URL = `http://${location.host}/`;
 
 /**
  * Get request
@@ -27,7 +27,7 @@ function get(path, params?) {
     }
 
     // Send request
-    return fetch(url, {
+    return fetch(BASE_URL + url, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -37,9 +37,10 @@ function get(path, params?) {
         const { status } = response;
         if ( status === 200 ) {
             return response.json();
-        } else if ( status === 401 ) {                  // 用户认证失败
-            browserHistory.push('/signin');
-            // window.open('/signin', '_self');
+        } else if ( status === 401 ) {                  // 用户认证失败 跳转登陆页面
+            const callbackPath = location.pathname;
+            window.open(`/signin${callbackPath}`, '_self');
+
             return response.json();
         } else {
             throw response;
@@ -56,7 +57,7 @@ function get(path, params?) {
  * @param data 
  */
 function post(path, data) {
-    return fetch(BASE_URL + path, {
+    return fetch(`${BASE_URL}${path}`, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -70,8 +71,9 @@ function post(path, data) {
         if ( status === 200 ) {
             return response.json();
         } else if ( status === 401 ) {                    // 用户认证失败
-            browserHistory.push('/signin');
-            // window.open('/signin', '_self');
+            const callbackPath = location.pathname;
+            window.open(`/signin${callbackPath}`, '_self');
+
             return response.json();
         } else {
             throw response;

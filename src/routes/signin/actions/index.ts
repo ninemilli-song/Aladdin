@@ -1,4 +1,5 @@
 import request from '../../../utils/fetch';
+import { browserHistory } from 'react-router';
 
 // ------------------------------------
 // Constants
@@ -22,6 +23,9 @@ const signin = (name, password) => {
                 type: USER_SIGNIN,
                 data: data
             });
+
+            // window.open('/signin', '_self');
+            // browserHistory.goBack();
         });
     }
 }

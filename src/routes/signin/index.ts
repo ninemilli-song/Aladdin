@@ -1,5 +1,5 @@
 export default (store) => ({
-    path: 'signin',
+    path: 'signin(/:path)',
     /*  Async getComponent is only invoked when route matches   */
     getComponent(nextState, cb) {
         /*  Webpack - use 'require.ensure' to create a split point
