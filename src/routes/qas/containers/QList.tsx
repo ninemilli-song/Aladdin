@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 // import QList from '../components/Qlist';
 import { getQuestionList, onPageChanged, onSelectedQ, setReplyDialogVisible, addReply } from '../actions/index';
 import ReplyDialog from '../components/ReplyDialog';
+import ReplyAnswerDialog from './ReplyAnswerDialog';
 // import { toJS } from '../../../utils/hocs';
 
 type QListData = {
@@ -80,6 +81,9 @@ export default class QList extends React.Component<any, any> {
             }
             {
                 this.renderReplyDialog()
+            }
+            {
+                this.renderReplyAnswerDialog()
             }
             </div>
         )
@@ -164,6 +168,15 @@ export default class QList extends React.Component<any, any> {
                 onClose = { this.handleCloseReplyDialog }
                 onReply = { this.handleReplySubmit }
             />
+        )
+    }
+
+    /**
+     * 回复 Answer 对话框
+     */
+    renderReplyAnswerDialog() {
+        return (
+            <ReplyAnswerDialog />
         )
     }
 

@@ -54,6 +54,7 @@ export default class AnswerList extends React.Component<any, any> {
                                 doApprove = { this.approveHandler }
                                 onCollected = { this.collectHandler }
                                 onUnCollected = { this.unCollectHandler }
+                                onReply = { this.onReplyHandler }
                             />
                         )
                     }) : null
@@ -89,6 +90,13 @@ export default class AnswerList extends React.Component<any, any> {
         const { actions } = this.props;
 
         actions.collectAnswer(id, false);
+    }
+
+    /**
+     * 回复
+     */
+    private onReplyHandler() {
+
     }
 }
 

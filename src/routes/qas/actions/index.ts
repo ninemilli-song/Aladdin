@@ -25,6 +25,7 @@ export const QAS_Q_USER_AGGREGATE_DATA = 'QAS_Q_USER_AGGREGATE_DATA';           
 export const QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION = 'QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION';     // 用户统计数据 我关注的问题
 export const QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER = 'QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER';         // 用户统计数据 我的收藏
 export const QAS_Q_USER_AGGREGATE_MY_QUESTION = 'QAS_Q_USER_AGGREGATE_MY_QUESTION';         // 用户统计数据 我提出的问题
+export const QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE = 'QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE';       // 回复 回答的弹框可见
 
 // ---------------------------
 // Actions
@@ -467,6 +468,17 @@ const getMyAggregateData = () => {
     }
 }
 
+/**
+ * 设置回复回答弹框可见
+ * @param visible 
+ */
+const setReplyAnswerDialogVisible = (visible) => {
+    return {
+        type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
+        data: visible
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -488,5 +500,6 @@ export {
     refreshQDetailData,
     approveAnswer,
     collectAnswer,
-    getMyAggregateData
+    getMyAggregateData,
+    setReplyAnswerDialogVisible
 }

@@ -36,6 +36,7 @@ import {
     QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION,
     QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER,
     QAS_Q_USER_AGGREGATE_MY_QUESTION,
+    QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -47,7 +48,7 @@ import {
     setAnswerCollected,
     setAnswerApprove
 } from './q_detail_reducer';
-import { setQuickQuestionExpand } from './ui';
+import { setQuickQuestionExpand, setReplyAnswerDialogVisible } from './ui';
 const { fromJS } = require('immutable');
 
 // -------------------------------------
@@ -75,6 +76,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION]: setUserAggregateCollectionQuestion,
     [QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER]: setUserAggregateCollectionAnswer,
     [QAS_Q_USER_AGGREGATE_MY_QUESTION]: setUserAggregateMyQuestion,
+    [QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE]: setReplyAnswerDialogVisible,
 }
 
 // 初始化模块数据
@@ -87,7 +89,10 @@ const initialState = fromJS({
         qDetailDialogOpts: {                        // 提问详情对话框的ui状态
             visible: false
         },
-        quickQuestionExpand: false                   // 快速提问是否展开
+        quickQuestionExpand: false,                 // 快速提问是否展开
+        qReplyAnswerDialogOpts: {
+            visible: false
+        }
     },
     data: {},
     selectedQId: null,                              // 选中的提问 id

@@ -14,6 +14,7 @@ export interface AnswerItemProps {
     doApprove: (id: number, approve: boolean) => void;                  // 赞成
     onCollected: (id: number) => void;                                  // 收藏 回应
     onUnCollected: (id: number) => void;                                // 取消收藏 回应
+    onReply: (id: number) => void;                                                // 回复
 }
 
 @autobind
@@ -42,8 +43,8 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
             },
             {
                 iconName: 'icon-faqiliaotian',
-                label: `追问`,
-                // callback: this.showInvite
+                label: `回复`,
+                callback: this.replyHandler
             },
             {
                 iconName: hasCollected ? 'icon-xihuan-tianchong' : 'icon-xihuan',
@@ -133,6 +134,15 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
 
         if (onUnCollected) {
             onUnCollected(id);
+        }
+    }
+
+    private replyHandler(e) {
+        const { data, onReply } = this.props;
+        const id = data.get('id');
+
+        if (onReply) {
+            onReply(id);
         }
     }
 }
