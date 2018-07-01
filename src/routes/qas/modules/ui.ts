@@ -13,5 +13,13 @@ export const setQuickQuestionExpand = (state, action) => {
  * @param action 
  */
 export const setReplyAnswerDialogVisible = (state, action) => {
-    return state.setIn(['uistate', 'qReplyAnswerDialogOpts', 'visible'], action.data);
+    return state.setIn(['uistate', 'qReplyAnswerDialogOpts', 'visible'], action.data.visible)
+                .updateIn(['uistate', 'qReplyAnswerDialogOpts', 'data'], () => {
+                    const id = action.data.id;
+
+                    const answers = state.getIn(['qDetailData', 'answers']);
+                    return answers.find((item) => {
+                        return item.get('id') === id;
+                    })
+                });
 }

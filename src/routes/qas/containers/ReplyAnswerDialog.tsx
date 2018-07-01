@@ -16,15 +16,15 @@ interface ReplyAnswerDialogProps {
 @connect(
     store => {
         return {
-            data: store.QAS.getIn(['qDetailData']),
-            visible: store.QAS.getIn(['uistate', 'qReplyDialogOpts', 'visible'])
+            data: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'data']),
+            visible: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'visible'])
         }
     },
     dispatch => {
         return {
             action: {
                 closeReplyDialog: () => {
-                    dispatch(setReplyAnswerDialogVisible(false));
+                    dispatch(setReplyAnswerDialogVisible(null, false));
                 }
             }
         }

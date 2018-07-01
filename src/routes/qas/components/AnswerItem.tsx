@@ -44,7 +44,7 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
             {
                 iconName: 'icon-faqiliaotian',
                 label: `回复`,
-                callback: this.replyHandler
+                onClick: this.replyHandler
             },
             {
                 iconName: hasCollected ? 'icon-xihuan-tianchong' : 'icon-xihuan',

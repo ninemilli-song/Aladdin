@@ -472,10 +472,13 @@ const getMyAggregateData = () => {
  * 设置回复回答弹框可见
  * @param visible 
  */
-const setReplyAnswerDialogVisible = (visible) => {
+const setReplyAnswerDialogVisible = (id, visible) => {
     return {
         type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
-        data: visible
+        data: {
+            id,
+            visible,
+        }
     }
 }
 

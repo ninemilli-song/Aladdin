@@ -91,7 +91,8 @@ const initialState = fromJS({
         },
         quickQuestionExpand: false,                 // 快速提问是否展开
         qReplyAnswerDialogOpts: {
-            visible: false
+            data: null,                             // 回复问题的问题数据
+            visible: false                          // 是否可见
         }
     },
     data: {},

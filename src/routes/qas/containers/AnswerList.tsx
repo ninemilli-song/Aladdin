@@ -2,7 +2,7 @@
  * The Container fo AnswerList Component
  */
 import { connect } from 'react-redux';
-import { approveAnswer, collectAnswer } from '../actions/index';
+import { approveAnswer, collectAnswer, setReplyAnswerDialogVisible } from '../actions/index';
 import { toJS } from '../../../utils/hocs';
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
@@ -30,6 +30,9 @@ interface AnswerListProps {
                 },
                 collectAnswer: (id, hasCollected) => {
                     dispatch(collectAnswer(id, hasCollected));
+                },
+                replyAnswer: (id) => {
+                    dispatch(setReplyAnswerDialogVisible(id, true));
                 }
             }
         }
@@ -95,8 +98,10 @@ export default class AnswerList extends React.Component<any, any> {
     /**
      * 回复
      */
-    private onReplyHandler() {
+    private onReplyHandler(id) {
+        const { actions } = this.props;
 
+        actions.replyAnswer(id);
     }
 }
 
