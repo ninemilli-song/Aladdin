@@ -82,3 +82,25 @@ export const setAnswerApprove = (state, action) => {
         });
     })
 }
+
+/**
+ * 添加Answer reply
+ * @param state 
+ * @param action 
+ */
+export const addAnswerReply = (state, action) => {
+    const { data } = action;
+    const { id, pump } = data;
+
+    return state.updateIn(['qDetailData', 'answers'], answers => {
+        return answers.map((answer) => {
+            if (answer.get('id') === id) {
+                return answer.update('pumps', pumps => {
+                    return pumps.insert(0, pump);
+                })
+            }
+
+            return answer;
+        })
+    });
+}

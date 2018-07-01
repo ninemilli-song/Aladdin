@@ -37,6 +37,7 @@ import {
     QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER,
     QAS_Q_USER_AGGREGATE_MY_QUESTION,
     QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
+    QAS_Q_ANSWER_REPLY_ADD,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -46,7 +47,8 @@ import {
     detailDialogLoading, 
     setQuestionReplyExpand,
     setAnswerCollected,
-    setAnswerApprove
+    setAnswerApprove,
+    addAnswerReply
 } from './q_detail_reducer';
 import { setQuickQuestionExpand, setReplyAnswerDialogVisible } from './ui';
 const { fromJS } = require('immutable');
@@ -77,6 +79,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER]: setUserAggregateCollectionAnswer,
     [QAS_Q_USER_AGGREGATE_MY_QUESTION]: setUserAggregateMyQuestion,
     [QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE]: setReplyAnswerDialogVisible,
+    [QAS_Q_ANSWER_REPLY_ADD]: addAnswerReply,
 }
 
 // 初始化模块数据

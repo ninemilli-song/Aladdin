@@ -5,7 +5,7 @@ import * as React from 'react';
 import ReplyDialog from '../components/ReplyDialog';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { setReplyAnswerDialogVisible } from '../actions/index';
+import { setReplyAnswerDialogVisible, submitAnswerReply } from '../actions/index';
 
 interface ReplyAnswerDialogProps {
     data?: any;
@@ -25,6 +25,9 @@ interface ReplyAnswerDialogProps {
             action: {
                 closeReplyDialog: () => {
                     dispatch(setReplyAnswerDialogVisible(null, false));
+                },
+                addReply: (id, content) => {
+                    dispatch(submitAnswerReply(id, content))
                 }
             }
         }
@@ -58,7 +61,9 @@ export default class ReplyAnswerDialog extends React.Component<ReplyAnswerDialog
     /**
      * 提交回复
      */
-    private handleReplySubmit() {
+    private handleReplySubmit(id, content) {
+        const { action } = this.props;
 
+        action.addReply(id, content);
     }
 }

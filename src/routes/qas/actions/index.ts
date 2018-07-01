@@ -21,6 +21,7 @@ export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                             
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
 export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
 export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                                 // 回复赞成或反对
+export const QAS_Q_ANSWER_REPLY_ADD = 'QAS_Q_ANSWER_REPLY_ADD';                             // 添加Answer的回复
 export const QAS_Q_USER_AGGREGATE_DATA = 'QAS_Q_USER_AGGREGATE_DATA';                       // 用户统计数据
 export const QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION = 'QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION';     // 用户统计数据 我关注的问题
 export const QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER = 'QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER';         // 用户统计数据 我的收藏
@@ -482,6 +483,50 @@ const setReplyAnswerDialogVisible = (id, visible) => {
     }
 }
 
+/**
+ * 提交对问题进行的回复
+ * @param id 
+ * @param content 
+ */
+const submitAnswerReply = (id, content) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userId = state.userInfo.id;
+        const url = 'api/qas/replyAnswer';
+
+        return request.post(url, {
+            answer: {
+                id
+            },
+            user: {
+                id: userId
+            },
+            content,
+            isAnonymous: false
+        }).then((result) => {
+            if (result.success) {
+                // 关闭回复对话框
+                dispatch({
+                    type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
+                    data: {
+                        id: null,
+                        visible: false
+                    }
+                });
+
+                // 更新answer的回复数据
+                dispatch({
+                    type: QAS_Q_ANSWER_REPLY_ADD,
+                    data: {
+                        id,
+                        pump: result.success.data
+                    }
+                })
+            }
+        })
+    }
+}
+
 export {
     getQuestionList,
     togglePushQuestionDialogVisible,
@@ -504,5 +549,6 @@ export {
     approveAnswer,
     collectAnswer,
     getMyAggregateData,
-    setReplyAnswerDialogVisible
+    setReplyAnswerDialogVisible,
+    submitAnswerReply
 }
