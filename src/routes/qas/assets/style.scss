@@ -165,11 +165,11 @@ $moduleName: qas;
         }
     }
 
-    .answer-item {
+    .answer-item, .reply-item {
         &-wrapper {
             position: relative;
-            padding: 0 #{$inner-block-padding}px;
-            margin-top: #{$block-space}px;
+            padding: #{$block-space-mini}px #{$inner-block-padding}px;
+            // margin-top: #{$block-space}px;
         }
 
         &-profile {

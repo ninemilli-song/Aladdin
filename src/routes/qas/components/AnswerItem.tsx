@@ -6,6 +6,7 @@ import { UserInfo } from '../../../common/globalInterface';
 import QASOperators from '../../../components/qas-operators/QASOperators';
 import { formateNumberCount } from '../../../utils/utils';
 import { autobind } from 'core-decorators';
+import ReplyItem from './ReplyItem';
 const Avatar = require('antd/lib/avatar');
 const { Map } = require('immutable');
 
@@ -27,6 +28,7 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
         const hasCollected = data.get('hasCollected');
         const hasApproved = data.get('hasApproved');
         const hasDisapproved = data.get('hasDisapproved');
+        const replays = data.get('pumps');
 
         const operatorOpts = [
             {
@@ -54,37 +56,54 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
             },
         ];
 
+        const replaysEls = replays.map((item, index) => {
+            return (
+                <ReplyItem 
+                    key = { `replay-item-${item.id}-${index}` }
+                    data = { item }
+                />
+            )
+        });
+
         return (
-            <div className={ `${this.prefixCls}-wrapper` }>
-                <div className={ `${this.prefixCls}-profile` }>
-                    <div className="profile">
-                        <Avatar 
-                            size = "large"
-                            icon = "user"
-                            src = { data ? data.getIn(['user', 'profile']) : null }
-                        />
+            <div className={ `${this.prefixCls}` }>
+                <div className="threaded-conversation-acc">
+                    <span className="u-hiddenVisually">New conversation</span>
+                    <div className={ `${this.prefixCls}-wrapper` }>
+                        <div className={ `${this.prefixCls}-profile` }>
+                            <div className="profile">
+                                <Avatar 
+                                    size = "large"
+                                    icon = "user"
+                                    src = { data ? data.getIn(['user', 'profile']) : null }
+                                />
+                            </div>
+                        </div>
+                        <div className={ `${this.prefixCls}-content` }>
+                            <div className={ `${this.prefixCls}-content-top` }>
+                                <span className="name">
+                                    { data ? data.getIn(['user', 'nickName']) : '' }
+                                </span>
+                                <span className="updateDate">
+                                    • { data ? data.get('createTime') : '' }
+                                </span>
+                            </div>
+                            <div className={ `${this.prefixCls}-content-body` }>
+                                {
+                                    data ? data.get('answer') : ''
+                                }
+                            </div>
+                            <div className={ `${this.prefixCls}-content-footer` }>
+                                <QASOperators 
+                                    operators = { operatorOpts }
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className={ `${this.prefixCls}-content` }>
-                    <div className={ `${this.prefixCls}-content-top` }>
-                        <span className="name">
-                            { data ? data.getIn(['user', 'nickName']) : '' }
-                        </span>
-                        <span className="updateDate">
-                            • { data ? data.get('createTime') : '' }
-                        </span>
-                    </div>
-                    <div className={ `${this.prefixCls}-content-body` }>
-                        {
-                            data ? data.get('answer') : ''
-                        }
-                    </div>
-                    <div className={ `${this.prefixCls}-content-footer` }>
-                        <QASOperators 
-                            operators = { operatorOpts }
-                        />
-                    </div>
-                </div>
+                {
+                    replaysEls
+                }
             </div>
         )
     }
