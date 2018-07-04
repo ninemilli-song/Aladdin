@@ -57,17 +57,22 @@ export default class AnswerItem extends React.Component<AnswerItemProps, any> {
         ];
 
         const replaysEls = replays.map((item, index) => {
+            const cls = index === replays.size - 1 ? 'threaded-conversation-last-acc' : 'threaded-conversation-acc';
+
             return (
                 <ReplyItem 
                     key = { `replay-item-${item.id}-${index}` }
                     data = { item }
+                    className = { cls }
                 />
             )
         });
 
         return (
             <div className={ `${this.prefixCls}` }>
-                <div className="threaded-conversation-acc">
+                <div className={ 
+                    replaysEls.size > 0 ? 'threaded-conversation-first-acc' : ''
+                }>
                     <span className="u-hiddenVisually">New conversation</span>
                     <div className={ `${this.prefixCls}-wrapper` }>
                         <div className={ `${this.prefixCls}-profile` }>

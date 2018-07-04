@@ -6,6 +6,7 @@ const Avatar = require('antd/lib/avatar');
 
 interface ReplyItemProps {
     data: any;
+    className?: string;
 }
 
 export default class ReplyItem extends React.PureComponent<ReplyItemProps, any> {
@@ -13,10 +14,10 @@ export default class ReplyItem extends React.PureComponent<ReplyItemProps, any> 
     prefixCls = 'reply-item';
 
     render() {
-        const { data } = this.props;
+        const { data, className } = this.props;
 
         return (
-            <div className="threaded-conversation-acc">
+            <div className={ className }>
                 <div className={ `${this.prefixCls}-wrapper` }>
                     <div className={ `${this.prefixCls}-profile` }>
                         <div className="profile">

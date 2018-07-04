@@ -107,6 +107,50 @@
   }
 }
 
+.threaded-conversation-first-acc {
+  position: relative;
+
+  &::after {
+    bottom: 10px;
+    border-color: #1da1f2;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 2px;
+    content: "";
+    left: 38px;
+    position: absolute;
+    width: 0;
+    // z-index: 1;
+  }
+
+  &::after {
+    top: 52px;
+    bottom: 0;
+  }
+}
+
+.threaded-conversation-last-acc {
+  position: relative;
+
+  &::before {
+    bottom: 10px;
+    border-color: #1da1f2;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 2px;
+    content: "";
+    left: 38px;
+    position: absolute;
+    width: 0;
+    // z-index: 1;
+  }
+
+  &::before {
+    top: -5px;
+    height: 10px;
+  }
+}
+
 .u-hiddenVisually {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
