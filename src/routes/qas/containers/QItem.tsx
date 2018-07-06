@@ -80,7 +80,7 @@ export default class QItem extends React.Component<any, any> {
             {
                 iconName: 'icon-xiaoxi',
                 label: `回答(${ formateNumberCount(data ? (data.getIn(['answerCount'])) : 0) })`,
-                onClick: this.doReply
+                onClick: this.showDetail
             },
             {
                 iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
