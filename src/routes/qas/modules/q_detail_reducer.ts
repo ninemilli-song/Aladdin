@@ -96,7 +96,7 @@ export const addAnswerReply = (state, action) => {
         return answers.map((answer) => {
             if (answer.get('id') === id) {
                 return answer.update('pumps', pumps => {
-                    return pumps.insert(0, pump);
+                    return pumps.insert(0, fromJS(pump));
                 })
             }
 

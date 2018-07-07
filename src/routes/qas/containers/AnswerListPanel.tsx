@@ -73,7 +73,7 @@ interface AnswerListPanelProps {
 @autobind
 export default class AnswerListPanel extends React.Component<AnswerListPanelProps, any> {
 
-    prefixCls = 'q-detail-dialog';
+    prefixCls = 'q-answer-list-panel';
     
     constructor(props, context) {
         super(props, context);
