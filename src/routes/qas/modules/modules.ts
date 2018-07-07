@@ -12,7 +12,9 @@ import {
     setUserAggregateData, 
     setUserAggregateCollectionQuestion,
     setUserAggregateCollectionAnswer,
-    setUserAggregateMyQuestion
+    setUserAggregateMyQuestion,
+    setAnswerExpandId,
+    setAnswerReplyExpand
 } from './qlist_reducer';
 import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
 import { 
@@ -38,6 +40,8 @@ import {
     QAS_Q_USER_AGGREGATE_MY_QUESTION,
     QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
     QAS_Q_ANSWER_REPLY_ADD,
+    QAS_Q_ANSWER_EXPAND_ID,
+    QAS_Q_ANSWER_LIST_REPLY_EXPAND,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -80,6 +84,8 @@ const ACTION_HANDLERS = {
     [QAS_Q_USER_AGGREGATE_MY_QUESTION]: setUserAggregateMyQuestion,
     [QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE]: setReplyAnswerDialogVisible,
     [QAS_Q_ANSWER_REPLY_ADD]: addAnswerReply,
+    [QAS_Q_ANSWER_EXPAND_ID]: setAnswerExpandId,
+    [QAS_Q_ANSWER_LIST_REPLY_EXPAND]: setAnswerReplyExpand,
 }
 
 // 初始化模块数据
@@ -96,10 +102,15 @@ const initialState = fromJS({
         qReplyAnswerDialogOpts: {
             data: null,                             // 回复问题的问题数据
             visible: false                          // 是否可见
+        },
+        qAnswerListOpts: {                          // 问题回答列表ui状态
+            loading: false,                         // 加载
+            expand: false                           // 展开
         }
     },
     data: {},
     selectedQId: null,                              // 选中的提问 id
+    expandAnswerId: null,                           // 展开答案的提问 id
     qDetailData: {},                                // 选中的问题详情数据
     questionCollections: [],                        // 关注的问题 id
     answerApproved: [],                             // 赞成的回答 id

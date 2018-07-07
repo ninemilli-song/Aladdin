@@ -7,7 +7,8 @@ import {
     onSelectedQ, 
     concernQuestion, 
     unconcernQuestion, 
-    setReplyDialogVisible 
+    setReplyDialogVisible, 
+    expandAnswer
 } from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
@@ -16,6 +17,7 @@ import { ActionButton } from '../../../components/button';
 import { autobind } from 'core-decorators';
 import QASOperators from '../../../components/qas-operators/QASOperators';
 import Question from '../components/Question';
+import AnswerListPanel from './AnswerListPanel';
 const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
@@ -37,10 +39,15 @@ export type QItemData = {
         
         const data = qList.find((item) => {
             return item.get('id') === id;
-        })
+        });
+
+        // 是否展开回答
+        const expandAnswerId = store.QAS.get('expandAnswerId');
+        const showAnswer = id === expandAnswerId ? true : false;
 
         return {
-            data
+            data,
+            showAnswer
         }
     },
     dispatch => {
@@ -53,6 +60,9 @@ export type QItemData = {
                 showReplyDialog: (id) => {                                                  // 显示回答对话框
                     dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
                     dispatch(setReplyDialogVisible(true));                                  // 显示对话框
+                },
+                expandAnswer: (id) => {
+                    dispatch(expandAnswer(id));
                 },
                 doConcern: (id) => {
                     dispatch(concernQuestion(id));
@@ -70,7 +80,7 @@ export default class QItem extends React.Component<any, any> {
     prefixCls = 'q-item';
 
     render() {
-        const { data } = this.props;
+        const { data, showAnswer } = this.props;
         console.log('QItem render >>>>>> id is: ', data.get('id'));
 
         const hasCollected = data ? (data.getIn(['hasCollected'])) : true;
@@ -80,7 +90,7 @@ export default class QItem extends React.Component<any, any> {
             {
                 iconName: 'icon-xiaoxi',
                 label: `回答(${ formateNumberCount(data ? (data.getIn(['answerCount'])) : 0) })`,
-                onClick: this.showDetail
+                onClick: this.expandAnswer
             },
             {
                 iconName: hasCollected ? 'icon-shoucang-tianchong' : 'icon-shoucang',
@@ -103,7 +113,8 @@ export default class QItem extends React.Component<any, any> {
         ];
 
         return (
-            <div className={ this.prefixCls } onClick={ this.showDetail }>
+            // <div className={ this.prefixCls } onClick={ this.showDetail }>
+            <div className={ this.prefixCls }>
                 <Question 
                     data = { data }
                 />
@@ -112,6 +123,13 @@ export default class QItem extends React.Component<any, any> {
                         operators = { operatorOpts }
                     />
                 </div>
+                {
+                    showAnswer ? (
+                        <AnswerListPanel 
+                            questionId = { data.get('id') }
+                        />
+                    ) : null
+                }
             </div>
         )
     }
@@ -123,6 +141,25 @@ export default class QItem extends React.Component<any, any> {
         const id = data.getIn(['id']);
 
         action.showReplyDialog(id);
+    }
+
+    // Expand the Answer List
+    private expandAnswer(e) {
+        e.stopPropagation();
+
+        const { data, action, showAnswer } = this.props;
+        const id = data.getIn(['id']);
+
+        /**
+         * 1. 当前为展开 则收起
+         * 2. 当前为收起 则展开
+         */
+        if (showAnswer) {
+            action.expandAnswer(null);
+        } else {
+            action.expandAnswer(id);
+        }
+        
     }
 
     // Show invite dialog

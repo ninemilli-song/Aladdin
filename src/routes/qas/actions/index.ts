@@ -19,6 +19,7 @@ export const QAS_Q_CONCERN = 'QAS_Q_CONCERN';                                   
 export const QAS_Q_REPLY_DIALOG_VISIBLE = 'QAS_Q_REPLY_DIALOG_VISIBLE';                     // 回复对话框可见性
 export const QAS_Q_ANSWER_ADD = 'QAS_Q_ANSWER_ADD';                                         // 新增一个回复
 export const QAS_Q_DETAIL_REPLY_EXPAND = 'QAS_Q_DETAIL_REPLY_EXPAND';                       // 回复问题框展开形式
+export const QAS_Q_ANSWER_LIST_REPLY_EXPAND = 'QAS_Q_ANSWER_LIST_REPLY_EXPAND';             // 回复问题框展开形式 - 问题列表中
 export const QAS_Q_ANSWER_COLLECTED = 'QAS_Q_ANSWER_COLLECTED';                             // 回复已被收藏
 export const QAS_Q_ANSWER_APPROVE = 'QAS_Q_ANSWER_APPROVE';                                 // 回复赞成或反对
 export const QAS_Q_ANSWER_REPLY_ADD = 'QAS_Q_ANSWER_REPLY_ADD';                             // 添加Answer的回复
@@ -27,6 +28,7 @@ export const QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION = 'QAS_Q_USER_AGGREGATE_CO
 export const QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER = 'QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER';         // 用户统计数据 我的收藏
 export const QAS_Q_USER_AGGREGATE_MY_QUESTION = 'QAS_Q_USER_AGGREGATE_MY_QUESTION';         // 用户统计数据 我提出的问题
 export const QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE = 'QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE';       // 回复 回答的弹框可见
+export const QAS_Q_ANSWER_EXPAND_ID = 'QAS_Q_ANSWER_EXPAND_ID';       // 展开某条提问的回答列表
 
 // ---------------------------
 // Actions
@@ -105,6 +107,17 @@ const setDetailDialogVisible = (visible) => {
 const onSelectedQ = (id) => {
     return {
         type: QAS_Q_DETAIL_SELECTED,
+        data: id
+    }
+}
+
+/**
+ * 展开某条提问的回答列表
+ * @param id 
+ */
+const expandAnswer = (id) => {
+    return {
+        type: QAS_Q_ANSWER_EXPAND_ID,
         data: id
     }
 }
@@ -379,6 +392,17 @@ const replyQuestionExpand = (expand: boolean) => {
 }
 
 /**
+ * 回答问题框焦点处理
+ * @param expand 是否展开
+ */
+const alReplyQuestionExpand = (expand: boolean) => {
+    return {
+        type: QAS_Q_ANSWER_LIST_REPLY_EXPAND,
+        data: expand,
+    }
+}
+
+/**
  * 赞成 或 反对问题
  * @param id 
  * @param approve 
@@ -550,5 +574,7 @@ export {
     collectAnswer,
     getMyAggregateData,
     setReplyAnswerDialogVisible,
-    submitAnswerReply
+    submitAnswerReply,
+    expandAnswer,
+    alReplyQuestionExpand
 }

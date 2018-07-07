@@ -148,3 +148,21 @@ export const setUserAggregateMyQuestion = (state, action) => {
         }
     });
 }
+
+/**
+ * 设置某条问题展开回答
+ * @param state 
+ * @param action 
+ */
+export const setAnswerExpandId = (state, action) => {
+    return state.set('expandAnswerId', action.data);
+}
+
+/**
+ * 设置某条问题展开回答
+ * @param state 
+ * @param action 
+ */
+export const setAnswerReplyExpand = (state, action) => {
+    return state.setIn(['uistate', 'qAnswerListOpts', 'expand'], action.data);
+}
