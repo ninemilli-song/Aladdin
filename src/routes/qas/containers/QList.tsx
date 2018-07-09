@@ -80,7 +80,7 @@ export default class QList extends React.Component<any, any> {
                 this.renderDetailDialog()
             }
             {
-                this.renderReplyDialog()
+                // this.renderReplyDialog()
             }
             {
                 this.renderReplyAnswerDialog()
@@ -106,7 +106,11 @@ export default class QList extends React.Component<any, any> {
                         <QItem 
                             id = { id }
                         />
-                        <CutLine />
+                        {
+                            index < data.getIn(['list']).size - 1 ? (
+                                <CutLine />
+                            ) : null
+                        }
                     </div>
                 )
         }) : null;
@@ -147,29 +151,29 @@ export default class QList extends React.Component<any, any> {
         )
     }
 
-    /**
-     * 回答框
-     */
-    renderReplyDialog() {
-        const { uistate, data, selectedQId } = this.props;
-        const visible = uistate ? uistate.getIn(['qReplyDialogOpts', 'visible']) : false;
-        const list = data ? data.getIn(['list']) : [];
+    // /**
+    //  * 回答框
+    //  */
+    // renderReplyDialog() {
+    //     const { uistate, data, selectedQId } = this.props;
+    //     const visible = uistate ? uistate.getIn(['qReplyDialogOpts', 'visible']) : false;
+    //     const list = data ? data.getIn(['list']) : [];
 
-        const selectedQ = list.find((value, key) => {
-            if (value.get('id') === selectedQId) {
-                return true;
-            }
-        });
+    //     const selectedQ = list.find((value, key) => {
+    //         if (value.get('id') === selectedQId) {
+    //             return true;
+    //         }
+    //     });
 
-        return (
-            <ReplyDialog 
-                data = { selectedQ }
-                visible = { visible }
-                onClose = { this.handleCloseReplyDialog }
-                onReply = { this.handleReplySubmit }
-            />
-        )
-    }
+    //     return (
+    //         <ReplyDialog 
+    //             data = { selectedQ }
+    //             visible = { visible }
+    //             onClose = { this.handleCloseReplyDialog }
+    //             onReply = { this.handleReplySubmit }
+    //         />
+    //     )
+    // }
 
     /**
      * 回复 Answer 对话框

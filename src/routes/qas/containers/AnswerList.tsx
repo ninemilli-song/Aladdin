@@ -7,6 +7,7 @@ import { toJS } from '../../../utils/hocs';
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
 import { autobind } from 'core-decorators';
+import CutLine from '../../../components/cut-line/CutLine';
 
 /**
  * 回答列表组件
@@ -51,14 +52,21 @@ export default class AnswerList extends React.Component<any, any> {
                 {
                     data ? data.map((item, index) => {
                         return (
-                            <AnswerItem 
-                                key = { `${this.prefixCls}-${item.getIn(['id'])}-${index}` }
-                                data = { item }
-                                doApprove = { this.approveHandler }
-                                onCollected = { this.collectHandler }
-                                onUnCollected = { this.unCollectHandler }
-                                onReply = { this.onReplyHandler }
-                            />
+                            <div key={ `${this.prefixCls}-answer-item-${index}-${item.id}` }>
+                                <AnswerItem 
+                                    key = { `${this.prefixCls}-${item.getIn(['id'])}-${index}` }
+                                    data = { item }
+                                    doApprove = { this.approveHandler }
+                                    onCollected = { this.collectHandler }
+                                    onUnCollected = { this.unCollectHandler }
+                                    onReply = { this.onReplyHandler }
+                                />
+                                {
+                                    index < data.size - 1 ? (
+                                        <CutLine />
+                                    ) : null
+                                }
+                            </div>
                         )
                     }) : null
                 }
