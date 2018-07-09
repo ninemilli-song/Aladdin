@@ -20,7 +20,10 @@ export const detailDialogLoading = (state, action) => {
 
 // 切换对话框的可见性
 export const fetchDetailData = (state, action) => {
-    return state.updateIn(['qDetailData'], data => fromJS(action.data));
+    // return state.updateIn(['qDetailData'], data => fromJS(action.data));
+    return state.updateIn(['qExpandQuestions'], 
+        questions => questions.update(action.data.id, data => fromJS(action.data))
+    );
 }
 
 // 清空对话框中的详情数据

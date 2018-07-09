@@ -28,7 +28,8 @@ export const QAS_Q_USER_AGGREGATE_COLLECTION_QUESTION = 'QAS_Q_USER_AGGREGATE_CO
 export const QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER = 'QAS_Q_USER_AGGREGATE_COLLECTION_ANSWER';         // 用户统计数据 我的收藏
 export const QAS_Q_USER_AGGREGATE_MY_QUESTION = 'QAS_Q_USER_AGGREGATE_MY_QUESTION';         // 用户统计数据 我提出的问题
 export const QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE = 'QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE';       // 回复 回答的弹框可见
-export const QAS_Q_ANSWER_EXPAND_ID = 'QAS_Q_ANSWER_EXPAND_ID';       // 展开某条提问的回答列表
+export const QAS_Q_ANSWER_EXPAND_ID = 'QAS_Q_ANSWER_EXPAND_ID';                             // 展开某条提问的回答列表
+export const QAS_Q_ANSWER_FOLD_ID = 'QAS_Q_ANSWER_FOLD_ID';                                 // 折叠某条提问的回答列表
 
 // ---------------------------
 // Actions
@@ -118,6 +119,17 @@ const onSelectedQ = (id) => {
 const expandAnswer = (id) => {
     return {
         type: QAS_Q_ANSWER_EXPAND_ID,
+        data: id
+    }
+}
+
+/**
+ * 展开某条提问的回答列表
+ * @param id 
+ */
+const foldAnswer = (id) => {
+    return {
+        type: QAS_Q_ANSWER_FOLD_ID,
         data: id
     }
 }
@@ -576,5 +588,6 @@ export {
     setReplyAnswerDialogVisible,
     submitAnswerReply,
     expandAnswer,
-    alReplyQuestionExpand
+    alReplyQuestionExpand,
+    foldAnswer
 }

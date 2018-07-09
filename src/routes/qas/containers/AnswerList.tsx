@@ -20,7 +20,7 @@ interface AnswerListProps {
 @connect(
     store => {
         return {
-            data: store.QAS.getIn(['qDetailData', 'answers']),
+            // data: store.QAS.getIn(['qDetailData', 'answers']),
         }
     },
     dispatch => {

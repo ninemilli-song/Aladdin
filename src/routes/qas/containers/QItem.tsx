@@ -8,7 +8,8 @@ import {
     concernQuestion, 
     unconcernQuestion, 
     setReplyDialogVisible, 
-    expandAnswer
+    expandAnswer,
+    foldAnswer
 } from '../actions/index';
 import * as React from 'react'
 import { UserInfo } from '../../../common/globalInterface';
@@ -42,8 +43,8 @@ export type QItemData = {
         });
 
         // 是否展开回答
-        const expandAnswerId = store.QAS.get('expandAnswerId');
-        const showAnswer = id === expandAnswerId ? true : false;
+        const qExpandQuestions = store.QAS.get('qExpandQuestions');
+        const showAnswer = qExpandQuestions.has(id);
 
         return {
             data,
@@ -61,8 +62,11 @@ export type QItemData = {
                     dispatch(onSelectedQ(id));                                              // 设置选中的提问 id
                     dispatch(setReplyDialogVisible(true));                                  // 显示对话框
                 },
-                expandAnswer: (id) => {
+                expandAnswer: (id) => {                                                     // 展开回答
                     dispatch(expandAnswer(id));
+                },
+                foldAnswer: (id) => {                                                       // 折叠回答
+                    dispatch(foldAnswer(id));
                 },
                 doConcern: (id) => {
                     dispatch(concernQuestion(id));
@@ -155,7 +159,7 @@ export default class QItem extends React.Component<any, any> {
          * 2. 当前为收起 则展开
          */
         if (showAnswer) {
-            action.expandAnswer(null);
+            action.foldAnswer(id);
         } else {
             action.expandAnswer(id);
         }

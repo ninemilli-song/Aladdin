@@ -35,11 +35,14 @@ interface AnswerListPanelProps {
 
 @connect(
     (store, ownProps) => {
+        const { questionId } = ownProps;
+        const data = store.QAS.get('qExpandQuestions').get(questionId);
+
         return {
             loading: store.QAS.getIn(['uistate', 'qAnswerListOpts', 'loading']),
             expand: store.QAS.getIn(['uistate', 'qAnswerListOpts', 'expand']),
-            questionId: ownProps.questionId,
-            data: store.QAS.getIn(['qDetailData'])
+            questionId,
+            data,
         }
     },
     dispatch => {
@@ -81,15 +84,15 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
 
     componentWillMount() {
         console.log('AnswerListPanel componentWillReceiveProps >>>>>>>');
-        const { action, questionId } = this.props;
+        const { action, questionId, data } = this.props;
 
-        if (questionId) {
+        if (questionId && !data) {
             action.getData(questionId);
         }
     }
 
     render() {
-        const { loading, expand } = this.props;
+        const { loading, expand, data } = this.props;
 
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
@@ -111,7 +114,11 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
                                 />
                             </div>
                             <div className={ `${this.prefixCls}-replyList` }>
-                                <AnswerList />
+                                <AnswerList 
+                                    data = {
+                                        data ? data.get('answers') : []
+                                    }
+                                />
                             </div>
                         </div>
                     )

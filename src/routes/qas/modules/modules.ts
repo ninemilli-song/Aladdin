@@ -14,7 +14,8 @@ import {
     setUserAggregateCollectionAnswer,
     setUserAggregateMyQuestion,
     setAnswerExpandId,
-    setAnswerReplyExpand
+    setAnswerReplyExpand,
+    cancelAnswerExpandId
 } from './qlist_reducer';
 import { setPushQuestionDialogVisible } from './push_q_dialog_reducer';
 import { 
@@ -42,6 +43,7 @@ import {
     QAS_Q_ANSWER_REPLY_ADD,
     QAS_Q_ANSWER_EXPAND_ID,
     QAS_Q_ANSWER_LIST_REPLY_EXPAND,
+    QAS_Q_ANSWER_FOLD_ID,
 } from '../actions/index';
 import { 
     onSelectedQ, 
@@ -85,6 +87,7 @@ const ACTION_HANDLERS = {
     [QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE]: setReplyAnswerDialogVisible,
     [QAS_Q_ANSWER_REPLY_ADD]: addAnswerReply,
     [QAS_Q_ANSWER_EXPAND_ID]: setAnswerExpandId,
+    [QAS_Q_ANSWER_FOLD_ID]: cancelAnswerExpandId,
     [QAS_Q_ANSWER_LIST_REPLY_EXPAND]: setAnswerReplyExpand,
 }
 
@@ -109,14 +112,15 @@ const initialState = fromJS({
         }
     },
     data: {},
-    selectedQId: null,                              // 选中的提问 id
-    expandAnswerId: null,                           // 展开答案的提问 id
-    qDetailData: {},                                // 选中的问题详情数据
+    // selectedQId: null,                              // 选中的提问 id
+    // expandAnswerId: null,                           // 展开答案的提问 id
+    // qDetailData: {},                                // 选中的问题详情数据
     questionCollections: [],                        // 关注的问题 id
     answerApproved: [],                             // 赞成的回答 id
     answerDisApproved: [],                          // 反对的回答 id
     answerCollections: [],                          // 收藏的回答 id
     myAggregate: {},                                // 我的相关合计数据
+    qExpandQuestions: {},                           // 展开问题的 id 列表 { id: data }
 });
 
 // --------------------------------------

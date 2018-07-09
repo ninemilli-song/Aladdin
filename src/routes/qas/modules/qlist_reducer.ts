@@ -155,7 +155,16 @@ export const setUserAggregateMyQuestion = (state, action) => {
  * @param action 
  */
 export const setAnswerExpandId = (state, action) => {
-    return state.set('expandAnswerId', action.data);
+    return state.update('qExpandQuestions', data => data.set(action.data, null));
+}
+
+/**
+ * 设置某条问题展开回答
+ * @param state 
+ * @param action 
+ */
+export const cancelAnswerExpandId = (state, action) => {
+    return state.update('qExpandQuestions', data => data.delete(action.data));
 }
 
 /**
