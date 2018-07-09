@@ -30,17 +30,19 @@ interface AnswerListPanelProps {
     visible?: boolean;                   // 是否可见
     loading?: boolean;                   // 是否正在加载
     data?: any;                          // 详情数据
-    expand?: boolean;       // 回答问题框是否展开
+    replyExpand?: boolean;                   // 回答问题框是否展开
 }
 
 @connect(
     (store, ownProps) => {
         const { questionId } = ownProps;
-        const data = store.QAS.get('qExpandQuestions').get(questionId);
+        const data = store.QAS.get('qExpandQuestions').get(questionId).get('data');
+        const replyExpand = store.QAS.get('qExpandQuestions').get(questionId).getIn(['uistate', 'replyExpand']);
+        const loading = store.QAS.get('qExpandQuestions').get(questionId).getIn(['uistate', 'loading']);
 
         return {
-            loading: store.QAS.getIn(['uistate', 'qAnswerListOpts', 'loading']),
-            expand: store.QAS.getIn(['uistate', 'qAnswerListOpts', 'expand']),
+            loading,
+            replyExpand,
             questionId,
             data,
         }
@@ -51,11 +53,11 @@ interface AnswerListPanelProps {
                 getData: (id) => {
                     dispatch(getQDetailData(id));
                 },
-                replyQuestionOnFocus: () => {
-                    dispatch(alReplyQuestionExpand(true));
+                replyQuestionOnFocus: (id) => {
+                    dispatch(alReplyQuestionExpand(id, true));
                 },
-                replyQuestionOnBlur: () => {
-                    dispatch(alReplyQuestionExpand(false));
+                replyQuestionOnBlur: (id) => {
+                    dispatch(alReplyQuestionExpand(id, false));
                 },
                 onReplyQuestion: async (questionId, answer) => {                          // 回应问题
                     await dispatch(addReply(questionId, answer));
@@ -92,7 +94,7 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
     }
 
     render() {
-        const { loading, expand, data } = this.props;
+        const { loading, replyExpand, data } = this.props;
 
         return (
             <div className={ `${this.prefixCls}-wrapper` }>
@@ -107,7 +109,7 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
                                 <ISay
                                     placeholder = "谈谈您的看法吧！"
                                     title = "回答"
-                                    expand = { expand }
+                                    expand = { replyExpand }
                                     onFocus = { this.replyQuestionOnFocus }
                                     // onBlur = { this.replyQuestionOnBlur }
                                     onSubmit = { this.onReplyQuestion }
@@ -184,9 +186,10 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
      * 回答问题对话框获取焦点
      */
     private replyQuestionOnFocus () {
-        const { action } = this.props;
+        const { data, action } = this.props;
+        const questionId = data.get('id');
 
-        action.replyQuestionOnFocus();
+        action.replyQuestionOnFocus(questionId);
     }
 
     private replyQuestionOnBlur () {

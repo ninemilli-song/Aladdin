@@ -22,7 +22,9 @@ export const detailDialogLoading = (state, action) => {
 export const fetchDetailData = (state, action) => {
     // return state.updateIn(['qDetailData'], data => fromJS(action.data));
     return state.updateIn(['qExpandQuestions'], 
-        questions => questions.update(action.data.id, data => fromJS(action.data))
+        questions => questions.update(action.data.id, data => {
+            return data.set('data', fromJS(action.data))
+        })
     );
 }
 

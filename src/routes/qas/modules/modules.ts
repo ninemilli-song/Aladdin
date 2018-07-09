@@ -115,12 +115,12 @@ const initialState = fromJS({
     // selectedQId: null,                              // 选中的提问 id
     // expandAnswerId: null,                           // 展开答案的提问 id
     // qDetailData: {},                                // 选中的问题详情数据
-    questionCollections: [],                        // 关注的问题 id
-    answerApproved: [],                             // 赞成的回答 id
-    answerDisApproved: [],                          // 反对的回答 id
-    answerCollections: [],                          // 收藏的回答 id
-    myAggregate: {},                                // 我的相关合计数据
-    qExpandQuestions: {},                           // 展开问题的 id 列表 { id: data }
+    questionCollections: [],    // 关注的问题 id
+    answerApproved: [],         // 赞成的回答 id
+    answerDisApproved: [],      // 反对的回答 id
+    answerCollections: [],      // 收藏的回答 id
+    myAggregate: {},            // 我的相关合计数据
+    qExpandQuestions: {},       // 展开问题的 id 列表 { key<number>: value<{ loading<boolean>, replyExpand<boolean> }> }
 });
 
 // --------------------------------------

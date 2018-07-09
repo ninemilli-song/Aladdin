@@ -407,10 +407,13 @@ const replyQuestionExpand = (expand: boolean) => {
  * 回答问题框焦点处理
  * @param expand 是否展开
  */
-const alReplyQuestionExpand = (expand: boolean) => {
+const alReplyQuestionExpand = (id: number, expand: boolean) => {
     return {
         type: QAS_Q_ANSWER_LIST_REPLY_EXPAND,
-        data: expand,
+        data: {
+            id,
+            expand
+        },
     }
 }
 

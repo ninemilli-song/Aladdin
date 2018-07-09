@@ -1,7 +1,7 @@
 /**
  * Case Reducer
  */
-const { fromJS } = require('immutable');
+const { fromJS, Map } = require('immutable');
 
 /**
  * 
@@ -155,7 +155,7 @@ export const setUserAggregateMyQuestion = (state, action) => {
  * @param action 
  */
 export const setAnswerExpandId = (state, action) => {
-    return state.update('qExpandQuestions', data => data.set(action.data, null));
+    return state.update('qExpandQuestions', data => data.set(action.data, Map({})));
 }
 
 /**
@@ -168,10 +168,14 @@ export const cancelAnswerExpandId = (state, action) => {
 }
 
 /**
- * 设置某条问题展开回答
+ * 设置某条问题的回复框是否展开
  * @param state 
  * @param action 
  */
 export const setAnswerReplyExpand = (state, action) => {
-    return state.setIn(['uistate', 'qAnswerListOpts', 'expand'], action.data);
+    return state.update('qExpandQuestions', questions => {
+        return questions.update(action.data.id, data => {
+            return data.updateIn(['uistate', 'replyExpand'], expand => action.data.expand)
+        })
+    });
 }
