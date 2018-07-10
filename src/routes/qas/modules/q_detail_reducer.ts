@@ -41,50 +41,54 @@ export const setQuestionReplyExpand = (state, action) => {
 // 设置回复的收藏状态
 export const setAnswerCollected = (state, action) => {
     const { data } = action;
-    const { id, hasCollected } = data;
+    const { id, hasCollected, questionId } = data;
 
-    return state.updateIn(['qDetailData', 'answers'], answers => {
-        return answers.map((answer) => {
-            if (answer.get('id') === id) {
-                return answer.set('hasCollected', hasCollected);
-            }
-
-            return answer;
+    return state.update('qExpandQuestions', questionMap => {
+        return questionMap.updateIn([questionId, 'data', 'answers'], answers => {
+            return answers.map((answer) => {
+                if (answer.get('id') === id) {
+                    return answer.set('hasCollected', hasCollected);
+                }
+    
+                return answer;
+            });
         });
     })
 }
 
-// 设置回复的收藏状态
+// 设置回复的赞成状态
 export const setAnswerApprove = (state, action) => {
     const { data } = action;
-    const { id, hasApproved } = data;
+    const { id, hasApproved, questionId } = data;
 
-    return state.updateIn(['qDetailData', 'answers'], answers => {
-        return answers.map((answer) => {
-            if (answer.get('id') === id) {
-                const alreadyApproved = answer.get('hasApproved');
-                const alreadyDisapproved = answer.get('hasDisapproved');
-
-                return answer.set('hasApproved', hasApproved)
-                    .set('hasDisapproved', !hasApproved)
-                    .update('approveCount', (count) => {
-                        if (hasApproved && !alreadyApproved) {
-                            return count + 1;
-                        } else {
-                            return count ? count - 1 : 0;
-                        }
-                    })
-                    .update('disapproveCount', (count) => {
-                        if (hasApproved) {
-                            return count ? count - 1 : 0;
-                        } else if (!alreadyDisapproved) {
-                            return count + 1;
-                        }
-                    });
-            }
-
-            return answer;
-        });
+    return state.update('qExpandQuestions', questionMap => {
+        return questionMap.updateIn([questionId, 'data', 'answers'], answers => {
+            return answers.map((answer) => {
+                if (answer.get('id') === id) {
+                    const alreadyApproved = answer.get('hasApproved');
+                    const alreadyDisapproved = answer.get('hasDisapproved');
+    
+                    return answer.set('hasApproved', hasApproved)
+                        .set('hasDisapproved', !hasApproved)
+                        .update('approveCount', (count) => {
+                            if (hasApproved && !alreadyApproved) {
+                                return count + 1;
+                            } else {
+                                return count ? count - 1 : 0;
+                            }
+                        })
+                        .update('disapproveCount', (count) => {
+                            if (hasApproved) {
+                                return count ? count - 1 : 0;
+                            } else if (!alreadyDisapproved) {
+                                return count + 1;
+                            }
+                        });
+                }
+    
+                return answer;
+            });
+        })
     })
 }
 
@@ -95,9 +99,9 @@ export const setAnswerApprove = (state, action) => {
  */
 export const addAnswerReply = (state, action) => {
     const { data } = action;
-    const { id, pump } = data;
+    const { id, pump, questionId } = data;
 
-    return state.updateIn(['qDetailData', 'answers'], answers => {
+    return state.updateIn(['qExpandQuestions', questionId, 'data', 'answers'], answers => {
         return answers.map((answer) => {
             if (answer.get('id') === id) {
                 return answer.update('pumps', pumps => {

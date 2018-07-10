@@ -14,7 +14,8 @@ import CutLine from '../../../components/cut-line/CutLine';
  */
 
 interface AnswerListProps {
-    data?: Array<AnswerItemProps>;
+    questionId?: number;                    // 问题 id
+    data?: Array<AnswerItemProps>;          // 回答列表
 }
 
 @connect(
@@ -26,14 +27,14 @@ interface AnswerListProps {
     dispatch => {
         return {
             actions: {
-                approveAnswer: (id, approve) => {
-                    dispatch(approveAnswer(id, approve));
+                approveAnswer: (id, approve, questionId) => {
+                    dispatch(approveAnswer(id, approve, questionId));
                 },
-                collectAnswer: (id, hasCollected) => {
-                    dispatch(collectAnswer(id, hasCollected));
+                collectAnswer: (id, hasCollected, questionId) => {
+                    dispatch(collectAnswer(id, hasCollected, questionId));
                 },
-                replyAnswer: (id) => {
-                    dispatch(setReplyAnswerDialogVisible(id, true));
+                replyAnswer: (id, questionId) => {
+                    dispatch(setReplyAnswerDialogVisible(id, true, questionId));
                 }
             }
         }
@@ -78,9 +79,9 @@ export default class AnswerList extends React.Component<any, any> {
      * 赞成 与 反对
      */
     private approveHandler(id, approve) {
-        const { actions } = this.props;
+        const { actions, questionId } = this.props;
 
-        actions.approveAnswer(id, approve);
+        actions.approveAnswer(id, approve, questionId);
     }
 
     /**
@@ -88,9 +89,9 @@ export default class AnswerList extends React.Component<any, any> {
      * @param id 
      */
     private collectHandler(id) {
-        const { actions } = this.props;
+        const { actions, questionId } = this.props;
 
-        actions.collectAnswer(id, true);
+        actions.collectAnswer(id, true, questionId);
     }
 
     /**
@@ -98,18 +99,18 @@ export default class AnswerList extends React.Component<any, any> {
      * @param id 
      */
     private unCollectHandler(id) {
-        const { actions } = this.props;
+        const { actions, questionId } = this.props;
 
-        actions.collectAnswer(id, false);
+        actions.collectAnswer(id, false, questionId);
     }
 
     /**
      * 回复
      */
     private onReplyHandler(id) {
-        const { actions } = this.props;
+        const { actions, questionId } = this.props;
 
-        actions.replyAnswer(id);
+        actions.replyAnswer(id, questionId);
     }
 }
 

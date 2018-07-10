@@ -117,6 +117,7 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
                             </div>
                             <div className={ `${this.prefixCls}-replyList` }>
                                 <AnswerList 
+                                    questionId = { data ? data.get('id') : null }
                                     data = {
                                         data ? data.get('answers') : []
                                     }

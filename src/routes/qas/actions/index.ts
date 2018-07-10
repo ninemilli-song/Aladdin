@@ -422,7 +422,7 @@ const alReplyQuestionExpand = (id: number, expand: boolean) => {
  * @param id 
  * @param approve 
  */
-const approveAnswer = (id: number, hasApproved: boolean) => {
+const approveAnswer = (id: number, hasApproved: boolean, questionId: number) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
@@ -440,7 +440,8 @@ const approveAnswer = (id: number, hasApproved: boolean) => {
                 type: QAS_Q_ANSWER_APPROVE,
                 data: {
                     id,
-                    hasApproved
+                    hasApproved,
+                    questionId
                 }
             })
         })
@@ -451,7 +452,7 @@ const approveAnswer = (id: number, hasApproved: boolean) => {
  * 收藏 回应
  * @param id 
  */
-const collectAnswer = (id: number, hasCollected: boolean) => {
+const collectAnswer = (id: number, hasCollected: boolean, questionId: number) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
@@ -470,7 +471,8 @@ const collectAnswer = (id: number, hasCollected: boolean) => {
                 type: QAS_Q_ANSWER_COLLECTED,
                 data: {
                     id: id,
-                    hasCollected
+                    hasCollected,
+                    questionId
                 },
             });
 
@@ -512,12 +514,13 @@ const getMyAggregateData = () => {
  * 设置回复回答弹框可见
  * @param visible 
  */
-const setReplyAnswerDialogVisible = (id, visible) => {
+const setReplyAnswerDialogVisible = (id, visible, questionId) => {
     return {
         type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
         data: {
             id,
             visible,
+            questionId
         }
     }
 }
@@ -527,7 +530,7 @@ const setReplyAnswerDialogVisible = (id, visible) => {
  * @param id 
  * @param content 
  */
-const submitAnswerReply = (id, content) => {
+const submitAnswerReply = (id, content, questionId) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
@@ -549,7 +552,8 @@ const submitAnswerReply = (id, content) => {
                     type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
                     data: {
                         id: null,
-                        visible: false
+                        visible: false,
+                        questionId: null
                     }
                 });
 
@@ -558,7 +562,8 @@ const submitAnswerReply = (id, content) => {
                     type: QAS_Q_ANSWER_REPLY_ADD,
                     data: {
                         id,
-                        pump: result.success.data
+                        pump: result.success.data,
+                        questionId
                     }
                 })
             }

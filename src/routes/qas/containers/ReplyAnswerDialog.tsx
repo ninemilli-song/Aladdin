@@ -11,23 +11,25 @@ interface ReplyAnswerDialogProps {
     data?: any;
     visible?: boolean;
     action?: any;
+    questionId?: number;
 }
 
 @connect(
     store => {
         return {
             data: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'data']),
-            visible: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'visible'])
+            visible: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'visible']),
+            questionId: store.QAS.getIn(['uistate', 'qReplyAnswerDialogOpts', 'questionId'])
         }
     },
     dispatch => {
         return {
             action: {
                 closeReplyDialog: () => {
-                    dispatch(setReplyAnswerDialogVisible(null, false));
+                    dispatch(setReplyAnswerDialogVisible(null, false, null));
                 },
-                addReply: (id, content) => {
-                    dispatch(submitAnswerReply(id, content))
+                addReply: (id, content, questionId) => {
+                    dispatch(submitAnswerReply(id, content, questionId))
                 }
             }
         }
@@ -62,8 +64,8 @@ export default class ReplyAnswerDialog extends React.Component<ReplyAnswerDialog
      * 提交回复
      */
     private handleReplySubmit(id, content) {
-        const { action } = this.props;
+        const { action, questionId } = this.props;
 
-        action.addReply(id, content);
+        action.addReply(id, content, questionId);
     }
 }
