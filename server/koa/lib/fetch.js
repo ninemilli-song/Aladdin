@@ -39,6 +39,9 @@ function get(path, params) {
         credentials: 'same-origin'
     }).then((response) => {
         return response.json();
+    }).catch((error) => {
+        console.error(`Fetch ${url} error: \n`, error);
+        return error;
     });
 }
 

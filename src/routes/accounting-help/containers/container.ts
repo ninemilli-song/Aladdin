@@ -68,16 +68,16 @@ const getFilterData = () => {
                 });
 
                 // 默认选中会计准则/制度 和 执行年份
-                dispatch({
-                    type: ACCOUNTING_ROLETYPE_SELECT,
-                    data: {
-                        roleType: data[0].code,
-                        roleYear: data[0].exeYears[0],
-                    },
-                });
-
                 // 获取准则内容
                 if (data && data.length > 0) {
+                    dispatch({
+                        type: ACCOUNTING_ROLETYPE_SELECT,
+                        data: {
+                            roleType: data[0] ? data[0].code : null,
+                            roleYear: data[0] ? data[0].exeYears[0] : null,
+                        },
+                    });
+
                     dispatch(getRole(data[0].code, data[0].exeYears[0]));
                 }
             }
