@@ -267,9 +267,7 @@ export default class Rules extends React.Component<RulesProps> {
                 onCancel={() => this.setSPRuleDialogVisible(false)}
                 footer={ null }
             >
-                <div>
-                    <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
-                </div>
+                <div className={ `${this.prefixCls}-text` } dangerouslySetInnerHTML={{__html: ruleHtmlText}} />
             </Modal>
         );
     }
