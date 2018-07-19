@@ -44,7 +44,9 @@ interface RulesProps extends MainSiderProps {
 export default class Rules extends React.Component<RulesProps> {
 
     // The showdown Obj to converter md string to htm string.
-    mdConverter = new showdown.Converter();
+    mdConverter = new showdown.Converter({
+        simpleLineBreaks: true
+    });
 
     // 准则文本
     roleHtml = null;
