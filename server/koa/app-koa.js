@@ -67,6 +67,10 @@ app.use((ctx, next) => {
         } else {
             throw err;
         }
+
+        // 调用error事件，手动释放error事件
+        // 注：try...catch中捕获错误，不会触发error事件，需要手动触发
+        ctx.app.emit('error', err, ctx);
     });
 });
 
@@ -97,10 +101,10 @@ app.use(jwtKoa({
 app.use(routers.routes(), router.allowedMethods());
 
 app.on('error', (err, ctx) => {
-    const context = ctx;
-    console.log(err);
-    context.body = err;
-    logger.error('server error', err, ctx);
+    // const context = ctx;
+    console.log('App on error => \n', err, ctx);
+    // context.body = err;
+    // logger.error('server error', err, ctx);
 });
 
 

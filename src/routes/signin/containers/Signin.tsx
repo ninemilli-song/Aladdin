@@ -78,7 +78,7 @@ export default class Signin extends React.Component<SigninProps, any> {
         const isAuthenticated = getCookie('aladdin-is-authenticated');
         // if (this.props.isAuthenticated) {
         if (isAuthenticated) {
-            const path = params.path ? params.path : '/';
+            const path = params.path ? params.path : '';
             window.open(`/${path}`, '_self');
         } else {
             // this.props.logout();

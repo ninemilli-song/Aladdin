@@ -8,11 +8,13 @@ router.use('/auth', auth.routes(), auth.allowedMethods());
 // Rest api
 router.use('/api', api.routes(), api.allowedMethods());
 
-router.use('*', async (ctx) => {
+router.get('*', async (ctx, next) => {
     ctx.state = {
         title: 'koa2 title'
     };
 
     await ctx.render('index', {});
+
+    next();
 });
 module.exports = router;

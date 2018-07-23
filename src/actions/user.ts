@@ -42,7 +42,7 @@ const logout = () => {
             }
         }).then(() => {
             console.log('browserHistory ======> ', browserHistory);
-            browserHistory.push('/signin');
+            // browserHistory.push('/signin');
         });
     }
 }

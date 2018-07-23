@@ -267,7 +267,7 @@ const userAggregateData = (params) => {
 
         return result;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/profileerror:\n', error);
+        console.error('👉🏻 ---> /question/profile error:\n', error);
         return ResponsePacker.error(error);
     });
 };
