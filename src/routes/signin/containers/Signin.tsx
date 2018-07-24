@@ -101,7 +101,7 @@ export default class Signin extends React.Component<SigninProps, any> {
             //     // browserHistory.push('/');
             // }
 
-            const path = params.path ? params.path : '/';
+            const path = params.path ? params.path : '';
             window.open(`/${path}`, '_self');
         }
     }

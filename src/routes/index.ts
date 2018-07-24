@@ -6,8 +6,8 @@ import CounterRoute from './Counter';
 import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
 import Signin from './signin';
-import { getUserInfo } from '../actions/user';
-import { getCookie } from '../utils/cookie';
+// import { getUserInfo } from '../actions/user';
+// import { getCookie } from '../utils/cookie';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -22,23 +22,23 @@ export const createRoutes = (store) => ({
         QAS(store),
         // Signin(store)
     ],
-    onEnter: (state, replace, cb) => {
-        const { dispatch } = store;
+    // onEnter: (state, replace, cb) => {
+    //     const { dispatch } = store;
     
-        dispatch(getUserInfo()).then(() => {
-            // const { userInfo } = store.getState();
-            // const { isAuthenticated } = userInfo;
+    //     dispatch(getUserInfo()).then(() => {
+    //         // const { userInfo } = store.getState();
+    //         // const { isAuthenticated } = userInfo;
 
-            const isAuthenticated = getCookie('aladdin-is-authenticated');
+    //         const isAuthenticated = getCookie('aladdin-is-authenticated');
 
-            // 如果用户认证通过，跳转到相应页面
-            if (isAuthenticated) {
-                // 解决路由不跳转问题
-                // https://github.com/ReactTraining/react-router/issues/3671
-                cb();
-            }
-        });
-    }
+    //         // 如果用户认证通过，跳转到相应页面
+    //         if (isAuthenticated) {
+    //             // 解决路由不跳转问题
+    //             // https://github.com/ReactTraining/react-router/issues/3671
+    //             cb();
+    //         }
+    //     });
+    // }
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
