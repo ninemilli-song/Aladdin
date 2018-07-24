@@ -322,9 +322,8 @@ export default class Rules extends React.Component<RulesProps> {
             content: this.roleHtml
         };
 
-        request.post('/uploadRole', params).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
+        request.post('/uploadRole', params).then((data) => {
+            if (data) {
                 console.log('uploadRole success 👉🏻 ------> ', data);
             }
         });

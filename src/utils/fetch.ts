@@ -33,21 +33,33 @@ function get(path, params?) {
             'Content-Type': 'application/json'
         },
         credentials: 'same-origin'
-    }).then((response) => {
+    }).then((response) => {                             // http 状态处理
         const { status } = response;
         if ( status === 200 ) {
             return response.json();
-        } else if ( status === 401 ) {                  // 用户认证失败 跳转登陆页面
-            const callbackPath = location.pathname;
-            window.open(`/signin${callbackPath}`, '_self');
+        } else if ( status === 401 ) {                  // 用户认证失败
+            // const callbackPath = location.pathname;
+            // window.open(`/signin${callbackPath}`, '_self');
+            // window.open(`/signin${callbackPath}`);
 
             return response.json();
-        } else {
-            throw response;
+        } else {                                        // 其它未知异常
+            throw response.json();
         }
+    }).then((result) => {                               // 服务器结果状态处理
+        return new Promise((resolve, reject) => {
+            if (result.code === 0) {                    // 结果返回成功的数据
+                resolve(result.data);
+            } else {                                    // 结果返回失败的数据
+                reject(result.message);
+            }
+        });
     }).catch((error) => {
-        console.log('fetch error ========> ', error);
-        return error.json();
+        /**
+         * 暂时先抛出异常
+         * 后面统一处理
+         */
+        throw error;
     });
 }
 
@@ -71,16 +83,26 @@ function post(path, data) {
         if ( status === 200 ) {
             return response.json();
         } else if ( status === 401 ) {                    // 用户认证失败
-            const callbackPath = location.pathname;
-            window.open(`/signin${callbackPath}`, '_self');
-
+            // const callbackPath = location.pathname;
+            // window.open(`/signin${callbackPath}`);
             return response.json();
-        } else {
-            throw response;
+        } else {                                        // 其它未知异常
+            throw response.json();
         }
+    }).then((result) => {                               // 服务器结果状态处理
+        return new Promise((resolve, reject) => {
+            if (result.code === 0) {                    // 结果返回成功的数据
+                resolve(result.data);
+            } else {                                    // 结果返回失败的数据
+                reject(result.message);
+            }
+        })
     }).catch((error) => {
-        console.log('fetch error ========> ', error);
-        return error.json();
+        /**
+         * 暂时先抛出异常
+         * 后面统一处理
+         */
+        throw error;
     });
 }
 

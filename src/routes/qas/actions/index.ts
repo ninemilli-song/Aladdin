@@ -42,17 +42,12 @@ export const QAS_Q_ANSWER_FOLD_ID = 'QAS_Q_ANSWER_FOLD_ID';                     
 const getQuestionList = (page = 1, size = 10) => {
     return (dispatch, getState) => {
         const state = getState();
-        const userId = state.userInfo.id;
 
-        return request.get('api/qas/getQuestions', { page,  size, userId }).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                dispatch({
-                    type: QAS_Q_LIST,
-                    data: data
-                });
-            }
+        return request.get('api/qas/getQuestions', { page,  size }).then((data) => {
+            dispatch({
+                type: QAS_Q_LIST,
+                data: data
+            });
         });
     }
 }
@@ -140,23 +135,18 @@ const foldAnswer = (id) => {
  */
 const getQDetailData = (id) => {
     return (dispatch, getState) => {
-        const state = getState();
-        const userId = state.userInfo.id;
+        // const state = getState();
 
         dispatch({
             type: QAS_Q_DETAIL_LOADING_SHOW,
             data: true
         });
 
-        return request.get('api/qas/getQuestionDetail', { questionId: id, userId }).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                dispatch({
-                    type: QAS_Q_DETAIL_DATA_FETCH,
-                    data: data
-                });
-            }
+        return request.get('api/qas/getQuestionDetail', { questionId: id }).then((data) => {
+            dispatch({
+                type: QAS_Q_DETAIL_DATA_FETCH,
+                data: data
+            });
 
             dispatch({
                 type: QAS_Q_DETAIL_LOADING_HIDE,
@@ -172,17 +162,13 @@ const getQDetailData = (id) => {
 const refreshQDetailData = (id) => {
     return (dispatch, getState) => {
         const state = getState();
-        const userId = state.userInfo.id;
+        // const userId = state.userInfo.id;
 
-        return request.get('api/qas/getQuestionDetail', { questionId: id, userId }).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                dispatch({
-                    type: QAS_Q_DETAIL_DATA_FETCH,
-                    data: data
-                });
-            }
+        return request.get('api/qas/getQuestionDetail', { questionId: id }).then((data) => {
+            dispatch({
+                type: QAS_Q_DETAIL_DATA_FETCH,
+                data: data
+            });
         });
     }
 }
@@ -226,7 +212,7 @@ const submitQuestion = (question) => {
 
         // 发送请求
         return request.post('api/qas/addQuestion', param).then((result) => {
-            if (result.meta.success) {
+            if (result) {
                 // 刷新问题列表
                 dispatch(getQuestionList());
 
@@ -277,7 +263,7 @@ const concernQuestion = (questionId) => {
                 id: userId
             }
         }).then((result) => {
-            if (result.success) {
+            if (result) {
                 dispatch({
                     type: QAS_Q_CONCERN,
                     data: {
@@ -501,10 +487,10 @@ const getMyAggregateData = () => {
 
         return request.get('api/qas/userAggregateData', {
             userId
-        }).then((result) => {
+        }).then((data) => {
             dispatch({
                 type: QAS_Q_USER_AGGREGATE_DATA,
-                data: fromJS(result.success.data)
+                data: fromJS(data)
             })
         })
     }
@@ -545,8 +531,8 @@ const submitAnswerReply = (id, content, questionId) => {
             },
             content,
             isAnonymous: false
-        }).then((result) => {
-            if (result.success) {
+        }).then((data) => {
+            if (data) {
                 // 关闭回复对话框
                 dispatch({
                     type: QAS_Q_REPLY_ANSWER_DIALOG_VISIBLE,
@@ -562,7 +548,7 @@ const submitAnswerReply = (id, content, questionId) => {
                     type: QAS_Q_ANSWER_REPLY_ADD,
                     data: {
                         id,
-                        pump: result.success.data,
+                        pump: data,
                         questionId
                     }
                 })

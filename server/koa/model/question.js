@@ -10,20 +10,15 @@ const fetch = require('../lib/fetch');
  */
 const getQuestions = (params) => {
     return fetch.get('question/recent', params).then((res) => {
-        console.log('👉🏻 ---> /question/recent\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new Error(res); 
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/recent error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -36,17 +31,14 @@ const getQuestionDetail = (params) => {
         console.log('👉🏻 ---> /question/detail\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new Error(res);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
         console.error('👉🏻 ---> /question/detail error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 

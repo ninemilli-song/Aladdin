@@ -50,10 +50,10 @@ app.use(jwtVerify);
  */
 app.use(routers.routes(), router.allowedMethods());
 
-app.on('error', (err, ctx) => {
+app.on('error', (err) => {
     // const context = ctx;
-    console.log('App on error => \n', err, ctx);
-    // context.body = err;
+    console.log('App on error => \n', err);
+    // ctx.body = err;
     // logger.error('server error', err, ctx);
 });
 

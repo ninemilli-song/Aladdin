@@ -157,9 +157,12 @@ const findUserById = (userId) => {
                 return user.id === userId;
             }
         );
-        return ResponsePacker.success(Object.assign({}, {
+        // return ResponsePacker.success(Object.assign({}, {
+        //     ...userInfo[0]
+        // }));
+        return Object.assign({}, {
             ...userInfo[0]
-        }));
+        });
     }).catch((error) => {
         // winston.info('error', error);
         return ResponsePacker.error(error);

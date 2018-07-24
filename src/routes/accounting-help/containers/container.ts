@@ -57,29 +57,25 @@ const getRoleYears = (accountingRoleYears) => {
 const getFilterData = () => {
     return (dispatch, getState) => {
 
-        return request.get('api/getRolesFilters').then((result) => {
-            if (result.success) {
-                const data = result.success.data;
+        return request.get('api/getRolesFilters').then((data: Array<any>) => {
+            // 添加规则类型（准则/制度 和 执行年份）数据
+            dispatch({
+                type: ACCOUNTING_ROLE_TYPES,
+                data: data,
+            });
 
-                // 添加规则类型（准则/制度 和 执行年份）数据
+            // 默认选中会计准则/制度 和 执行年份
+            // 获取准则内容
+            if (data && data.length > 0) {
                 dispatch({
-                    type: ACCOUNTING_ROLE_TYPES,
-                    data: data,
+                    type: ACCOUNTING_ROLETYPE_SELECT,
+                    data: {
+                        roleType: data[0] ? data[0].code : null,
+                        roleYear: data[0] ? data[0].exeYears[0] : null,
+                    },
                 });
 
-                // 默认选中会计准则/制度 和 执行年份
-                // 获取准则内容
-                if (data && data.length > 0) {
-                    dispatch({
-                        type: ACCOUNTING_ROLETYPE_SELECT,
-                        data: {
-                            roleType: data[0] ? data[0].code : null,
-                            roleYear: data[0] ? data[0].exeYears[0] : null,
-                        },
-                    });
-
-                    dispatch(getRole(data[0].code, data[0].exeYears[0]));
-                }
+                dispatch(getRole(data[0].code, data[0].exeYears[0]));
             }
         });
     }
@@ -90,16 +86,12 @@ const getFilterData = () => {
  */
 const getSubjectCategory = (roleType, roleYear) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSubjectCategory?type=${roleType}&year=${roleYear}`).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                // 将科目分类添加到store中
-                dispatch({
-                    type: ACCOUNTING_SUBJECT_CATEGORY,
-                    data: data,
-                });
-            }
+        return request.get(`api/getSubjectCategory?type=${roleType}&year=${roleYear}`).then((data) => {
+            // 将科目分类添加到store中
+            dispatch({
+                type: ACCOUNTING_SUBJECT_CATEGORY,
+                data: data,
+            });
         });
     }
 }
@@ -111,16 +103,12 @@ const getSubjectCategory = (roleType, roleYear) => {
  */
 const getSubjectsData = (roleType, roleYear) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSubjectsData?type=${roleType}&year=${roleYear}`).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                // 将科目数据添加到store中
-                dispatch({
-                    type: ACCOUNTING_SUBJECT_DATA,
-                    data: data
-                });
-            }
+        return request.get(`api/getSubjectsData?type=${roleType}&year=${roleYear}`).then((data) => {
+            // 将科目数据添加到store中
+            dispatch({
+                type: ACCOUNTING_SUBJECT_DATA,
+                data: data
+            });
         });
     }
 }
@@ -132,16 +120,12 @@ const getSubjectsData = (roleType, roleYear) => {
  */
 const getReportData = (roleType, roleYear) => {
     return (dispatch, getState) => {
-        return request.get(`api/getReportData?type=${roleType}&year=${roleYear}`).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
-                // 将科目数据添加到store中
-                dispatch({
-                    type: ACCOUNTING_REPORT_DATA,
-                    data: data
-                });
-            }
+        return request.get(`api/getReportData?type=${roleType}&year=${roleYear}`).then((data) => {
+            // 将科目数据添加到store中
+            dispatch({
+                type: ACCOUNTING_REPORT_DATA,
+                data: data
+            });
         });
     }
 }
@@ -175,11 +159,9 @@ const selectMenu = (selectedKey) => {
  */
 const getRole = (type, year) => {
     return (dispatch, getState) => {
-        return request.get(`api/getRule?type=${type}&year=${year}`).then((result) => {
-            const roleGPData = result.success ? 
-                (result.success.data.gpRule ? result.success.data.gpRule.generalPrinciple : '') 
-                : '';
-            const roleSPData = result.success ? result.success.data.spRule : {};
+        return request.get(`api/getRule?type=${type}&year=${year}`).then((data: any) => {
+            const roleGPData = data.gpRule ? data.gpRule.generalPrinciple : '';
+            const roleSPData = data ? data.spRule : {};
 
             const role = Object.assign({}, {
                 roleGPData,
@@ -217,21 +199,16 @@ const selectRoleType = (type, year) => {
  */
 const getSPRuleDetail = (spID) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSPRuleDetail`, { spID }).then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-                const { title, specifics } = data;
+        return request.get(`api/getSPRuleDetail`, { spID }).then((data: any) => {
+            const { title, specifics } = data;
 
-                dispatch({
-                    type: ACCOUNTING_ROLE_SP_DETAIL,
-                    data: {
-                        title,
-                        content: specifics
-                    }
-                });
-            }
-        }).catch(() => {
-
+            dispatch({
+                type: ACCOUNTING_ROLE_SP_DETAIL,
+                data: {
+                    title,
+                    content: specifics
+                }
+            });
         });
     }
 }

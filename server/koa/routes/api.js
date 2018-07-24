@@ -23,6 +23,8 @@ const {
     replyAnswer
 } = require('../model/question');
 const { findUserById } = require('../model/user');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 router.get('/register', (ctx) => {
     ctx.body = 'hello api register!!';
@@ -198,6 +200,7 @@ router.get('/getReportData', async (ctx) => {
 
 // 获取 用户信息
 router.get('/user/getUserInfo', async (ctx) => {
+    // 通过ctx.state.user判断用户是否认证，并抛出相关异常
     if (ctx.state.user) {                                  // koa-jwt 验证通过后会自动添加ctx.state.user对象
         // ctx.body = ctx.state.user;
         console.log('user/getUserInfo', ctx.state);
@@ -207,10 +210,7 @@ router.get('/user/getUserInfo', async (ctx) => {
 
         ctx.body = result;
     } else {
-        ctx.body = {
-            message: 'user error',
-            code: -1
-        };
+        throw new ApiError(ApiErrorNames.USER_NOT_SIGNIN);
     }
 });
 

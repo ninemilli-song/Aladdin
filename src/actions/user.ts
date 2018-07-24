@@ -12,15 +12,11 @@ export const USER_LOGOUT = 'USER_LOGOUT';
  */
 const getUserInfo = () => {
     return (dispatch, getState) => {
-        return request.get('api/user/getUserInfo').then((result) => {
-            if (result.success) {
-                const data = result.success.data;
-
+        return request.get('api/user/getUserInfo').then((data) => {
                 dispatch({
                     type: GET_USER_INFO,
                     data: data
                 });
-            }
         });
     }
 }
@@ -34,7 +30,7 @@ const logout = () => {
     // deleteCookie(jwtConstant.ADMIN_COOKIE_NAME);
     return (dispatch, getState) => {
         return request.get('auth/logout').then((result) => {
-            if (result.success) {
+            if (result) {
                 // 清空store中用户数据
                 dispatch({
                     type: USER_LOGOUT,
