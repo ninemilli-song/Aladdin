@@ -64,7 +64,7 @@ const addQuestion = (params) => {
  * @param {*} params 
  */
 const concernQuestion = (params) => {
-    return fetch.post('/questionCollected/add', params).then((res) => {
+    return fetch.post('questionCollected/add', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
@@ -82,7 +82,7 @@ const concernQuestion = (params) => {
  * @param {*} params 
  */
 const unconcernQuestion = (params) => {
-    return fetch.post('/questionCollected/unconcern', params).then((res) => {
+    return fetch.post('questionCollected/unconcern', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
@@ -100,7 +100,7 @@ const unconcernQuestion = (params) => {
  * @param {*} params 
  */
 const replyQuestion = (params) => {
-    return fetch.post('/answer/add', params).then((res) => {
+    return fetch.post('answer/add', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
@@ -118,7 +118,7 @@ const replyQuestion = (params) => {
  * @param {*} params 
  */
 const replyAnswer = (params) => {
-    return fetch.post('/pump/add', params).then((res) => {
+    return fetch.post('pump/add', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
@@ -136,7 +136,7 @@ const replyAnswer = (params) => {
  * @param {*} params 
  */
 const collectAnswer = (params) => {
-    return fetch.post('/answerCollected/add', params).then((res) => {
+    return fetch.post('answerCollected/add', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
@@ -154,7 +154,7 @@ const collectAnswer = (params) => {
  * @param {*} params 
  */
 const uncollectAnswer = (params) => {
-    return fetch.post('/answerCollected/unconcern', params).then((res) => {
+    return fetch.post('answerCollected/unconcern', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
