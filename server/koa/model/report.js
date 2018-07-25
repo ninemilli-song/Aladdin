@@ -1,4 +1,8 @@
-const ResponsePacker = require('../lib/responsePacker');
+/**
+ * 报表数据
+ */
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 const fetch = require('../lib/fetch');
 /**
  * 根据准则和年份获取科目数据
@@ -6,20 +10,15 @@ const fetch = require('../lib/fetch');
  */
 const getReportDataByCodeYear = (params) => {
     return fetch.get('/rp/queryByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> /rp/queryByCodeYearr\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /rp/queryByCodeYear error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 

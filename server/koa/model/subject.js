@@ -1,5 +1,9 @@
-const ResponsePacker = require('../lib/responsePacker');
+/**
+ * 科目数据
+ */
 const fetch = require('../lib/fetch');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 /**
  * 根据准则和年份获取科目分类
@@ -7,20 +11,15 @@ const fetch = require('../lib/fetch');
  */
 const getSubjectCategoryByCodeYear = (params) => {
     return fetch.get('accElement/queryByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> /accElement/queryByCodeYear\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /accElement/queryByCodeYear error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -30,20 +29,15 @@ const getSubjectCategoryByCodeYear = (params) => {
  */
 const getSubjectsDataByCodeYear = (params) => {
     return fetch.get('accElement/queryCoaUsagesByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> /accElement/queryCoaUsagesByCodeYear\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /accElement/queryCoaUsagesByCodeYear error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 

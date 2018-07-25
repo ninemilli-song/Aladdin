@@ -1,8 +1,6 @@
 /**
  * The roles filter model
  */
-const ResponsePacker = require('../lib/responsePacker');
-
 function getRolesTypes(db) {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM `RuleType` LIMIT 0,1000', (error, results) => {
@@ -29,12 +27,12 @@ const getRolesYears = (db) => {
 
 const getRolesFilters = (db) => {
     return Promise.all([getRolesTypes(db), getRolesYears(db)]).then(([types, years]) => {
-        return ResponsePacker.success({
+        return {
             types,
             years
-        });
+        };
     }).catch((error) => {
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 

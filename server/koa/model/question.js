@@ -1,8 +1,9 @@
 /**
- * 问答
+ * 问答数据对接
  */
-const ResponsePacker = require('../lib/responsePacker');
 const fetch = require('../lib/fetch');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 /**
  * 获取问题列表
@@ -13,7 +14,7 @@ const getQuestions = (params) => {
         const { data, meta } = res;
 
         if (!meta.success) {
-            throw new Error(res); 
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
         return data;
@@ -28,16 +29,14 @@ const getQuestions = (params) => {
  */
 const getQuestionDetail = (params) => {
     return fetch.get('question/detail', params).then((res) => {
-        console.log('👉🏻 ---> /question/detail\n', res);
         const { data, meta } = res;
 
         if (!meta.success) {
-            throw new Error(res);
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
         return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/detail error:\n', error);
         throw error;
     });
 };
@@ -48,11 +47,15 @@ const getQuestionDetail = (params) => {
  */
 const addQuestion = (params) => {
     return fetch.post('question/add', params).then((res) => {
-        console.log('👉🏻 ---> /question/add\n', res);
-        return res;
+        const { data, meta } = res;
+
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
+        }
+
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/add error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -62,20 +65,15 @@ const addQuestion = (params) => {
  */
 const concernQuestion = (params) => {
     return fetch.post('/questionCollected/add', params).then((res) => {
-        console.log('👉🏻 ---> /questionCollected/add\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            result = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /questionCollected/add error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -85,20 +83,15 @@ const concernQuestion = (params) => {
  */
 const unconcernQuestion = (params) => {
     return fetch.post('/questionCollected/unconcern', params).then((res) => {
-        console.log('👉🏻 ---> /questionCollected/unconcern\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            result = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /questionCollected/unconcern error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -108,20 +101,15 @@ const unconcernQuestion = (params) => {
  */
 const replyQuestion = (params) => {
     return fetch.post('/answer/add', params).then((res) => {
-        console.log('👉🏻 ---> /answer/add\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /replyQuestion error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -130,22 +118,16 @@ const replyQuestion = (params) => {
  * @param {*} params 
  */
 const replyAnswer = (params) => {
-    console.log('👉🏻 ---> /replyAnswer: \n', params);
     return fetch.post('/pump/add', params).then((res) => {
-        console.log('👉🏻 ---> /pump/add\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /replyQuestion error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -155,20 +137,15 @@ const replyAnswer = (params) => {
  */
 const collectAnswer = (params) => {
     return fetch.post('/answerCollected/add', params).then((res) => {
-        console.log('👉🏻 ---> /answerCollected/add\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /answerCollected/add error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -178,20 +155,15 @@ const collectAnswer = (params) => {
  */
 const uncollectAnswer = (params) => {
     return fetch.post('/answerCollected/unconcern', params).then((res) => {
-        console.log('👉🏻 ---> /answerCollected/unconcern\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /answerCollected/unconcern error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -201,20 +173,15 @@ const uncollectAnswer = (params) => {
  */
 const approveAnswer = (params) => {
     return fetch.post('answer/approve', params).then((res) => {
-        console.log('👉🏻 ---> /answer/approve\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /answer/approve error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -224,20 +191,15 @@ const approveAnswer = (params) => {
  */
 const disapproveAnswer = (params) => {
     return fetch.post('answer/disapprove', params).then((res) => {
-        console.log('👉🏻 ---> /answer/disapprove\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /answer/disapprove error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -250,17 +212,13 @@ const userAggregateData = (params) => {
         console.log('👉🏻 ---> /question/profile\n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            throw new Error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> /question/profile error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 

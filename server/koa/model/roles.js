@@ -1,8 +1,11 @@
 /**
  * The roles model
+ * 准则数据
  */
 const ResponsePacker = require('../lib/responsePacker');
 const fetch = require('../lib/fetch');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 function getRolesTypes(db) {
     return new Promise((resolve, reject) => {
@@ -47,17 +50,13 @@ const getRules = () => {
         console.log('👉🏻 ---> accStandard/getDistinctName:\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -67,20 +66,15 @@ const getRules = () => {
  */
 const getGPByCodeYear = (params) => {
     return fetch.get('gp/queryByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> gp/queryByCodeYear:\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
-        return ResponsePacker.error(error);
+        return error;
     });
 };
 
@@ -90,20 +84,15 @@ const getGPByCodeYear = (params) => {
  */
 const getSPByCodeYear = (params) => {
     return fetch.get('sp/queryByCodeYear', params).then((res) => {
-        console.log('👉🏻 ---> sp/queryByCodeYear:\n', res);
         const { data, meta } = res;
 
-        let rules = null;
-        if (meta.success) {
-            rules = ResponsePacker.success(data);
-        } else {
-            rules = ResponsePacker.error('remote server result error!');
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return rules;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> accStandard/getDistinctName error:\n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -114,12 +103,12 @@ const getSPByCodeYear = (params) => {
 const getRuleByCodeYear = (params) => {
     return Promise.all([getGPByCodeYear(params), getSPByCodeYear(params)])
     .then(([gpRes, spRes]) => {
-        return ResponsePacker.success({
-            gpRule: gpRes.success.data,
-            spRule: spRes.success.data
-        });
+        return {
+            gpRule: gpRes,
+            spRule: spRes
+        };
     }).catch((error) => {
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
@@ -129,20 +118,15 @@ const getRuleByCodeYear = (params) => {
  */
 const getSPRuleDetail = (params) => {
     return fetch.get('sp/detail', params).then((res) => {
-        console.log('👉🏻 ---> sp/detail: \n', res);
         const { data, meta } = res;
 
-        let result = null;
-        if (meta.success) {
-            result = ResponsePacker.success(data);
-        } else {
-            result = ResponsePacker.error(`remote server result error! ${meta.message}`);
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return result;
+        return data;
     }).catch((error) => {
-        console.error('👉🏻 ---> sp/detail error: \n', error);
-        return ResponsePacker.error(error);
+        throw error;
     });
 };
 
