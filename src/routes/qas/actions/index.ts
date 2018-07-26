@@ -162,7 +162,6 @@ const getQDetailData = (id) => {
 const refreshQDetailData = (id) => {
     return (dispatch, getState) => {
         const state = getState();
-        // const userId = state.userInfo.id;
 
         return request.get('api/qas/getQuestionDetail', { questionId: id }).then((data) => {
             dispatch({
@@ -206,7 +205,8 @@ const submitQuestion = (question) => {
             tag: []
         }, question, {
             user: {
-                id: userId
+                // id: userId
+                id: 1
             }
         });
 
@@ -260,7 +260,8 @@ const concernQuestion = (questionId) => {
                 id: questionId
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             }
         }).then((result) => {
             if (result) {
@@ -304,7 +305,8 @@ const unconcernQuestion = (questionId) => {
                 id: questionId
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             }
         }).then((result) => {
             dispatch({
@@ -358,7 +360,8 @@ const addReply = (questionId, answer) => {
                 id: questionId
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             },
             answer,
             isAnonymous: false,
@@ -419,7 +422,8 @@ const approveAnswer = (id: number, hasApproved: boolean, questionId: number) => 
                 id
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             },
         }).then((result) => {
             dispatch({
@@ -450,7 +454,8 @@ const collectAnswer = (id: number, hasCollected: boolean, questionId: number) =>
                 id
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             },
         }).then((result) => {
             dispatch({
@@ -486,7 +491,8 @@ const getMyAggregateData = () => {
         const userId = state.userInfo.id; 
 
         return request.get('api/qas/userAggregateData', {
-            userId
+            // userId
+            // userId: 1
         }).then((data) => {
             dispatch({
                 type: QAS_Q_USER_AGGREGATE_DATA,
@@ -527,7 +533,8 @@ const submitAnswerReply = (id, content, questionId) => {
                 id
             },
             user: {
-                id: userId
+                // id: userId
+                id: 1
             },
             content,
             isAnonymous: false

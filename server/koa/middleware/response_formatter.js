@@ -44,7 +44,8 @@ const urlFilter = (pattern) => {
                 
                 ctx.body = {
                     code: error.code,
-                    message: error.message
+                    message: error.message,
+                    originalMessage: error.originalMessage
                 };
             }
 

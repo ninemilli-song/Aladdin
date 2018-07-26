@@ -5,7 +5,7 @@ const ApiErrorNames = require('./api-error-names');
 
 class ApiError extends Error {
     // 构造方法
-    constructor(errorName) {
+    constructor(errorName, originalMessage) {
         super();
 
         const errorInfo = ApiErrorNames.getErrorInfo(errorName);
@@ -13,6 +13,7 @@ class ApiError extends Error {
         this.name = errorName;
         this.code = errorInfo.code;
         this.message = errorInfo.message;
+        this.originalMessage = originalMessage || '';
     }
 }
 

@@ -4,6 +4,7 @@
 const ApiErrorNames = {};
 
 ApiErrorNames.UNKNOW_ERROR = 'unknowError';
+ApiErrorNames.SERVER_ERROR = 'serverError';
 ApiErrorNames.USER_NOT_EXIST = 'userNotExist';
 ApiErrorNames.USER_NOT_SIGNIN = 'userNotSignin';
 
@@ -13,6 +14,7 @@ ApiErrorNames.USER_NOT_SIGNIN = 'userNotSignin';
 const errorMap = new Map();
 
 errorMap.set(ApiErrorNames.UNKNOW_ERROR, { code: -1, message: '未知错误' });
+errorMap.set(ApiErrorNames.SERVER_ERROR, { code: -2, message: '服务错误' });
 errorMap.set(ApiErrorNames.USER_NOT_EXIST, { code: 101, message: '用户不存在' });
 errorMap.set(ApiErrorNames.USER_NOT_SIGNIN, { code: 102, message: '用户未登陆' });
 
