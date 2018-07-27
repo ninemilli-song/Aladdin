@@ -38,10 +38,18 @@ function get(path, params) {
         },
         credentials: 'same-origin'
     }).then((response) => {
-        return response.json();
+        const { status } = response;
+        switch (status) {
+            case 200:
+                return response.json();
+            case 401:                               // 用户认证失败
+                throw response;
+            default:
+                return response.json();
+        }
     }).catch((error) => {
         console.error(`Fetch ${url} error: \n`, error);
-        return error;
+        throw error;
     });
 }
 
@@ -60,7 +68,20 @@ function post(path, data) {
         credentials: 'same-origin',
         body: JSON.stringify(data)
     })
-    .then(response => response.json());
+    .then((response) => {
+        const { status } = response;
+        switch (status) {
+            case 200:
+                return response.json();
+            case 401:                               // 用户认证失败
+                throw response;
+            default:
+                return response.json();
+        }
+    }).catch((error) => {
+        console.error(`Fetch ${path} error: \n`, error);
+        throw error;
+    });
 }
 
 module.exports = {

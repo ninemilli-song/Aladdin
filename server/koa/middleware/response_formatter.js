@@ -47,6 +47,9 @@ const urlFilter = (pattern) => {
                     message: error.message,
                     originalMessage: error.originalMessage
                 };
+            } else {
+                ctx.status = error.status || 500;
+                ctx.body = error;
             }
 
             // 继续抛，让外层中间件处理日志
