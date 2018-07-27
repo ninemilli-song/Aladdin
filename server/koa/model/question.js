@@ -176,7 +176,7 @@ const approveAnswer = (params) => {
         const { data, meta } = res;
 
         if (!meta.success) {
-            throw new ApiError(ApiErrorNames.UNKNOW_ERROR, res);
+            throw new ApiError(ApiErrorNames.SERVER_ERROR, meta.message);
         }
 
         return data;
@@ -194,7 +194,7 @@ const disapproveAnswer = (params) => {
         const { data, meta } = res;
 
         if (!meta.success) {
-            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
+            throw new ApiError(ApiErrorNames.SERVER_ERROR, meta.message);
         }
 
         return data;

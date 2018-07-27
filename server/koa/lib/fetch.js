@@ -41,6 +41,7 @@ function get(path, params) {
         const { status } = response;
         switch (status) {
             case 200:
+            case 204:
                 return response.json();
             case 401:                               // 用户认证失败
                 throw response;
@@ -72,6 +73,7 @@ function post(path, data) {
         const { status } = response;
         switch (status) {
             case 200:
+            case 204:
                 return response.json();
             case 401:                               // 用户认证失败
                 throw response;
