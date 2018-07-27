@@ -179,7 +179,7 @@ const approveAnswer = (params) => {
             throw new ApiError(ApiErrorNames.SERVER_ERROR, meta.message);
         }
 
-        return data;
+        return data || '';
     }).catch((error) => {
         throw error;
     });
@@ -197,7 +197,7 @@ const disapproveAnswer = (params) => {
             throw new ApiError(ApiErrorNames.SERVER_ERROR, meta.message);
         }
 
-        return data;
+        return data || '';
     }).catch((error) => {
         throw error;
     });
