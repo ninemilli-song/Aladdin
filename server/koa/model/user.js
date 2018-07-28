@@ -143,8 +143,10 @@
 //    console.log('user save success!');
 // });
 
-// const fetch = require('../lib/fetch');
 const authPassport = require('../lib/auth-passport');
+const fetch = require('../lib/fetch');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 /**
  * 通过 id 获取用户信息
@@ -165,6 +167,29 @@ const findUserById = (userId) => {
     });
 };
 
+/**
+ * 用户登陆
+ * @param {*} userName 
+ * @param {*} password 
+ */
+const login = (userName, password) => {
+    return fetch.post('sysUser/login', {
+        username: userName,
+        password
+    }).then((res) => {
+        const { data, meta } = res;
+
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
+        }
+
+        return data;
+    }).catch((error) => {
+        throw error;
+    });
+};
+
 module.exports = {
     findUserById,
+    login
 };
