@@ -30,14 +30,14 @@ interface SigninProps {
 @connect(
     store => (
         {
-            userName: store.userInfo.name,
+            mobile: store.userInfo.mobile,
             isAuthenticated: store.userInfo.isAuthenticated
         }
     ),
     dispatch => (
         {
-            signin: (name, password) => {
-                dispatch(signin(name, password));
+            signin: (mobile, password) => {
+                dispatch(signin(mobile, password));
             },
             getUserInfo: () => {
                 dispatch(getUserInfo());
@@ -67,11 +67,11 @@ export default class Signin extends React.Component<SigninProps, any> {
         // }
         const { params } = this.props;
     
-        const username = storage.getStorage('USERNAME')
-        const password = storage.getStorage('PASSWORD')
+        const mobile = storage.getStorage('MOBILE');
+        const password = storage.getStorage('PASSWORD');
     
         this.setState({
-            username,
+            mobile,
             password
         });
 
@@ -107,7 +107,7 @@ export default class Signin extends React.Component<SigninProps, any> {
     }
 
     render() {
-        const { userName, form, context } = this.props;
+        const { form, context } = this.props;
 
         console.log('signin context ======> ', this.props);
       
@@ -116,7 +116,7 @@ export default class Signin extends React.Component<SigninProps, any> {
         } = form;
       
         const {
-            username,
+            mobile,
             password
         } = this.state;
 
@@ -137,12 +137,12 @@ export default class Signin extends React.Component<SigninProps, any> {
                         >
                             <FormItem>
                                 {
-                                    getFieldDecorator('username', {
-                                        initialValue: username,
-                                        rules: [{ required: true, message: '请输入您的账号!'}]
+                                    getFieldDecorator('mobile', {
+                                        initialValue: mobile,
+                                        rules: [{ required: true, message: '请输入您注册手机号!'}]
                                     })(
                                         <Input
-                                            placeholder="账号"
+                                            placeholder="手机号/邮箱"
                                         />
                                     )
                                 }
@@ -200,7 +200,7 @@ export default class Signin extends React.Component<SigninProps, any> {
     
         this.props.form.validateFields(async (err, values) => {
           if (!err) {
-            await this.props.signin(values.username, values.password)
+            await this.props.signin(values.mobile, values.password)
     
             // if (this.props.error) {
             //   message.error(this.props.error)
@@ -209,10 +209,10 @@ export default class Signin extends React.Component<SigninProps, any> {
             // }
     
             if (values.remember === true) {
-              storage.setStorage('USERNAME', values.username)
+              storage.setStorage('MOBILE', values.mobile)
               storage.setStorage('PASSWORD', values.password)
             } else {
-              storage.removeStorage('USERNAME')
+              storage.removeStorage('MOBILE')
               storage.removeStorage('PASSWORD')
             }
           }

@@ -10,18 +10,18 @@ router.get('/login', async (ctx) => {
     // const user = ctx.request.body;
     const user = ctx.request.query;
 
-    const userInfo = await auth.login(user.name, user.password);
+    const userInfo = await auth.login(user.mobile, user.password);
     console.log('user login data -> : ', userInfo);
 
     const payload = {
-        userId: userInfo.data.id,
+        userId: userInfo.id,
         exp: Math.floor(Date.now() / 1000) + (60 * 60),
     };
 
     // token签名
     const token = jwt.sign(payload, secret, { 
         // expiresIn: jwtConstant.EXPIRT_TIME,                             // 有效时间
-        subject: userInfo.data.id,                                      // 该JWT所面向的用户
+        subject: userInfo.id,                                      // 该JWT所面向的用户
         issuer: jwtConstant.ISSUER,                                     // 该JWT的签发者
     });
 
@@ -36,7 +36,7 @@ router.get('/login', async (ctx) => {
     });
 
     // set cookie 回写到客户端
-    ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, userInfo.data.id, {
+    ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, userInfo.id, {
         maxAge: 10 * 60 * 1000,                                     // cookie有效时长
         httpOnly: true,                                             // 是否只用于http请求中获取
         overwrite: false,                                           // 是否允许重写

@@ -172,11 +172,12 @@ const findUserById = (userId) => {
  * @param {*} userName 
  * @param {*} password 
  */
-const login = (userName, password) => {
-    return fetch.post('sysUser/login', {
-        username: userName,
+const login = (mobile, password) => {
+    return fetch.get('sysUser/login', {
+        mobile,
         password
     }).then((res) => {
+        console.log('user login ----> ', res);
         const { data, meta } = res;
 
         if (!meta.success) {

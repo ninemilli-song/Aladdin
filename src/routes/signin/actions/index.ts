@@ -11,19 +11,16 @@ export const USER_SIGNIN = 'USER_SIGNIN';
 // ---------------------------
 /**
  * 登陆
- * @param name 
+ * @param mobile 
  * @param password 
  */
-const signin = (name, password) => {
+const signin = (mobile, password) => {
     return (dispatch, getState) => {
-        return request.get('auth/login', { name,  password }).then((data) => {
+        return request.get('auth/login', { mobile,  password }).then((data) => {
             dispatch({
                 type: USER_SIGNIN,
                 data: data
             });
-
-            // window.open('/signin', '_self');
-            // browserHistory.goBack();
         });
     }
 }
