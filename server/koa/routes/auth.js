@@ -14,14 +14,14 @@ router.get('/login', async (ctx) => {
     console.log('user login data -> : ', userInfo);
 
     const payload = {
-        userId: userInfo.id,
+        userId: `${userInfo.id}`,
         exp: Math.floor(Date.now() / 1000) + (60 * 60),
     };
 
     // token签名
     const token = jwt.sign(payload, secret, { 
-        // expiresIn: jwtConstant.EXPIRT_TIME,                             // 有效时间
-        subject: userInfo.id,                                      // 该JWT所面向的用户
+        // expiresIn: jwtConstant.EXPIRT_TIME,                          // 有效时间
+        subject: `${userInfo.id}`,                                      // 该JWT所面向的用户
         issuer: jwtConstant.ISSUER,                                     // 该JWT的签发者
     });
 
