@@ -6,6 +6,9 @@ const ApiError = require('../error/api-error');
 const ApiErrorNames = require('../error/api-error-names');
 
 const responseFormatter = async (ctx) => {
+    // todo: 设置header 其中有保持会话的session
+    console.log('ctx response header is ===> ', ctx.header);
+
     // 如果有返回数据，将返回数据添加到data中
     if (ctx.body) {
         ctx.body = {

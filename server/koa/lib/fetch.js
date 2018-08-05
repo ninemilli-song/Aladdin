@@ -8,14 +8,12 @@ const fetch = require('node-fetch');
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/' : 'http://rap2api.taobao.org/app/mock/485/';
 
-console.log('BASE_URL ===> ', BASE_URL);
-
 /**
  * Get request
  * @param path the request url
  * @param params request params
  */
-function get(path, params) {
+function get(path, params, cb) {
     let url = path;
 
     // Concat url and params
@@ -38,6 +36,9 @@ function get(path, params) {
         },
         credentials: 'same-origin'
     }).then((response) => {
+        if (cb) {
+            cb(response);
+        }
         const { status } = response;
         switch (status) {
             case 200:
