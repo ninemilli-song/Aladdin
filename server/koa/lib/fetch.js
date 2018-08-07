@@ -12,9 +12,14 @@ const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:9000
  * Get request
  * @param path the request url
  * @param params request params
+ * @param options { 
+ *  headers: header of request
+ *  done: request done callback function 
+ * }
  */
-function get(path, params, cb) {
+function get(path, params, options = {}) {
     let url = path;
+    const { headers } = options;
 
     // Concat url and params
     const paramsStrs = [];
@@ -30,20 +35,30 @@ function get(path, params, cb) {
 
     // Send request
     return fetch(BASE_URL + url, {
-        headers: {
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        // },
+        headers: Object.assign({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
+        }, headers),
         credentials: 'same-origin'
     }).then((response) => {
-        if (cb) {
-            cb(response);
-        }
-        const { status } = response;
+        const { status, ok } = response;
         switch (status) {
             case 200:
             case 204:
-                return response.json();
+                return response.json().then((res) => {
+                    const { data, meta } = res;
+                    meta.headers = response.headers.raw();
+                    meta.ok = ok;
+
+                    return {
+                        data,
+                        meta
+                    };
+                });
             case 401:                               // 用户认证失败
                 throw response;
             default:
@@ -59,14 +74,24 @@ function get(path, params, cb) {
  * Post request
  * @param path 
  * @param data 
+ * @param options { 
+ *  headers: header of request
+ *  done: request done callback function 
+ * }
  */
-function post(path, data) {
+function post(path, data, options = {}) {
+    const { headers } = options;
+
     return fetch(BASE_URL + path, {
         method: 'post',
-        headers: {
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        // },
+        headers: Object.assign({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
+        }, headers),
         credentials: 'same-origin',
         body: JSON.stringify(data)
     })
@@ -75,11 +100,14 @@ function post(path, data) {
         switch (status) {
             case 200:
             case 204:
-                return response.json();
+                if (options.done) {
+                    options.done(response);
+                }
+                return response;
             case 401:                               // 用户认证失败
                 throw response;
             default:
-                return response.json();
+                return response;
         }
     }).catch((error) => {
         console.error(`Fetch ${path} error: \n`, error);

@@ -144,7 +144,7 @@
 // });
 
 const authPassport = require('../lib/auth-passport');
-const fetch = require('../lib/fetch');
+// const fetch = require('../lib/fetch');
 const ApiError = require('../error/api-error');
 const ApiErrorNames = require('../error/api-error-names');
 
@@ -172,19 +172,19 @@ const findUserById = (userId) => {
  * @param {*} userName 
  * @param {*} password 
  */
-const login = (mobile, password) => {
-    return fetch.get('sysUser/login', {
+const login = (mobile, password, ctx) => {
+    return ctx.fetch.get('sysUser/login', {
         mobile,
         password
     }).then((res) => {
         console.log('user login ----> ', res);
-        const { data, meta } = res;
+        const { meta } = res;
 
         if (!meta.success) {
             throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
         }
 
-        return data;
+        return res;
     }).catch((error) => {
         throw error;
     });

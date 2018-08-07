@@ -10,16 +10,21 @@ router.get('/login', async (ctx) => {
     // const user = ctx.request.body;
     const user = ctx.request.query;
 
-    const userInfo = await auth.login(user.mobile, user.password);
-    console.log('user login data -> : ', userInfo);
+    const res = await auth.login(user.mobile, user.password, ctx);
+    const { meta, data } = res;
+    const userInfo = data;
+    console.log('user login userInfo -> : ', userInfo);
 
+    // 透传java server header
+    ctx.set('set-cookie', meta.headers['set-cookie']);
+
+    // token签名
     const payload = {
         userId: `${userInfo.id}`,
         exp: Math.floor(Date.now() / 1000) + (60 * 60),
     };
-
-    // token签名
-    const token = jwt.sign(payload, secret, { 
+    
+    const token = jwt.sign(payload, secret, {
         // expiresIn: jwtConstant.EXPIRT_TIME,                          // 有效时间
         subject: `${userInfo.id}`,                                      // 该JWT所面向的用户
         issuer: jwtConstant.ISSUER,                                     // 该JWT的签发者

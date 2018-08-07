@@ -10,6 +10,7 @@ const logger = require('koa-logger')();
 const routers = require('./routes/index');
 const errorHandler = require('./middleware/error-handler');
 const jwtVerify = require('./middleware/jwt-verify');
+const fetchHandler = require('./middleware/fetch-handler');
 
 // const mysqlConnection = require('./lib/db');
 
@@ -44,6 +45,11 @@ app.use(errorHandler);
  * jwt 认证
  */
 app.use(jwtVerify);
+
+/**
+ * fetch 封装
+ */
+app.use(fetchHandler);
 
 /**
  * register router

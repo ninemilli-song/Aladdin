@@ -4,12 +4,12 @@
  * 2. 将java服务的cookie发送给你前端
  */
 const fetch = require('../lib/fetch');
-const cookie = require('cooie');
+// const cookie = require('cookie');
 
 const fetchHandler = (ctx, next) => {
     // 将java返回的cookie发送给前端
+    /* eslint-disable */
     const captureServerCookie = (res) => {
-        /* eslint-disable */
         console.log('I get cookie from java ===> : ', res.headers.get('set-cookie'));
         // const headers = res.headers.raw();
         /**
@@ -21,34 +21,52 @@ const fetchHandler = (ctx, next) => {
          * ]
          */
         const serverCookies = res.headers.get('set-cookie');
+        console.log('serverCookies ===> ', serverCookies);
 
-        // 将java cookie传入ctx cookies中
-        serverCookies.foreach((item) => {
-            const cookieItem = cookie.parse(item);
+        ctx.set('set-cookie', serverCookies);
 
-            // 提取cookie中的配置信息
-            const opts = {};
-            for(k in cookieItem) {
-                if (k !== 'ACCSESSIONID' && k !== 'rememberMe') {
-                    opts[k] = cookieItem[k];
-                }
-            }
+        // const setCookie = (str) => {
+        //     const cookieItem = cookie.parse(str);
 
-            // 设置ctx cookies
-            const javaCookieKey = cookieItem['ACCSESSIONID'] ? 'ACCSESSIONID' : (cookieItem['rememberMe'] ? 'rememberMe' : '');
-            if (javaCookieKey) {
-                ctx.cookies.set(javaCookieKey, cookieItem[javaCookieKey], opts);
-            }
-        });
+        //     // 提取cookie中的配置信息
+        //     const opts = {};
+        //     for(k in cookieItem) {
+        //         if (k !== 'ACCSESSIONID' && k !== 'rememberMe') {
+        //             opts[k] = cookieItem[k];
+        //         }
+        //     }
+
+        //     // 设置ctx cookies
+        //     const javaCookieKey = cookieItem['ACCSESSIONID'] ? 'ACCSESSIONID' : (cookieItem['rememberMe'] ? 'rememberMe' : '');
+        //     if (javaCookieKey) {
+        //         ctx.cookies.set(javaCookieKey, cookieItem[javaCookieKey], opts);
+        //     }
+        // }
+
+        // if (Object.prototype.toString.call(serverCookies) === '[object Array]') {
+        //     // 将java cookie传入ctx cookies中
+        //     serverCookies.foreach((item) => {
+        //         setCookie(item);
+        //     });
+        // } else {
+        //     setCookie(serverCookies);
+        // }
     }
 
     ctx.fetch = {
         get: (path, params) => {
-            fetch.get(path, params, captureServerCookie);
+            return fetch.get(path, params, {
+                headers: ctx.headers
+            });
+        },
+        post: (path, params) => {
+            return fetch.post(path, params, {
+                headers: ctx.headers
+            })
         }
     };
 
-    next();
+    return next();
 };
 
 module.exports = fetchHandler;
