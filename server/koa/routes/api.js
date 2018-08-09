@@ -201,12 +201,13 @@ router.get('/getReportData', async (ctx) => {
 // 获取 用户信息
 router.get('/user/getUserInfo', async (ctx) => {
     // 通过ctx.state.user判断用户是否认证，并抛出相关异常
-    if (ctx.state.user) {                                  // koa-jwt 验证通过后会自动添加ctx.state.user对象
+    // koa-jwt 验证通过后会自动添加ctx.state.user对象
+    if (ctx.state.user) {                                  
         // ctx.body = ctx.state.user;
         console.log('user/getUserInfo', ctx.state);
         const userId = ctx.state.user.sub;
 
-        const result = await findUserById(userId);
+        const result = await findUserById(userId, ctx);
 
         ctx.body = result;
     } else {

@@ -80,7 +80,7 @@ export default class Component extends React.Component<ComponentProps, any> {
         return (
             <Dropdown overlay={ menu } trigger={ ['click'] }>
                 <a className="ant-dropdown-link" href="#">
-                    { data.alias }
+                    { data.nickName }
                     <Icon type="down" />
                 </a>
             </Dropdown>

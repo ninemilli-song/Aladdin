@@ -143,7 +143,7 @@
 //    console.log('user save success!');
 // });
 
-const authPassport = require('../lib/auth-passport');
+// const authPassport = require('../lib/auth-passport');
 // const fetch = require('../lib/fetch');
 const ApiError = require('../error/api-error');
 const ApiErrorNames = require('../error/api-error-names');
@@ -151,17 +151,28 @@ const ApiErrorNames = require('../error/api-error-names');
 /**
  * 通过 id 获取用户信息
  */
-const findUserById = (userId) => {
-    return authPassport.readUsers().then((users) => {
-        const userInfo = users.filter(
-            (user) => {
-                return user.id === userId;
-            }
-        );
+const findUserById = (userId, ctx) => {
+    // return authPassport.readUsers().then((users) => {
+    //     const userInfo = users.filter(
+    //         (user) => {
+    //             return user.id === userId;
+    //         }
+    //     );
 
-        return Object.assign({}, {
-            ...userInfo[0]
-        });
+    //     return Object.assign({}, {
+    //         ...userInfo[0]
+    //     });
+    // }).catch((error) => {
+    //     throw error;
+    // });
+    return ctx.fetch.get('sysUser/getUser').then((res) => {
+        const { data, meta } = res;
+
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
+        }
+
+        return data;
     }).catch((error) => {
         throw error;
     });
