@@ -9,8 +9,8 @@ const ApiErrorNames = require('../error/api-error-names');
  * 获取问题列表
  * @param {pageNum: number, pageSize: number} params 
  */
-const getQuestions = (params) => {
-    return fetch.get('question/recent', params).then((res) => {
+const getQuestions = (params, ctx) => {
+    return ctx.fetch.get('question/recent', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {

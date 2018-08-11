@@ -80,7 +80,7 @@ router.get('/getSPRuleDetail', async (ctx) => {
 
 // 获取问题列表
 router.get('/qas/getQuestions', async (ctx) => {
-    const result = await getQuestions(ctx.request.query);
+    const result = await getQuestions(ctx.request.query, ctx);
 
     ctx.body = result;
 });
