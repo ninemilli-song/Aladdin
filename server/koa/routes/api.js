@@ -101,14 +101,14 @@ router.post('/qas/addQuestion', async (ctx) => {
 
 // 关注问题
 router.post('/qas/concernQuestion', async (ctx) => {
-    const result = await concernQuestion(ctx.request.body);
+    const result = await concernQuestion(ctx.request.body, ctx);
     
     ctx.body = result;
 });
 
 // 取消关注问题
 router.post('/qas/unconcernQuestion', async (ctx) => {
-    const result = await unconcernQuestion(ctx.request.body);
+    const result = await unconcernQuestion(ctx.request.body, ctx);
 
     ctx.body = result;
 });
@@ -150,7 +150,7 @@ router.post('/qas/disapproveAnswer', async (ctx) => {
 
 // 获取用户相关的问题汇总数据
 router.get('/qas/userAggregateData', async (ctx) => {
-    const result = await userAggregateData(ctx.request.query);
+    const result = await userAggregateData(ctx.request.query, ctx);
 
     ctx.body = result;
 });

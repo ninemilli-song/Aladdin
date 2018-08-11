@@ -35,16 +35,14 @@ function get(path, params?) {
         credentials: 'same-origin'
     }).then((response) => {                             // http 状态处理
         const { status } = response;
-        if ( status === 200 ) {
-            return response.json();
-        } else if ( status === 401 ) {                  // 用户认证失败
-            // const callbackPath = location.pathname;
-            // window.open(`/signin${callbackPath}`, '_self');
-            // window.open(`/signin${callbackPath}`);
-
-            return response.json();
-        } else {                                        // 其它未知异常
-            throw response.json();
+        switch (status) {
+            case 200:
+            case 204:
+                return response.json();
+            case 401:
+                throw response.json();
+            default:
+                throw response;
         }
     }).then((result) => {                               // 服务器结果状态处理
         return new Promise((resolve, reject) => {
@@ -80,14 +78,14 @@ function post(path, data) {
     })
     .then((response) => {
         const { status } = response;
-        if ( status === 200 ) {
-            return response.json();
-        } else if ( status === 401 ) {                    // 用户认证失败
-            // const callbackPath = location.pathname;
-            // window.open(`/signin${callbackPath}`);
-            return response.json();
-        } else {                                        // 其它未知异常
-            throw response.json();
+        switch (status) {
+            case 200:
+            case 204:
+                return response.json();
+            case 401:
+                throw response.json();
+            default:
+                throw response;
         }
     }).then((result) => {                               // 服务器结果状态处理
         return new Promise((resolve, reject) => {

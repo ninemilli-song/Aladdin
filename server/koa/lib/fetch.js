@@ -73,13 +73,13 @@ function get(path, params, options = {}) {
 /**
  * Post request
  * @param path 
- * @param data 
+ * @param params 
  * @param options { 
  *  headers: header of request
  *  done: request done callback function 
  * }
  */
-function post(path, data, options = {}) {
+function post(path, params, options = {}) {
     const { headers } = options;
 
     return fetch(BASE_URL + path, {
@@ -93,17 +93,23 @@ function post(path, data, options = {}) {
             'Content-Type': 'application/json'
         }, headers),
         credentials: 'same-origin',
-        body: JSON.stringify(data)
+        body: JSON.stringify(params)
     })
     .then((response) => {
-        const { status } = response;
+        const { status, ok } = response;
         switch (status) {
             case 200:
             case 204:
-                if (options.done) {
-                    options.done(response);
-                }
-                return response;
+                return response.json().then((res) => {
+                    const { data, meta } = res;
+                    meta.headers = response.headers.raw();
+                    meta.ok = ok;
+
+                    return {
+                        data,
+                        meta
+                    };
+                });
             case 401:                               // 用户认证失败
                 throw response;
             default:
