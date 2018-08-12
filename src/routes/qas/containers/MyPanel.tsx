@@ -6,7 +6,8 @@ import { getMyAggregateData } from '../actions/index';
 @connect(
     (store, ownProps) => {
         return {
-            data: store.QAS.get('myAggregate')
+            data: store.QAS.get('myAggregate'),
+            isAuthenticated: store.userInfo.isAuthenticated
         }
     },
     dispatch => {
@@ -29,6 +30,15 @@ export default class MyPanel extends React.Component<any, any> {
 
         // 获取数据
         props.action.getData();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { isAuthenticated, action } = this.props;
+
+        // 用户登录状态改变后 更新用户数据
+        if (isAuthenticated !== nextProps.isAuthenticated) {
+            action.getData();
+        }
     }
 
     render() {

@@ -20,7 +20,8 @@ import MyPanel from './MyPanel';
 
 @connect(
     store => ({
-        quickQuestionExpand: store.QAS.getIn(['uistate', 'quickQuestionExpand'])
+        quickQuestionExpand: store.QAS.getIn(['uistate', 'quickQuestionExpand']),
+        isAuthenticated: store.userInfo.isAuthenticated
     }),
     dispatch => {
         return {
@@ -53,12 +54,10 @@ export default class QAS extends React.Component<any, any> {
 
     componentWillMount() {
         const { action } = this.props;
-        console.log('QAS ------> action', action);
         action.getQuestionList();
     }
 
     render() {
-        console.log('QAS ------> render');
         const { action } = this.props;
 
         return (
@@ -101,9 +100,14 @@ export default class QAS extends React.Component<any, any> {
      * 渲染边栏内容
      */
     renderSiderContent() {
+        const { isAuthenticated } = this.props;
         return (
             <div className={ `${this.prefixCls}-sider-body` }>
-                <MyPanel />
+                {
+                    isAuthenticated ? (
+                        <MyPanel />
+                    ) : null
+                }
             </div>
         )
     }

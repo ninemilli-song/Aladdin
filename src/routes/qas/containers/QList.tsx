@@ -41,6 +41,7 @@ interface QListProps {
             },
             uistate: store.QAS.get('uistate'),
             selectedQId: store.QAS.getIn(['selectedQId']),
+            isAuthenticated: store.userInfo.isAuthenticated
         }
     },
     dispatch => {
@@ -66,6 +67,14 @@ interface QListProps {
 export default class QList extends React.Component<any, any> {
 
     prefixCls = 'q-list';
+
+    componentWillReceiveProps(nexprops) {
+        const { isAuthenticated, action } = this.props;
+        // 如果用户认证状态改变 更新问题数据
+        if (isAuthenticated !== nexprops.isAuthenticated) {
+            action.getQuestionList();
+        }
+    }
 
     render() {
         return (
