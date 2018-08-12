@@ -62,22 +62,19 @@ router.get('/logout', async (ctx) => {
     const res = await auth.logout(ctx);
     console.log('user logout ----> ', res);
 
-    // set cookie 回写到客户端
-    ctx.cookies.set(jwtConstant.TOKEN_COOKIE_NAME, null, {
-        // domain: 'localhost:3000',                                // 写cookie所在的域名
-        // path: '/index',                                          // 写cookie所在的路径
-        maxAge: 10 * 60 * 1000,                                     // cookie有效时长
-        // expires: new Date('2017-12-15'),                         // cookie失效时间
-        httpOnly: true,                                             // 是否只用于http请求中获取
-        overwrite: false                                            // 是否允许重写
-    });
+    // 清除与java server同步的cookie
+    ctx.cookies.set('ACCSESSIONID', null);
+    ctx.cookies.set('rememberMe', null);
 
-    // set cookie 回写到客户端
-    ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, null, {
-        maxAge: 10 * 60 * 1000,                                     // cookie有效时长
-        httpOnly: true,                                             // 是否只用于http请求中获取
-        overwrite: false,                                           // 是否允许重写
-    });
+    /**
+     * 清空jwt相关cookie
+     * 1. token
+     * 2. user
+     * 3, is authenticated
+     */
+    ctx.cookies.set(jwtConstant.TOKEN_COOKIE_NAME, null);
+    ctx.cookies.set(jwtConstant.ADMIN_COOKIE_NAME, null);
+    ctx.cookies.set(jwtConstant.IS_AUTHENTICATED, null);
 
     ctx.body = ResponsePacker.success();
 });
