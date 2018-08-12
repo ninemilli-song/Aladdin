@@ -57,7 +57,11 @@ router.get('/login', async (ctx) => {
     ctx.body = userInfo;
 });
 
-router.get('/logout', (ctx) => {
+router.get('/logout', async (ctx) => {
+    // java 服务退出
+    const res = await auth.logout(ctx);
+    console.log('user logout ----> ', res);
+
     // set cookie 回写到客户端
     ctx.cookies.set(jwtConstant.TOKEN_COOKIE_NAME, null, {
         // domain: 'localhost:3000',                                // 写cookie所在的域名

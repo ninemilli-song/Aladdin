@@ -201,7 +201,25 @@ const login = (mobile, password, ctx) => {
     });
 };
 
+/**
+ * 退出登陆
+ */
+const logout = (ctx) => {
+    return ctx.fetch.post('sysUser/logout').then((res) => {
+        const { meta } = res;
+
+        if (!meta.success) {
+            throw new ApiError(ApiErrorNames.UNKNOW_ERROR);
+        }
+
+        return res;
+    }).catch((error) => {
+        throw error;
+    });
+};
+
 module.exports = {
     findUserById,
-    login
+    login,
+    logout
 };
