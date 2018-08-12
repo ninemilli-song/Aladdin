@@ -210,7 +210,7 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
         action.onReplyQuestion(questionId, value);
 
         // 收起回应问题框
-        action.replyQuestionOnBlur();
+        action.replyQuestionOnBlur(questionId);
     }
 }
 
