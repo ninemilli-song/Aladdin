@@ -5,6 +5,8 @@
 // require('whatwg-fetch');
 // import 'whatwg-fetch';
 const fetch = require('node-fetch');
+const ApiError = require('../error/api-error');
+const ApiErrorNames = require('../error/api-error-names');
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/' : 'http://rap2api.taobao.org/app/mock/485/';
 
@@ -60,7 +62,7 @@ function get(path, params, options = {}) {
                     };
                 });
             case 401:                               // 用户认证失败
-                throw response;
+                throw new ApiError(ApiErrorNames.USER_NOT_SIGNIN);
             default:
                 return response.json();
         }
@@ -111,9 +113,9 @@ function post(path, params, options = {}) {
                     };
                 });
             case 401:                               // 用户认证失败
-                throw response;
+                throw new ApiError(ApiErrorNames.USER_NOT_SIGNIN);
             default:
-                return response;
+                return response.json();
         }
     }).catch((error) => {
         console.error(`Fetch ${path} error: \n`, error);
