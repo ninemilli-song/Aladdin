@@ -7,6 +7,7 @@ import './assets/layout.scss';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Signin from '../../routes/signin/containers/Signin';
+import Login from '../login/Login';
 
 
 // @ui({
@@ -32,6 +33,7 @@ class Layout extends React.Component<any, any> {
                         }
                         <Footer />
                     </div>
+                    <Login />
                 </div>
                 {/* <Loading /> */}
             </div>

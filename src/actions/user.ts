@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const USER_SIGNIN = 'USER_SIGNIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const LOGIN_DIALOG_VISIBLE = 'LOGIN_DIALOG_VISIBLE';
 
 /**
  * 用户相关 action
@@ -43,7 +44,36 @@ const logout = () => {
     }
 }
 
+/**
+ * 登陆
+ * @param mobile 
+ * @param password 
+ */
+const login = (mobile: string, password: string) => {
+    return (dispatch, getState) => {
+        return request.get('auth/login', { mobile,  password }).then((data) => {
+            dispatch({
+                type: USER_SIGNIN,
+                data: data
+            });
+        });
+    }
+}
+
+/**
+ * 设置用户登陆弹框是否可见
+ * @param visible 
+ */
+const loginDialogVisible = (visible) => {
+    return {
+        type: LOGIN_DIALOG_VISIBLE,
+        data: visible
+    }
+}
+
 export {
     getUserInfo,
-    logout
+    login,
+    logout,
+    loginDialogVisible
 }

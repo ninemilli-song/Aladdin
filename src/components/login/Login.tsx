@@ -2,28 +2,29 @@
  * Author: ninemill.song
  */
 import * as React from 'react';
-import connect from 'react-redux';
-import 'login.scss';
+import { connect } from 'react-redux';
+import './login.scss';
 import { autobind } from 'core-decorators';
 import LoginForm from './LoginForm';
+import { loginDialogVisible, login } from '../../actions/user';
 const Modal = require('antd/lib/modal/Modal');
 
 @connect(
     store => (
         {
-            isShow: store.uistate.showLoginDialog
+            isShow: store.globalUi.get('loginDialogVisible')
         }
     ),
     dispatch => (
         {
             show: () => {
-                dispatch()
+                dispatch(loginDialogVisible(true))
             },
             hide: () => {
-                dispatch()
+                dispatch(loginDialogVisible(false))
             },
-            login: () => {
-                dispatch()
+            login: (mobile, password) => {
+                dispatch(login(mobile, password))
             }
         }
     )

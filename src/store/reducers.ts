@@ -4,6 +4,7 @@ import { routerReducer } from 'react-router-redux'
 import userInfoReducer from '../reducers/user';
 import menus from '../reducers/menus';
 import loading from '../reducers/loading';
+import globalUi from '../reducers/global-ui';
 
 export const makeRootReducer = (asyncReducers) => {
   // use assign instead of ...asyncReducers
@@ -12,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
       routing: routerReducer,
       loading: loading,
       userInfo: userInfoReducer,
+      globalUi,
       menus: menus
     },
     asyncReducers,
