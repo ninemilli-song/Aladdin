@@ -39,7 +39,7 @@ export default class Login extends React.Component<any, any> {
 
         return (
             <Modal
-                wrapClassName = "qas"
+                wrapClassName = { this.prefixCls }
                 visible={ isShow }
                 onCancel={ this.onCancel }
                 title = { `登录` }
@@ -55,9 +55,13 @@ export default class Login extends React.Component<any, any> {
     }
 
     onSubmit(mobile, password) {
-        const { login } = this.props;
+        const { login, hide } = this.props;
 
+        // 登录
         login(mobile, password);
+
+        // 隐藏对话框
+        hide();
     }
 
     onCancel() {

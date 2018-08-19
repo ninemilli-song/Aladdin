@@ -5,12 +5,13 @@ import * as React from 'react';
 import { Menu, Icon, Dropdown } from 'antd';
 import { connect } from 'react-redux';
 import './style.scss';
-import { logout, getUserInfo } from '../../actions/user';
+import { logout, getUserInfo, loginDialogVisible } from '../../actions/user';
 import { autobind } from 'core-decorators';
 
 interface ComponentProps {
     logout?: Function;
     getUserInfo?: Function;
+    showLogin?: Function;
     data?: any;
 }
 
@@ -24,6 +25,9 @@ interface ComponentProps {
         {
             logout: () => {
                 dispatch(logout())
+            },
+            showLogin: () => {
+                dispatch(loginDialogVisible(true))
             },
             getUserInfo: () => {
                 dispatch(getUserInfo());
@@ -90,7 +94,8 @@ export default class Component extends React.Component<ComponentProps, any> {
     private renderLogin() {
         return (
             <div className={ `${this.prefixCls}-login` }>
-                <a href="/signin">登陆/注册</a>
+                {/* <a href="/signin">登陆/注册</a> */}
+                <a href="javascript: void(0)" onClick={ this.login }>登陆/注册</a>
             </div>
         )
     }
@@ -103,5 +108,14 @@ export default class Component extends React.Component<ComponentProps, any> {
         if (key === '3') {
             logout();
         }
+    }
+
+    /**
+     * 显示登陆框
+     */
+    private login() {
+        const { showLogin } = this.props;
+
+        showLogin();
     }
 }

@@ -5,7 +5,7 @@ import { LOGIN_DIALOG_VISIBLE } from '../actions/user';
 // Reducer Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-    [LOGIN_DIALOG_VISIBLE]: (state, action) => state.update('loginDialogShow', action.data)
+    [LOGIN_DIALOG_VISIBLE]: (state, action) => state.update('loginDialogVisible', data => action.data)
 }
 
 // ------------------------------------
