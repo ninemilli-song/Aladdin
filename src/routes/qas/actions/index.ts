@@ -258,10 +258,6 @@ const concernQuestion = (questionId) => {
         return request.post('api/qas/concernQuestion', {
             question: {
                 id: questionId
-            },
-            user: {
-                // id: userId
-                id: 1
             }
         }).then((result) => {
             if (result) {
@@ -303,10 +299,6 @@ const unconcernQuestion = (questionId) => {
         return request.post('api/qas/unconcernQuestion', {
             question: {
                 id: questionId
-            },
-            user: {
-                // id: userId
-                id: 1
             }
         }).then((result) => {
             dispatch({
