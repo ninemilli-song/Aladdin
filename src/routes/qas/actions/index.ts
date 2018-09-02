@@ -203,12 +203,7 @@ const submitQuestion = (question) => {
             question: '',
             isAnonymous: false,
             tag: []
-        }, question, {
-            user: {
-                // id: userId
-                id: 1
-            }
-        });
+        }, question);
 
         // 发送请求
         return request.post('api/qas/addQuestion', param).then((result) => {
