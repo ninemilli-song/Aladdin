@@ -94,7 +94,7 @@ router.get('/qas/getQuestionDetail', async (ctx) => {
 
 // 提交问题
 router.post('/qas/addQuestion', async (ctx) => {
-    const result = await addQuestion(ctx.request.body);
+    const result = await addQuestion(ctx.request.body, ctx);
 
     ctx.body = result;
 });

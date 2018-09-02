@@ -45,8 +45,8 @@ const getQuestionDetail = (params) => {
  * 提交问题
  * @param {*} params 
  */
-const addQuestion = (params) => {
-    return fetch.post('question/add', params).then((res) => {
+const addQuestion = (params, ctx) => {
+    return ctx.fetch.post('question/add', params).then((res) => {
         const { data, meta } = res;
 
         if (!meta.success) {
