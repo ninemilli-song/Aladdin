@@ -11,6 +11,7 @@ const routers = require('./routes/index');
 const errorHandler = require('./middleware/error-handler');
 const jwtVerify = require('./middleware/jwt-verify');
 const fetchHandler = require('./middleware/fetch-handler');
+const path = require('path');
 
 // const mysqlConnection = require('./lib/db');
 
@@ -24,7 +25,8 @@ app.use(convert(logger));
 /**
  * koa static server for product environment
  */
-app.use(require('koa-static')('../dist'));
+const publicPath = path.join(__dirname, '../../dist');
+app.use(require('koa-static')(publicPath));
 
 /**
  * view page
