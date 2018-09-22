@@ -19,7 +19,8 @@ module.exports = {
         changeOrigin: true,
     },
     '/(api|auth)/*': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
+        target: 'http://127.0.0.1:9000/',
+        // target: 'http://rap2api.taobao.org/app/mock/485/',
+        changeOrigin: true
     }
 };

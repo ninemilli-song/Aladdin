@@ -57,7 +57,8 @@ const getRoleYears = (accountingRoleYears) => {
 const getFilterData = () => {
     return (dispatch, getState) => {
 
-        return request.get('api/getRolesFilters').then((data: Array<any>) => {
+        return request.get('api/getRolesFilters').then((data: any) => {
+            // const data = result.data;
             // 添加规则类型（准则/制度 和 执行年份）数据
             dispatch({
                 type: ACCOUNTING_ROLE_TYPES,

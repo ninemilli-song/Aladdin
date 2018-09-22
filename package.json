@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "antd": "^2.10.4",
+    "axios": "^0.18.0",
     "bcrypt": "^1.0.2",
     "braft-editor": "^1.8.4",
     "caniuse-db": "^1.0.30000745",
@@ -72,7 +73,6 @@
     "marked": "^0.3.6",
     "mongoose": "^4.10.5",
     "mysql": "^2.15.0",
-    "node-fetch": "^1.7.3",
     "react-blocks": "^1.1.4",
     "react-virtualized": "^9.7.5",
     "redux-ui": "^0.1.1",
@@ -168,8 +168,7 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-hot-middleware": "^2.10.0",
-    "webpack-split-by-path": "0.0.10",
-    "whatwg-fetch": "^1.0.0"
+    "webpack-split-by-path": "0.0.10"
   },
   "nyc": {
     "reporter": [

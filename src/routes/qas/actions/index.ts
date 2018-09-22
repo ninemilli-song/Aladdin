@@ -43,7 +43,7 @@ const getQuestionList = (page = 1, size = 10) => {
     return (dispatch, getState) => {
         const state = getState();
 
-        return request.get('api/qas/getQuestions', { page,  size }).then((data) => {
+        return request.get('question/recent', { page,  size }).then((data) => {
             dispatch({
                 type: QAS_Q_LIST,
                 data: data

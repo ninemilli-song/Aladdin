@@ -1,10 +1,11 @@
 /**
  * The functions to send request to server
  */
-import 'whatwg-fetch';
+import axios from 'axios';
 import { browserHistory } from 'react-router';
 
-export const BASE_URL = `http://${location.host}/`;
+// export const BASE_URL = `http://${location.host}/`;
+export const BASE_URL = 'api/';
 
 /**
  * Get request
@@ -14,49 +15,19 @@ export const BASE_URL = `http://${location.host}/`;
 function get(path, params?) {
     let url = path;
 
-    // Concat url and params
-    const paramsStrs = [];
-    if (params) {
-        Object.keys(params).forEach(item => {
-        paramsStrs.push(`${item}=${params[item]}`);
-        });
-    }
-
-    if (paramsStrs.length > 0) {
-        url = `${path}?${paramsStrs.join('&')}`;
-    }
-
     // Send request
-    return fetch(BASE_URL + url, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin'
-    }).then((response) => {                             // http 状态处理
-        const { status } = response;
-        switch (status) {
-            case 200:
-            case 204:
-                return response.json();
-            case 401:
-                throw response.json();
-            default:
-                throw response;
-        }
-    }).then((result) => {                               // 服务器结果状态处理
-        return new Promise((resolve, reject) => {
-            if (result.code === 0) {                    // 结果返回成功的数据
-                resolve(result.data);
-            } else {                                    // 结果返回失败的数据
-                reject(result.message);
-            }
+    return new Promise((resolve, reject) => {
+        axios.get(BASE_URL + path, {
+            params,
+            responseType: 'json'
+        }).then((result) => {
+            console.log('👉🏻 axios result success: ------> ', result);
+            resolve(result.data.data);
+        }).catch((error) => {
+            reject(error);
         });
     }).catch((error) => {
-        /**
-         * 暂时先抛出异常
-         * 后面统一处理
-         */
+        console.error('👉🏻 axios result failed: ------> ', error);
         throw error;
     });
 }
@@ -64,42 +35,25 @@ function get(path, params?) {
 /**
  * Post request
  * @param path 
- * @param data 
+ * @param params 
  */
-function post(path, data) {
-    return fetch(`${BASE_URL}${path}`, {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify(data)
-    })
-    .then((response) => {
-        const { status } = response;
-        switch (status) {
-            case 200:
-            case 204:
-                return response.json();
-            case 401:
-                throw response.json();
-            default:
-                throw response;
-        }
-    }).then((result) => {                               // 服务器结果状态处理
-        return new Promise((resolve, reject) => {
-            if (result.code === 0) {                    // 结果返回成功的数据
-                resolve(result.data);
-            } else {                                    // 结果返回失败的数据
-                reject(result.message);
-            }
-        })
+function post(path, params) {
+    let url = path;
+
+    return new Promise((resolve, reject) => {
+        axios({
+            method: 'post',
+            url: BASE_URL + path,
+            data: params,
+            responseType: 'json'
+        }).then((result) => {
+            console.log('👉🏻 axios result success: ------> ', result);
+            resolve(result.data.data);
+        }).catch((error) => {
+            reject(error);
+        });
     }).catch((error) => {
-        /**
-         * 暂时先抛出异常
-         * 后面统一处理
-         */
+        console.error('👉🏻 axios result failed: ------> ', error);
         throw error;
     });
 }
