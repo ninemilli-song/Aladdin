@@ -57,7 +57,7 @@ const getRoleYears = (accountingRoleYears) => {
 const getFilterData = () => {
     return (dispatch, getState) => {
 
-        return request.get('api/getRolesFilters').then((data: any) => {
+        return request.get('accStandard/getDistinctName').then((data: any) => {
             // const data = result.data;
             // 添加规则类型（准则/制度 和 执行年份）数据
             dispatch({
@@ -87,7 +87,10 @@ const getFilterData = () => {
  */
 const getSubjectCategory = (roleType, roleYear) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSubjectCategory?type=${roleType}&year=${roleYear}`).then((data) => {
+        return request.get('accElement/queryByCodeYear', {
+            accStandardCode: roleType,
+            exeYear: roleYear,
+        }).then((data) => {
             // 将科目分类添加到store中
             dispatch({
                 type: ACCOUNTING_SUBJECT_CATEGORY,
@@ -104,7 +107,11 @@ const getSubjectCategory = (roleType, roleYear) => {
  */
 const getSubjectsData = (roleType, roleYear) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSubjectsData?type=${roleType}&year=${roleYear}`).then((data) => {
+        // accElement/queryCoaUsagesByCodeYear
+        return request.get('accElement/queryCoaUsagesByCodeYear', {
+            accStandardCode: roleType,
+            exeYear: roleYear,
+        }).then((data) => {
             // 将科目数据添加到store中
             dispatch({
                 type: ACCOUNTING_SUBJECT_DATA,
@@ -120,8 +127,12 @@ const getSubjectsData = (roleType, roleYear) => {
  * @param roleYear 
  */
 const getReportData = (roleType, roleYear) => {
+    // /rp/queryByCodeYear
     return (dispatch, getState) => {
-        return request.get(`api/getReportData?type=${roleType}&year=${roleYear}`).then((data) => {
+        return request.get('rp/queryByCodeYear', {
+            accStandardCode: roleType,
+            exeYear: roleYear,
+        }).then((data) => {
             // 将科目数据添加到store中
             dispatch({
                 type: ACCOUNTING_REPORT_DATA,
@@ -160,9 +171,15 @@ const selectMenu = (selectedKey) => {
  */
 const getRole = (type, year) => {
     return (dispatch, getState) => {
-        return request.get(`api/getRule?type=${type}&year=${year}`).then((data: any) => {
-            const roleGPData = data.gpRule ? data.gpRule.generalPrinciple : '';
-            const roleSPData = data ? data.spRule : {};
+        return Promise.all([request.get('gp/queryByCodeYear', {
+            accStandardCode: type,
+            exeYear: year,
+        }), request.get('sp/queryByCodeYear', {
+            accStandardCode: type,
+            exeYear: year,
+        })]).then(([gpRule, spRule]) => {
+            const roleGPData = gpRule ? gpRule['generalPrinciple'] : '';
+            const roleSPData = spRule || {};
 
             const role = Object.assign({}, {
                 roleGPData,
@@ -174,6 +191,21 @@ const getRole = (type, year) => {
                 data: role
             });
         });
+
+        // return request.get(`api/getRule?type=${type}&year=${year}`).then((data: any) => {
+        //     const roleGPData = data.gpRule ? data.gpRule.generalPrinciple : '';
+        //     const roleSPData = data ? data.spRule : {};
+
+        //     const role = Object.assign({}, {
+        //         roleGPData,
+        //         roleSPData
+        //     });
+            
+        //     dispatch({
+        //         type: ACCOUNTINT_ROLE_CHANGED,
+        //         data: role
+        //     });
+        // });
     }
 }
 
@@ -200,7 +232,7 @@ const selectRoleType = (type, year) => {
  */
 const getSPRuleDetail = (spID) => {
     return (dispatch, getState) => {
-        return request.get(`api/getSPRuleDetail`, { spID }).then((data: any) => {
+        return request.get('sp/detail', { spID }).then((data: any) => {
             const { title, specifics } = data;
 
             dispatch({
