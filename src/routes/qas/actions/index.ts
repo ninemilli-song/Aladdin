@@ -43,7 +43,7 @@ const getQuestionList = (page = 1, size = 10) => {
     return (dispatch, getState) => {
         const state = getState();
 
-        return request.get('question/recent', { page,  size }).then((data) => {
+        return request.get('question/recent', { page, size }).then((data) => {
             dispatch({
                 type: QAS_Q_LIST,
                 data: data
@@ -196,7 +196,7 @@ const submitQuestion = (question) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
-        
+
         // 补充提交问题的用户的id
         const param = Object.assign({
             title: '',
@@ -206,7 +206,7 @@ const submitQuestion = (question) => {
         }, question);
 
         // 发送请求
-        return request.post('api/qas/addQuestion', param).then((result) => {
+        return request.post('question/add', param).then((result) => {
             if (result) {
                 // 刷新问题列表
                 dispatch(getQuestionList());
@@ -250,7 +250,7 @@ const concernQuestion = (questionId) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('api/qas/concernQuestion', {
+        return request.post('questionCollected/add', {
             question: {
                 id: questionId
             }
@@ -291,7 +291,7 @@ const unconcernQuestion = (questionId) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('api/qas/unconcernQuestion', {
+        return request.post('questionCollected/unconcern', {
             question: {
                 id: questionId
             }
@@ -363,7 +363,7 @@ const addReply = (questionId, answer) => {
             dispatch({
                 type: QAS_Q_REPLY_DIALOG_VISIBLE,
                 data: false,
-            }) 
+            })
         })
     }
 }
@@ -402,7 +402,7 @@ const approveAnswer = (id: number, hasApproved: boolean, questionId: number) => 
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
-        const url = hasApproved ? 'api/qas/approveAnswer' : 'api/qas/disapproveAnswer';
+        const url = hasApproved ? 'answer/approve' : 'answer/disapprove';
 
         return request.post(url, {
             answer: {
@@ -434,7 +434,7 @@ const collectAnswer = (id: number, hasCollected: boolean, questionId: number) =>
         const state = getState();
         const userId = state.userInfo.id;
 
-        const url = hasCollected ? 'api/qas/collectAnswer' : 'api/qas/uncollectAnswer';
+        const url = hasCollected ? 'answerCollected/add' : 'answerCollected/unconcern';
 
         return request.post(url, {
             answer: {
@@ -475,7 +475,7 @@ const collectAnswer = (id: number, hasCollected: boolean, questionId: number) =>
 const getMyAggregateData = () => {
     return (dispatch, getState) => {
         const state = getState();
-        const userId = state.userInfo.id; 
+        const userId = state.userInfo.id;
 
         return request.get('question/profile').then((data) => {
             dispatch({
@@ -510,7 +510,7 @@ const submitAnswerReply = (id, content, questionId) => {
     return (dispatch, getState) => {
         const state = getState();
         const userId = state.userInfo.id;
-        const url = 'api/qas/replyAnswer';
+        const url = 'pump/add';
 
         return request.post(url, {
             answer: {
