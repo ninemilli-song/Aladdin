@@ -142,7 +142,7 @@ const getQDetailData = (id) => {
             data: true
         });
 
-        return request.get('api/qas/getQuestionDetail', { questionId: id }).then((data) => {
+        return request.get('question/detail', { questionId: id }).then((data) => {
             dispatch({
                 type: QAS_Q_DETAIL_DATA_FETCH,
                 data: data
@@ -163,7 +163,7 @@ const refreshQDetailData = (id) => {
     return (dispatch, getState) => {
         const state = getState();
 
-        return request.get('api/qas/getQuestionDetail', { questionId: id }).then((data) => {
+        return request.get('question/detail', { questionId: id }).then((data) => {
             dispatch({
                 type: QAS_Q_DETAIL_DATA_FETCH,
                 data: data
@@ -342,7 +342,7 @@ const addReply = (questionId, answer) => {
         const state = getState();
         const userId = state.userInfo.id;
 
-        return request.post('api/qas/replyQuestion', {
+        return request.post('answer/add', {
             question: {
                 id: questionId
             },
@@ -477,10 +477,7 @@ const getMyAggregateData = () => {
         const state = getState();
         const userId = state.userInfo.id; 
 
-        return request.get('api/qas/userAggregateData', {
-            // userId
-            // userId: 1
-        }).then((data) => {
+        return request.get('question/profile').then((data) => {
             dispatch({
                 type: QAS_Q_USER_AGGREGATE_DATA,
                 data: fromJS(data)

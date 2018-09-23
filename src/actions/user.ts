@@ -13,7 +13,7 @@ export const LOGIN_DIALOG_VISIBLE = 'LOGIN_DIALOG_VISIBLE';
  */
 const getUserInfo = () => {
     return (dispatch, getState) => {
-        return request.get('api/user/getUserInfo').then((data) => {
+        return request.get('sysUser/getUser').then((data) => {
                 dispatch({
                     type: GET_USER_INFO,
                     data: data
@@ -27,19 +27,12 @@ const getUserInfo = () => {
  */
 const logout = () => {
     // 清空客户端cookie中的用户id、token
-    // deleteCookie(jwtConstant.TOKEN_COOKIE_NAME);
-    // deleteCookie(jwtConstant.ADMIN_COOKIE_NAME);
     return (dispatch, getState) => {
-        return request.get('auth/logout').then((result) => {
-            if (result) {
-                // 清空store中用户数据
-                dispatch({
-                    type: USER_LOGOUT,
-                })
-            }
-        }).then(() => {
-            console.log('browserHistory ======> ', browserHistory);
-            // browserHistory.push('/signin');
+        return request.post('sysUser/logout').then((result) => {
+            // 清空store中用户数据
+            dispatch({
+                type: USER_LOGOUT,
+            })
         });
     }
 }
@@ -51,7 +44,7 @@ const logout = () => {
  */
 const login = (mobile: string, password: string) => {
     return (dispatch, getState) => {
-        return request.get('auth/login', { mobile,  password }).then((data) => {
+        return request.get('sysUser/login', { mobile,  password }).then((data) => {
             dispatch({
                 type: USER_SIGNIN,
                 data: data

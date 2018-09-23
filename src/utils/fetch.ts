@@ -37,7 +37,7 @@ function get(path, params?) {
  * @param path 
  * @param params 
  */
-function post(path, params) {
+function post(path, params?) {
     let url = path;
 
     return new Promise((resolve, reject) => {
