@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const proxy = require('./webpack-dev-proxy');
 const config = require('../webpack.config');
+const port = process.env.PORT;
 
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -21,10 +22,10 @@ new WebpackDevServer(webpack(config), {
             }
         ]
     },
-}).listen(3001, function cb(err) {
+}).listen(port, function cb(err) {
     if (err) {
         throw err;
     }
 
-    console.log('Listening at http://localhost:3001/');
+    console.log(`Listening at http://localhost:${port}/`);
 });
