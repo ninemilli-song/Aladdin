@@ -29,16 +29,25 @@ exports.html = {
 
 exports.css = {
     test: /\.css$/,
+    // loader: process.env.NODE_ENV === 'development' ?
+    //     'style-loader!css-loader!postcss-loader!sass-loader' :
+    //     ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader'),
     loader: process.env.NODE_ENV === 'development' ?
         'style-loader!css-loader!postcss-loader!sass-loader' :
-        ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader'),
+        ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'postcss-loader', 'sass-loader']
+        }),
 };
 
 exports.less = {
     test: /\.less$/,
     loader: process.env.NODE_ENV === 'development' ?
         'style-loader!css-loader!postcss-loader!less-loader' :
-        ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
+        ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'postcss-loader', 'sass-loader']
+        }),
 };
 
 exports.scss = {

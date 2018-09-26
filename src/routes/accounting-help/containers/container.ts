@@ -178,7 +178,9 @@ const getRole = (type, year) => {
             accStandardCode: type,
             exeYear: year,
         })]).then(([gpRule, spRule]) => {
-            const roleGPData = gpRule ? gpRule['generalPrinciple'] : '';
+            // const roleGPData = gpRule ? gpRule['generalPrinciple'] : '';
+            const gpRule2 = gpRule as any;
+            const roleGPData = gpRule ? gpRule2.generalPrinciple : '';
             const roleSPData = spRule || {};
 
             const role = Object.assign({}, {

@@ -6,21 +6,14 @@ Aladding toolkit make the build frontend project easy!
 
 ### Dev
 ```bash
-$ npm run dev
-```
-
-or
-
-```bash
-$ npm run dev:server
-$ npm run dev:client
+$ npm run start
 ```
 
 ### Production
 
 ```bash
 npm install
-npm start
+npm run start
 ```
 
 ### Tests
