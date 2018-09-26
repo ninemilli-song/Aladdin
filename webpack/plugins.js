@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const postcssInit = require('./postcss');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const basePlugins = [
     new webpack.DefinePlugin({
@@ -74,6 +75,8 @@ const prodPlugins = [
     }),
 
     new webpack.optimize.OccurrenceOrderPlugin(),
+
+    // new BundleAnalyzerPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor']

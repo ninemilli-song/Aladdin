@@ -1,23 +1,17 @@
 const path = require('path');
-const proxy = require('./server/webpack-dev-proxy');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const loaders = require('./webpack/loaders');
 const plugins = require('./webpack/plugins');
-const postcssInit = require('./webpack/postcss');
 const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
 const baseAppEntries = ['./src/index.tsx'];
-const devAppEntries = [
-    'webpack-dev-server/client?http://localhost:3001', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors]
-];
-const appEntries = baseAppEntries
-    .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
+
+const appEntries = baseAppEntries;
 
 // FIXME: change next line if you don't want publish to gh-pages
 const publicPath = process.env.PUBLIC_PATH === 'gh' ?
-    '/typescript-react-redux-starter/' : '/';
+    '/typescript-react-redux-starter/' : './';
 
 const vendor = [
     'react',
@@ -46,8 +40,6 @@ module.exports = {
         chunkFilename: '[id].chunk.js',
     },
 
-    devtool: 'cheap-module-source-map',
-
     resolveLoader: { root: resolve('./node_modules') },
 
     resolve: {
@@ -55,12 +47,18 @@ module.exports = {
         extensions: ['', '.webpack.js', '.web.js', '.tsx', '.ts', '.js']
     },
 
-    plugins: plugins.push(new BundleAnalyzerPlugin()),
-
-    devServer: {
-        historyApiFallback: { index: '/' },
-        proxy: Object.assign({}, proxy(), { '/api/*': 'http://localhost:3000' }),
-    },
+    plugins: plugins.push(new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+        analyzerHost: '127.0.0.1',
+        analyzerPort: 8889,
+        reportFilename: 'report.html',
+        defaultSizes: 'parsed',
+        openAnalyzer: true,
+        generateStatsFile: false,
+        statsFilename: 'stats.json',
+        statsOptions: null,
+        logLevel: 'info'
+    })),
 
     module: {
         preLoaders: [
@@ -79,7 +77,5 @@ module.exports = {
             loaders.woff2,
             loaders.ttf,
         ],
-    },
-
-    postcss: postcssInit,
+    }
 };

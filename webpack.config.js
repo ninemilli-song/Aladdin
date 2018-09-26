@@ -1,8 +1,7 @@
 const path = require('path');
-// const proxy = require('./server/webpack-dev-proxy');
 const loaders = require('./webpack/loaders');
 const plugins = require('./webpack/plugins');
-// const postcssInit = require('./webpack/postcss');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
@@ -68,12 +67,8 @@ module.exports = {
         modules: [resolve('./node_modules')]
     },
 
-    plugins,
-
-    // devServer: {
-    //     historyApiFallback: { index: '/' },
-    //     proxy: Object.assign({}, proxy(), { '/api/*': 'http://localhost:3000' }),
-    // },
+    plugins: process.env.BUILD_MODE === 'analysis' ? 
+        plugins.concat([new BundleAnalyzerPlugin()]) : plugins,
 
     module: {
         // preLoaders: [
@@ -93,7 +88,5 @@ module.exports = {
             loaders.woff2,
             loaders.ttf,
         ],
-    },
-
-    // postcss: postcssInit,
+    }
 };
