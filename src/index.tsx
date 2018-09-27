@@ -15,9 +15,7 @@ import configureStore from './store/configure-store';
 import signinRoute from './routes/signin';
 
 // Global styles
-// import 'antd/dist/antd.css';
 import './styles';
-// import './styles/index.scss';
 
 const store = configureStore({});
 const history = syncHistoryWithStore(browserHistory, store);

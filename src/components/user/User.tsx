@@ -2,7 +2,9 @@
  * Author: ninemilli.song
  */
 import * as React from 'react';
-import { Menu, Icon, Dropdown } from 'antd';
+const Menu = require('antd/lib/menu');
+const Icon = require('antd/lib/icon');
+const Dropdown = require('antd/lib/dropdown');
 import { connect } from 'react-redux';
 import './style.scss';
 import { logout, getUserInfo, loginDialogVisible } from '../../actions/user';

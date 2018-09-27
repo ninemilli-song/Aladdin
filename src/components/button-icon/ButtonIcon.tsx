@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import { Icon } from 'antd';
+const Icon = require('antd/lib/icon');
 
 interface ButtonIconProps {
     onClick?: () => void;   // Click callback of button

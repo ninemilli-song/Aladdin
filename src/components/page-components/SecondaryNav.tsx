@@ -2,7 +2,6 @@
  * 二级导航栏
  */
 import * as React from 'react';
-// import { Menu, Breadcrumb, Icon, Input } from 'antd';
 const Icon = require('antd/lib/icon');
 const Menu = require('antd/lib/menu');
 const SubMenu = Menu.SubMenu;

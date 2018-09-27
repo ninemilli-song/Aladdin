@@ -36,8 +36,7 @@ const vendor = [
     'redux-thunk',
     'redux-localstorage',
     'immutable',
-    'whatwg-fetch',
-    'antd',
+    // 'antd',
 ];
 
 module.exports = {

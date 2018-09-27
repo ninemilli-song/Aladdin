@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { autobind } from 'core-decorators';
 const Button = require('antd/lib/button/button');
-// import { Menu, Breadcrumb, Icon, Input } from 'antd';
 const Input = require('antd/lib/input');
 const Search = Input.Search;
 

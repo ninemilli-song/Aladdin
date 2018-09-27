@@ -3,7 +3,6 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-// import { Row, Col } from 'antd';
 const Row = require('antd/lib/row');
 const Col = require('antd/lib/col');
 const Tag = require('antd/lib/tag');
