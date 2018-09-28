@@ -35,7 +35,7 @@ const vendor = [
     'redux',
     'redux-thunk',
     'redux-localstorage',
-    'immutable',
+    'immutable'
     // 'antd',
 ];
 
@@ -48,10 +48,13 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name].[hash].js',
+        filename: process.env.NODE_ENV === 'production' ? 
+            '[name].[chunkhash:8].js' : '[name].[hash].js',
         publicPath,
-        sourceMapFilename: '[name].[hash].js.map',
-        chunkFilename: '[id].chunk.js',
+        sourceMapFilename: process.env.NODE_ENV === 'production' ? 
+            '[name].[chunkhash:8].js.map' : '[name].[hash].js.map',
+        chunkFilename: process.env.NODE_ENV === 'production' ? 
+            '[name].[chunkhash:8].chunk.js' : '[id].[hash].chunk.js',
     },
 
     devtool: 'eval',

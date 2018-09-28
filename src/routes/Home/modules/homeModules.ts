@@ -2,7 +2,6 @@
  * Define reducer and action of Warehouse
  */
 import * as Immutable from 'immutable';
-const Mock = require('mockjs');
 import { GridQueryOptions, paginationOptions, filterOptions, sorterOptions } from '../../../common/globalInterface';
 
 import { createReducer } from '../../../utils/reducer-helper';

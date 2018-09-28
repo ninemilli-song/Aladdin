@@ -18,7 +18,7 @@ const basePlugins = [
         template: './src/index.html',           // html 模板路径
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
-        chunks: ['app', 'vendor'],              // 需要引入的chunk，不配置就会引入所有页面的资源
+        chunks: ['app', 'vendor', 'manifest'],  // 需要引入的chunk，不配置就会引入所有页面的资源
         minify: {                               // 压缩HTML文件
             removeComments: true,               // 移除HTML中的注释
             collapseWhitespace: true,           // 删除空白符与换行符
@@ -33,7 +33,7 @@ const basePlugins = [
         filename: 'signin.html',                // 生成的html存放路径，相对于path
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
-        chunks: ['signin'],                     // 需要引入的chunk，不配置就会引入所有页面的资源
+        chunks: ['signin', 'manifest'],         // 需要引入的chunk，不配置就会引入所有页面的资源
         minify: {                               // 压缩HTML文件
             removeComments: true,               // 移除HTML中的注释
             collapseWhitespace: true,           // 删除空白符与换行符
@@ -41,6 +41,31 @@ const basePlugins = [
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
+
+    new webpack.HashedModuleIdsPlugin(),
+
+    new webpack.optimize.CommonsChunkPlugin({
+        // name 可以是已经存在的 chunk 的 name （一般是入口文件），
+        // 那么共用模块代码会合并到这个已存在的 chunk；否则，创建名字为 name 的 commons chunk 来合并。
+        name: 'vendor',
+        // 1. 设定为数字（大于等于2），指定共用模块被多少个 chunk 使用才能被合并。
+        // 2. 也可以设为函数，接受 (module, count) 两个参数，用法如上。
+        // 3. 特别地，还可以设置为 Infinity ，即创建 commons chunk 但不合并任何共用模块。这时一般搭配 entry 的配置一起用：
+        minChunks: Infinity,
+    }),
+
+    /**
+     * 》》》》》前端缓存》》》》》
+     * 解决 chunkhash 每次编译都会发生变化的问题
+     * 原因如如下：
+     * webpack 有个已知问题：
+     * webpack 自身的 boilerplate 和 manifest 代码可能在每次编译时都会变化。
+     * 这导致我们只是在 入口文件 改了一行代码，但编译出的 vendor 和 entry chunk 都变了，因为它们自身都包含这部分代码。
+     */
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
+        minChunks: Infinity
+    })
 ];
 
 const devPlugins = [
@@ -74,13 +99,7 @@ const prodPlugins = [
         }
     }),
 
-    new webpack.optimize.OccurrenceOrderPlugin(),
-
-    // new BundleAnalyzerPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor']
-    })
+    new webpack.optimize.OccurrenceOrderPlugin()
 
 ];
 

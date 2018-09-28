@@ -26,7 +26,7 @@ const routes = defaultRoutes(store);
 //   name: 'alice',
 //   password: 'x'
 // }).then((loginRes) => {
-//   console.log('Login success! The user info is 👉🏻 ------> ', loginRes);
+  console.log('Login success! The user info is 👉🏻 ------> ');
 ReactDOM.render(
     <Provider store={ store }>
         <Router history={ history }>
