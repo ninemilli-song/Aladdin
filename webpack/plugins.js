@@ -44,6 +44,11 @@ const basePlugins = [
 
     new webpack.HashedModuleIdsPlugin(),
 
+    /**
+     * 将公共类库打包为vendor
+     * 保证其它chunk中不会重复引用vendor中的类库
+     * 这里没有设置chunks, 将会使用所有chunks
+     */
     new webpack.optimize.CommonsChunkPlugin({
         // name 可以是已经存在的 chunk 的 name （一般是入口文件），
         // 那么共用模块代码会合并到这个已存在的 chunk；否则，创建名字为 name 的 commons chunk 来合并。
@@ -52,6 +57,26 @@ const basePlugins = [
         // 2. 也可以设为函数，接受 (module, count) 两个参数，用法如上。
         // 3. 特别地，还可以设置为 Infinity ，即创建 commons chunk 但不合并任何共用模块。这时一般搭配 entry 的配置一起用：
         minChunks: Infinity,
+    }),
+
+    /**
+     * 额外的异步 公共chunk
+     * 将所有chunks中子chunks的重复引用，合并到common chunk中
+     * 这里提取的是antd
+     */
+    new webpack.optimize.CommonsChunkPlugin({
+        // name 可以是已经存在的 chunk 的 name （一般是入口文件），
+        // 那么共用模块代码会合并到这个已存在的 chunk；否则，创建名字为 name 的 commons chunk 来合并。
+        async: 'antd',
+        children: true,
+        // 1. 设定为数字（大于等于2），指定共用模块被多少个 chunk 使用才能被合并。
+        // 2. 也可以设为函数，接受 (module, count) 两个参数，用法如上。
+        // 3. 特别地，还可以设置为 Infinity ，即创建 commons chunk 但不合并任何共用模块。这时一般搭配 entry 的配置一起用：
+        minChunks: (module) => {
+            const context = module.context;
+            return context && 
+                (/node_modules\/antd/.test(context) || /node_modules\/rc/.test(context));
+        },
     }),
 
     /**

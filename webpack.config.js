@@ -35,7 +35,9 @@ const vendor = [
     'redux',
     'redux-thunk',
     'redux-localstorage',
-    'immutable'
+    'immutable',
+    'showdown',
+    'braft-editor'
     // 'antd',
 ];
 

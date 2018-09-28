@@ -4,10 +4,6 @@ import { autobind } from 'core-decorators';
 const TextArea =  require('antd/lib/input/TextArea');
 const Button = require('antd/lib/button/button');
 
-const _ = {
-    uniqueId: require('lodash/uniqueId')
-}
-
 interface ISayProps {
     className?: string;
     onSubmit?: (data) => void;
