@@ -33,7 +33,8 @@ const basePlugins = [
         filename: 'signin.html',                // 生成的html存放路径，相对于path
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
-        chunks: ['signin', 'manifest'],         // 需要引入的chunk，不配置就会引入所有页面的资源
+        chunksSortMode: 'manual',
+        chunks: ['manifest', 'vendor', 'signin'],         // 需要引入的chunk，不配置就会引入所有页面的资源
         minify: {                               // 压缩HTML文件
             removeComments: true,               // 移除HTML中的注释
             collapseWhitespace: true,           // 删除空白符与换行符

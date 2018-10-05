@@ -6,7 +6,7 @@ Aladding toolkit make the build frontend project easy!
 
 ### Dev
 ```bash
-$ npm run start
+$ npm run starts
 ```
 
 ### Production
@@ -32,37 +32,16 @@ $ npm run test:watch
 
 ## Project Structure
 
-|-- src     `the code for front end`
-    
-    |-- actions             `全局action`
-
-|-- server      `the code for node`
-    
-    |-- node-client.js      `前端启动文件 The file to start front end`
-
-    |-- node-server-koa.js  `node服务启动文件 The file to start node server`
-
-    |-- webpack-dev-proxy.js    `请求的代理文件 The file to proxy request`
-
-    |-- proxy-config.js     `具体的代理配置 The file of proxy config`
-
-    |-- koa                 `node服务文件目录`
-
-        |-- constant        `定义常量 Define the constant`
-
-        |-- lib             `工具方法`
-
-        |-- model           `业务模型`
-
-        |-- routes          `路由入口`
-
-        |-- app-koa.js      `node服务入口文件，配置各种路由、中间件`
-
-|-- tsconfig.json           `编译.ts .tsx文件，webpace ts-loader配置文件`
-
-|-- tslint.json             `ts代码规范检查，webpack tslint-loader配置文件`
-
-|-- .eslintrc               `本地代码检查配置文件`
+├── src     `the code for front end`   
+│   ├── actions             `全局action`
+├── scripts
+│   ├── proxy-config.js     `具体的代理配置 The file of proxy config`
+│   ├── start.js            `webpack 开发配置文件`
+│   └── webpack-dev-proxy.js    `webpack 开发代理`
+│
+├── tsconfig.json           `编译.ts .tsx文件，webpace ts-loader配置文件`
+├── tslint.json             `ts代码规范检查，webpack tslint-loader配置文件`
+└── .eslintrc               `本地代码检查配置文件`
 
 ## Documnets and Knowledges
 

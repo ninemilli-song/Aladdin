@@ -12,8 +12,6 @@ import '../styles';
 
 const store = configureStore({});
 const history = syncHistoryWithStore(browserHistory, store);
-// import defaultRoutes from '../routes';
-// const routes = defaultRoutes(store);
 
 ReactDOM.render(
     <Provider store={ store }>

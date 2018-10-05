@@ -22,27 +22,12 @@ const history = syncHistoryWithStore(browserHistory, store);
 import defaultRoutes from './routes';
 const routes = defaultRoutes(store);
 
-// request.get('http://localhost:3001/users/login', {
-//   name: 'alice',
-//   password: 'x'
-// }).then((loginRes) => {
-  console.log('Login success! The user info is 👉🏻 ------> ');
+console.log('Login success! The user info is 👉🏻 ------> ');
 ReactDOM.render(
     <Provider store={ store }>
         <Router history={ history }>
         { routes }
-        {/* { signinRoute(store) } */}
         </Router>
     </Provider>,
     document.getElementById('root')
 );
-// }).catch((error) => {
-//   ReactDOM.render(
-//     <div>
-//       {error}
-//     </div>,
-//     document.getElementById('root')
-//   );
-// });
-
-

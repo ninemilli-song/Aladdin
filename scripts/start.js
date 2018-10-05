@@ -13,10 +13,6 @@ new WebpackDevServer(webpack(config), {
         index: '/',                         // Overwrite index path
         rewrites: [
             {
-                from: /.*/g,
-                to: '/index.html'
-            },
-            {
                 from: /\/signin/,           // Match the signin path to the signin.html page
                 to: '/signin.html'
             }
