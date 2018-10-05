@@ -1,9 +1,9 @@
-# 1.0.4
+### 1.0.4
 `2018-06-14`
 
 * 添加 `normalize.css` 对css重置，提高css兼容性 
 
-# 1.0.3
+### 1.0.3
 
 `2017-04-13`
 
@@ -11,7 +11,7 @@
 
 * Regular the css to fellow the stylelint rules.
 
-# 1.0.2
+### 1.0.2
 
 `2017-04-12`
 
@@ -21,7 +21,7 @@
     - Remove `postcss-modules-local-by-default` plugin from /webpack/posscss.js to resolve the problem that the `postcss-modules-local-by-default` plugin cause classname turn to a random code when webpack compile finished.
 
 
-# 1.0.1
+### 1.0.1
 
 `2017-04-10`
 

@@ -87,7 +87,7 @@ export default class AskQuestionDialog extends React.Component<any, any> {
     /**
      * 处理请求提交
      */
-    private async handlerSubmit(data: IQuestion) {
+    private async handlerSubmit(data) {
         const { submitQuestion, togglePushQuestionDialogVisible } = this.props;
 
         await submitQuestion(data);
