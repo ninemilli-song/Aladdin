@@ -12,8 +12,6 @@ import request from './utils/fetch';
 
 import configureStore from './store/configure-store';
 
-import signinRoute from './routes/signin';
-
 // Global styles
 import './styles';
 

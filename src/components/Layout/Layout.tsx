@@ -6,7 +6,6 @@ import { PrimaryNav, Footer } from '../page-components';
 import './assets/layout.scss';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import Signin from '../../routes/signin/containers/Signin';
 import Login from '../login/Login';
 
 

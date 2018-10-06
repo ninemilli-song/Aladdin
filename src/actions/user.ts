@@ -1,6 +1,5 @@
 import request from '../utils/fetch';
 import { deleteCookie } from '../utils/cookie';
-import jwtConstant from '../constant/jwt';
 import { browserHistory } from 'react-router';
 
 export const GET_USER_INFO = 'GET_USER_INFO';

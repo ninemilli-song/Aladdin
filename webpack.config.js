@@ -19,6 +19,11 @@ const signinAppEntries = ['./src/templete/signin.tsx'];
 const signinEntries = signinAppEntries
     .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
 
+// 登陆页面入口文件
+const homeAppEntries = ['./src/templete/home.tsx'];
+const homeEntries = homeAppEntries
+    .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
+
 // // FIXME: change next line if you don't want publish to gh-pages
 // const publicPath = process.env.PUBLIC_PATH === 'gh' ?
 //     '/typescript-react-redux-starter/' : '/';
@@ -45,6 +50,7 @@ module.exports = {
     entry: {
         app: appEntries,                    // 应用入口文件
         signin: signinEntries,              // 用户登陆入口文件
+        home: homeEntries,                  // 首页入口文件
         vendor,                             // 公共文件
     },
 

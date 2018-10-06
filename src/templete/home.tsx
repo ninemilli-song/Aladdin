@@ -7,14 +7,14 @@ import request from '../utils/fetch';
 
 import configureStore from '../store/configure-store';
 
-import Signin from '../pages/signin';
+import Home from '../pages/home';
 import '../styles';
 
 const store = configureStore({});
 
 ReactDOM.render(
     <Provider store={ store }>
-        <Signin store={ store } />
+        <Home store={ store } />
     </Provider>,
     document.getElementById('root')
 );

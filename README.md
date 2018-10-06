@@ -42,6 +42,7 @@ $ npm run test
 │   ├── utils               # 工具代码
 │   ├── reducers            # 全局reducer
 │   ├── font                # IconFont
+│   ├── pages               # 独立页面文件
 │   └── middleware          # promise middleware and so on
 ├── scripts
 │   ├── proxy-config.js         # 具体的代理配置 The file of proxy config
@@ -93,6 +94,14 @@ Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)
 [MIT]: ./LICENSE "Mit License"
 
 ## 更新日志
+
+### 1.1.1 (2018-10-06)
+
+1. 抽取首页为单独页面 
+
+访问路径 `{path}/home`
+
+2. 添加pages目录，分离多页面到此目录
 
 ### 1.1.0 (2018-10-05)
 

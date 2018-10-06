@@ -41,6 +41,22 @@ const basePlugins = [
         },
     }),
 
+    // 首页
+    new HtmlWebpackPlugin({
+        title: 'Home page',                    // html 标题
+        // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
+        template: './src/templete/home.html', // html 模板路径
+        filename: 'home.html',                // 生成的html存放路径，相对于path
+        inject: 'body',                         // js插入的位置，true/'head'/'body'/false
+        hash: true,                             // 为静态资源生成hash值
+        chunksSortMode: 'manual',
+        chunks: ['manifest', 'vendor', 'home'],         // 需要引入的chunk，不配置就会引入所有页面的资源
+        minify: {                               // 压缩HTML文件
+            removeComments: true,               // 移除HTML中的注释
+            collapseWhitespace: true,           // 删除空白符与换行符
+        },
+    }),
+
     new webpack.NoEmitOnErrorsPlugin(),
 
     new webpack.HashedModuleIdsPlugin(),

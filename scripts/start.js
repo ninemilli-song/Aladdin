@@ -15,6 +15,10 @@ new WebpackDevServer(webpack(config), {
             {
                 from: /\/signin/,           // Match the signin path to the signin.html page
                 to: '/signin.html'
+            },
+            {
+                from: /\/home/,           // Match the signin path to the signin.html page
+                to: '/home.html'
             }
         ]
     },
