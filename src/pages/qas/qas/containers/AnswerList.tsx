@@ -3,11 +3,11 @@
  */
 import { connect } from 'react-redux';
 import { approveAnswer, collectAnswer, setReplyAnswerDialogVisible } from '../actions/index';
-import { toJS } from '../../../utils/hocs';
+import { toJS } from '../../../../utils/hocs';
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
 import { autobind } from 'core-decorators';
-import CutLine from '../../../components/cut-line/CutLine';
+import CutLine from '../../../../components/cut-line/CutLine';
 
 /**
  * 回答列表组件

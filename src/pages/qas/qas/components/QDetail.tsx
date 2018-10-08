@@ -1,8 +1,8 @@
 import * as React from 'react';
-import QASOperators from '../../../components/qas-operators/QASOperators';
-import ISay from '../../../components/i-say/ISay';
+import QASOperators from '../../../../components/qas-operators/QASOperators';
+import ISay from '../../../../components/i-say/ISay';
 import AnswerList from '../containers/AnswerList';
-import { formateNumberCount } from '../../../utils/utils';
+import { formateNumberCount } from '../../../../utils/utils';
 import Question from './Question';
 import { autobind } from 'core-decorators';
 const Avatar = require('antd/lib/avatar');

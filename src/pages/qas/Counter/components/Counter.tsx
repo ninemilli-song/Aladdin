@@ -14,7 +14,7 @@ class Counter extends React.Component<CounterProps, any> {
                 <Tag> Counter {this.props.counter}</Tag>
                 <Button type="primary" onClick={() => {
                     this.props.increment()
-                } }>increment</Button>
+                } }>increment!</Button>
                 <Button type="primary"
                     onClick={this.props.doubleAsync}>doubleAsync</Button>
             </div>

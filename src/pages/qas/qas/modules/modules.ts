@@ -2,7 +2,7 @@
  * Define reducer and action of Warehouse
  */
 
-import { createReducer } from '../../../utils/reducer-helper';
+import { createReducer } from '../../../../utils/reducer-helper';
 import { 
     setQuestionList, 
     onPageChanged, 

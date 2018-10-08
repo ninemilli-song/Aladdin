@@ -2,7 +2,7 @@
  * 提问列表
  */
 import * as React from 'react'
-import CutLine from '../../../components/cut-line/CutLine';
+import CutLine from '../../../../components/cut-line/CutLine';
 const Pagination = require('antd/lib/pagination');
 import { autobind } from 'core-decorators';
 // import QDetailDialogContainer from '../containers/QDetailDialogContainer';

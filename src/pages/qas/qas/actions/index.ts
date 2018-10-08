@@ -1,4 +1,4 @@
-import request from '../../../utils/fetch';
+import request from '../../../../utils/fetch';
 import { fromJS } from 'immutable';
 
 // ------------------------------------

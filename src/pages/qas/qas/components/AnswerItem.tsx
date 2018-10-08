@@ -2,9 +2,9 @@
  * 回答条目
  */
 import * as React from 'react'
-import { UserInfo } from '../../../common/globalInterface';
-import QASOperators from '../../../components/qas-operators/QASOperators';
-import { formateNumberCount } from '../../../utils/utils';
+import { UserInfo } from '../../../../common/globalInterface';
+import QASOperators from '../../../../components/qas-operators/QASOperators';
+import { formateNumberCount } from '../../../../utils/utils';
 import { autobind } from 'core-decorators';
 import ReplyItem from './ReplyItem';
 const Avatar = require('antd/lib/avatar');

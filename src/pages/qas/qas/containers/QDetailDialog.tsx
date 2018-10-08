@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
+const Modal = require('antd/lib/modal/Modal');
 const Spin = require('antd/lib/spin');
 import { connect } from 'react-redux';
 import { 
@@ -14,50 +15,52 @@ import {
     addReply,
     refreshQDetailData,
     concernQuestion,
-    unconcernQuestion,
-    alReplyQuestionExpand
+    unconcernQuestion
 } from '../actions/index';
-import { toJS } from '../../../utils/hocs';
-import ISay from '../../../components/i-say/ISay';
-import AnswerList from './AnswerList';
+import { toJS } from '../../../../utils/hocs';
+import QDetail from '../components/QDetail';
 
 /**
  * 详情对话框组件
  */
-interface AnswerListPanelProps {
-    questionId?: number;                 // 当前提问的 id
+interface QDetailDialogProps {
+    id?: number;                         // 当前内容详情的 id
     action?: any;
     visible?: boolean;                   // 是否可见
     loading?: boolean;                   // 是否正在加载
     data?: any;                          // 详情数据
-    replyExpand?: boolean;                   // 回答问题框是否展开
+    replyQuestionExpand?: boolean;       // 回答问题框是否展开
 }
 
 @connect(
-    (store, ownProps) => {
-        const { questionId } = ownProps;
-        const data = store.QAS.get('qExpandQuestions').get(questionId).get('data');
-        const replyExpand = store.QAS.get('qExpandQuestions').get(questionId).getIn(['uistate', 'replyExpand']);
-        const loading = store.QAS.get('qExpandQuestions').get(questionId).getIn(['uistate', 'loading']);
-
+    store => {
         return {
-            loading,
-            replyExpand,
-            questionId,
-            data,
+            visible: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'visible']),
+            loading: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'loading']),
+            replyQuestionExpand: store.QAS.getIn(['uistate', 'qDetailDialogOpts', 'replyQuestionExpand']),
+            id: store.QAS.getIn(['selectedQId']),
+            data: store.QAS.getIn(['qDetailData'])
         }
     },
     dispatch => {
         return {
             action: {
+                hide: () => {
+                    // 重置ui状态
+                    dispatch(setDetailDialogVisible(false));
+                    dispatch(replyQuestionExpand(false));
+                    // 重置数据状态
+                    dispatch(clearQDetailData());
+                    dispatch(onSelectedQ(-1));
+                },
                 getData: (id) => {
                     dispatch(getQDetailData(id));
                 },
-                replyQuestionOnFocus: (id) => {
-                    dispatch(alReplyQuestionExpand(id, true));
+                replyQuestionOnFocus: () => {
+                    dispatch(replyQuestionExpand(true));
                 },
-                replyQuestionOnBlur: (id) => {
-                    dispatch(alReplyQuestionExpand(id, false));
+                replyQuestionOnBlur: () => {
+                    dispatch(replyQuestionExpand(false));
                 },
                 onReplyQuestion: async (questionId, answer) => {                          // 回应问题
                     await dispatch(addReply(questionId, answer));
@@ -76,57 +79,58 @@ interface AnswerListPanelProps {
     }
 )
 @autobind
-export default class AnswerListPanel extends React.Component<AnswerListPanelProps, any> {
+export default class QDetailDialog extends React.Component<QDetailDialogProps, any> {
 
-    prefixCls = 'answer-list-panel';
+    prefixCls = 'q-detail-dialog';
     
     constructor(props, context) {
         super(props, context);
     }
 
-    componentWillMount() {
-        console.log('AnswerListPanel componentWillReceiveProps >>>>>>>');
-        const { action, questionId, data } = this.props;
+    componentWillReceiveProps(nextProps) {
+        const { action, id } = this.props;
+        const newId = nextProps.id;
 
-        if (questionId && !data) {
-            action.getData(questionId);
+        if (newId && newId !== id && newId !== -1 && nextProps.visible) {
+            action.getData(newId);
         }
     }
 
     render() {
-        const { loading, replyExpand, data } = this.props;
+        const { visible, id, data, loading, replyQuestionExpand } = this.props;
 
         return (
-            <div className={ `${this.prefixCls}-wrapper` }>
-                {
-                    loading ? (
-                        <div className={ `${this.prefixCls}-spin-wrapper` }>
-                            <Spin />
-                        </div>
-                    ) : (
-                        <div>
-                            <div className={ `${this.prefixCls}-doReply` }>
-                                <ISay
-                                    placeholder = "谈谈您的看法吧！"
-                                    title = "回答"
-                                    expand = { replyExpand }
-                                    onFocus = { this.replyQuestionOnFocus }
-                                    // onBlur = { this.replyQuestionOnBlur }
-                                    onSubmit = { this.onReplyQuestion }
-                                />
+            <Modal
+                wrapClassName = "qas"
+                visible={ visible }
+                closable = { false }
+                onOk={ this.handleOk }
+                onCancel={ this.handleCancel }
+                width = { 600 }
+                footer = { null }
+            >
+                <div className={ `${this.prefixCls}-wrapper` }>
+                    {
+                        loading ? (
+                            <div className={ `${this.prefixCls}-spin-wrapper` }>
+                                <Spin />
                             </div>
-                            <div className={ `${this.prefixCls}-replyList` }>
-                                <AnswerList 
-                                    questionId = { data ? data.get('id') : null }
-                                    data = {
-                                        data ? data.get('answers') : []
-                                    }
-                                />
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
+                        ) : (
+                            <QDetail 
+                                data = { data }
+                                sayExpand = { replyQuestionExpand }
+                                sayOnFocus = { this.replyQuestionOnFocus }
+                                sayOnBlur = { this.replyQuestionOnBlur }
+                                answerHandler = { this.showAnswer }
+                                concernHandler = { this.concernHandler }
+                                inviteHandler = { this.showInvite }
+                                shareHandler = { this.showShare }
+                                onReplyQuestion = { this.onReplyQuestion }
+                            />
+                        )
+                    }
+                </div>
+            </Modal>
         )
     }
 
@@ -187,10 +191,9 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
      * 回答问题对话框获取焦点
      */
     private replyQuestionOnFocus () {
-        const { data, action } = this.props;
-        const questionId = data.get('id');
+        const { action } = this.props;
 
-        action.replyQuestionOnFocus(questionId);
+        action.replyQuestionOnFocus();
     }
 
     private replyQuestionOnBlur () {
@@ -210,7 +213,7 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
         action.onReplyQuestion(questionId, value);
 
         // 收起回应问题框
-        action.replyQuestionOnBlur(questionId);
+        action.replyQuestionOnBlur();
     }
 }
 

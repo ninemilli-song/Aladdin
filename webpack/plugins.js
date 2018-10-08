@@ -11,11 +11,11 @@ const basePlugins = [
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
 
-    // 应用页面 
+    // 知识问答 
     new HtmlWebpackPlugin({                     // 根据模板插入css/js等生成最终HTML
         title: '知识问答',                          // html 标题
         // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
-        template: './src/index.html',           // html 模板路径
+        template: './src/templete/qas.html',       // html 模板路径
         filename: 'qas.html',
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
@@ -28,33 +28,33 @@ const basePlugins = [
 
     // 用户登陆页面
     new HtmlWebpackPlugin({
-        title: 'Sigin page',                    // html 标题
-        // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
-        template: './src/templete/signin.html', // html 模板路径
-        filename: 'signin.html',                // 生成的html存放路径，相对于path
-        inject: 'body',                         // js插入的位置，true/'head'/'body'/false
-        hash: true,                             // 为静态资源生成hash值
+        title: 'Sigin page',                        // html 标题
+        // favicon: './src/img/favicon.ico',        // favicon路径，通过webpack引入同时可以生成hash值
+        template: './src/templete/signin.html',     // html 模板路径
+        filename: 'signin.html',                    // 生成的html存放路径，相对于path
+        inject: 'body',                             // js插入的位置，true/'head'/'body'/false
+        hash: true,                                 // 为静态资源生成hash值
         chunksSortMode: 'manual',
         chunks: ['manifest', 'vendor', 'signin'],         // 需要引入的chunk，不配置就会引入所有页面的资源
-        minify: {                               // 压缩HTML文件
-            removeComments: true,               // 移除HTML中的注释
-            collapseWhitespace: true,           // 删除空白符与换行符
+        minify: {                                   // 压缩HTML文件
+            removeComments: true,                   // 移除HTML中的注释
+            collapseWhitespace: true,               // 删除空白符与换行符
         },
     }),
 
     // 首页
     new HtmlWebpackPlugin({
-        title: '首页',                    // html 标题
+        title: '首页',                              // html 标题
         // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
-        template: './src/templete/home.html', // html 模板路径
-        filename: 'index.html',                // 生成的html存放路径，相对于path
-        inject: 'body',                         // js插入的位置，true/'head'/'body'/false
-        hash: true,                             // 为静态资源生成hash值
+        template: './src/templete/home.html',       // html 模板路径
+        filename: 'index.html',                     // 生成的html存放路径，相对于path
+        inject: 'body',                             // js插入的位置，true/'head'/'body'/false
+        hash: true,                                 // 为静态资源生成hash值
         chunksSortMode: 'manual',
         chunks: ['manifest', 'vendor', 'home'],         // 需要引入的chunk，不配置就会引入所有页面的资源
-        minify: {                               // 压缩HTML文件
-            removeComments: true,               // 移除HTML中的注释
-            collapseWhitespace: true,           // 删除空白符与换行符
+        minify: {                                   // 压缩HTML文件
+            removeComments: true,                   // 移除HTML中的注释
+            collapseWhitespace: true,               // 删除空白符与换行符
         },
     }),
 

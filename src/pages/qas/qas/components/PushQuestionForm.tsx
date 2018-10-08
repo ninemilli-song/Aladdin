@@ -7,7 +7,7 @@ const FormItem =  require('antd/lib/form/FormItem');
 const Form = require('antd/lib/form/Form');
 const Input = require('antd/lib/input/Input');
 import { autobind } from 'core-decorators';
-import TextEditor from '../../../components/text-editor/TextEditor';
+import TextEditor from '../../../../components/text-editor/TextEditor';
 const Checkbox = require('antd/lib/checkbox/Checkbox');
 const Button = require('antd/lib/button/button');
 

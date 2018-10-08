@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SecondarySearchNav from '../../../components/page-components/SecondarySearchNav';
+import SecondarySearchNav from '../../../../components/page-components/SecondarySearchNav';
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
-import BackTop from '../../../components/backtop';
+import BackTop from '../../../../components/backtop';
 // import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
 import AskQuestionDialog from '../containers/AskQuestionDialog';
-import ISay from '../../../components/i-say/ISay';
+import ISay from '../../../../components/i-say/ISay';
 import QList from './QList';
 import { 
     getQuestionList, 
@@ -15,7 +15,7 @@ import {
     foldQuickQuestion, 
     expandQuickQuestion 
 } from '../actions/index';
-import MainSider from '../../../components/page-frame/MainSider';
+import MainSider from '../../../../components/page-frame/MainSider';
 import MyPanel from './MyPanel';
 
 @connect(

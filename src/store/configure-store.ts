@@ -54,8 +54,8 @@ function _enableHotLoader(store) {
 
 
   if (__DEV__ && module.hot) {
-    module.hot.accept('../routes', () => {
-      const nextRootReducer = require('../routes').default;
+    module.hot.accept('../pages/qas', () => {
+      const nextRootReducer = require('../pages/qas').default;
       store.replaceReducer(nextRootReducer);
     });
   }

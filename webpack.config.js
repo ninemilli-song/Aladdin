@@ -5,8 +5,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
-// 应用入口文件
-const baseAppEntries = ['./src/index.tsx'];
+// 知识问答入口文件
+const baseAppEntries = ['./src/templete/qas.tsx'];
 const devAppEntries = [
     'webpack-dev-server/client?http://localhost:3001', // WebpackDevServer host and port
     'webpack/hot/dev-server',                          // "only" prevents reload on syntax errors]
