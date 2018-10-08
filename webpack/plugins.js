@@ -11,11 +11,12 @@ const basePlugins = [
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
 
-    // 应用页面
+    // 应用页面 
     new HtmlWebpackPlugin({                     // 根据模板插入css/js等生成最终HTML
-        title: 'Home',                          // html 标题
+        title: '知识问答',                          // html 标题
         // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
         template: './src/index.html',           // html 模板路径
+        filename: 'qas.html',
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
         chunks: ['app', 'vendor', 'manifest'],  // 需要引入的chunk，不配置就会引入所有页面的资源
@@ -43,10 +44,10 @@ const basePlugins = [
 
     // 首页
     new HtmlWebpackPlugin({
-        title: 'Home page',                    // html 标题
+        title: '首页',                    // html 标题
         // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
         template: './src/templete/home.html', // html 模板路径
-        filename: 'home.html',                // 生成的html存放路径，相对于path
+        filename: 'index.html',                // 生成的html存放路径，相对于path
         inject: 'body',                         // js插入的位置，true/'head'/'body'/false
         hash: true,                             // 为静态资源生成hash值
         chunksSortMode: 'manual',
@@ -54,6 +55,22 @@ const basePlugins = [
         minify: {                               // 压缩HTML文件
             removeComments: true,               // 移除HTML中的注释
             collapseWhitespace: true,           // 删除空白符与换行符
+        },
+    }),
+
+    // 财会之家
+    new HtmlWebpackPlugin({
+        title: '财会之家',                          // html 标题
+        // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
+        template: './src/templete/a_home.html',       // html 模板路径
+        filename: 'a_home.html',                     // 生成的html存放路径，相对于path
+        inject: 'body',                             // js插入的位置，true/'head'/'body'/false
+        hash: true,                                 // 为静态资源生成hash值
+        chunksSortMode: 'manual',
+        chunks: ['manifest', 'vendor', 'a_home'],   // 需要引入的chunk，不配置就会引入所有页面的资源
+        minify: {                                   // 压缩HTML文件
+            removeComments: true,                   // 移除HTML中的注释
+            collapseWhitespace: true,               // 删除空白符与换行符
         },
     }),
 

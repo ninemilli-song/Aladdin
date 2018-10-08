@@ -2,7 +2,6 @@
 import Layout from '../components/Layout';
 
 import CounterRoute from './Counter';
-import AccountingHelpHome from './accounting-help';
 import QAS from './qas';
 // import { getUserInfo } from '../actions/user';
 // import { getCookie } from '../utils/cookie';
@@ -11,12 +10,11 @@ import QAS from './qas';
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
-    path: '/',
+    path: '/qas',
     component: Layout,
     indexRoute: QAS(store),
     childRoutes: [
         CounterRoute(store),
-        AccountingHelpHome(store),
         QAS(store),
         // Signin(store)
     ],

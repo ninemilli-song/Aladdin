@@ -13,12 +13,16 @@ new WebpackDevServer(webpack(config), {
         index: '/',                         // Overwrite index path
         rewrites: [
             {
-                from: /\/signin/,           // Match the signin path to the signin.html page
+                from: /^\/signin/,           // Match the signin path to the signin.html page
                 to: '/signin.html'
             },
             {
-                from: /\/home/,           // Match the signin path to the signin.html page
-                to: '/home.html'
+                from: /^\/qas/,             // 知识问答
+                to: '/qas.html'
+            },
+            {
+                from: /^\/ahome/,           // 财会之家
+                to: '/a_home.html'
             }
         ]
     },
