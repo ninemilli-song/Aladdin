@@ -9,7 +9,7 @@ $prefixCls: account-rule;
         @include content-padding();
         background-color: $blockNormalBG;
         // margin: 30px 0;
-        margin-bottom: #{$block-space}px;
+        // margin-bottom: #{$block-space}px;
 
         .filter {
             &-item {

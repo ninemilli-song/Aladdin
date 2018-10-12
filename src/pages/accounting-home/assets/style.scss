@@ -4,8 +4,15 @@
 // --------------------------------------
 // --------- acconting style ------------
 // --------------------------------------
-.accounting-rule {
+.ahome {
+    &-filter-wrapper {
+        padding: 10px;
+        // background-color: $blockNormalBG;
+        margin-bottom: 10px;
+    }
+}
 
+.accounting-rule {
     .sider-content {
         position: relative;
 
@@ -36,14 +43,14 @@
     }
 
     .gp-rule {
-        padding: #{$inner-block-padding}px;
-        margin-bottom: 20px;
-        background-color: $blockNormalBG;
+        padding: 0 #{$inner-block-padding}px;
+        // margin-bottom: 20px;
+        // background-color: $blockNormalBG;
     }
 
     .sp-rule {
-        padding: #{$inner-block-padding}px;
-        background-color: $blockNormalBG;
+        padding: 0 #{$inner-block-padding}px;
+        // background-color: $blockNormalBG;
 
         &-title {
             margin-top: 10px;
@@ -69,7 +76,7 @@
 .reports {
     &-wrapper {
         padding: #{$inner-block-padding}px;
-        background-color: $blockNormalBG;
+        // background-color: $blockNormalBG;
 
         .report {
             &-item {

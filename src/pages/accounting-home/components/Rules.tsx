@@ -16,6 +16,9 @@ const Input = require('antd/lib/input');
 const Button = require('antd/lib/button');
 const Icon = require('antd/lib/icon');
 const Modal = require('antd/lib/modal');
+const mdConverter = new showdown.Converter({
+    simpleLineBreaks: true
+});
 
 export type IRule = {
     roleType: string,               // role type value
@@ -43,18 +46,11 @@ interface RulesProps extends MainSiderProps {
 @autobind
 export default class Rules extends React.Component<RulesProps> {
 
-    // The showdown Obj to converter md string to htm string.
-    mdConverter = new showdown.Converter({
-        simpleLineBreaks: true
-    });
-
     // 准则文本
     roleHtml = null;
 
     // 样式前缀
     prefixCls = 'accounting-rule';
-
-    className = 'accounting-rule';
 
     state = {
         showSPDetail: false,
@@ -154,7 +150,7 @@ export default class Rules extends React.Component<RulesProps> {
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
-            <div className={ `${this.prefixCls}-filter-wrapper` }>
+            <div className={ `ahome-filter-wrapper` }>
                 <AccountingFilter 
                     roleOptions = { roleOptions }
                     yearOptions = { yearOptions }
@@ -192,7 +188,7 @@ export default class Rules extends React.Component<RulesProps> {
         let gpRuleNode = null;
 
         if (role.roleGPData) {
-            const ruleHtmlText = this.mdConverter.makeHtml(role.roleGPData);
+            const ruleHtmlText = mdConverter.makeHtml(role.roleGPData);
 
             gpRuleNode = (
                 <div className="gp-rule">
@@ -257,7 +253,7 @@ export default class Rules extends React.Component<RulesProps> {
         const { spRuleDetail } = this.props;
         const { title, content } = spRuleDetail;
 
-        const ruleHtmlText = this.mdConverter.makeHtml(content) || '';
+        const ruleHtmlText = mdConverter.makeHtml(content) || '';
 
         return (
             <Modal
@@ -295,7 +291,7 @@ export default class Rules extends React.Component<RulesProps> {
     private onTextBlur(evt) {
         const val = evt.target.value;
         console.log('👉🏻 before convert -----> ', val);
-        this.roleHtml = this.mdConverter.makeHtml(val);
+        this.roleHtml = mdConverter.makeHtml(val);
 
         console.log('👉🏻 after convert -----> ', this.roleHtml);
     }

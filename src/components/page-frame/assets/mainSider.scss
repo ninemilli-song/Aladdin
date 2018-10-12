@@ -9,4 +9,8 @@
     &-main-wrapper, &-sider-wrapper {
         // padding: 0 #{$inner-block-padding}px;
     }
+
+    &-sider-wrapper {
+        padding: #{$block-space-mini}px;
+    }
 }

@@ -51,7 +51,7 @@ export default class Subjects extends React.Component<SubjectsProps> {
         return (
             <MainSider
                 main = { this.renderMain() }
-                sider = { this.renderSider() }
+                // sider = { this.renderSider() }
             />
         )
     }
@@ -61,14 +61,16 @@ export default class Subjects extends React.Component<SubjectsProps> {
         const { roleOptions, yearOptions } = filterOptions;
 
         return (
-            <div className={`${this.props}-body`}>
-                <AccountingFilter 
-                    roleOptions = { roleOptions }
-                    yearOptions = { yearOptions }
-                    onChange = { this.onChange }
-                    role = { roleTypeSelected.roleType }
-                    year = { roleTypeSelected.roleYear }
-                />
+            <div className={`${this.prefixCls}-body`}>
+                <div className={ `ahome-filter-wrapper` }>
+                    <AccountingFilter 
+                        roleOptions = { roleOptions }
+                        yearOptions = { yearOptions }
+                        onChange = { this.onChange }
+                        role = { roleTypeSelected.roleType }
+                        year = { roleTypeSelected.roleYear }
+                    />
+                </div>
                 { this.renderContent() }
                 <BackTop />
             </div>

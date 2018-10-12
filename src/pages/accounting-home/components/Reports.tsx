@@ -48,13 +48,15 @@ export default class Reports extends React.Component<ReportsProps> {
 
         return (
             <div className={`${this.prefixCls}-body`}>
-                <AccountingFilter 
-                    roleOptions = { roleOptions }
-                    yearOptions = { yearOptions }
-                    onChange = { this.onChange }
-                    role = { roleTypeSelected.roleType }
-                    year = { roleTypeSelected.roleYear }
-                />
+                <div className={ `ahome-filter-wrapper` }>
+                    <AccountingFilter 
+                        roleOptions = { roleOptions }
+                        yearOptions = { yearOptions }
+                        onChange = { this.onChange }
+                        role = { roleTypeSelected.roleType }
+                        year = { roleTypeSelected.roleYear }
+                    />
+                </div>
                 { this.renderText() }
                 <BackTop />
             </div>
