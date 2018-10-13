@@ -19,13 +19,13 @@ export default class BlockHeader extends React.Component<BlockHeaderProps, any> 
         const { title, moreLink } = this.props;
 
         return (
-            <div className={`${this.prefixCls}`}>
+            <div className={`${this.prefixCls} clearfix`}>
                 <span className={`${this.prefixCls}-title`}>
                     {title}
                 </span>
                 {
                     moreLink ? (
-                        <span className={`${this.prefixCls}-more`}>
+                        <span className={`${this.prefixCls}-more floatRight`}>
                             <a 
                                 href={`${moreLink}`}
                                 target="_blank"

@@ -81,7 +81,7 @@ export default class Rules extends React.Component<RulesProps> {
 
     protected renderSider() {
         return (
-            <div className="sider-content">
+            <div className={`${ this.prefixCls }-sider-content`}>
                 {
                     this.renderSiderNav()
                 }

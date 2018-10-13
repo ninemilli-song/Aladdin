@@ -6,6 +6,7 @@ const Carousel = require('antd/lib/carousel');
 import '../assets/style.scss';
 import Block from './Block';
 import { BlockItemMode } from './BlockBody';
+import MainSider from '../../../components/page-frame/MainSider';
 const Row = require('antd/lib/grid/row');
 const Col = require('antd/lib/grid/col');
 
@@ -15,6 +16,8 @@ export interface HomeProps  {
 }
 
 class Home extends React.Component<HomeProps, any> {
+
+    prefixCls = 'home';
 
     constructor(props, context) {
         super(props, context);
@@ -30,13 +33,12 @@ class Home extends React.Component<HomeProps, any> {
     render() {
         const { store } = this.props;
         const { quanziData, wendaData } = store;
-        const prefixCls = 'home';
 
         return (
-            <div className={prefixCls}>
+            <div className={ this.prefixCls }>
                 <SecondaryNav />
                 <div className="layout-content">
-                    <div className={`${prefixCls}-banner`}>
+                    <div className={`${ this.prefixCls }-banner`}>
                         <Carousel autoplay>
                             <div><h3>1</h3></div>
                             <div><h3>2</h3></div>
@@ -44,32 +46,43 @@ class Home extends React.Component<HomeProps, any> {
                             <div><h3>4</h3></div>
                         </Carousel>
                     </div>
-                    <div className={`${prefixCls}-block`}>
-                        <Row>
-                            <Col span={ 14 }>
-                                <Block 
-                                    title = "圈子"
-                                    moreLink = "https://www.facebook.com"
-                                    options = { {
-                                        data: quanziData
-                                    } }
-                                />
-                            </Col>
-                            <Col span={ 10 }>
-                                <Block 
-                                    title = "问答"
-                                    moreLink = "https://www.facebook.com"
-                                    options = { {
-                                        mode:  BlockItemMode.TEXTLINK,
-                                        data: wendaData,
-                                    } }
-                                />
-                            </Col>
-                        </Row>
-                        
-                    </div>
+                    <MainSider 
+                        main={ this.renderMain() }
+                        sider={ this.renderSider() }
+                    />
                 </div>
             </div>
+        )
+    }
+
+    renderMain() {
+        const { store } = this.props;
+        const { quanziData } = store;
+
+        return (
+            <Block 
+                title = "圈子"
+                moreLink = "https://www.facebook.com"
+                options = { {
+                    data: quanziData
+                } }
+            />
+        )
+    }
+
+    renderSider() {
+        const { store } = this.props;
+        const { wendaData } = store;
+        
+        return (
+            <Block 
+                title = "问答"
+                moreLink = "https://www.facebook.com"
+                options = { {
+                    mode:  BlockItemMode.TEXTLINK,
+                    data: wendaData,
+                } }
+            />
         )
     }
 }

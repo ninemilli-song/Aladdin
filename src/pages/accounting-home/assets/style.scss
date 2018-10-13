@@ -13,13 +13,8 @@
 }
 
 .accounting-rule {
-    .sider-content {
-        position: relative;
-
-        .sider-nav-anchor {
-            top: 0;
-            right: 0;
-        }
+    &-sider-content {
+        padding: 10px;
     }
 
     &-text {

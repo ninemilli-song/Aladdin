@@ -8,62 +8,61 @@ $moduleName: home;
   &-banner {
     height: 160px;
   }
-  &-block {
-    border: 1px dashed #{$assisBorderColor};
-    margin-top: 10px;
-    min-height: 160px;
 
-    .block {
-      padding: 10px;
-      &-header {
-        height: 30px;
-        line-height: 30px;
-        
-        &-title {
-          display: inline-block;
-          width: 100px;
-          @include font-size-18();
-          @include font-bold();
-        }
-
-        &-more {
-
-        }
+  .block {
+    padding: 10px;
+    &-header {
+      height: 30px;
+      line-height: 30px;
+      
+      &-title {
+        display: inline-block;
+        width: 100px;
+        @include font-size-18();
+        @include font-bold();
       }
 
-      &-body {
-        margin-top: 10px;
+      &-more {
+
+      }
+    }
+
+    &-body {
+      margin-top: 10px;
+      
+      &-item {
+        position: relative;
         
-        &-item {
-          position: relative;
-          &-showImg {
-            position: absolute;
-            // display: inline-block;
-            // float: left;
+        &-showImg {
+          position: absolute;
+          // display: inline-block;
+          // float: left;
+        }
+
+        &-content {
+          margin-left: 130px;
+
+          .title {
+            @include font-size-16();
           }
-          &-content {
-            margin-left: 130px;
-            // float: left;
-            .title {
-              @include font-size-16();
-            }
-            .content {
-              margin-top: 8px;
-              min-height: 80px;
-              max-height: 100px;
-              overflow: hidden;
-            }
-            .comment {
-              margin-top: 8px;
-            }
+
+          .content {
+            margin-top: 8px;
+            overflow: hidden;
           }
-          img {
-            width: 100px;
+
+          .comment {
+            margin-top: 8px;
           }
+        }
+
+        img {
+          width: 100px;
         }
       }
     }
   }
+
   .ant-carousel .slick-slide {
       text-align: center;
       height: 160px;
