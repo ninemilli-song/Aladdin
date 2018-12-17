@@ -1,0 +1,15 @@
+@import '../../../styles/variable.scss';
+
+.s-m-page {
+    &-sider-container {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 90px;
+        background-color: $color3;
+    }
+
+    &-page-container {
+        margin: 0 0 0 90px;
+    }
+}

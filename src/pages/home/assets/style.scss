@@ -1,78 +1,250 @@
-/* import public variable */
 @import '../../../styles/variable.scss';
 @import '../../../styles/mixin.scss';
 
-$moduleName: home;
+$moduleName: qas;
 
 .#{$moduleName} {
-  &-banner {
-    height: 160px;
-  }
-
-  .block {
-    padding: 10px;
-    &-header {
-      height: 30px;
-      line-height: 30px;
-      
-      &-title {
-        display: inline-block;
-        width: 100px;
-        @include font-size-18();
-        @include font-bold();
-      }
-
-      &-more {
-
-      }
+    &-body {
+        &-say {
+            // padding: 0 #{$inner-block-padding}px  #{$inner-block-padding}px  #{$inner-block-padding}px;
+            background-color: $secondaryNavBG;
+            margin-bottom: 10px;
+        }
     }
 
-    &-body {
-      margin-top: 10px;
-      
-      &-item {
-        position: relative;
-        
-        &-showImg {
-          position: absolute;
-          // display: inline-block;
-          // float: left;
+    .q-list {
+        &-list {
+            padding: 0 #{$inner-block-padding}px;
+            background-color: $blockNormalBG;
+        }
+
+        &-pagination {
+            text-align: center;
+
+            .ant-pagination-prev .ant-pagination-item-link, 
+            .ant-pagination-next .ant-pagination-item-link, 
+            .ant-pagination-item {
+                background: transparent;
+            }
+
+            .ant-pagination-item-active {
+                a {
+                    color: $primaryFontColor;
+                }
+            }
+        }
+    }
+
+    .q-item {
+        // @include normal-border();
+        padding: 10px;
+        cursor: pointer;
+
+        .answer-list-panel {
+            &-wrapper {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    &-replay-dialog {
+        &-wrapper .qas-question {
+            padding: 10px 20px;
+        }
+    }
+
+    // 问题组件
+    &-question {
+        &-user {
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 10px;
+
+            .profile {
+                // display: inline-block;
+                margin-right: 10px;
+                float: left;
+                line-height: 0;
+            }
+
+            .name, .updateDate {
+                display: inline-block;
+                height: 32px;
+                line-height: 32px;
+                margin-right: 6px;
+            }
+
+            .updateDate {
+                color: $thirdFontColor;
+            }
+        }
+
+        &-title {
+            @include font-size-16();
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        &-text {
+            margin-bottom: 10px;
+        }
+    }
+
+    &-dialog-form {
+        &-wrapper {
+            padding: 20px 20px 0 20px;
+
+            .ant-form {
+                overflow: hidden;
+            }
+        }
+    }
+
+    .q-detail {
+        &-dialog {
+            &-wrapper {
+                min-height: 200px;
+            }
+
+            &-spin-wrapper {
+                width: 100%;
+                height: 200px;
+                padding: 80px;
+                text-align: center;
+                background: rgba($grayColor, 0.2);
+            }
+        }
+
+        &-wrapper {
+            padding: #{$inner-block-padding}px 0;
+
+            .qas-question{
+                padding: 0 #{$inner-block-padding}px;
+            }
+        }
+
+        &-userInfo {
+            height: 40px;
+            line-height: 40px;
+
+            .profile {
+                // display: inline-block;
+                margin-right: 10px;
+                float: left;
+                line-height: 0;
+            }
+
+            .name {
+                display: inline-block;
+                height: 32px;
+                line-height: 32px;
+                margin-right: 6px;
+            }
+        }
+
+        &-userInfo, &-content, &-updateDate, &-operators, &-doReply, &-replyList {
+            margin-bottom: #{$block-space-mini}px;
+        }
+
+        &-userInfo, &-content, &-updateDate, &-operators{
+            padding: 0 #{$inner-block-padding}px;
+        }
+
+        &-updateDate {
+            color: $thirdFontColor;
+        }
+
+        &-feedbackCount {
+
+        }
+
+        &-operators {
+
+        }
+
+        &-doReply {
+
+        }
+
+        &-replyList {
+
+        }
+    }
+
+    .answer-item, .reply-item {
+        &-wrapper {
+            position: relative;
+            padding: #{$block-space-mini}px #{$inner-block-padding}px;
+            // margin-top: #{$block-space}px;
+        }
+
+        &-profile {
+            // display: inline-block;
+            position: absolute;
+            width: 40px;
+            // float: left;
         }
 
         &-content {
-          margin-left: 130px;
+            display: inline-block;
+            margin-left: 60px; 
 
-          .title {
-            @include font-size-16();
-          }
-
-          .content {
-            margin-top: 8px;
-            overflow: hidden;
-          }
-
-          .comment {
-            margin-top: 8px;
-          }
-        }
-
-        img {
-          width: 100px;
-        }
-      }
-    }
-  }
-
-  .ant-carousel .slick-slide {
-      text-align: center;
-      height: 160px;
-      line-height: 160px;
-      background: #{$color7};
-      overflow: hidden;
-  }
+            &-top {
+                .name, .updateDate {
+                    display: inline-block;
+                    height: 32px;
+                    line-height: 32px;
+                    margin-right: 6px;
+                }
     
-  .ant-carousel .slick-slide h3 {
-      color: #{$white};
-  }
-}
+                .updateDate {
+                    color: $thirdFontColor;
+                }
+            }
+        }
+    }
 
+    .ant-modal {
+        min-height: 200px;
+    }
+
+    &-my-panel {
+        &-aggregate {
+            padding: #{$block-space-mini}px 0;
+            background-color: $blockNormalBG;
+            
+            &-item {
+                a {
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+                    line-height: 40px;
+                    padding: 0 #{$block-space}px;
+                    color: $thirdFontColor;
+
+                    &:hover {
+                        background-color: $secondaryNavBG;
+                    }
+                }
+
+                &-icon {
+                    font-size: #{$font-lg}px;
+                }
+
+                &-text {
+                    flex: 1;
+                    text-align: left;
+                    margin: 0 #{$block-space-mini}px;
+                }
+
+                &-num {
+                    padding: 6px 10px;
+                    border-radius: 2px;
+                    background: #f6f6f6;
+                    color: #8590a6;
+                    line-height: #{$font-xs}px;
+                }
+            }
+        }
+    }
+}

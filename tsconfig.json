@@ -16,7 +16,6 @@
     "inlineSourceMap": true,
     "noEmitHelpers": false,
     "moduleResolution": "node",
-    "types": [],
     "declaration": false,
     "skipLibCheck": true
   },
@@ -27,7 +26,6 @@
   },
   "exclude": [
     "node_modules",
-    "dist",
-    "typings"
+    "dist"
   ]
 }

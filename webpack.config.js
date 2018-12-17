@@ -6,27 +6,12 @@ const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
 // 知识问答入口文件
-const baseAppEntries = ['./src/templete/qas.tsx'];
+const baseAppEntries = ['./src/templete/index.tsx'];
 const devAppEntries = [
     'webpack-dev-server/client?http://localhost:3001', // WebpackDevServer host and port
     'webpack/hot/dev-server',                          // "only" prevents reload on syntax errors]
 ];
 const appEntries = baseAppEntries
-    .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
-
-// 登陆页面入口文件
-const signinAppEntries = ['./src/templete/signin.tsx'];
-const signinEntries = signinAppEntries
-    .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
-
-// 登陆页面入口文件
-const homeAppEntries = ['./src/templete/home.tsx'];
-const homeEntries = homeAppEntries
-    .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
-
-// 财会之家入口文件
-const aHomeAppEntries = ['./src/templete/a_home.tsx'];
-const aHomeEntries = aHomeAppEntries
     .concat(process.env.NODE_ENV === 'development' ? devAppEntries : []);
 
 // // FIXME: change next line if you don't want publish to gh-pages
@@ -48,15 +33,11 @@ const vendor = [
     'immutable',
     'showdown',
     'braft-editor'
-    // 'antd',
 ];
 
 module.exports = {
     entry: {
         app: appEntries,                    // 应用入口文件
-        signin: signinEntries,              // 用户登陆入口文件
-        home: homeEntries,                  // 首页入口文件
-        a_home: aHomeEntries,              // 财会之家入口文件
         vendor,                             // 公共文件
     },
 

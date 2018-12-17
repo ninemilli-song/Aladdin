@@ -1,9 +1,7 @@
 ///<reference path="./dev-types.d.ts"/>
 
 import { createStore, applyMiddleware, compose } from 'redux';
-import { fromJS } from 'immutable';
 const thunk = require('redux-thunk').default;
-const persistState = require('redux-localstorage');
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 
@@ -54,8 +52,8 @@ function _enableHotLoader(store) {
 
 
   if (__DEV__ && module.hot) {
-    module.hot.accept('../pages/qas', () => {
-      const nextRootReducer = require('../pages/qas').default;
+    module.hot.accept('../pages', () => {
+      const nextRootReducer = require('../pages').default;
       store.replaceReducer(nextRootReducer);
     });
   }

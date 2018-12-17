@@ -16,11 +16,9 @@ require('./common.scss');
 /* ******import modules style****** */
 
 /* @import "./warehouse.less"; */
-require('./warehouse.scss');
 require('./category.scss');
 
 /* import style of grid */
-require('./grid.scss');
 require('./components');
 
 require('./init.scss');

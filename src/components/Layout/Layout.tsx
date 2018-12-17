@@ -4,15 +4,9 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Loading from '../loading';
 import { PrimaryNav, Footer } from '../page-components';
 import './assets/layout.scss';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import Login from '../login/Login';
 
 
-// @ui({
-//     key: 'AppLayout',
-//     persist: true,
-// })
 class Layout extends React.Component<any, any> {
 
     prefixCls = 'layout';

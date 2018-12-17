@@ -1,8 +1,8 @@
-# Aladdin 脚手架 Aladdin toolkit
+# Shopping Mall WorkBench
 
-Aladding toolkit make the build frontend project easy!
 
-## 使用说明 usage
+
+## Introduce
 
 ### 启动开发环境 Dev
 
@@ -27,6 +27,7 @@ npm run build:analysis
 - [ava](https://github.com/avajs/ava)
 
 #### Single Run
+
 ```bash
 $ npm run test
 ```
@@ -35,8 +36,8 @@ $ npm run test
 ```bash
 ├── src                     # the code for front end
 │   ├── actions             # 全局action
-│   ├── conponents          # 公共组件
-│   ├── routes              # 各个路由页面
+│   ├── components          # 公共组件
+│   ├── pages               # 各个路由页面
 │   ├── store               # 应用中的 store 相关配置
 │   ├── styles              # 全局样式文件
 │   ├── utils               # 工具代码
@@ -63,8 +64,6 @@ $ npm run test
 ## Documnets and Knowledges
 
 * [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)
-
-* [JWT认证](https://github.com/ninemilli-song/Aladdin/wiki/JWT%E8%AE%A4%E8%AF%81)
 
 #### Connecting to remote APIs
 
@@ -94,56 +93,3 @@ Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)
 [MIT]: ./LICENSE "Mit License"
 
 ## 更新日志
-
-### 1.1.1 (2018-10-06)
-
-1. 抽取首页为单独页面 
-
-访问路径 `{path}/home`
-
-2. 添加pages目录，分离多页面到此目录
-
-### 1.1.0 (2018-10-05)
-
-1. 移除node server。`(node层做为请求转发并没有太多实际用途)`
-
-2. 优化webpack打包体积，抽取公共模块，避免重复引用。
-
-`todo: 分离各个页面，将整个网站改为多页面应用` 
-
-### 1.0.4
-`2018-06-14`
-
-* 添加 `normalize.css` 对css重置，提高css兼容性 
-
-### 1.0.3
-
-`2017-04-13`
-
-* Upgrade the `stylelint-webpack-plugin` version to v0.7.0 and the `stylelint-config-standard` version to v16.0.6 to match the `stylelint` v7.0.0.
-
-* Regular the css to fellow the stylelint rules.
-
-### 1.0.2
-
-`2017-04-12`
-
-* Support Sass and Less
-* fix bug:
-
-    - Remove `postcss-modules-local-by-default` plugin from /webpack/posscss.js to resolve the problem that the `postcss-modules-local-by-default` plugin cause classname turn to a random code when webpack compile finished.
-
-
-### 1.0.1
-
-`2017-04-10`
-
-* Upgrade TypeScript version to 2.2.2
-
-* Upgrade Antd version to 2.x
-
-* Fix problems which cause by upgrade TypeScript and Antd
-
-    - Remove typings which create by Typings tools, because TypeScript 2.2.2 support @types/... style and antd dependencies @type/react.
-
-    - Add @types/react in the package.json devDependencies.
