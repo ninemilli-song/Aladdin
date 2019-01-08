@@ -1,38 +1,38 @@
-# Aladdin 商城后台管理 - Aladin Shopping Mall
+# Aladdin 商城后台管理 （Aladin Shopping Mall）
 
-Aladdin 商品后台管理系统，基于Aladdin架手架开发
+### 简介（Introduce）
 
-## 简介 - Introduce
+Aladdin 商品后台管理系统，基于Aladdin架手架开发。
 
-### 启动开发环境 Dev
+### 技术栈
+
+技术 | 说明 | 网址
+--- | --- | ---
+React | 前端框架 | [https://reactjs.org/](https://reactjs.org/)
+Redux | 前端状态管理框架 | [https://www.redux.org.cn/](https://www.redux.org.cn/)
+React-Router | 前端路由框架 | [https://reacttraining.com/react-router/](https://reacttraining.com/react-router/)
+React-Redux | 绑定React与Redux | [https://react-redux.js.org/](https://react-redux.js.org/)
+Antd | 蚂蚁金服的react ui组件库 | [https://ant.design/docs/react/introduce-cn](https://ant.design/docs/react/introduce-cn)
+Webpack | 前端工程构建工具 | [https://webpack.js.org/](https://webpack.js.org/)
+ava | 测试框架 | [https://github.com/avajs/ava](https://github.com/avajs/ava)
+
+### 项目启动
 
 ```bash
+# 运行开发环境
 $ npm run start
-```
 
-### 生产环境构建 Production
+# 构建生产环境代码
+$ npm run build
 
-```bash
-npm run build
-```
+# 生产环境代码分析
+$ npm run build:analysis
 
-### 生产环境打包分析
-
-```bash
-npm run build:analysis
-```
-
-### Tests
-
-- [ava](https://github.com/avajs/ava)
-
-#### Single Run
-
-```bash
+# 运行测试
 $ npm run test
 ```
 
-## 工程目录 Project Structure
+### 工程目录（Project Structure）
 
 ```bash
 ├── src                     # the code for front end
@@ -63,19 +63,26 @@ $ npm run test
 └── .eslintrc               # 本地代码检查配置文件
 ```
 
-## Documnets and Knowledges
 
-* [项目启动](https://github.com/ninemilli-song/Aladdin/wiki/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88Run-Project%EF%BC%89)
+### 分支说明
 
-#### Connecting to remote APIs
+* master - 系统主分支，用于业务相关代码的实现
 
-Both the devmode and production servers provide a way to proxy requests to
+* scaffold - Aladdin脚手架，用于脚手架相关代码的实现
+
+### 文档 （Documnets and Knowledges）
+
+* [更新日志](https://github.com/ninemilli-song/Aladdin/wiki/Update-log)
+
+* 远程API调用（Connecting to remote APIs）
+
+> Both the devmode and production servers provide a way to proxy requests to
 remote HTTP APIs.  This can be useful for working around CORS issues when
 developing your software.
 
-Edit [this file](server/proxy-config.js) to mount such APIs at a given path.
+> Edit [proxy-config.js](server/proxy-config.js) to mount such APIs at a given path.
 
-## 依赖 dependencies
+### 依赖（dependencies）
 
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
@@ -86,12 +93,10 @@ Edit [this file](server/proxy-config.js) to mount such APIs at a given path.
 * [sass](http://sass-lang.com/)
 * [ant-design](https://ant.design/index-cn)
 
-## 许可 License
+### 许可（License）
 
 Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)
 
 [MIT License][MIT]
 
 [MIT]: ./LICENSE "Mit License"
-
-## 更新日志
