@@ -1,8 +1,8 @@
-# Shopping Mall WorkBench
+# Aladdin 商城后台管理 - Aladin Shopping Mall
 
+Aladdin 商品后台管理系统，基于Aladdin架手架开发
 
-
-## Introduce
+## 简介 - Introduce
 
 ### 启动开发环境 Dev
 
@@ -33,6 +33,7 @@ $ npm run test
 ```
 
 ## 工程目录 Project Structure
+
 ```bash
 ├── src                     # the code for front end
 │   ├── actions             # 全局action
@@ -44,6 +45,7 @@ $ npm run test
 │   ├── reducers            # 全局reducer
 │   ├── font                # IconFont
 │   ├── pages               # 独立页面文件
+│   ├── templete            # 页面模板文件
 │   └── middleware          # promise middleware and so on
 ├── scripts
 │   ├── proxy-config.js         # 具体的代理配置 The file of proxy config
