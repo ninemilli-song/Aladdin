@@ -13,7 +13,7 @@ $ npm run start
 ### 生产环境构建 Production
 
 ```bash
-npm run build
+npm run build
 ```
 
 ### 生产环境打包分析
