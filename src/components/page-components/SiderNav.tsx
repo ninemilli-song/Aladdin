@@ -2,12 +2,12 @@
  * 侧边菜单
  */
 import * as React from 'react';
-import { Menu, Icon } from 'antd';
-
-const SubMenu = Menu.SubMenu;
+import { Menu } from 'antd';
 
 interface SliderNavProps {
-    menus: Array<any>
+    menus: Array<any>,
+    selectedMenuId?: string,
+    onSelect?: (item, key) => void
 }
 
 class SiderNav extends React.Component<SliderNavProps, any> {
@@ -15,7 +15,7 @@ class SiderNav extends React.Component<SliderNavProps, any> {
     prefixCls = 's-m-slider-nav'
 
     render() {
-        const { menus } = this.props;
+        const { menus, selectedMenuId } = this.props;
 
         return (
             <div className={`${this.prefixCls}`}>
@@ -23,7 +23,7 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                     onClick={this.handleClick}
                     style={{ width: 90 }}
                     defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    selectedKeys={[selectedMenuId]}
                     mode="inline"
                 >
                     {
@@ -38,8 +38,12 @@ class SiderNav extends React.Component<SliderNavProps, any> {
         )
     }
 
-    handleClick = () => {
+    handleClick = ({ key, item }) => {
+        const { onSelect } = this.props;
 
+        if (onSelect) {
+            onSelect(item, key);
+        }
     }
 }
 

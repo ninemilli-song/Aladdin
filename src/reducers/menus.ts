@@ -1,46 +1,90 @@
-export default function globalInfoReducer() {
-    return [
+import { SET_SELECTED_MENU_ID } from '../actions/menus';
+
+const initState = {
+    menus: [
         {
-            id: 1,
+            id: '1',
             label: '概况',
             key: 'rules',
             icon: 'mail',
+            subMenus: []
         },
         {
-            id: 2,
+            id: '2',
             label: '店鋪',
             key: 'subjects',
             icon: 'appstore',
+            subMenus: []
         },
         {
-            id: 3,
+            id: '3',
             label: '商品',
-            key: 'reports',
-            icon: 'pay-circle',
+            key: 'products',
+            icon: 'pay-circle'
         },
         {
-            id: 4,
+            id: '4',
             label: '订单',
             key: 'indus',
             icon: 'switcher',
         },
         {
-            id: 5,
+            id: '5',
             label: '客户',
             key: 'analysis',
             icon: 'tool',
         },
         {
-            id: 6,
+            id: '6',
             label: '数据',
             key: 'entries',
             icon: 'team',
         },
         {
-            id: 7,
+            id: '7',
             label: '资产',
             key: 'practice',
             icon: 'team',
         }
-    ]
+    ],
+    subMenus: [
+        {
+            id: '3-1',
+            label: '商品目录',
+            key: 'product-list',
+            icon: '',
+            parent: '3'
+        },
+        {
+            id: '3-2',
+            label: '新增商品',
+            key: 'product-edit',
+            icon: '',
+            parent: '3'
+        },
+        {
+            id: '3-3',
+            label: '商品分类',
+            key: 'product-category',
+            icon: '',
+            parent: '3'
+        }
+    ],
+    selectedMenuId: '3-3'
+}
+
+const setSelectedMenuId = (state, action) => {
+    return Object.assign({}, state, {
+        selectedMenuId: action.payload
+    })
+}
+
+const ACTION_HANDLERS = {
+    [SET_SELECTED_MENU_ID]: setSelectedMenuId
+}
+
+export default function menusReducer(state = initState, action) {
+    const handler = ACTION_HANDLERS[action.type];
+
+    return handler ? handler(state, action) : state;
 }
