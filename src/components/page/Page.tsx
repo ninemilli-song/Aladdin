@@ -92,14 +92,14 @@ class Page extends React.Component<any, any> {
         let selectedMenu, selectedSubMenu;
 
         // 先判断点击是否为第一级菜单
-        selectedMenu = menus.find((item) => {
-            return item.id === selectedMenuId;
+        selectedMenu = menus.find((menu) => {
+            return menu.id === selectedMenuId;
         })
 
         // 如果是第一级菜单，则默认选中二级菜单的第一项
         if (selectedMenu) {
-            const curSubMenus = subMenus.filter((item) => {
-                return item.parent === selectedMenuId;
+            const curSubMenus = subMenus.filter((subMenu) => {
+                return subMenu.parent === selectedMenuId;
             });
 
             selectedSubMenu = curSubMenus[0];

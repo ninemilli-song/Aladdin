@@ -3,6 +3,7 @@ import Page from '../components/page';
 
 import CounterRoute from './Counter';
 import Home from './Home';
+import ProductList from './product-list';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -12,7 +13,8 @@ export const createRoutes = (store) => ({
     component: Page,
     indexRoute: Home(store),
     childRoutes: [
-        CounterRoute(store),
+      CounterRoute(store),
+      ProductList(store)
     ],
     // onEnter: (state, replace, cb) => {
     //     const { dispatch } = store;

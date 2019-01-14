@@ -2,6 +2,7 @@
  * 侧边菜单
  */
 import * as React from 'react';
+import { Link } from 'react-router';
 import { Menu } from 'antd';
 
 interface SliderNavProps {
@@ -29,7 +30,9 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                     {
                         menus.map(item => (
                             <Menu.Item key={ item.id }>
-                                { item.label }
+                                <Link to={ item.path || '' }>
+                                    { item.label }
+                                </Link>
                             </Menu.Item>
                         ))
                     }

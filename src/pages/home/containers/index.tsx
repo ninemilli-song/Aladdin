@@ -50,8 +50,6 @@ export default class QAS extends React.Component<any, any> {
 
     prefixCls = 'qas';
 
-    // store: QASStore;
-
     componentWillMount() {
         const { action } = this.props;
         action.getQuestionList();

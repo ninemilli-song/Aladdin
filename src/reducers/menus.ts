@@ -20,6 +20,7 @@ const initState = {
             id: '3',
             label: '商品',
             key: 'products',
+            path: '/product-list',
             icon: 'pay-circle'
         },
         {
@@ -52,6 +53,7 @@ const initState = {
             id: '3-1',
             label: '商品目录',
             key: 'product-list',
+            path: '/product-list',
             icon: '',
             parent: '3'
         },
@@ -59,6 +61,7 @@ const initState = {
             id: '3-2',
             label: '新增商品',
             key: 'product-edit',
+            path: '/product-edit',
             icon: '',
             parent: '3'
         },
@@ -66,11 +69,12 @@ const initState = {
             id: '3-3',
             label: '商品分类',
             key: 'product-category',
+            path: '/product-category',
             icon: '',
             parent: '3'
         }
     ],
-    selectedMenuId: '3-3'
+    selectedMenuId: ''
 }
 
 const setSelectedMenuId = (state, action) => {
