@@ -1,4 +1,8 @@
 import * as React from 'react';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import AppTitle from '../../../components/page-components/AppTitle';
+import AppBody from '../../../components/page-components/AppBody';
 
 class ProductList extends React.Component<any, any> {
     prefixCls = 'product-list';
@@ -10,11 +14,27 @@ class ProductList extends React.Component<any, any> {
     render() {
         return (
             <div className={`${this.prefixCls}`}>
-                <div className={`${this.prefixCls}-header`}>
-                    aaa
-                </div>
-                <div className={`${this.prefixCls}-filter`}></div>
-                <div className={`${this.prefixCls}-table`}></div>
+                <AppTitle
+                    name="商品目录"
+                />
+                <AppBody>
+                    <div className={`${this.prefixCls}-body`}>
+                        <div className={`${this.prefixCls}-filter`}>
+                            <Row gutter={16}>
+                                <Col span={8}>
+                                    a
+                                </Col>
+                                <Col span={8}>
+                                    b
+                                </Col>
+                                <Col span={8}>
+                                    c
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className={`${this.prefixCls}-table`}></div>
+                    </div>
+                </AppBody>
             </div>
         )
     }
