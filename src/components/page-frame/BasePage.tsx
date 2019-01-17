@@ -1,6 +1,6 @@
 import * as React from 'react';
-const Row = require('antd/lib/row');
-const Col = require('antd/lib/col');
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
 import SecondaryNav from '../page-components/SecondaryNav';
 
 interface BasePageProps {

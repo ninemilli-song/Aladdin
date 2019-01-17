@@ -92,6 +92,7 @@ developing your software.
 * [webpack](https://webpack.github.io/docs/)
 * [sass](http://sass-lang.com/)
 * [ant-design](https://ant.design/index-cn)
+* [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) : antd按需加载
 
 ### 许可（License）
 

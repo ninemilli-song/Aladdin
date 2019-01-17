@@ -3,8 +3,8 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-const Button = require('antd/lib/button/button');
-const Input = require('antd/lib/input');
+import Button from 'antd/lib/button/button';
+import Input from 'antd/lib/input';
 const Search = Input.Search;
 
 interface SearchHeaderProps {

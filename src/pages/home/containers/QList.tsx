@@ -3,17 +3,13 @@
  */
 import * as React from 'react'
 import CutLine from '../../../components/cut-line/CutLine';
-const Pagination = require('antd/lib/pagination');
+import Pagination from 'antd/lib/pagination';
 import { autobind } from 'core-decorators';
-// import QDetailDialogContainer from '../containers/QDetailDialogContainer';
 import QDetailDialog from '../containers/QDetailDialog';
 import QItem, { QItemData } from '../containers/QItem';
 import { connect } from 'react-redux';
-// import QList from '../components/Qlist';
 import { getQuestionList, onPageChanged, onSelectedQ, setReplyDialogVisible, addReply } from '../actions/index';
-import ReplyDialog from '../components/ReplyDialog';
 import ReplyAnswerDialog from './ReplyAnswerDialog';
-// import { toJS } from '../../../utils/hocs';
 
 type QListData = {
     list: Array<QItemData>;                     // 列表数据

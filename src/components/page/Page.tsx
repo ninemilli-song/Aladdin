@@ -4,8 +4,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-// import { withRouter } from 'react-router';
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 import { getUserInfo, logout } from '../../actions/user';
 import SiderNav from '../page-components/SiderNav';
 import { SET_SELECTED_MENU_ID } from '../../actions/menus';
@@ -120,8 +119,13 @@ class Page extends React.Component<any, any> {
 
         // 如果是第一级菜单，则默认选中二级菜单的第一项
         if (selectedMenu) {
+<<<<<<< HEAD
             const curSubMenus = subMenus.filter((subMenu) => {
                 return subMenu.parent === selectedMenuId;
+=======
+            const curSubMenus = subMenus.filter((submenu) => {
+                return submenu.parent === selectedMenuId;
+>>>>>>> scaffold
             });
 
             selectedSubMenu = curSubMenus[0];

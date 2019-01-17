@@ -5,6 +5,10 @@
   ],
   "plugins":[
       ["antd", { "style": "css" }],
+      // ["import", {
+      //   "libraryName": "antd",
+      //   "style": true,   // or 'css'
+      // }],
       ["transform-runtime", {
         "polyfill": false,
         "regenerator": true 

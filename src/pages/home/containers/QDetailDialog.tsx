@@ -3,8 +3,8 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-const Modal = require('antd/lib/modal/Modal');
-const Spin = require('antd/lib/spin');
+import Modal from 'antd/lib/modal/Modal';
+import Spin from 'antd/lib/spin';
 import { connect } from 'react-redux';
 import { 
     setDetailDialogVisible, 
