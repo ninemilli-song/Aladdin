@@ -12,7 +12,7 @@ export default (store) => ({
         // require.d.ts. Webpack sees this and automatically puts c and d
         // into a separate chunk. 
   
-        const Counter = require('./containers').default;
+        const component = require('./containers').default;
   
         const reducer = require('./modules').default
   
@@ -20,7 +20,7 @@ export default (store) => ({
         store.injectReducer({ key: 'productList', reducer })
   
         /*  Return getComponent   */
-        cb(null, Counter)
+        cb(null, component)
   
         /* Webpack named bundle   */
       })

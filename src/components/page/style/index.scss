@@ -1,6 +1,8 @@
 @import '../../../styles/variable.scss';
 
 .s-m-page {
+    position: relative;
+
     &-menus {
         position: fixed;
         top: 0;

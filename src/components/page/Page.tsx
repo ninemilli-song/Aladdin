@@ -4,6 +4,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
+// import { withRouter } from 'react-router';
 import * as classnames from 'classnames';
 import { getUserInfo, logout } from '../../actions/user';
 import SiderNav from '../page-components/SiderNav';
@@ -86,6 +87,27 @@ class Page extends React.Component<any, any> {
         )
     }
 
+    componentDidMount() {
+        const { location, data, setSelectedMenu } = this.props;
+        const { menus, subMenus } = data;
+        // 从 react-router 注入的 location对象中获取当前路径
+        const { pathname } = location;
+
+        // 从二级菜单中查找pathname对应的当前菜单
+        let selectedMenu = subMenus.find((subMenu) => {
+            return subMenu.path === pathname;
+        });
+
+        // 如果当前路径不在二级菜单中则查找一级菜单
+        if (!selectedMenu) {
+            selectedMenu = menus.find(menu => {
+                return menu.path === pathname;
+            });
+        }
+
+        setSelectedMenu(selectedMenu ? selectedMenu.id : '')
+    }
+
     onSelect = (item, selectedMenuId) => {
         const { setSelectedMenu, data } = this.props;
         const { menus, subMenus } = data;
@@ -110,4 +132,4 @@ class Page extends React.Component<any, any> {
     }
 }
 
-export default Page
+export default Page;

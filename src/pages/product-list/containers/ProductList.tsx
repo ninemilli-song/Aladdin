@@ -10,7 +10,11 @@ class ProductList extends React.Component<any, any> {
     render() {
         return (
             <div className={`${this.prefixCls}`}>
-                Hello product-list page!!!
+                <div className={`${this.prefixCls}-header`}>
+                    aaa
+                </div>
+                <div className={`${this.prefixCls}-filter`}></div>
+                <div className={`${this.prefixCls}-table`}></div>
             </div>
         )
     }
