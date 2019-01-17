@@ -5,7 +5,7 @@ import * as React from 'react';
 import { autobind } from 'core-decorators';
 import Question from './Question';
 import ISay from '../../../components/i-say/ISay';
-const Modal = require('antd/lib/modal/Modal');
+import Modal from  'antd/lib/modal/Modal';
 
 interface ReplyDialogProps {
     data?: any;                     // 问题数据

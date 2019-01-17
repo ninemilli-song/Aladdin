@@ -4,7 +4,6 @@ import SecondarySearchNav from '../../../components/page-components/SecondarySea
 import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import BackTop from '../../../components/backtop';
-// import PushQuestionDialogContainer from '../containers/PushQuestionDialogContainer';
 import AskQuestionDialog from '../containers/AskQuestionDialog';
 import ISay from '../../../components/i-say/ISay';
 import QList from './QList';

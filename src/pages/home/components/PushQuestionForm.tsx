@@ -4,7 +4,8 @@
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 const FormItem =  require('antd/lib/form/FormItem');
-const Form = require('antd/lib/form/Form');
+// const Form = require('antd/lib/form/Form');
+import Form from 'antd/lib/form/Form';
 const Input = require('antd/lib/input/Input');
 import { autobind } from 'core-decorators';
 import TextEditor from '../../../components/text-editor/TextEditor';

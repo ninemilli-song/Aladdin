@@ -18,7 +18,6 @@ import { autobind } from 'core-decorators';
 import QASOperators from '../../../components/qas-operators/QASOperators';
 import Question from '../components/Question';
 import AnswerListPanel from './AnswerListPanel';
-const Avatar = require('antd/lib/avatar');
 
 export type QItemData = {
     id: number;                             // 问题id
