@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Row, Col } from 'antd';
 import AppTitle from '../../../components/page-components/AppTitle';
 import AppBody from '../../../components/page-components/AppBody';
+import InputField from '../../../components/fields/InputField';
+import '../assets/index.scss';
+import SelectTreeField from '../../../components/fields/SelectTreeField';
+import MoneyField from '../../../components/fields/MoneyField';
 
 class ProductList extends React.Component<any, any> {
     prefixCls = 'product-list';
@@ -21,13 +25,24 @@ class ProductList extends React.Component<any, any> {
                         <div className={`${this.prefixCls}-filter`}>
                             <Row gutter={16}>
                                 <Col span={8}>
-                                    a
+                                    <InputField
+                                        label="商品名称或编码"
+                                        placeholder="请输入名称或编码"
+                                        allowClear
+                                    />
                                 </Col>
                                 <Col span={8}>
-                                    b
+                                    <SelectTreeField
+                                        label="商品分类"
+                                        placeholder="请选择商品分类"
+                                        allowClear
+                                    />
                                 </Col>
                                 <Col span={8}>
-                                    c
+                                    <MoneyField
+                                        label="价格区间"
+                                        isRange
+                                    />
                                 </Col>
                             </Row>
                         </div>

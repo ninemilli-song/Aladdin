@@ -2,6 +2,7 @@
  * 应用内容区域
  */
 import * as React from 'react';
+import './assets/app-body.scss';
 
 class AppBody extends React.Component<any, any> {
     prefixCls = 'app-body';

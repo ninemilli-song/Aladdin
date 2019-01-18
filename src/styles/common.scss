@@ -161,3 +161,13 @@
   position: absolute !important;
   width: 1px !important;
 }
+
+/*********** 组件样式 ************/
+.aladin {
+  &-join-input {
+    display: inline-block;
+    width: 20px;
+    padding-top: 5px;
+    text-align: center;
+  }
+}
