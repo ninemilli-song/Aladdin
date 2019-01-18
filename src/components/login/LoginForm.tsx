@@ -4,21 +4,17 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-const Form = require('antd/lib/form/Form');
-const FormItem =  require('antd/lib/form/FormItem');
-const Button = require('antd/lib/button/button');
-const Input = require('antd/lib/input/Input');
-const Checkbox = require('antd/lib/checkbox/Checkbox');
+import { Form, Button, Input, Checkbox } from 'antd';
 import * as storage from '../../utils/storage';
+const FormItem = Form.Item;
 
 interface LoginFormProps {
     form?: any;
     onSubmit: (mobile: string, password: string) => void;
 }
 
-@Form.create()
 @autobind
-export default class LoginForm extends React.Component<LoginFormProps, any> {
+class LoginForm extends React.Component<LoginFormProps, any> {
 
     prefixCls = 'login-form';
 
@@ -138,3 +134,5 @@ export default class LoginForm extends React.Component<LoginFormProps, any> {
         })
     }
 }
+
+export default Form.create()(LoginForm);

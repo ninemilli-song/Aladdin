@@ -1,6 +1,5 @@
 import * as React from 'react';
-const Button = require('antd/lib/button');
-const Tag = require('antd/lib/tag');
+import { Button, Tag } from 'antd';
 import { increment, doubleAsync } from '../modules/counter'
 export interface CounterProps  {
     increment: typeof increment,

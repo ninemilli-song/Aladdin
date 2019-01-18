@@ -3,7 +3,7 @@
  */
 import * as React from 'react'
 import CutLine from '../../../components/cut-line/CutLine';
-import Pagination from 'antd/lib/pagination';
+import { Pagination } from 'antd';
 import { autobind } from 'core-decorators';
 import QDetailDialog from '../containers/QDetailDialog';
 import QItem, { QItemData } from '../containers/QItem';

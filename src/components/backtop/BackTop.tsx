@@ -2,7 +2,7 @@
  * 返回到顶部
  */
 import * as React from 'react';
-import BackTop from 'antd/lib/back-top';
+import { BackTop } from 'antd';
 import './assets/backtop.scss';
 
 interface BackProps {

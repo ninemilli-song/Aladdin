@@ -2,15 +2,11 @@
  * 提问表单
  */
 import * as React from 'react';
+import { Form, Input, Checkbox, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-const FormItem =  require('antd/lib/form/FormItem');
-// const Form = require('antd/lib/form/Form');
-import Form from 'antd/lib/form/Form';
-const Input = require('antd/lib/input/Input');
+const FormItem =  Form.Item;
 import { autobind } from 'core-decorators';
 import TextEditor from '../../../components/text-editor/TextEditor';
-const Checkbox = require('antd/lib/checkbox/Checkbox');
-const Button = require('antd/lib/button/button');
 
 const formItemLayout = {
     labelCol: {

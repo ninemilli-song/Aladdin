@@ -5,7 +5,6 @@ import AnswerList from '../containers/AnswerList';
 import { formateNumberCount } from '../../../utils/utils';
 import Question from './Question';
 import { autobind } from 'core-decorators';
-const Avatar = require('antd/lib/avatar');
 
 interface QDetailProps {
     data: any;                                                          // 数据

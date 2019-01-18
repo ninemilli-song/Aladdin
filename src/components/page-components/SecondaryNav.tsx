@@ -2,11 +2,7 @@
  * 二级导航栏
  */
 import * as React from 'react';
-const Icon = require('antd/lib/icon');
-const Menu = require('antd/lib/menu');
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-const Input = require('antd/lib/input');
+import { Icon, Menu, Input } from 'antd';
 const Search = Input.Search;
 import './assets/secondarynav.scss';
 
@@ -21,7 +17,7 @@ interface SecondaryNavProps {
     selected?: string;                  // The selected menu key
     hasSearch?: boolean,
     title?: string,
-    onClick?: (item, key, keyPath) => void,
+    onClick?: (params) => void,
 }
 
 export default class SecondaryNav extends React.Component<SecondaryNavProps, any> {
@@ -53,7 +49,7 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
     }
 
     renderMenu() {
-        const { menuConfig, hasSearch, onClick, selected } = this.props;
+        const { menuConfig, onClick, selected } = this.props;
         
         if (menuConfig && menuConfig.length > 0) {
             const menuItems = [];

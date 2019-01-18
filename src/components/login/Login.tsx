@@ -7,7 +7,7 @@ import './login.scss';
 import { autobind } from 'core-decorators';
 import LoginForm from './LoginForm';
 import { loginDialogVisible, login } from '../../actions/user';
-const Modal = require('antd/lib/modal/Modal');
+import { Modal } from 'antd';
 
 @connect(
     store => (

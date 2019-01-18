@@ -3,9 +3,7 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-const Row = require('antd/lib/row');
-const Col = require('antd/lib/col');
-const Tag = require('antd/lib/tag');
+import { Row, Col, Tag } from 'antd';
 const { CheckableTag } = Tag;
 import './style.scss';
 

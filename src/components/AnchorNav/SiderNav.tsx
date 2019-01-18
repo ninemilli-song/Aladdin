@@ -2,9 +2,7 @@
  * 边栏区导航控件
  */
 import * as React from 'react';
-const Row = require('antd/lib/row');
-const Col = require('antd/lib/col');
-const Anchor = require('antd/lib/anchor');
+import { Anchor } from 'antd';
 const { Link } = Anchor;
 import './style.scss';
 

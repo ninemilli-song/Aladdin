@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux'
-const Spin = require('antd/lib/spin');
+import { Spin } from 'antd';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
 interface LoadingProps {

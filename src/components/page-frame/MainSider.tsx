@@ -2,8 +2,7 @@
  * 两列布局，左侧主区域 右侧边栏区域
  */
 import * as React from 'react';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import { Row, Col } from 'antd';
 import './assets/mainSider.scss';
 
 export interface MainSiderProps {

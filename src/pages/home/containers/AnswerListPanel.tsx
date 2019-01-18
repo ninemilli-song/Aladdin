@@ -3,14 +3,10 @@
  */
 import * as React from 'react';
 import { autobind } from 'core-decorators';
-const Spin = require('antd/lib/spin');
+import { Spin } from 'antd';
 import { connect } from 'react-redux';
 import { 
-    setDetailDialogVisible, 
     getQDetailData, 
-    clearQDetailData, 
-    onSelectedQ, 
-    replyQuestionExpand, 
     addReply,
     refreshQDetailData,
     concernQuestion,
