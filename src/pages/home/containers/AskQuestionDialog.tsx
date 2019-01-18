@@ -2,7 +2,7 @@
  * The Container fo PushQuestionDialog Component
  */
 import * as React from 'react';
-import Modal from 'antd/lib/modal/Modal';
+import { Modal } from 'antd';
 import { autobind } from 'core-decorators';
 import PushQuestionForm from '../components/PushQuestionForm';
 import { connect } from 'react-redux';

@@ -2,16 +2,14 @@
  * Author: ninemilli.song
  */
 import * as React from 'react';
-const Menu = require('antd/lib/menu');
-const Icon = require('antd/lib/icon');
-const Dropdown = require('antd/lib/dropdown');
+import { Menu, Icon, Dropdown } from 'antd';
 import { connect } from 'react-redux';
 import './style.scss';
 import { logout, getUserInfo, loginDialogVisible } from '../../actions/user';
 import { autobind } from 'core-decorators';
 
 interface ComponentProps {
-    logout?: Function;
+    logout?: () => void;
     getUserInfo?: Function;
     showLogin?: Function;
     data?: any;

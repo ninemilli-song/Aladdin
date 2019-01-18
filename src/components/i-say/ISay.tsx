@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './style.scss';
 import { autobind } from 'core-decorators';
-import TextArea from 'antd/lib/input/TextArea';
-import Button from 'antd/lib/button/button';
+import { Input, Button } from 'antd';
+const TextArea = Input.TextArea;
 
 interface ISayProps {
     className?: string;

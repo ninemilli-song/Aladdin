@@ -2,7 +2,7 @@
  * 回复回答
  */
 import * as React from 'react';
-const Avatar = require('antd/lib/avatar');
+import { Avatar } from 'antd';
 
 interface ReplyItemProps {
     data: any;

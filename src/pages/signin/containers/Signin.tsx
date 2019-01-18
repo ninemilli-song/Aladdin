@@ -3,15 +3,9 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { signin } from '../actions';
-const Form = require('antd/lib/form/Form');
-const FormItem =  require('antd/lib/form/FormItem');
-const Button = require('antd/lib/button/button');
-import { FormComponentProps } from 'antd/lib/form/Form';
-const Input = require('antd/lib/input/Input');
-const Checkbox = require('antd/lib/checkbox/Checkbox');
-const message = require('antd/lib/message');
+import { Form, Button, Input, Checkbox } from 'antd';
+const FormItem =  Form.Item;
 import * as storage from '../../../utils/storage';
 import '../assets/style.scss';
 import { getUserInfo, logout } from '../../../actions/user';
@@ -48,8 +42,7 @@ interface SigninProps {
         }
     )
 )
-@Form.create()
-export default class Signin extends React.Component<SigninProps, any> {
+class Signin extends React.Component<SigninProps, any> {
 
     prefixCls = 'sigin';
 
@@ -219,3 +212,5 @@ export default class Signin extends React.Component<SigninProps, any> {
         })
     }
 }
+
+export default Form.create()(Signin);

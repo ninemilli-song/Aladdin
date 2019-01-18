@@ -2,7 +2,7 @@
  * 问题组件
  */
 import * as React from 'react';
-const Avatar = require('antd/lib/avatar');
+import { Avatar } from 'antd';
 
 interface QuestionProps {
     data: any;

@@ -6,8 +6,7 @@ import QASOperators from '../../../components/qas-operators/QASOperators';
 import { formateNumberCount } from '../../../utils/utils';
 import { autobind } from 'core-decorators';
 import ReplyItem from './ReplyItem';
-const Avatar = require('antd/lib/avatar');
-const { Map } = require('immutable');
+import { Avatar } from 'antd';
 
 export interface AnswerItemProps {
     data: any;                                              // 数据
