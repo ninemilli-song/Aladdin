@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import { Row, Col } from 'antd';
 import AppTitle from '../../../components/page-components/AppTitle';
 import AppBody from '../../../components/page-components/AppBody';
 
