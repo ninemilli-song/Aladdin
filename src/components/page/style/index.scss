@@ -3,6 +3,25 @@
 .s-m-page {
     position: relative;
 
+    &-sider {
+        .ant-layout-sider-children {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 72px;
+            background: rgba(255,255,255,.2);
+            margin: 16px;
+        }
+
+        .footer {
+            height: 48px;
+            background-color: black;
+        }
+    }
+
     &-menus {
         position: fixed;
         top: 0;

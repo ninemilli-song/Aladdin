@@ -3,7 +3,9 @@
  */
 import * as React from 'react';
 import { Link } from 'react-router';
-import { Menu } from 'antd';
+import { Menu, Icon } from 'antd';
+const SubMenu = Menu.SubMenu;
+import './assets/sidernav.scss';
 
 interface SliderNavProps {
     menus: Array<any>,
@@ -20,21 +22,46 @@ class SiderNav extends React.Component<SliderNavProps, any> {
 
         return (
             <div className={`${this.prefixCls}`}>
-                <Menu
-                    onClick={this.handleClick}
-                    style={{ width: 90 }}
+                <Menu 
+                    theme="light" 
+                    mode="inline" 
                     defaultSelectedKeys={['1']}
+                    onClick={this.handleClick}
                     selectedKeys={[selectedMenuId]}
-                    mode="inline"
                 >
                     {
-                        menus.map(item => (
-                            <Menu.Item key={ item.id }>
-                                <Link to={ item.path || '' }>
-                                    { item.label }
-                                </Link>
-                            </Menu.Item>
-                        ))
+                        menus.map(item => {
+                            return item.sub && item.sub.length > 0 ? (
+                                <SubMenu
+                                    key={ item.id }
+                                    title={
+                                        <span>
+                                            <Icon type={ item.icon } />
+                                            <span>{ item.label }</span>
+                                        </span>
+                                    }
+                                >
+                                    {
+                                        item.sub.map(subItem => (
+                                            <Menu.Item 
+                                                key={ subItem.id }
+                                            >
+                                                { subItem.label }
+                                            </Menu.Item>
+                                        ))
+                                    }
+                                </SubMenu>
+                            ) : (
+                                <Menu.Item key={ item.id }>
+                                    <Icon type={ item.icon } />
+                                    <span>
+                                        <Link to={ item.path || '' }>
+                                            { item.label }
+                                        </Link>
+                                    </span>
+                                </Menu.Item>
+                            )
+                        })
                     }
                 </Menu>
             </div>

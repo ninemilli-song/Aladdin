@@ -59,17 +59,4 @@ function _enableHotLoader(store) {
   }
 }
 
-// function _getStorageConfig() {
-//   return {
-//     key: 'react-redux-seed',
-//     serialize: (store) => {
-//       return store && store.session ?
-//         JSON.stringify(store.session.toJS()) : store;
-//     },
-//     deserialize: (state) => ({
-//       session: state ? fromJS(JSON.parse(state)) : fromJS({}),
-//     }),
-//   };
-// }
-
 export default configureStore;

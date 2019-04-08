@@ -6,22 +6,44 @@ const initState = {
             id: '1',
             label: '概况',
             key: 'rules',
-            icon: 'mail',
-            subMenus: []
+            icon: 'mail'
         },
         {
             id: '2',
             label: '店鋪',
             key: 'subjects',
-            icon: 'appstore',
-            subMenus: []
+            icon: 'appstore'
         },
         {
             id: '3',
             label: '商品',
             key: 'products',
             path: '/product-list',
-            icon: 'pay-circle'
+            icon: 'pay-circle',
+            sub: [{
+                id: '3-1',
+                label: '商品目录',
+                key: 'product-list',
+                path: '/product-list',
+                icon: '',
+                parent: '3'
+            },
+            {
+                id: '3-2',
+                label: '新增商品',
+                key: 'product-edit',
+                path: '/product-edit',
+                icon: '',
+                parent: '3'
+            },
+            {
+                id: '3-3',
+                label: '商品分类',
+                key: 'product-category',
+                path: '/product-category',
+                icon: '',
+                parent: '3'
+            }]
         },
         {
             id: '4',
@@ -48,32 +70,32 @@ const initState = {
             icon: 'team',
         }
     ],
-    subMenus: [
-        {
-            id: '3-1',
-            label: '商品目录',
-            key: 'product-list',
-            path: '/product-list',
-            icon: '',
-            parent: '3'
-        },
-        {
-            id: '3-2',
-            label: '新增商品',
-            key: 'product-edit',
-            path: '/product-edit',
-            icon: '',
-            parent: '3'
-        },
-        {
-            id: '3-3',
-            label: '商品分类',
-            key: 'product-category',
-            path: '/product-category',
-            icon: '',
-            parent: '3'
-        }
-    ],
+    // subMenus: [
+    //     {
+    //         id: '3-1',
+    //         label: '商品目录',
+    //         key: 'product-list',
+    //         path: '/product-list',
+    //         icon: '',
+    //         parent: '3'
+    //     },
+    //     {
+    //         id: '3-2',
+    //         label: '新增商品',
+    //         key: 'product-edit',
+    //         path: '/product-edit',
+    //         icon: '',
+    //         parent: '3'
+    //     },
+    //     {
+    //         id: '3-3',
+    //         label: '商品分类',
+    //         key: 'product-category',
+    //         path: '/product-category',
+    //         icon: '',
+    //         parent: '3'
+    //     }
+    // ],
     selectedMenuId: ''
 }
 
