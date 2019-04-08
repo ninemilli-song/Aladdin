@@ -2,7 +2,7 @@
  * 提问列表
  */
 import * as React from 'react'
-import CutLine from '../../../components/cut-line/CutLine';
+// import CutLine from '../../../components/cut-line/CutLine';
 import { Pagination } from 'antd';
 import { autobind } from 'core-decorators';
 import QDetailDialog from '../containers/QDetailDialog';
@@ -111,11 +111,11 @@ export default class QList extends React.Component<any, any> {
                         <QItem 
                             id = { id }
                         />
-                        {
+                        {/* {
                             index < data.getIn(['list']).size - 1 ? (
                                 <CutLine />
                             ) : null
-                        }
+                        } */}
                     </div>
                 )
         }) : null;

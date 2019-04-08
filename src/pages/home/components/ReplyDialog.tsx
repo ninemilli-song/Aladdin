@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { autobind } from 'core-decorators';
 import Question from './Question';
-import ISay from '../../../components/i-say/ISay';
+// import ISay from '../../../components/i-say/ISay';
 import { Modal } from 'antd';
 
 interface ReplyDialogProps {
@@ -37,13 +37,13 @@ export default class ReplyDialog extends React.Component<ReplyDialogProps, any> 
                             data = { data }
                         />
                         <div className={ `${this.prefixCls}-doReply` }>
-                            <ISay
+                            {/* <ISay
                                 placeholder = "谈谈您的看法吧！"
                                 title = "回复"
                                 expand = { true }
                                 submitLabel = "回复"
                                 onSubmit = { this.handleSubmit }
-                            />
+                            /> */}
                         </div>
                     </div>
                 </Modal>

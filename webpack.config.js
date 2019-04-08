@@ -35,6 +35,8 @@ const vendor = [
     'braft-editor'
 ];
 
+process.traceDeprecation = true;
+
 module.exports = {
     entry: {
         app: appEntries,                    // 应用入口文件

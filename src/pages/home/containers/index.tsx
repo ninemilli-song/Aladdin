@@ -5,7 +5,7 @@ import '../assets/style.scss';
 import { autobind } from 'core-decorators';
 import BackTop from '../../../components/backtop';
 import AskQuestionDialog from '../containers/AskQuestionDialog';
-import ISay from '../../../components/i-say/ISay';
+// import ISay from '../../../components/i-say/ISay';
 import QList from './QList';
 import { 
     getQuestionList, 
@@ -82,11 +82,11 @@ export default class QAS extends React.Component<any, any> {
         return (
             <div className={ `${this.prefixCls}-body` }>
                 <div className={ `${this.prefixCls}-say` }>
-                    <ISay
+                    {/* <ISay
                         onSubmit = { this.onSubmitQuestion }
                         expand = { !!quickQuestionExpand }
                         onFocus = { this.handleQuickQuestionFocus }
-                    />
+                    /> */}
                 </div>
                 <QList />
             </div> 

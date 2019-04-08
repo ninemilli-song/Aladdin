@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const postcssInit = require('./postcss');
+// const postcssInit = require('./postcss');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const basePlugins = [
@@ -107,7 +107,7 @@ const prodPlugins = [
 
     new webpack.LoaderOptionsPlugin({
         options: {
-            postcss: postcssInit
+            // postcss: postcssInit
         }
     }),
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import QASOperators from '../../../components/qas-operators/QASOperators';
-import ISay from '../../../components/i-say/ISay';
+// import ISay from '../../../components/i-say/ISay';
 import AnswerList from '../containers/AnswerList';
 import { formateNumberCount } from '../../../utils/utils';
 import Question from './Question';
@@ -85,14 +85,14 @@ export default class QDetail extends React.PureComponent<QDetailProps, any> {
                     />
                 </div>
                 <div className={ `${this.prefixCls}-doReply` }>
-                    <ISay
+                    {/* <ISay
                         placeholder = "谈谈您的看法吧！"
                         title = "回答"
                         expand = { sayExpand }
                         onFocus = { sayOnFocus }
                         // onBlur = { sayOnBlur }
                         onSubmit = { onReplyQuestion }
-                    />
+                    /> */}
                 </div>
                 <div className={ `${this.prefixCls}-replyList` }>
                     <AnswerList />

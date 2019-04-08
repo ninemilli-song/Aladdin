@@ -13,7 +13,7 @@ import {
     unconcernQuestion,
     alReplyQuestionExpand
 } from '../actions/index';
-import ISay from '../../../components/i-say/ISay';
+// import ISay from '../../../components/i-say/ISay';
 import AnswerList from './AnswerList';
 
 /**
@@ -101,14 +101,14 @@ export default class AnswerListPanel extends React.Component<AnswerListPanelProp
                     ) : (
                         <div>
                             <div className={ `${this.prefixCls}-doReply` }>
-                                <ISay
+                                {/* <ISay
                                     placeholder = "谈谈您的看法吧！"
                                     title = "回答"
                                     expand = { replyExpand }
                                     onFocus = { this.replyQuestionOnFocus }
                                     // onBlur = { this.replyQuestionOnBlur }
                                     onSubmit = { this.onReplyQuestion }
-                                />
+                                /> */}
                             </div>
                             <div className={ `${this.prefixCls}-replyList` }>
                                 <AnswerList 

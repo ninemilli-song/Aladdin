@@ -6,7 +6,7 @@ import { approveAnswer, collectAnswer, setReplyAnswerDialogVisible } from '../ac
 import * as React from 'react'
 import AnswerItem, { AnswerItemProps } from '../components/AnswerItem';
 import { autobind } from 'core-decorators';
-import CutLine from '../../../components/cut-line/CutLine';
+// import CutLine from '../../../components/cut-line/CutLine';
 
 /**
  * 回答列表组件
@@ -61,11 +61,11 @@ export default class AnswerList extends React.Component<any, any> {
                                     onUnCollected = { this.unCollectHandler }
                                     onReply = { this.onReplyHandler }
                                 />
-                                {
+                                {/* {
                                     index < data.size - 1 ? (
                                         <CutLine />
                                     ) : null
-                                }
+                                } */}
                             </div>
                         )
                     }) : null
