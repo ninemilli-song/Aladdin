@@ -103,9 +103,24 @@ class Page extends React.Component<any, any> {
                     />
                     <div className='footer'></div>
                 </Sider>
-                <Layout style={{ marginLeft: 200 }}>
-                    <Header style={{ background: '#fff', padding: 0 }} />
-                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                <div style={{ 
+                    marginLeft: 200, 
+                    paddingTop: '72px', 
+                    width: '100%',
+                    height: '100vh', 
+                    overflowX: 'hidden', 
+                    overflowY: 'scroll'
+                }}>
+                    <Header style={{ 
+                        position: 'fixed', 
+                        top: 0,
+                        background: 'red', 
+                        padding: 0, 
+                        height: '72px', 
+                        width: '100%', 
+                        zIndex: 10
+                    }} />
+                    <Content style={{ overflow: 'initial', minHeight: 'calc(100% - 72px)' }}>
                         <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
                         ...
                         <br />
@@ -122,10 +137,10 @@ class Page extends React.Component<any, any> {
                         content
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>
-                        Ninemilli ©2018 Created by Ninemilli.Song
+                    <Footer style={{ height: '48px', textAlign: 'center', lineHeight: '48px' }}>
+                        Ninemilli ©2018 Created by ninemilli.song
                     </Footer>
-                </Layout>
+                </div>
             </Layout>
         )
     }

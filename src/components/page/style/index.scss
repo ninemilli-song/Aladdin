@@ -12,13 +12,13 @@
 
         .logo {
             height: 72px;
-            background: rgba(255,255,255,.2);
-            margin: 16px;
+            background: rgba($color1, .8);
+            padding: 16px;
         }
 
         .footer {
             height: 48px;
-            background-color: black;
+            background-color: $color18;
         }
     }
 
