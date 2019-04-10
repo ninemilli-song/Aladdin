@@ -137,8 +137,12 @@ class Page extends React.Component<any, any> {
                         content
                         </div>
                     </Content>
-                    <Footer style={{ height: '48px', textAlign: 'center', lineHeight: '48px' }}>
-                        Ninemilli ©2018 Created by ninemilli.song
+                    <Footer 
+                        className={`${this.prefixCls}-content-footer`}
+                    >
+                        <span>
+                            Ninemilli ©2018 Created by ninemilli.song
+                        </span>
                     </Footer>
                 </div>
             </Layout>
