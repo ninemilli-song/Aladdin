@@ -3,7 +3,7 @@
 .s-m-slider-nav {
     height: calc(100vh - 120px);
 
-    .ant-menu-inline {
+    .ant-menu-inline, .ant-menu-inline-collapsed {
         border-right: none;
     }
 }

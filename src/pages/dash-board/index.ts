@@ -1,5 +1,5 @@
 export default (store) => ({
-    path: 'home',
+    path: 'dashboard',
     /*  Async getComponent is only invoked when route matches   */
     getComponent(nextState, cb) {
         /*  Webpack - use 'require.ensure' to create a split point
@@ -13,13 +13,13 @@ export default (store) => ({
             // into a separate chunk.
             const Container = require('./containers').default;
   
-            const reducer = require('./modules/modules').default;
+            // const reducer = require('./reducer').default;
   
             // Add Reducer of current module.
-            store.injectReducer({
-                key: 'Home',
-                reducer,
-            });
+            // store.injectReducer({
+            //     key: 'dashboard',
+            //     reducer,
+            // });
   
             /*  Return getComponent   */
             cb(null, Container);

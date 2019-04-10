@@ -46,7 +46,9 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                             <Menu.Item 
                                                 key={ subItem.id }
                                             >
-                                                { subItem.label }
+                                                <Link to={ subItem.path || '' }>
+                                                    { subItem.label }
+                                                </Link>
                                             </Menu.Item>
                                         ))
                                     }

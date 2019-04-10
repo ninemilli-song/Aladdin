@@ -6,6 +6,7 @@ const initState = {
             id: '1',
             label: '概况',
             key: 'rules',
+            path: '/home',
             icon: 'mail'
         },
         {

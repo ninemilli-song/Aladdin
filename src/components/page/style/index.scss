@@ -45,7 +45,22 @@
         width: 100%;
         height: 100vh;
         overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
+
+        .header {
+            position: fixed;
+            top: 0;
+            background: red;
+            padding: 0;
+            height: 72px; 
+            width: 100%;
+            z-index: 10
+        }
+
+        .content {
+            overflow: hidden;
+            min-height: calc(100% - 48px)
+        }
 
         &-footer {
             height: 48px;

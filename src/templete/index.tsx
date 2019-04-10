@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { SubstateProvider } from 'use-substate';
 
 import configureStore from '../store/configure-store';
 
@@ -16,10 +17,12 @@ const routes = defaultRoutes(store);
 
 console.log('Login success! The user info is 👉🏻 ------> ');
 ReactDOM.render(
-    <Provider store={ store }>
-        <Router history={ history }>
-        { routes }
-        </Router>
-    </Provider>,
+    <SubstateProvider value={store}>
+        <Provider store={ store }>
+            <Router history={ history }>
+            { routes }
+            </Router>
+        </Provider>
+    </SubstateProvider>,
     document.getElementById('root')
 );

@@ -71,7 +71,8 @@
     "redux-ui": "^0.1.1",
     "reselect": "^3.0.1",
     "runkoa": "^1.5.9",
-    "showdown": "^1.8.3"
+    "showdown": "^1.8.3",
+    "use-substate": "0.0.2"
   },
   "devDependencies": {
     "@types/node": "^7.0.12",

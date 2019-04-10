@@ -124,31 +124,31 @@ class Page extends React.Component<any, any> {
                         }
                     )}
                 >
-                    <Header style={{ 
-                        position: 'fixed', 
-                        top: 0,
-                        background: 'red', 
-                        padding: 0, 
-                        height: '72px', 
-                        width: '100%', 
-                        zIndex: 10
-                    }} />
-                    <Content style={{ overflow: 'initial', minHeight: 'calc(100% - 72px)' }}>
-                        <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-                        ...
-                        <br />
-                        Really
-                        <br />...<br />...<br />...<br />
-                        long
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />...
-                        <br />...<br />...<br />...<br />...<br />...<br />
-                        content
-                        </div>
+                    <Header 
+                        className="header"
+                    />
+                    <Content 
+                        className='content'
+                    >
+                        {
+                            this.props.children || (
+                                <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+                                ...
+                                <br />
+                                Really
+                                <br />...<br />...<br />...<br />
+                                long
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />...
+                                <br />...<br />...<br />...<br />...<br />...<br />
+                                content
+                                </div>
+                            )
+                        }
                     </Content>
                     <Footer 
                         className={`${this.prefixCls}-content-footer`}
