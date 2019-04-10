@@ -39,6 +39,14 @@ class Page extends React.Component<any, any> {
 
     prefixCls = 's-m-page';
 
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            collapsed: false
+        };
+    }
+
     render() {
         const { data } = this.props;
         const { selectedMenuId, menus } = data;
@@ -90,27 +98,32 @@ class Page extends React.Component<any, any> {
             <Layout className={`${this.prefixCls}`}>
                 <Sider 
                     className={`${this.prefixCls}-sider`}
+                    trigger= { null }
+                    collapsible
+                    collapsed={this.state.collapsed}
                     theme="light"
-                    style={{
-                        height: '100vh', 
-                        position: 'fixed', 
-                        left: 0,
-                    }}
                 >
                     <div className="logo" />
                     <SiderNav
                         menus = { menus }
                     />
-                    <div className='footer'></div>
+                    <div className="footer">
+                        <Icon
+                            className="trigger"
+                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.onToggleSider}
+                        />
+                    </div>
                 </Sider>
-                <div style={{ 
-                    marginLeft: 200, 
-                    paddingTop: '72px', 
-                    width: '100%',
-                    height: '100vh', 
-                    overflowX: 'hidden', 
-                    overflowY: 'scroll'
-                }}>
+                <div 
+                    className={classnames(
+                        `${this.prefixCls}-content`, 
+                        {
+                            'collapsed': this.state.collapsed,
+                            'unCollapsed': !this.state.collapsed
+                        }
+                    )}
+                >
                     <Header style={{ 
                         position: 'fixed', 
                         top: 0,
@@ -191,6 +204,12 @@ class Page extends React.Component<any, any> {
 
         // // 如果是存在二级菜单，则使用子菜单id为选中项，否则以传入的id为主
         // setSelectedMenu(selectedSubMenu ? selectedSubMenu.id : selectedMenuId);
+    }
+
+    onToggleSider = () => {
+        this.setState({
+            collapsed: !this.state.collapsed
+        })
     }
 }
 
