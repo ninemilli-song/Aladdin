@@ -17,11 +17,7 @@ function Dashboard(props) {
 
     return (
         <div>
-            <span>
-                { substate.username }
-            </span>
-            Hello Dashboard!!!
-            <div onClick={onClick}>click me change name!</div>
+            404 Not Found
         </div>
     );
 }

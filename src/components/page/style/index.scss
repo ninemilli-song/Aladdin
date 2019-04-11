@@ -54,7 +54,11 @@
             padding: 0;
             height: 72px; 
             width: 100%;
-            z-index: 10
+            z-index: 10;
+
+            .page-path {
+                margin: 20px 0;
+            }
         }
 
         .content {

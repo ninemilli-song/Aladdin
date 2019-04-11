@@ -5,6 +5,7 @@ import CounterRoute from './Counter';
 import Home from './Home';
 import ProductList from './product-list';
 import Dashboard from './dash-board';
+import NotFound from './404';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -12,12 +13,13 @@ import Dashboard from './dash-board';
 export const createRoutes = (store) => ({
     path: '/',
     component: Page,
-    indexRoute: Home(store),
+    indexRoute: Dashboard(store),
     childRoutes: [
-      Home(store),
+      Dashboard(store),
       CounterRoute(store),
       ProductList(store),
-      Dashboard(store)
+      Dashboard(store),
+      NotFound(store)
     ],
     // onEnter: (state, replace, cb) => {
     //     const { dispatch } = store;

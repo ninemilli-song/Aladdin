@@ -32,6 +32,9 @@ const ACTION_HANDLERS = {
     [GET_USER_INFO]: getUserInfo,
     [USER_SIGNIN]: userSignin,
     [USER_LOGOUT]: userLogout,
+    ['CHANGEUSERNAME']: (state, action) => {
+        return Object.assign({}, state, action.payload);
+    }
 }
 
 // ------------------------------------
@@ -39,6 +42,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initState = {
     isAuthenticated: false,            // 用户是否认证
+    username: 'aaa'
 }
 
 export default function userInfoReducer(state = initState, action) {

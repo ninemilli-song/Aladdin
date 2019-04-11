@@ -126,9 +126,10 @@ class Page extends React.Component<any, any> {
                 >
                     <Header 
                         className="header"
-                    />
+                    >
+                    </Header>
                     <Content 
-                        className='content'
+                        className="content"
                     >
                         {
                             this.props.children || (
