@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 exports.tslint = {
     test: /\.tsx?$/,
     enforce: 'pre',
-    loader: 'tslint-loader',
+    use: 'tslint-loader',
     include: [
         sources,
     ],
@@ -13,7 +13,7 @@ exports.tslint = {
 
 exports.tsx = {
     test: /\.(tsx|ts)?$/,
-    loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
+    use: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
     include: [
         sources,
     ],
@@ -29,10 +29,7 @@ exports.html = {
 
 exports.css = {
     test: /\.css$/,
-    // loader: process.env.NODE_ENV === 'development' ?
-    //     'style-loader!css-loader!postcss-loader!sass-loader' :
-    //     ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader'),
-    loader: process.env.NODE_ENV === 'development' ?
+    use: process.env.NODE_ENV === 'development' ?
         'style-loader!css-loader!postcss-loader!sass-loader' :
         ExtractTextPlugin.extract({
             fallback: 'style-loader',
@@ -42,7 +39,7 @@ exports.css = {
 
 exports.less = {
     test: /\.less$/,
-    loader: process.env.NODE_ENV === 'development' ?
+    use: process.env.NODE_ENV === 'development' ?
         'style-loader!css-loader!postcss-loader!less-loader' :
         ExtractTextPlugin.extract({
             fallback: 'style-loader',
