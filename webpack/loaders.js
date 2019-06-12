@@ -5,7 +5,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 exports.tslint = {
     test: /\.tsx?$/,
     enforce: 'pre',
-    use: 'tslint-loader',
+    use: [
+        { loader: 'tslint-loader' },
+    ],
     include: [
         sources,
     ],
@@ -13,7 +15,14 @@ exports.tslint = {
 
 exports.tsx = {
     test: /\.(tsx|ts)?$/,
-    use: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
+    use: [
+        { 
+            loader: 'react-hot-loader/webpack' 
+        },
+        {
+            loader: 'awesome-typescript-loader'
+        }
+    ],
     include: [
         sources,
     ],
@@ -21,7 +30,11 @@ exports.tsx = {
 
 exports.html = {
     test: /\.html$/,
-    loader: 'raw-loader',
+    use: [
+        {
+            loader: 'raw-loader'
+        }
+    ],
     include: [
         sources,
     ],
@@ -29,23 +42,37 @@ exports.html = {
 
 exports.css = {
     test: /\.css$/,
-    use: process.env.NODE_ENV === 'development' ?
-        'style-loader!css-loader!postcss-loader!sass-loader' :
-        ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'sass-loader']
-        }),
+    // loader: process.env.NODE_ENV === 'development' ?
+    //     'style-loader!css-loader!postcss-loader!sass-loader' :
+    //     ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader'),
+    use: process.env.NODE_ENV === 'development' ? [
+        {
+            loader: 'style-loader'                
+        },
+        {
+            loader: 'css-loader'
+        },
+        {
+            loader: 'postcss-loader'
+        },
+        {
+            loader: 'sass-loader'
+        }
+    ] : ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', 'postcss-loader', 'sass-loader']
+    }),
 };
 
-exports.less = {
-    test: /\.less$/,
-    use: process.env.NODE_ENV === 'development' ?
-        'style-loader!css-loader!postcss-loader!less-loader' :
-        ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'sass-loader']
-        }),
-};
+// exports.less = {
+//     test: /\.less$/,
+//     loader: process.env.NODE_ENV === 'development' ?
+//         'style-loader!css-loader!postcss-loader!less-loader' :
+//         ExtractTextPlugin.extract({
+//             fallback: 'style-loader',
+//             use: ['css-loader', 'postcss-loader', 'less-loader']
+//         }),
+// };
 
 exports.scss = {
     test: /\.scss$/,

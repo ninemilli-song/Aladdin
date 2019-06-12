@@ -80,7 +80,7 @@ module.exports = {
             loaders.html,
             loaders.scss,
             loaders.css,
-            loaders.less,
+            // loaders.less,
             loaders.svg,
             loaders.image,
             loaders.eot,

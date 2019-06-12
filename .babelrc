@@ -6,7 +6,7 @@
   "plugins":[
       ["import", {
         "libraryName": "antd",
-        "style": true,   // or 'css'
+        "style": "css",   // or 'css'
       }],
       ["transform-runtime", {
         "polyfill": false,
