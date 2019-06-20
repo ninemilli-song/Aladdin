@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const DllReferencePlugin = require('webpack/lib/DllReferencePlugin');
 // const postcssInit = require('./postcss');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -77,11 +78,15 @@ const basePlugins = [
     new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
         minChunks: Infinity
-    })
+    }),
 ];
 
 const devPlugins = [
-    new webpack.HotModuleReplacementPlugin(),   // 热加载
+    /**
+     * 模块热替换
+     * 该插件的作用就是实现模块热替换，实际上当启动时带上 `--hot` 参数，会注入该插件，生成 .hot-update.json 文件。
+     */
+    new webpack.HotModuleReplacementPlugin(),
 
     new StyleLintPlugin({
         configFile: './.stylelintrc',
@@ -110,6 +115,24 @@ const prodPlugins = [
             // postcss: postcssInit
         }
     }),
+
+    // // 告诉 Webpack 使用了哪些动态链接库
+    // new DllReferencePlugin({
+    //     // 描述 react 动态链接库的文件内容
+    //     manifest: require('../dist/antd.manifest.json'),
+    // }),
+    // new DllReferencePlugin({
+    //     // 描述 polyfill 动态链接库的文件内容
+    //     manifest: require('../dist/polyfill.manifest.json'),
+    // }),
+    // new DllReferencePlugin({
+    //     // 描述 polyfill 动态链接库的文件内容
+    //     manifest: require('../dist/react.manifest.json'),
+    // }),
+    // new DllReferencePlugin({
+    //     // 描述 polyfill 动态链接库的文件内容
+    //     manifest: require('../dist/redux.manifest.json'),
+    // }),
 
     new webpack.optimize.OccurrenceOrderPlugin()
 

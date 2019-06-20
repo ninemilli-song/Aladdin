@@ -13,7 +13,7 @@
     "clean": "rimraf dist/",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
-    "start": "cross-env NODE_ENV=development PORT=3001 node scripts/start.js",
+    "dev": "cross-env NODE_ENV=development PORT=3001 node scripts/start.js",
     "lint": "npm run lint-ts && npm run lint-js && npm run stylefmt && npm run lint-css ",
     "lint-css": "stylelint \"./src/**/*.css\"",
     "lint-ts": "tslint \"src/**/*.tsx\" \"src/**/*.ts\"",

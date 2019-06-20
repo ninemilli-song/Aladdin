@@ -7,6 +7,8 @@ const resolve = file => path.resolve(ROOT_PATH, file);
 
 // 知识问答入口文件
 const baseAppEntries = ['./src/templete/index.tsx'];
+
+// 模块热替换: 为每个入口都注入代理客户端
 const devAppEntries = [
     'webpack-dev-server/client?http://localhost:3001', // WebpackDevServer host and port
     'webpack/hot/dev-server',                          // "only" prevents reload on syntax errors]
@@ -59,11 +61,11 @@ module.exports = {
     // resolveLoader: { root: resolve('./node_modules') },
 
     resolve: {
-        modules: [resolve('./node_modules')],
-        extensions: ['.webpack.js', '.web.js', '.tsx', '.ts', '.js', 'scss']
+        modules: [resolve('./node_modules')],  // 第三方类库寻找路径
+        extensions: ['.webpack.js', '.web.js', '.tsx', '.ts', '.js', 'scss'] // 引入文件自动尝试添加后缀
     },
 
-    resolveLoader: {
+    resolveLoader: { // 用来告诉 Webpack 如何去寻找 Loader
         modules: [resolve('./node_modules')]
     },
 

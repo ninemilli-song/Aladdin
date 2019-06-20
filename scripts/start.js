@@ -7,13 +7,13 @@ const port = process.env.PORT;
 
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
-    hot: true,
+    hot: true, // 模块热替换
     proxy: proxy(),
     historyApiFallback: { 
         index: '/',                         // Overwrite index path
-        rewrites: [
+        rewrites: [                         // 多个单页应用
             {
-                from: /^\/signin/,           // Match the signin path to the signin.html page
+                from: /^\/signin/,          // Match the signin path to the signin.html page
                 to: '/signin.html'
             },
             {
