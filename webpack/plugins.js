@@ -16,7 +16,7 @@ const basePlugins = [
     new HtmlWebpackPlugin({
         title: '首页',                              // html 标题
         // favicon: './src/img/favicon.ico',       // favicon路径，通过webpack引入同时可以生成hash值
-        template: './src/templete/index.html',      // html 模板路径
+        template: './src/index.html',               // html 模板路径
         filename: 'index.html',                     // 生成的html存放路径，相对于path
         inject: 'body',                             // js插入的位置，true/'head'/'body'/false
         hash: true,                                 // 为静态资源生成hash值

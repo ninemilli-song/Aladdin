@@ -6,7 +6,7 @@ const ROOT_PATH = path.join(path.resolve(__dirname), './');
 const resolve = file => path.resolve(ROOT_PATH, file);
 
 // 知识问答入口文件
-const baseAppEntries = ['./src/templete/index.tsx'];
+const baseAppEntries = ['./src/index.tsx'];
 
 // 模块热替换: 为每个入口都注入代理客户端
 const devAppEntries = [

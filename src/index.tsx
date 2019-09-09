@@ -5,14 +5,14 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { SubstateProvider } from 'use-substate';
 
-import configureStore from '../store/configure-store';
+import configureStore from './store/configure-store';
 
 // Global styles
-import '../styles';
+import './styles';
 
 const store = configureStore({});
 const history = syncHistoryWithStore(browserHistory, store);
-import defaultRoutes from '../pages';
+import defaultRoutes from './pages';
 const routes = defaultRoutes(store);
 
 console.log('Login success! The user info is 👉🏻 ------> ');

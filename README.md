@@ -1,8 +1,8 @@
-# Aladdin 商城后台管理 （Aladin Shopping Mall）
+# Aladdin
 
 ### 简介（Introduce）
 
-Aladdin 商品后台管理系统，基于Aladdin架手架开发。
+Aladdin 客户端渲染的用于单页面应用的脚手架。
 
 ### 技术栈
 
@@ -45,7 +45,8 @@ $ npm run test
 │   ├── reducers            # 全局reducer
 │   ├── font                # IconFont
 │   ├── pages               # 独立页面文件
-│   ├── templete            # 页面模板文件
+│   ├── index.html          # 页面模板文件
+│   ├── index.tsx           # 入口文件
 │   └── middleware          # promise middleware and so on
 ├── scripts
 │   ├── proxy-config.js         # 具体的代理配置 The file of proxy config
