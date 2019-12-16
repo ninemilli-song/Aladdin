@@ -56,7 +56,7 @@ module.exports = {
             '[name].[chunkhash:8].chunk.js' : '[id].[hash].chunk.js',
     },
 
-    devtool: 'eval',
+    devtool: process.env.NODE_ENV === 'development' ? 'eval-source-map' : 'eval',
 
     // resolveLoader: { root: resolve('./node_modules') },
 
