@@ -4,13 +4,13 @@
     "es2017"
   ],
   "plugins":[
-      ["import", {
-        "libraryName": "antd",
-        "style": "css",   // or 'css'
-      }],
-      ["transform-runtime", {
-        "polyfill": false,
-        "regenerator": true 
-      }]
-    ]
+    ["import", {
+      "libraryName": "antd",
+      "style": "true"   // or 'css'
+    }],
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true 
+    }]
+  ]
 }

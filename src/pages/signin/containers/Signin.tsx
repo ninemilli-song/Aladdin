@@ -5,7 +5,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { signin } from '../actions';
 import { Form, Button, Input, Checkbox } from 'antd';
-const FormItem =  Form.Item;
 import * as storage from '../../../utils/storage';
 import '../assets/style.scss';
 import { getUserInfo, logout } from '../../../actions/user';
@@ -102,7 +101,7 @@ class Signin extends React.Component<SigninProps, any> {
     render() {
         const { form, context } = this.props;
 
-        console.log('signin context ======> ', this.props);
+        // console.log('signin context ======> ', this.props);
       
         const {
             getFieldDecorator
@@ -125,10 +124,10 @@ class Signin extends React.Component<SigninProps, any> {
                         </div> */}
                         <p>请使用您的账号密码登录系统</p>
                         <Form
-                            style={{textAlign: 'left'}}
-                            onSubmit={this.handleSubmit}
+                            // style={{textAlign: 'left'}}
+                            // onSubmit={this.handleSubmit}
                         >
-                            <FormItem>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('mobile', {
                                         initialValue: mobile,
@@ -139,8 +138,8 @@ class Signin extends React.Component<SigninProps, any> {
                                         />
                                     )
                                 }
-                            </FormItem>
-                            <FormItem>
+                            </Form.Item>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('password', {
                                         initialValue: password,
@@ -152,8 +151,8 @@ class Signin extends React.Component<SigninProps, any> {
                                         />
                                     )
                                 }
-                            </FormItem>
-                            <FormItem>
+                            </Form.Item>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('remember', {
                                         valuePropName: 'checked',
@@ -177,7 +176,7 @@ class Signin extends React.Component<SigninProps, any> {
                                     }
                                     登录
                                 </Button>
-                            </FormItem>
+                            </Form.Item>
                         </Form>
                         <p>
                             您还未注册？请 <a href="">注册</a>
@@ -213,4 +212,4 @@ class Signin extends React.Component<SigninProps, any> {
     }
 }
 
-export default Form.create()(Signin);
+export default Signin;

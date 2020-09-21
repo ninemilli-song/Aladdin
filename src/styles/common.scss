@@ -111,7 +111,6 @@
   position: relative;
 
   &::after {
-    bottom: 10px;
     border-color: #a4d9f9;
     border-style: solid;
     border-width: 2px;
@@ -121,9 +120,6 @@
     position: absolute;
     width: 0;
     // z-index: 1;
-  }
-
-  &::after {
     top: 52px;
     bottom: 0;
   }
@@ -143,9 +139,6 @@
     position: absolute;
     width: 0;
     // z-index: 1;
-  }
-
-  &::before {
     top: -5px;
     height: 10px;
   }

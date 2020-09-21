@@ -9,7 +9,8 @@ import { getUserInfo, logout } from '../../actions/user';
 import SiderNav from '../page-components/SiderNav';
 import { SET_SELECTED_MENU_ID } from '../../actions/menus';
 import './style/index.scss';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 const {
     Header, Content, Footer, Sider,
 } = Layout;
@@ -52,49 +53,7 @@ class Page extends React.Component<any, any> {
         const { selectedMenuId, menus } = data;
         let selectedMenu, selectedSubMenu;
 
-        // // 查找选中的二级菜单
-        // selectedSubMenu = subMenus.find((item) => {
-        //     return item.id === selectedMenuId;
-        // });
-
-        // // 根据选中的二级菜单，查找一级菜单
-        // // 如果二级菜单不存在，则直接查找一级菜单
-        // let parentMenuId = selectedSubMenu ? selectedSubMenu.parent : selectedMenuId;
-        // selectedMenu = menus.find((item) => {
-        //     return item.id === parentMenuId;
-        // });
-
-        // const pageCls = classnames({
-        //     [`${this.prefixCls}-page`]: true,
-        //     [`${this.prefixCls}-page-has-sub`]: selectedSubMenu
-        // })
-
         return (
-            // <div className={`${this.prefixCls}`}>
-            //     <div className={`${this.prefixCls}-menus`}>
-            //         <SiderNav 
-            //             menus={menus}
-            //             selectedMenuId={selectedMenu ? selectedMenu.id : '1'}
-            //             onSelect = { this.onSelect }
-            //         />
-            //     </div>
-            //     {
-            //         selectedSubMenu ? (
-            //             <div className={`${this.prefixCls}-menus-sub`}>
-            //                 <SiderNav 
-            //                     menus={subMenus}
-            //                     selectedMenuId={selectedSubMenu.id}
-            //                     onSelect={ this.onSelect }
-            //                 />
-            //             </div>
-            //         ) : null
-            //     }
-            //     <div className={pageCls}>
-            //         {
-            //             this.props.children
-            //         }
-            //     </div>
-            // </div>
             <Layout className={`${this.prefixCls}`}>
                 <Sider 
                     className={`${this.prefixCls}-sider`}
@@ -108,11 +67,19 @@ class Page extends React.Component<any, any> {
                         menus = { menus }
                     />
                     <div className="footer">
-                        <Icon
-                            className="trigger"
-                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.onToggleSider}
-                        />
+                        {
+                            this.state.collapsed ? (
+                                <MenuUnfoldOutlined
+                                    className="trigger"
+                                    onClick={this.onToggleSider}
+                                />
+                            ) : (
+                                <MenuFoldOutlined
+                                    className="trigger"
+                                    onClick={this.onToggleSider}
+                                />
+                            )
+                        }
                     </div>
                 </Sider>
                 <div 

@@ -6,9 +6,12 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { SubstateProvider } from 'use-substate';
 
 import configureStore from './store/configure-store';
+import initIconFont from './common/init';
 
 // Global styles
 import './styles';
+
+initIconFont();
 
 const store = configureStore({});
 const history = syncHistoryWithStore(browserHistory, store);

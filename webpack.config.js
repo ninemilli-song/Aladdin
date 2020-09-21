@@ -40,6 +40,8 @@ const vendor = [
 process.traceDeprecation = true;
 
 module.exports = {
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+
     entry: {
         app: appEntries,                    // 应用入口文件
         vendor,                             // 公共文件
@@ -54,6 +56,46 @@ module.exports = {
             '[name].[chunkhash:8].js.map' : '[name].[hash].js.map',
         chunkFilename: process.env.NODE_ENV === 'production' ? 
             '[name].[chunkhash:8].chunk.js' : '[id].[hash].chunk.js',
+    },
+
+    optimization: {
+        splitChunks: {
+            // 抽離入口文件公共模塊為commmons模塊
+            cacheGroups: {
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2,
+                    minSize: 0
+                },
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all',
+                    priority: 9,
+                },
+                // reactBase: {
+                //     test: (module) => {
+                //         return /react|redux|prop-types/.test(module.context);
+                //     }, // 直接使用 test 来做路径匹配，抽离react相关代码
+                //     chunks: 'initial',
+                //     name: 'reactBase',
+                //     priority: 10,
+                // },
+                // antd: {
+                //     test: (module) => {
+                //         return /antd|ant/.test(module.context);
+                //     }, // 直接使用 test 来做路径匹配，抽离react相关代码
+                //     chunks: 'initial',
+                //     name: 'antd',
+                //     priority: 10,
+                // }
+            }
+        },
+        runtimeChunk: {
+            name: entrypoint => `runtime~${entrypoint.name}`
+        },
+        minimize: true
     },
 
     devtool: process.env.NODE_ENV === 'development' ? 'eval-source-map' : 'eval',
@@ -82,7 +124,7 @@ module.exports = {
             loaders.html,
             loaders.scss,
             loaders.css,
-            // loaders.less,
+            loaders.less,
             loaders.svg,
             loaders.image,
             loaders.eot,

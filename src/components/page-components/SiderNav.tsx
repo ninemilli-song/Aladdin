@@ -3,7 +3,8 @@
  */
 import * as React from 'react';
 import { Link } from 'react-router';
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
+import { MyIcon } from '../../common/init';
 const SubMenu = Menu.SubMenu;
 import './assets/sidernav.scss';
 
@@ -36,7 +37,10 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                     key={ item.id }
                                     title={
                                         <span>
-                                            <Icon type={ item.icon } />
+                                            {/*<Icon type={ item.icon } />*/}
+                                            <MyIcon
+                                                type="icon-my-question-fill"
+                                            />
                                             <span>{ item.label }</span>
                                         </span>
                                     }
@@ -55,7 +59,10 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                 </SubMenu>
                             ) : (
                                 <Menu.Item key={ item.id }>
-                                    <Icon type={ item.icon } />
+                                    {/*<Icon type={ item.icon } />*/}
+                                    <MyIcon
+                                        type="icon-my-question-fill"
+                                    />
                                     <span>
                                         <Link to={ item.path || '' }>
                                             { item.label }

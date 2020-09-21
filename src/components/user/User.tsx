@@ -2,7 +2,8 @@
  * Author: ninemilli.song
  */
 import * as React from 'react';
-import { Menu, Icon, Dropdown } from 'antd';
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import './style.scss';
 import { logout, getUserInfo, loginDialogVisible } from '../../actions/user';
@@ -77,7 +78,8 @@ export default class Component extends React.Component<ComponentProps, any> {
                     <a href="">我的资料</a>
                 </Menu.Item>
                 <Menu.Divider />
-                <Menu.Item key="3" onClick={ logout }>退出</Menu.Item>
+                {/* <Menu.Item key="3" onClick={ logout }>退出</Menu.Item> */}
+                <Menu.Item key="3">退出</Menu.Item>
             </Menu>
         );
 
@@ -85,7 +87,7 @@ export default class Component extends React.Component<ComponentProps, any> {
             <Dropdown overlay={ menu } trigger={ ['click'] }>
                 <a className="ant-dropdown-link" href="#">
                     { data.nickName }
-                    <Icon type="down" />
+                    <DownOutlined />
                 </a>
             </Dropdown>
         )

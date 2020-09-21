@@ -46,22 +46,26 @@ class SelectTreeField extends React.Component<SelectTreeFieldProps, any> {
                     ) : null
                 }
                 <TreeSelect
-                    className={`${this.prefixCls}-value aladin-field-value`}
-                    style={{ width: 180 }}
-                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    onChange={this.onChange}
-                    value={value}
-                    placeholder={placeholder}
-                    allowClear
-                    multiple
+                    // className={`${this.prefixCls}-value aladin-field-value`}
+                    // style={{ width: 180 }}
+                    // dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    // onChange={this.onChange}
+                    // value={value}
+                    // placeholder={placeholder}
+                    // allowClear
+                    // multiple
                 >
-                    <TreeNode value="parent 1" title="parent 1" key="0-1">
-                        <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
-                            <TreeNode value="leaf1" title="my leaf" key="random" />
-                            <TreeNode value="leaf2" title="your leaf" key="random1" />
+                    <TreeNode value="parent 1" key="0-1">
+                        <TreeNode value="parent 1-0" key="0-1-1">
+                            <TreeNode value="leaf1" key="random" />
+                            <TreeNode value="leaf2" key="random1" />
                         </TreeNode>
-                        <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
-                            <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+                        <TreeNode value="parent 1-1" key="random2">
+                            <TreeNode 
+                                value="sss" 
+                                // title={<b style={{ color: '#08c' }}>sss</b>} 
+                                key="random3" 
+                            />
                         </TreeNode>
                     </TreeNode>
                 </TreeSelect>

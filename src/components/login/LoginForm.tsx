@@ -6,7 +6,6 @@ import * as React from 'react';
 import { autobind } from 'core-decorators';
 import { Form, Button, Input, Checkbox } from 'antd';
 import * as storage from '../../utils/storage';
-const FormItem = Form.Item;
 
 interface LoginFormProps {
     form?: any;
@@ -53,10 +52,9 @@ class LoginForm extends React.Component<LoginFormProps, any> {
             <div className={ `${this.prefixCls}-wrapper` }>
                 <p>请使用您的账号密码登录系统</p>
                     <Form
-                        style={{textAlign: 'left'}}
-                        onSubmit={this.onSubmit}
+                        // onFinish={this.onSubmit}
                     >
-                        <FormItem>
+                        <Form.Item>
                             {
                                 getFieldDecorator('mobile', {
                                     initialValue: mobile,
@@ -67,8 +65,8 @@ class LoginForm extends React.Component<LoginFormProps, any> {
                                     />
                                 )
                             }
-                        </FormItem>
-                        <FormItem>
+                        </Form.Item>
+                        <Form.Item>
                             {
                                 getFieldDecorator('password', {
                                     initialValue: password,
@@ -80,8 +78,8 @@ class LoginForm extends React.Component<LoginFormProps, any> {
                                     />
                                 )
                             }
-                        </FormItem>
-                        <FormItem>
+                        </Form.Item>
+                        <Form.Item>
                             {
                                 getFieldDecorator('remember', {
                                     valuePropName: 'checked',
@@ -105,7 +103,7 @@ class LoginForm extends React.Component<LoginFormProps, any> {
                                 }
                                 登录
                             </Button>
-                        </FormItem>
+                        </Form.Item>
                     </Form>
                 <p>
                     您还未注册？请 <a href="">注册</a>
@@ -135,4 +133,4 @@ class LoginForm extends React.Component<LoginFormProps, any> {
     }
 }
 
-export default Form.create()(LoginForm);
+export default LoginForm;

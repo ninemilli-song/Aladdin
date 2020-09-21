@@ -2,7 +2,8 @@
  * 二级导航栏
  */
 import * as React from 'react';
-import { Icon, Menu, Input } from 'antd';
+import { Menu, Input } from 'antd';
+// import Icon from '@ant-design/icons';
 const Search = Input.Search;
 import './assets/secondarynav.scss';
 
@@ -57,7 +58,7 @@ export default class SecondaryNav extends React.Component<SecondaryNavProps, any
             menuConfig.forEach((item) => {
                 menuItems.push(
                     <Menu.Item key={item.key}>
-                        <Icon type={item.icon} />
+                        {/*<Icon type={item.icon} />*/}
                         {item.label}
                     </Menu.Item>
                 );

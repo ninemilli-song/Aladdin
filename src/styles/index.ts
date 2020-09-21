@@ -3,6 +3,7 @@ cross-browser consistency in the default styling of HTML elements.
 It’s a modern, HTML5-ready, alternative to the traditional CSS reset.*/
 import './normalize.css';
 
+import './main.less';
 /* import antd style. you can remove next line if you use babel-plugin-antd */
 // require('antd/dist/antd.css');
 
