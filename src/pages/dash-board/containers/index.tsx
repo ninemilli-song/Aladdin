@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSubstate } from 'use-substate';
+import { Button } from 'antd';
+import less from 'less';
 
 function Dashboard(props) {
     const [substate, dispatch] = useSubstate(state => {
@@ -15,6 +17,12 @@ function Dashboard(props) {
         });
     };
 
+    const switchTheme = () => {
+        less.modifyVars({
+            '@btn-primary-bg': '#ff8c42',
+        })
+    }
+
     return (
         <div>
             <span>
@@ -22,6 +30,12 @@ function Dashboard(props) {
             </span>
             Hello Dashboard!!!
             <div onClick={onClick}>click me change name!</div>
+            <Button
+                type="primary"
+                onClick={ switchTheme }
+            >
+                Primary Button
+            </Button>
         </div>
     );
 }

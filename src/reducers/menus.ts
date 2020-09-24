@@ -7,26 +7,26 @@ const initState = {
             label: '概况',
             key: 'rules',
             path: '/dashboard',
-            icon: 'mail'
+            icon: 'icon-xiaoxi'
         },
         {
             id: '2',
             label: '店鋪',
             key: 'subjects',
-            icon: 'appstore'
+            icon: 'icon-my-concern'
         },
         {
             id: '3',
             label: '商品',
             key: 'products',
             path: '/product-list',
-            icon: 'pay-circle',
+            icon: 'icon-my-collection',
             sub: [{
                 id: '3-1',
                 label: '商品目录',
                 key: 'product-list',
                 path: '/product-list',
-                icon: '',
+                icon: 'icon-chengyuan-tianjia',
                 parent: '3'
             },
             {
@@ -34,7 +34,7 @@ const initState = {
                 label: '新增商品',
                 key: 'product-edit',
                 path: '/product-edit',
-                icon: '',
+                icon: 'icon-faqiliaotian',
                 parent: '3'
             },
             {
@@ -42,7 +42,7 @@ const initState = {
                 label: '商品分类',
                 key: 'product-category',
                 path: '/product-category',
-                icon: '',
+                icon: 'icon-zhuanfa',
                 parent: '3'
             }]
         },
@@ -50,25 +50,25 @@ const initState = {
             id: '4',
             label: '订单',
             key: 'indus',
-            icon: 'switcher',
+            icon: 'icon-geren',
         },
         {
             id: '5',
             label: '客户',
             key: 'analysis',
-            icon: 'tool',
+            icon: 'icon-dianzan-tianchong',
         },
         {
             id: '6',
             label: '数据',
             key: 'entries',
-            icon: 'team',
+            icon: 'icon-dianzan',
         },
         {
             id: '7',
             label: '资产',
             key: 'practice',
-            icon: 'team',
+            icon: 'icon-shoucang',
         }
     ],
     // subMenus: [

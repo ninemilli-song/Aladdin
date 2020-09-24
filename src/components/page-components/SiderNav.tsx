@@ -37,9 +37,8 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                     key={ item.id }
                                     title={
                                         <span>
-                                            {/*<Icon type={ item.icon } />*/}
                                             <MyIcon
-                                                type="icon-my-question-fill"
+                                                type={ item.icon }
                                             />
                                             <span>{ item.label }</span>
                                         </span>
@@ -50,6 +49,9 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                             <Menu.Item 
                                                 key={ subItem.id }
                                             >
+                                                <MyIcon
+                                                    type={ subItem.icon }
+                                                />
                                                 <Link to={ subItem.path || '' }>
                                                     { subItem.label }
                                                 </Link>
@@ -59,9 +61,8 @@ class SiderNav extends React.Component<SliderNavProps, any> {
                                 </SubMenu>
                             ) : (
                                 <Menu.Item key={ item.id }>
-                                    {/*<Icon type={ item.icon } />*/}
                                     <MyIcon
-                                        type="icon-my-question-fill"
+                                        type={ item.icon }
                                     />
                                     <span>
                                         <Link to={ item.path || '' }>
