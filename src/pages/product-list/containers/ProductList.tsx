@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import AppTitle from '../../../components/page-components/AppTitle';
 import AppBody from '../../../components/page-components/AppBody';
 import InputField from '../../../components/fields/InputField';
-import '../assets/index.scss';
+import '../assets/index';
 import SelectTreeField from '../../../components/fields/SelectTreeField';
 import MoneyField from '../../../components/fields/MoneyField';
 

@@ -1,5 +1,5 @@
-@import './mixin.scss';
-@import './variable.scss';
+@import './mixin.less';
+@import './variable.less';
 
 .inline-block {
   display: inline-block;
@@ -40,23 +40,23 @@
     color: #333;
     width: 100%;
     border-width: 1px;
-    border-color: $assisBorderColor;
+    border-color: @assisBorderColor;
     border-collapse: collapse;
 
     th {
       border-width: 1px;
       padding: 8px;
       border-style: solid;
-      border-color: $assisBorderColor;
-      background-color: $pageBG;
+      border-color: @assisBorderColor;
+      background-color: @pageBG;
     }
 
     td {
       border-width: 1px;
       padding: 8px;
       border-style: solid;
-      border-color: $assisBorderColor;
-      background-color: $bodyBG;
+      border-color: @assisBorderColor;
+      background-color: @bodyBG;
     }
   }
 }

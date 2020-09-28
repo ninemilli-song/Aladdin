@@ -104,7 +104,7 @@ module.exports = {
 
     resolve: {
         modules: [resolve('./node_modules')],  // 第三方类库寻找路径
-        extensions: ['.webpack.js', '.web.js', '.tsx', '.ts', '.js', 'scss'] // 引入文件自动尝试添加后缀
+        extensions: ['.webpack.js', '.web.js', '.tsx', '.ts', '.js', '.less'] // 引入文件自动尝试添加后缀
     },
 
     resolveLoader: { // 用来告诉 Webpack 如何去寻找 Loader
@@ -122,7 +122,6 @@ module.exports = {
             loaders.tslint,
             loaders.tsx,
             loaders.html,
-            loaders.scss,
             loaders.css,
             loaders.less,
             loaders.svg,

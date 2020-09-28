@@ -1,0 +1,78 @@
+.wordQfn() {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.normal-border(@color: @mainBorderColor) {
+  border: 1px solid @color;
+}
+
+.border-radius(@radius: 4) {
+  border-radius: @radius+px;
+}
+
+.dash-border(@color: @assisBorderColor) {
+  border: 1px dashed @color;
+}
+
+.content-padding(@top: 8, @right: 8, @bottom:8, @left: 8) {
+  padding: @top+px @right+px @bottom+px @left+px;
+}
+
+.cut-line(@color: @assisBorderColor, @topSpace: 10, @bottomSpace: 10) {
+  border-top: 1px solid @color;
+  margin-top: @topSpace + px;
+  margin-bottom: @bottomSpace + px;
+}
+
+// ----------------------------------------------------------
+// ------------------------- Font ---------------------------
+// ----------------------------------------------------------
+
+// font bold
+.font-bold() {
+  font-weight: bold;
+}
+
+// font size
+.font-size(@size: 12) {
+  font-size: @size + px;
+}
+
+.font-size-12() {
+  .font-size();
+}
+
+.font-size-14 {
+  .font-size(14);
+}
+
+.font-size-16 {
+  .font-size(16);
+}
+
+.font-size-18 {
+  .font-size(18);
+}
+
+.font-size-20 {
+  .font-size(20);
+}
+
+.font-size-24 {
+  .font-size(24);
+}
+
+.font-size-30 {
+  .font-size(30);
+}
+
+.font-size-40 {
+  .font-size(40);
+}
+
+.font-size-48 {
+  .font-size(48);
+}

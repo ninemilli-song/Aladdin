@@ -1,32 +1,7 @@
-const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const AntDesignThemePlugin = require('antd-theme-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const AntDesignThemePluginOptions = {
-    antDir: path.join(__dirname, '../node_modules/antd'), // antd包位置
-    stylesDir: path.join(__dirname, '../src/styles/theme'), // 指定皮肤文件夹
-    varFile: path.join(__dirname, '../src/styles/theme/variables.less'), // 自己设置默认的主题色
-    indexFileName: '../index.html',
-    mainLessFile: path.join(__dirname, '../src/styles/theme/index.less'),
-    outputFilePath: path.join(__dirname, '../color.less'), // 输出到什么地方
-    javascriptEnabled: true,
-    themeVariables: [ // 这里写要改变的主题变量
-        '@primary-color',
-        '@secondary-color',
-        '@text-color',
-        '@text-color-secondary',
-        '@heading-color',
-        '@layout-body-background',
-        '@btn-primary-bg',
-        '@layout-header-background',
-        '@btn-border-radius-base'
-    ],
-    generateOnce: false
-};
 
 const basePlugins = [
     new webpack.DefinePlugin({
@@ -50,11 +25,7 @@ const basePlugins = [
         },
     }),
 
-    new webpack.NoEmitOnErrorsPlugin(),
-
     new webpack.HashedModuleIdsPlugin(),
-
-    new AntDesignThemePlugin(AntDesignThemePluginOptions),
 ];
 
 const devPlugins = [
@@ -66,53 +37,22 @@ const devPlugins = [
 
     new StyleLintPlugin({
         configFile: './.stylelintrc',
-        files: ['src/styles/*.scss'],
+        files: ['src/styles/*.less'],
         failOnError: false,
     })
 ];
 
 const prodPlugins = [
-    // new ExtractTextPlugin({
-    //     filename: '[name]-[chunkhash].css',
-    //     disable: false,
-    //     allChunks: true,
-    // }),
     new MiniCssExtractPlugin({
         filename: '[name].css',
         chunkFilename: '[id].css',
     }),
-
-    // new webpack.optimize.UglifyJsPlugin({
-    //     compress: {
-    //         unused: true,
-    //         dead_code: true,
-    //         warnings: false
-    //     }
-    // }),
 
     new webpack.LoaderOptionsPlugin({
         options: {
             // postcss: postcssInit
         }
     }),
-
-    // // 告诉 Webpack 使用了哪些动态链接库
-    // new DllReferencePlugin({
-    //     // 描述 react 动态链接库的文件内容
-    //     manifest: require('../dist/antd.manifest.json'),
-    // }),
-    // new DllReferencePlugin({
-    //     // 描述 polyfill 动态链接库的文件内容
-    //     manifest: require('../dist/polyfill.manifest.json'),
-    // }),
-    // new DllReferencePlugin({
-    //     // 描述 polyfill 动态链接库的文件内容
-    //     manifest: require('../dist/react.manifest.json'),
-    // }),
-    // new DllReferencePlugin({
-    //     // 描述 polyfill 动态链接库的文件内容
-    //     manifest: require('../dist/redux.manifest.json'),
-    // }),
 
     new webpack.optimize.OccurrenceOrderPlugin()
 

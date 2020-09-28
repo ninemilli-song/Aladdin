@@ -2,7 +2,14 @@
 module.exports = ({ file, env }) => ({
     parser: file.extname === '.sss' ? 'sugarss' : false,
     plugins: {
-        'postcss-cssnext': {},
+        'postcss-import': {},
+        'postcss-cssnext': {
+            features: {
+                customProperties: {
+                    warnings: false
+                }
+            }
+        },
         'cssnano': env === 'production' ? {
             safe: true,
             sourcemap: true,

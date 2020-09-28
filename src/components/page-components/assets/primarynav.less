@@ -1,9 +1,9 @@
-@import '../../../styles/variable.scss';
+@import '../../../styles/variable.less';
 
 .nav-primary-wrapper {
-    background: $primaryNavBG;
+    background: @primaryNavBG;
     height: 30px;
-    // border-bottom: 1px solid $mainBorderColor;
+    // border-bottom: 1px solid @mainBorderColor;
 
     .menu {
       padding: 0 10px;
@@ -12,10 +12,10 @@
 
       &-item {
         padding: 0 6px;
-        color: $revertFontColor;
+        color: @revertFontColor;
 
         a {
-            color: $revertFontColor;
+            color: @revertFontColor;
         }
       }
     }

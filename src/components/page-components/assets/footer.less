@@ -1,0 +1,35 @@
+@import '../../../styles/variable.less';
+
+.footer {
+    &-wrapper {
+        color: @thirdFontColor;
+        padding: @inner-block-padding + px;
+        width: @pageBodyWidth + px;
+        margin: @block-space + px auto;
+        overflow: hidden;
+        zoom: 1;
+        border-top: 1px dashed @grayBorderColor;
+        font-size: @font-xs + px;
+    }
+
+    &-icp {
+        float: left;
+    }
+
+    &-links {
+        float: right;
+
+        a {
+            color: @thirdFontColor;
+
+            &:hover {
+                color: @thirdFontColorHover;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    a {
+        
+    }
+}

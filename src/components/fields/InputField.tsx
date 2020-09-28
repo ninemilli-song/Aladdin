@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { Input } from 'antd';
-import './assets/index.scss';
+import './assets/index';
 
 interface InputProps {
     label?: string;

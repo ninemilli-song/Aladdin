@@ -96,7 +96,6 @@ exports.less = {
         MiniCssExtractPlugin.loader, 
         'css-loader', 
         'postcss-loader', 
-        // 'less-loader'
         {
             loader: 'less-loader',
             options: {
@@ -107,38 +106,6 @@ exports.less = {
             }
         }
     ],
-};
-
-exports.scss = {
-    test: /\.scss$/,
-    use: process.env.NODE_ENV === 'development' ? [
-        {
-            loader: 'style-loader'
-        },
-        {
-            loader: 'css-loader',
-            options: {
-                // If you are having trouble with urls not resolving add this setting.
-                // See https://github.com/webpack-contrib/css-loader#url
-                url: false,
-                minimize: true,
-                sourceMap: true
-            }
-        }, 
-        {
-            loader: 'postcss-loader',
-            options: {
-                sourceMap: true
-            }
-        }, 
-        {
-            loader: 'sass-loader',
-            options: {
-                sourceMap: true
-            }
-        }
-    ] : [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
-    exclude: /node_modules/,
 };
 
 function makeUrlLoader(pattern) {

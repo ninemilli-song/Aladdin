@@ -2,7 +2,7 @@
  * 页面内容头部
  */
 import * as React from 'react';
-import './assets/app-title.scss';
+import './assets/app-title';
 
 interface TitleProps {
     name: string; // 页面的标题名称

@@ -10,9 +10,9 @@ import './main.less';
 require('../font/iconfont.css');
 
 /* import public variable */
-require('./variable.scss');
+require('./variable.less');
 
 /* import common class */
-require('./common.scss');
+require('./common.less');
 
-require('./init.scss');
+require('./init.less');

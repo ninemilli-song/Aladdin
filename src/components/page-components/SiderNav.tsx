@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { Menu } from 'antd';
 import { MyIcon } from '../../common/init';
 const SubMenu = Menu.SubMenu;
-import './assets/sidernav.scss';
+import './assets/sidernav';
 
 interface SliderNavProps {
     menus: Array<any>,

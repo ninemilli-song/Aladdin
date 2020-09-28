@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import { getUserInfo, logout } from '../../actions/user';
 import SiderNav from '../page-components/SiderNav';
 import { SET_SELECTED_MENU_ID } from '../../actions/menus';
-import './style/index.scss';
+import './style/index';
 import { Layout, Menu } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 const {

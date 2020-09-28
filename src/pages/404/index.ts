@@ -12,7 +12,7 @@ export default (store) => ({
             // `import ... require` statements). `require.ensure` is defined in
             // require.d.ts. Webpack sees this and automatically puts c and d
             // into a separate chunk.
-            const Container = require('./containers').default;
+            const container = require('./containers').default;
   
             // const reducer = require('./reducer').default;
   
@@ -23,7 +23,7 @@ export default (store) => ({
             // });
   
             /*  Return getComponent   */
-            cb(null, Container);
+            cb(null, container);
   
             /* Webpack named bundle   */
         })
