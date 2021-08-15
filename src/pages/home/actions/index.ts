@@ -1,5 +1,7 @@
 import request from '../../../utils/fetch';
-import { fromJS } from 'immutable';
+// import { fromJS } from 'immutable';
+///<reference path='./node_modules/immutable/dist/immutable.d.ts'/>
+import * as Immutable from 'immutable';
 
 // ------------------------------------
 // Constants
@@ -480,7 +482,7 @@ const getMyAggregateData = () => {
         return request.get('question/profile').then((data) => {
             dispatch({
                 type: QAS_Q_USER_AGGREGATE_DATA,
-                data: fromJS(data)
+                data: Immutable.fromJS(data)
             })
         })
     }

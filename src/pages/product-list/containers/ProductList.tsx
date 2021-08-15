@@ -6,6 +6,8 @@ import InputField from '../../../components/fields/InputField';
 import '../assets/index.scss';
 import SelectTreeField from '../../../components/fields/SelectTreeField';
 import MoneyField from '../../../components/fields/MoneyField';
+import { Button } from 'antd';
+import less from 'less';
 
 class ProductList extends React.Component<any, any> {
     prefixCls = 'product-list';
@@ -47,10 +49,22 @@ class ProductList extends React.Component<any, any> {
                             </Row>
                         </div>
                         <div className={`${this.prefixCls}-table`}></div>
+                        <Button
+                            type="primary"
+                            onClick={ this.switchTheme }
+                        >
+                            Primary Button
+                        </Button>
                     </div>
                 </AppBody>
             </div>
         )
+    }
+
+    switchTheme = () => {
+        less.modifyVars({
+            '@btn-primary-bg': '#ff8c42',
+        })
     }
 }
 
